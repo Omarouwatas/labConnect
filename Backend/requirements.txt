@@ -1,0 +1,47 @@
+# Core
+Django==5.0.1
+django-environ==0.11.2
+
+# REST API
+djangorestframework==3.14.0
+djangorestframework-simplejwt==5.3.1
+django-filter==24.1
+drf-spectacular==0.27.1
+
+# Database (PostgreSQL + PostGIS)
+psycopg2-binary==2.9.9
+
+# Auth & Security
+django-axes==6.4.0
+argon2-cffi==23.1.0
+
+# TOTP / QR codes
+pyotp==2.9.0
+qrcode==7.4.2
+Pillow==10.3.0
+
+# Async / WebSockets
+channels==4.0.0
+channels_redis==4.2.0
+
+# Celery (task queue)
+celery==5.3.6
+redis==5.0.3
+
+# CORS
+django-cors-headers==4.3.1
+
+# Object storage
+minio==7.2.7
+
+# Encryption (Fernet for column-level encryption)
+cryptography==42.0.5
+
+# Error tracking (production)
+sentry-sdk==1.45.0
+
+# WSGI server
+gunicorn==21.2.0
+
+pyotp
+qrcode
