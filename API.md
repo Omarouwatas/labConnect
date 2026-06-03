@@ -53,6 +53,8 @@ Chaque `access` inclut :
   - POST `/auth/otp/verify/`
   - POST `/auth/login/staff/`
   - POST `/auth/login/google/`
+  - POST `/auth/login/google/patient/`
+  - POST `/auth/login/firebase/`
   - POST `/auth/refresh/`
   - POST `/auth/logout/`
   - GET / PATCH `/auth/me/`
@@ -78,6 +80,13 @@ Chaque `access` inclut :
   - GET / POST `/lab/samples/`
   - PATCH `/lab/samples/{uuid}/receive/`
   - PATCH `/lab/samples/{uuid}/reject/`
+  - POST `/lab/walk-in/`
+  - GET `/lab/invoices/{appointment_uuid}/`
+  - GET `/lab/stats/`
+  - GET / POST `/lab/inventory/`
+  - PATCH / DELETE `/lab/inventory/{uuid}/`
+  - POST `/lab/inventory/{uuid}/movement/`
+  - GET `/lab/inventory/{uuid}/movements/`
 - [Ordres & résultats](#ordres--résultats)
   - GET `/lab/orders/`
   - GET / POST / PATCH `/lab/orders/{uuid}/result/`
@@ -182,6 +191,55 @@ Connexion staff via un Google ID Token (le compte doit déjà exister côté ser
 
 **Réponse** : identique à `/auth/login/staff/`.
 **Erreurs** : `400 invalid_google_token`, `404 user_not_found`, `403 access_denied`.
+
+---
+
+### `POST /auth/login/google/patient/`  *(public)*
+
+Connexion **patient** (mobile) via Google ID Token. Auto-crée le compte
+patient (+ `PatientProfile` + rôle `patient`) à la première connexion —
+contrairement à `/auth/login/google/` qui exige un compte staff
+préexistant.
+
+**Body**
+```json
+{ "id_token": "<google-id-token>" }
+```
+
+**Réponse 200**
+```json
+{
+  "access": "eyJ0eXAi...",
+  "refresh": "eyJ0eXAi...",
+  "user": { "uuid": "...", "email": "...", "roles": ["patient"] },
+  "created": true
+}
+```
+
+**Erreurs** : `400 invalid_google_token`, `400 no_email`.
+
+---
+
+### `POST /auth/login/firebase/`  *(public)*
+
+Connexion **patient** via Firebase Auth (mobile). Le client envoie
+l'ID-token de `firebase.auth().currentUser.getIdToken()`. Le backend
+vérifie la signature avec les clés publiques Google
+(`securetoken@system.gserviceaccount.com`) et auto-crée le compte
+patient à la première connexion. Cf. `FIREBASE_SETUP.md` pour la
+configuration.
+
+**Body**
+```json
+{ "id_token": "<firebase-id-token>" }
+```
+
+**Réponse 200** : identique à `/auth/login/google/patient/`.
+
+**Erreurs** :
+- `400 invalid_firebase_token` (signature, audience, issuer, expiration KO)
+- `400 no_email` (compte Firebase sans email)
+- `503 firebase_not_configured` (`FIREBASE_PROJECT_ID` absent côté serveur)
 
 ---
 
@@ -564,6 +622,238 @@ Rejette l'échantillon. Tous les ordres associés passent en `REJECTED`.
 { "reason": "Hémolysé" }
 ```
 
+### `POST /lab/walk-in/`  *(secrétaire / infirmier·e / chef + 2FA)*
+
+Crée une analyse pour un patient qui se présente au comptoir **sans
+l'app mobile**. La requête est atomique : find-or-create du patient par
+téléphone (+ hydrate les champs `first_name` / `last_name` / `email`
+s'ils sont fournis et vides en DB) ; création d'un `Appointment`
+`visit_type=in_lab` `status=confirmed` `scheduled_for=now` ; création
+d'un `Sample` avec barcode auto + un `TestOrder` par test.
+
+**Headers** : `Authorization: Bearer <access>` + `X-Lab-Uuid: <lab-uuid>`.
+
+**Body**
+```json
+{
+  "phone": "+222 22 12 34 56",
+  "first_name": "Aminetou",            // facultatif (nouveau patient)
+  "last_name": "Mint Mohamed",         // facultatif
+  "email": "aminetou@exemple.mr",      // facultatif
+  "cnam_number": "MR-2026-12345",      // facultatif — persisté sur le profil
+  "cnam_coverage_pct": 80,             // facultatif — 0–100, persisté sur le profil
+  "test_uuids": ["8f6e...", "9a01..."],
+  "sample_type": "blood",              // facultatif — sinon type du 1er test
+  "notes": "Bilan de routine",         // facultatif
+  // Réponses au questionnaire pré-test, indexées par test_uuid.
+  // Chaque entrée est une liste de chaînes alignée avec les
+  // `prerequisite_questions` du test (chaînes vides si non répondu).
+  "prerequisite_answers": {
+    "8f6e...": ["Oui", "18h hier", "Aucune"]
+  }
+}
+```
+
+Le `cnam_coverage_pct` est appliqué à chaque `TestOrder` créé : le split
+est figé à la création (covered/due en MRU entiers), pour qu'une variation
+ultérieure du taux n'affecte pas les factures historiques. Si les champs
+CNAM sont omis et que le patient existe déjà avec une couverture en base,
+celle-ci est réutilisée.
+
+**Réponse 201**
+```json
+{
+  "appointment_uuid": "5c1d...",
+  "patient_uuid": "a31f...",
+  "patient_phone": "+22222123456",
+  "patient_created": true,
+  "sample": { "uuid": "...", "barcode": "S3A2F1B0C9", "sample_type": "blood", ... },
+  "tests_count": 2,
+  "total_mru": 2400,
+  "cnam_coverage_pct": 80,
+  "cnam_covered_total_mru": 1920,
+  "patient_due_total_mru": 480
+}
+```
+
+**Erreurs**
+- `400 {"phone": [...]}` — téléphone invalide
+- `400 {"test_uuids": "Un ou plusieurs tests sont invalides pour ce labo."}`
+- `400 {"lab": "Aucun laboratoire actif (header X-Lab-Uuid)."}`
+- `403` — rôle hors `{secretary, nurse, technician, lab_chief}`
+
+---
+
+### `GET /lab/invoices/{appointment_uuid}/`  *(staff + 2FA)*
+
+Renvoie la facture détaillée d'un rendez-vous : items par test (prix, part
+CNAM, dû patient, statut), totaux, fees éventuels du RDV (visite domicile,
+urgence), patient + labo.
+
+**Headers** : `Authorization: Bearer <access>` + `X-Lab-Uuid: <lab-uuid>`.
+
+**Réponse 200**
+```json
+{
+  "appointment_uuid": "5c1d...",
+  "scheduled_for": "2026-05-30T08:24:00Z",
+  "visit_type": "in_lab",
+  "patient": {
+    "uuid": "a31f...",
+    "phone": "+22222123456",
+    "name": "Aminetou Mint Mohamed",
+    "cnam_number": "MR-2026-12345",
+    "cnam_coverage_pct": 80
+  },
+  "laboratory": { "uuid": "...", "name": "Labo Centre Nouakchott" },
+  "items": [
+    {
+      "order_uuid": "...",
+      "test_code": "NFS",
+      "test_name": "Numération formule sanguine",
+      "sample_barcode": "S3A2F1B0C9",
+      "price_mru": 1800,
+      "cnam_covered_mru": 1440,
+      "patient_due_mru": 360,
+      "status": "validated"
+    }
+  ],
+  "appointment_fees_mru": 0,
+  "subtotal_mru": 1800,
+  "cnam_covered_total_mru": 1440,
+  "patient_due_total_mru": 360,
+  "issued_at": "2026-05-30T10:00:00Z"
+}
+```
+
+**Erreurs**
+- `400 {"appointment_uuid": "RDV introuvable."}` — uuid invalide ou autre labo
+- `400 {"lab": "Aucun laboratoire actif (header X-Lab-Uuid)."}`
+
+---
+
+### `GET /lab/stats/?days=7`  *(staff + 2FA)*
+
+Tableau de bord agrégé pour le labo courant sur une fenêtre glissante
+(défaut 7, clampé à 1–90 jours). Les agrégats financiers (`revenue_mru`,
+`cnam_share_mru`, `patient_share_mru` et `revenue_mru` par catégorie)
+sont nuls (`null`) pour qui n'a pas la permission `viewFinance` (rôles
+biologiste ou chef de labo).
+
+**Réponse 200**
+```json
+{
+  "period_days": 7,
+  "since": "2026-05-23T08:00:00Z",
+  "kpis": {
+    "total_orders": 142,
+    "completed_orders": 16,
+    "validated_orders": 96,
+    "rejected_orders": 4,
+    "revenue_mru": 196000,
+    "cnam_share_mru": 145000,
+    "patient_share_mru": 51000,
+    "avg_tat_hours": 2.4,
+    "all_time_total": 3120
+  },
+  "by_status": [
+    { "status": "validated", "count": 96 },
+    { "status": "completed", "count": 16 }
+  ],
+  "by_category": [
+    { "category": "blood", "count": 92, "revenue_mru": 132000 }
+  ],
+  "by_day": [
+    { "date": "2026-05-25", "orders": 18, "validated": 12 }
+  ],
+  "by_technician": [
+    { "uuid": "...", "name": "Sidi Ould", "results_entered": 24 }
+  ],
+  "low_stock_items": [
+    { "uuid": "...", "name": "Tubes EDTA", "current_stock": 12, "min_stock": 20, "unit": "tube" }
+  ]
+}
+```
+
+---
+
+## Inventaire
+
+Suivi des réactifs / consommables / équipements. Chaque article est
+rattaché à un labo. Les variations de stock passent toujours par un
+mouvement (`POST .../movement/`) pour rester auditables (qui, quand,
+combien, pourquoi).
+
+### `GET /lab/inventory/`  *(staff + 2FA)*
+
+Liste des articles. Query params optionnels :
+- `?category=reagent|consumable|equipment|other`
+- `?low_stock=1` — filtre uniquement les articles sous leur seuil
+
+**Réponse 200** : liste d'`InventoryItem` avec `current_stock`,
+`min_stock`, `unit_cost_mru`, `is_low_stock`.
+
+### `POST /lab/inventory/`  *(chef / technicien / biologiste + 2FA)*
+
+Crée un article. Si `initial_stock > 0`, un mouvement `delivery` est
+créé automatiquement dans la même transaction (note : "Stock initial").
+
+**Body**
+```json
+{
+  "name": "Tubes EDTA 4mL",
+  "code": "EDTA-4ML",
+  "category": "consumable",
+  "unit": "tube",
+  "min_stock": 200,
+  "unit_cost_mru": 12,
+  "supplier": "LaboFournitures",
+  "notes": "",
+  "initial_stock": 1000
+}
+```
+
+### `PATCH /lab/inventory/{uuid}/`  *(chef / technicien / biologiste + 2FA)*
+
+Met à jour les caractéristiques (nom, seuil, coût, etc.). Le
+`current_stock` ne se modifie pas par PATCH — passer par un mouvement.
+
+### `DELETE /lab/inventory/{uuid}/`  *(chef + 2FA)*
+
+Soft delete de l'article. Historique des mouvements conservé.
+
+### `POST /lab/inventory/{uuid}/movement/`  *(chef / technicien / biologiste + 2FA)*
+
+Enregistre un mouvement de stock et met à jour le stock atomiquement
+(SELECT FOR UPDATE — pas de race). Refuse si le stock résultant serait
+négatif (sauf `adjustment` / `expiry` explicitement signés).
+
+**Body**
+```json
+{
+  "delta": 50,                   // signé : > 0 entrée, < 0 sortie
+  "reason": "delivery",          // delivery | consumption | adjustment | expiry
+  "notes": "BL #1234"            // facultatif
+}
+```
+
+**Réponse 201**
+```json
+{
+  "movement": { "uuid": "...", "delta": "50.00", "reason": "delivery", "notes": "BL #1234", "by_name": "Sidi", "created_at": "..." },
+  "item": { "uuid": "...", "current_stock": "1050.00", "is_low_stock": false, ... }
+}
+```
+
+**Erreurs**
+- `400 {"delta": "Une livraison doit être positive."}`
+- `400 {"delta": "Une consommation doit être négative."}`
+- `400 {"delta": "Stock insuffisant : 12 tube disponibles, impossible de retirer 50."}`
+
+### `GET /lab/inventory/{uuid}/movements/`  *(staff + 2FA)*
+
+Liste des 200 derniers mouvements pour cet article.
+
 ---
 
 ## Ordres & résultats
@@ -616,11 +906,23 @@ Saisie du résultat. Passe l'ordre en `completed`.
 ### `PATCH /lab/orders/{uuid}/result/`  *(biologiste / chef + 2FA)*
 
 Validation du résultat par un biologiste. Passe l'ordre en `validated`.
+Le biologiste peut **corriger** la valeur saisie par le technicien (cas
+typique : relecture critique, recalibrage). La valeur d'origine est alors
+archivée dans `TestResult.original_value` pour la traçabilité.
 
 **Body**
 ```json
-{ "biologist_comment": "Conforme. Aucune action particulière." }
+{
+  "biologist_comment": "Conforme. Aucune action particulière.",
+  "value": "2.4",          // facultatif — si différent, archive la version technicien
+  "unit": "mUI/L",         // facultatif
+  "reference_range": "0.4 – 4.0",  // facultatif
+  "flag": "normal"         // facultatif : normal | low | high | critical
+}
 ```
+
+**Réponse 200** : objet `TestResult` mis à jour, avec `original_value`
+non vide si le biologiste a corrigé.
 
 ---
 

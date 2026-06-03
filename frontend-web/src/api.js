@@ -217,3 +217,25 @@ export const validateResult     = (uuid, body)  => api.patch(`/lab/orders/${uuid
 // Sample lifecycle (technician / nurse)
 export const receiveSample      = (uuid)        => api.patch(`/lab/samples/${uuid}/receive/`, {});
 export const rejectSample       = (uuid, reason)=> api.patch(`/lab/samples/${uuid}/reject/`, { reason });
+
+// Walk-in : un staff (secrétaire/infirmier/chef) crée une analyse pour un
+// patient présent au labo, sans qu'il ait l'app mobile. Le backend gère
+// atomiquement : find-or-create patient + Appointment + Sample + TestOrders.
+export const createWalkIn       = (body)        => api.post("/lab/walk-in/", body);
+
+// Facture détaillée d'un RDV — items par test, splits CNAM, totaux. Utilisé
+// par l'écran "Voir la facture" depuis la file validée.
+export const fetchInvoice       = (apptUuid)    => api.get(`/lab/invoices/${apptUuid}/`);
+
+// Stats agrégées sur une fenêtre glissante (jours). Le backend filtre
+// les agrégats financiers selon le rôle — on s'attend à ce que `revenue_mru`
+// etc. soient `null` pour un technicien.
+export const fetchStats         = (days = 7)    => api.get(`/lab/stats/?days=${days}`);
+
+// ── Inventaire (chef de labo + chiffres pour stats) ────────────────────
+export const fetchInventory       = ()              => api.get("/lab/inventory/").then(asArray);
+export const createInventoryItem  = (body)          => api.post("/lab/inventory/", body);
+export const updateInventoryItem  = (uuid, body)    => api.patch(`/lab/inventory/${uuid}/`, body);
+export const deleteInventoryItem  = (uuid)          => api.delete(`/lab/inventory/${uuid}/`);
+export const postInventoryMove    = (uuid, body)    => api.post(`/lab/inventory/${uuid}/movement/`, body);
+export const fetchInventoryMoves  = (uuid)          => api.get(`/lab/inventory/${uuid}/movements/`).then(asArray);

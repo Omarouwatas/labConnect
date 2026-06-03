@@ -395,3 +395,91 @@ class GoogleLoginView(APIView):
             },
             status=status.HTTP_200_OK,
         )
+
+
+class FirebaseLoginView(APIView):
+    """Patient sign-in via Firebase Auth (mobile only).
+
+    Le client mobile s'authentifie avec Firebase (email/password OU Google
+    via Firebase Credential), récupère le ``getIdToken()`` du
+    ``currentUser`` Firebase, et nous l'envoie. On vérifie la JWT côté
+    serveur avec les clés publiques de Google (cf. services/firebase.py),
+    puis on fait du find-or-create patient et on émet un JWT LabConnect.
+
+    Pas de check de rôle : tout utilisateur Firebase peut se connecter
+    en tant que patient. Pour un compte staff, l'admin doit toujours
+    passer par l'invitation ``/lab/employees/invite``.
+    """
+
+    permission_classes = (permissions.AllowAny,)
+    throttle_classes = (ScopedRateThrottle,)
+    throttle_scope = "login"
+
+    @transaction.atomic
+    def post(self, request: Request) -> Response:
+        ser = FirebaseLoginSerializer(data=request.data)
+        ser.is_valid(raise_exception=True)
+
+        from django.conf import settings as dj_settings
+        if not getattr(dj_settings, "FIREBASE_PROJECT_ID", ""):
+            return Response(
+                {"error": {"code": "firebase_not_configured",
+                           "detail": "Firebase n'est pas activé sur ce serveur."}},
+                status=status.HTTP_503_SERVICE_UNAVAILABLE,
+            )
+
+        try:
+            claims = verify_firebase_id_token(ser.validated_data["id_token"])
+        except FirebaseAuthError as exc:
+            return Response(
+                {"error": {"code": "invalid_firebase_token", "detail": str(exc)}},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        email = (claims.get("email") or "").lower().strip()
+        if not email:
+            return Response(
+                {"error": {"code": "no_email",
+                           "detail": "Le compte Firebase n'a pas d'email."}},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+        if not claims.get("email_verified", False):
+            logger.info("Firebase login with unverified email: %s", email)
+
+        user = User.objects.filter(email__iexact=email).first()
+        created = False
+        if not user:
+            full_name = (claims.get("name") or "").strip()
+            first_name, _, last_name = full_name.partition(" ")
+            user = User.objects.create_user(
+                email=email,
+                first_name=first_name,
+                last_name=last_name,
+            )
+            PatientProfile.objects.create(user=user)
+            _assign_role(user, RoleNames.PATIENT)
+            user.is_active = True
+            user.save(update_fields=["is_active", "updated_at"])
+            created = True
+        else:
+            updates = []
+            full_name = (claims.get("name") or "").strip()
+            if full_name:
+                first_name, _, last_name = full_name.partition(" ")
+                if not user.first_name and first_name:
+                    user.first_name = first_name; updates.append("first_name")
+                if not user.last_name and last_name:
+                    user.last_name = last_name; updates.append("last_name")
+            if updates:
+                user.save(update_fields=[*updates, "updated_at"])
+
+        refresh = LabConnectRefreshToken.for_user(user)
+        return Response(
+            {
+                "access": str(refresh.access_token),
+                "refresh": str(refresh),
+                "user": UserMeSerializer(user).data,
+                "created": created,
+            },
+            status=status.HTTP_200_OK,
+        )

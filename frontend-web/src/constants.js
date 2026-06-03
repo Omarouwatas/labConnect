@@ -63,6 +63,10 @@ const ATOMS_BY_ROLE = {
   },
   [ROLES.TECHNICIAN]: {
     enterResult:  true,
+    // Un·e technicien·ne peut aussi enregistrer un patient au comptoir
+    // (cas des petits labos où une seule personne fait l'accueil + la
+    // paillasse). Le backend WalkInView autorise le même rôle.
+    createSample: true,
   },
   [ROLES.NURSE]: {
     createSample: true,

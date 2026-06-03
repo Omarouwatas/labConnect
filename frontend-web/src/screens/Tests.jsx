@@ -12,6 +12,7 @@ const EMPTY_TEST = {
   code: "", name: "", sample_type: "blood",
   price_mru: 0, turnaround_hours: 24,
   description: "", requires_fasting: false, is_active: true,
+  prerequisite_questions: [],
 };
 
 function PresetPicker({ existingCodes, onPick }) {
@@ -163,7 +164,7 @@ function TestModal({ initial, existingCodes, onClose, onSave, saving }) {
         <Switch on={form.is_active} onChange={(v) => set("is_active", v)} />
       </div>
 
-      <div style={{ background: "var(--bg)", padding: 16, borderRadius: 12, display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+      <div style={{ background: "var(--bg)", padding: 16, borderRadius: 12, display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 12 }}>
         <div>
           <div style={{ fontWeight: 500, fontSize: 13.5, marginBottom: 2 }}>Patient à jeun requis</div>
           <div style={{ fontSize: 12, color: "var(--ink-3)" }}>
@@ -171,6 +172,22 @@ function TestModal({ initial, existingCodes, onClose, onSave, saving }) {
           </div>
         </div>
         <Switch on={form.requires_fasting} onChange={(v) => set("requires_fasting", v)} />
+      </div>
+
+      {/* Questionnaire pré-test — une question par ligne, stocké en JSON
+          côté backend mais éditable comme texte libre côté chef de labo. */}
+      <div className="field">
+        <label>Questionnaire pré-test (facultatif)</label>
+        <textarea className="textarea" rows={4}
+          placeholder="Une question par ligne — ex :&#10;Patient à jeun (≥ 8h) ?&#10;Allergies médicamenteuses connues ?&#10;Médicaments en cours"
+          value={(form.prerequisite_questions || []).join("\n")}
+          onChange={(e) => set(
+            "prerequisite_questions",
+            e.target.value.split("\n").map((s) => s.trim()).filter(Boolean),
+          )} />
+        <span className="hint">
+          Posées au comptoir avant le prélèvement. Les réponses sont attachées à l'ordre et visibles par le biologiste.
+        </span>
       </div>
     </Modal>
   );

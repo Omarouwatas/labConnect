@@ -6,6 +6,8 @@ export default function Sidebar({ active, onNavigate, permissions, lab, counts =
     { id: "analyses",  label: "Analyses",        icon: I.Sparkle,  locked: !permissions.enterResult && !permissions.validate && !permissions.editTests, count: counts.toAct },
     { id: "tests",     label: "Tests & tarifs",  icon: I.Beaker,   locked: false, count: counts.tests },
     { id: "staff",     label: "Personnel",       icon: I.Users,    locked: !permissions.editStaff && !permissions.viewFinance, count: counts.staff },
+    { id: "stats",     label: "Statistiques",    icon: I.BarChart, locked: false },
+    { id: "inventory", label: "Inventaire",      icon: I.Box,      locked: !permissions.editTests, count: counts.lowStock },
     { id: "map",       label: "Carte terrain",   icon: I.Building, locked: !permissions.editStaff && !permissions.editSettings },
     { id: "settings",  label: "Paramètres",      icon: I.Settings, locked: !permissions.editSettings },
   ];

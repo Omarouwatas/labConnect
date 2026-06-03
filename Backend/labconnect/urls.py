@@ -13,6 +13,7 @@ api_v1_patterns = [
     path("", include("laboratories.urls")),
     path("", include("appointments.urls")),
     path("", include("analyses.urls")),
+    path("", include("inventory.urls")),
 ]
 
 urlpatterns = [

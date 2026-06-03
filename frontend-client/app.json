@@ -1,0 +1,55 @@
+{
+  "expo": {
+    "name": "labConnect",
+    "slug": "labconnect-client",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "newArchEnabled": true,
+    "splash": {
+      "image": "./assets/splash-icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#FAF7F2"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "infoPlist": {
+        "NSLocationWhenInUseUsageDescription": "labConnect utilise votre position pour trouver les laboratoires les plus proches.",
+        "NSAppTransportSecurity": {
+          "NSAllowsArbitraryLoads": true,
+          "NSAllowsLocalNetworking": true
+        }
+      }
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#FAF7F2"
+      },
+      "edgeToEdgeEnabled": true,
+      "permissions": ["ACCESS_FINE_LOCATION", "ACCESS_COARSE_LOCATION"],
+      "usesCleartextTraffic": true
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      [
+        "expo-location",
+        {
+          "locationAlwaysAndWhenInUsePermission": "labConnect utilise votre position pour trouver les laboratoires."
+        }
+      ]
+    ],
+    "extra": {
+      "googleClientIds": {
+        "expo":    "REPLACE_ME.apps.googleusercontent.com",
+        "android": "REPLACE_ME.apps.googleusercontent.com",
+        "ios":     "REPLACE_ME.apps.googleusercontent.com",
+        "web":     "REPLACE_ME.apps.googleusercontent.com"
+      }
+    },
+    "scheme": "labconnect"
+  }
+}

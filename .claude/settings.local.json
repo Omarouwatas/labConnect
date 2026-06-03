@@ -5,7 +5,22 @@
       "Bash(python -c ' *)",
       "Bash(.venv/Scripts/python.exe -m pip install celery)",
       "Bash(.venv/Scripts/python.exe manage.py migrate)",
-      "Bash(.venv/Scripts/python.exe -m pip install -r requirements.txt)"
+      "Bash(.venv/Scripts/python.exe -m pip install -r requirements.txt)",
+      "Bash(node --check src/api.js)",
+      "Bash(node --check src/screens/Dashboard.jsx)",
+      "Bash(npm run *)",
+      "Bash(git submodule *)",
+      "Bash(git rm *)",
+      "Bash(rm -rf frontend-client/.git)",
+      "Bash(git add *)",
+      "Bash(Get-ChildItem -Path \"C:\\\\Users\\\\Omar\\\\Desktop\\\\SmartLAB\\\\code\\\\Backend\" -Name -Directory)",
+      "Bash(Select-String \"appointments|appointment\")",
+      "Bash(awk 'END {print NR}' Backend/analyses/views.py)",
+      "Bash(python -c \"import ast; ast.parse\\(open\\('Backend/analyses/views.py'\\).read\\(\\)\\); print\\('views.py OK'\\)\")",
+      "Bash(python -c \"import ast; ast.parse\\(open\\('Backend/analyses/serializers.py'\\).read\\(\\)\\); print\\('serializers.py OK'\\)\")",
+      "Bash(python -c \"import ast; ast.parse\\(open\\('Backend/analyses/models.py'\\).read\\(\\)\\); print\\('models.py OK'\\)\")",
+      "Bash(python -c \"import ast; ast.parse\\(open\\('Backend/accounts/models.py'\\).read\\(\\)\\); print\\('accounts/models.py OK'\\)\")",
+      "Bash(python -c \"import json,sys; d=json.load\\(sys.stdin\\); print\\('deps:'\\); [print\\(' ',k,'=',v\\) for k,v in sorted\\(d.get\\('dependencies',{}\\).items\\(\\)\\)]\")"
     ]
   }
 }

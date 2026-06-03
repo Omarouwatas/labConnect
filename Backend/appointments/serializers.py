@@ -57,9 +57,20 @@ class AppointmentCreateSerializer(serializers.ModelSerializer):
 
     - Si l'utilisateur est patient, `patient` est forcé à request.user.
     - Si l'utilisateur est secrétaire, `patient_phone` doit être fourni.
+    - Si `test_uuids` est fourni, on crée aussi un `Sample` + un
+      `TestOrder` par test choisi (équivalent mobile du walk-in web).
+      Sans `test_uuids`, on crée juste l'Appointment vide (legacy).
     """
     patient_phone = serializers.CharField(write_only=True, required=False)
     laboratory_uuid = serializers.UUIDField(write_only=True, required=False)
+    test_uuids = serializers.ListField(
+        child=serializers.UUIDField(), write_only=True, required=False,
+    )
+    # Réponses au questionnaire, indexées par test_uuid. Voir WalkInSerializer.
+    prerequisite_answers = serializers.DictField(
+        child=serializers.ListField(child=serializers.CharField(allow_blank=True)),
+        write_only=True, required=False,
+    )
 
     class Meta:
         model = Appointment
@@ -72,6 +83,8 @@ class AppointmentCreateSerializer(serializers.ModelSerializer):
             "home_address",
             "notes",
             "patient_phone",
+            "test_uuids",
+            "prerequisite_answers",
         )
         extra_kwargs = {"laboratory": {"required": False, "write_only": True}}
 
@@ -134,14 +147,70 @@ class AppointmentCreateSerializer(serializers.ModelSerializer):
         return attrs
 
     def create(self, validated_data):
+        from django.db import transaction
+        from analyses.models import Sample, TestCatalogEntry, TestOrder
+        from analyses.serializers import _make_barcode
+        from analyses.views import _split_cnam
+
         patient = validated_data.pop("_resolved_patient")
         request = self.context["request"]
-        return Appointment.objects.create(
-            patient=patient,
-            created_by=request.user,
-            status=AppointmentStatus.PENDING,
-            **validated_data,
-        )
+        # `test_uuids` et `prerequisite_answers` ne sont pas des champs
+        # du modèle Appointment — on les retire avant `.create()`.
+        wanted_uuids = validated_data.pop("test_uuids", None) or []
+        answers_by_test = validated_data.pop("prerequisite_answers", {}) or {}
+
+        with transaction.atomic():
+            appt = Appointment.objects.create(
+                patient=patient,
+                created_by=request.user,
+                status=AppointmentStatus.PENDING,
+                **validated_data,
+            )
+
+            if wanted_uuids:
+                # Filtre par labo : on ne crée des TestOrder que pour
+                # des tests actifs appartenant bien au labo du RDV.
+                wanted_str = [str(u) for u in wanted_uuids]
+                tests = list(
+                    TestCatalogEntry.active.filter(
+                        uuid__in=wanted_str,
+                        laboratory=appt.laboratory,
+                        is_active=True,
+                    )
+                )
+                if len(tests) != len(set(wanted_str)):
+                    raise serializers.ValidationError(
+                        {"test_uuids": "Un ou plusieurs tests sont invalides pour ce labo."},
+                    )
+
+                # Couverture CNAM du patient, figée au moment de la création.
+                profile = getattr(patient, "patient_profile", None)
+                coverage_pct = int(getattr(profile, "cnam_coverage_pct", 0) or 0)
+
+                # Type d'échantillon : celui du 1er test choisi (le RDV
+                # mobile ne propose qu'un seul prélèvement à la fois).
+                sample = Sample.objects.create(
+                    appointment=appt,
+                    laboratory=appt.laboratory,
+                    barcode=_make_barcode(),
+                    sample_type=tests[0].sample_type,
+                )
+
+                for t in tests:
+                    covered, due = _split_cnam(t.price_mru, coverage_pct)
+                    qs = list(t.prerequisite_questions or [])
+                    raw = answers_by_test.get(str(t.uuid)) or []
+                    answers = [
+                        str(raw[i]) if i < len(raw) else ""
+                        for i in range(len(qs))
+                    ]
+                    TestOrder.objects.create(
+                        sample=sample, test=t, price_mru=t.price_mru,
+                        cnam_covered_mru=covered, patient_due_mru=due,
+                        prerequisite_questions_snapshot=qs,
+                        prerequisite_answers=answers,
+                    )
+        return appt
 
 
 class AppointmentStatusSerializer(serializers.Serializer):

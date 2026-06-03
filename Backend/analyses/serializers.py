@@ -22,9 +22,18 @@ class TestCatalogSerializer(serializers.ModelSerializer):
         fields = (
             "uuid", "code", "name", "description",
             "sample_type", "price_mru", "turnaround_hours",
-            "requires_fasting", "is_active",
+            "requires_fasting", "prerequisite_questions", "is_active",
         )
         read_only_fields = ("uuid",)
+
+    def validate_prerequisite_questions(self, value):
+        # Liste de chaînes (titres de questions). On nettoie : pas
+        # d'entrée non-string, on trim, on jette les vides — éviter
+        # qu'un copier-coller maladroit ne pollue le catalogue.
+        if not isinstance(value, list):
+            raise serializers.ValidationError("Doit être une liste de chaînes.")
+        cleaned = [str(q).strip() for q in value if str(q).strip()]
+        return cleaned
 
 
 # ── Sample ───────────────────────────────────────────────────────────
@@ -116,6 +125,7 @@ class TestOrderSerializer(serializers.ModelSerializer):
     test_code = serializers.CharField(source="test.code", read_only=True)
     test_name = serializers.CharField(source="test.name", read_only=True)
     sample_barcode = serializers.CharField(source="sample.barcode", read_only=True)
+    appointment_uuid = serializers.UUIDField(source="sample.appointment.uuid", read_only=True)
     patient_name = serializers.SerializerMethodField()
     has_result = serializers.SerializerMethodField()
 
@@ -124,9 +134,12 @@ class TestOrderSerializer(serializers.ModelSerializer):
         fields = (
             "uuid", "status",
             "test_code", "test_name", "price_mru",
-            "sample_barcode", "patient_name",
+            "cnam_covered_mru", "patient_due_mru",
+            "sample_barcode", "appointment_uuid", "patient_name",
             "started_at", "completed_at",
-            "has_result", "created_at",
+            "has_result",
+            "prerequisite_answers", "prerequisite_questions_snapshot",
+            "created_at",
         )
         read_only_fields = fields
 
@@ -155,10 +168,12 @@ class TestResultSerializer(serializers.ModelSerializer):
             "value", "unit", "reference_range", "flag",
             "technician_notes", "technician_name", "technician_signed_at",
             "biologist_name", "biologist_validated_at", "biologist_comment",
+            "original_value",
         )
         read_only_fields = ("uuid", "technician_signed_at",
                             "biologist_validated_at", "technician_name", "biologist_name",
-                            "test_name", "test_code", "patient_phone")
+                            "test_name", "test_code", "patient_phone",
+                            "original_value")
 
     def get_technician_name(self, obj):
         t = obj.order.technician
@@ -179,5 +194,16 @@ class TestResultCreateSerializer(serializers.Serializer):
 
 
 class TestResultValidateSerializer(serializers.Serializer):
-    """Validation par le biologiste."""
+    """Validation par le biologiste.
+
+    Si le biologiste corrige la valeur saisie par le technicien (ex :
+    relecture critique, recalibrage), il peut fournir un nouveau ``value``
+    / ``unit`` / ``reference_range`` / ``flag``. Dans ce cas la valeur
+    d'origine est archivée dans ``TestResult.original_value`` pour la
+    traçabilité.
+    """
     biologist_comment = serializers.CharField(required=False, allow_blank=True)
+    value = serializers.CharField(max_length=120, required=False, allow_blank=True)
+    unit = serializers.CharField(max_length=24, required=False, allow_blank=True)
+    reference_range = serializers.CharField(max_length=80, required=False, allow_blank=True)
+    flag = serializers.ChoiceField(choices=ResultFlag.choices, required=False)

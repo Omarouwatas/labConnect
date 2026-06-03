@@ -42,6 +42,11 @@ class TestCatalogEntry(BaseModel):
     )
     turnaround_hours = models.PositiveSmallIntegerField(default=24)
     requires_fasting = models.BooleanField(default=False)
+    # Questionnaire pré-test : liste ordonnée de questions textuelles à
+    # poser au patient AVANT de prélever. Stocké en JSON pour rester
+    # flexible (le chef de labo peut éditer librement par test sans
+    # toucher au schéma DB). Vide = pas de questionnaire spécifique.
+    prerequisite_questions = models.JSONField(default=list, blank=True)
     is_active = models.BooleanField(default=True, db_index=True)
 
     class Meta:
@@ -132,6 +137,17 @@ class TestOrder(BaseModel):
         default=OrderStatus.PENDING, db_index=True,
     )
     price_mru = models.DecimalField(max_digits=10, decimal_places=2)
+    # Split CNAM / patient figé à la création de l'ordre, à partir du
+    # `cnam_coverage_pct` du PatientProfile à ce moment-là. Évite qu'une
+    # variation ultérieure du taux ne mute des factures historiques.
+    cnam_covered_mru = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    patient_due_mru = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    # Réponses au questionnaire pré-test, alignées par index avec les
+    # `prerequisite_questions` du TestCatalogEntry au moment de la
+    # création (snapshot — si la question est éditée après, l'ordre garde
+    # son contexte d'origine). Liste de chaînes.
+    prerequisite_answers = models.JSONField(default=list, blank=True)
+    prerequisite_questions_snapshot = models.JSONField(default=list, blank=True)
     technician = models.ForeignKey(
         "accounts.User",
         on_delete=models.SET_NULL,
@@ -169,6 +185,10 @@ class TestResult(BaseModel):
     )
     technician_notes = models.TextField(blank=True)
     technician_signed_at = models.DateTimeField(auto_now_add=True)
+    # Si le biologiste corrige la valeur du technicien au moment de
+    # valider, on archive ici la valeur d'origine (sous forme "value unit
+    # [flag]") pour traçabilité médico-légale. Vide si pas de correction.
+    original_value = models.CharField(max_length=160, blank=True)
 
     biologist = models.ForeignKey(
         "accounts.User",

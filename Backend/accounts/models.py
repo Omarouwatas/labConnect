@@ -114,6 +114,16 @@ class PatientProfile(BaseModel):
     emergency_contact = models.CharField(max_length=20, blank=True)
     default_address = models.CharField(max_length=255, blank=True)
     default_location = gis_models.PointField(geography=True, null=True, blank=True)
+    # CNAM (Caisse Nationale d'Assurance Maladie — Mauritanie). Si le
+    # patient présente sa carte CNAM au comptoir, on enregistre son numéro
+    # et le pourcentage couvert ; les TestOrder créés ensuite figent le
+    # split CNAM / patient à ce taux-là (le taux peut évoluer côté CNAM,
+    # mais une facture historique doit rester intacte).
+    cnam_number = models.CharField(max_length=32, blank=True)
+    cnam_coverage_pct = models.PositiveSmallIntegerField(
+        default=0,
+        help_text="0–100. 0 = pas couvert. Typique CNAM Mauritanie : 80.",
+    )
 
     class Meta:
         verbose_name = _("patient profile")

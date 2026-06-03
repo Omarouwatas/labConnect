@@ -2,7 +2,17 @@ from django.urls import path
 from rest_framework.routers import DefaultRouter
 from rest_framework_simplejwt.views import TokenRefreshView
 
-from .views import LogoutView, MeView, OTPRequestView, OTPVerifyView, StaffLoginView, GoogleLoginView, PatientEmailLoginView, PatientGoogleLoginView
+from .views import (
+    LogoutView,
+    MeView,
+    OTPRequestView,
+    OTPVerifyView,
+    StaffLoginView,
+    GoogleLoginView,
+    PatientEmailLoginView,
+    PatientGoogleLoginView,
+    FirebaseLoginView,
+)
 from .views_totp import TOTPConfirmView, TOTPDeviceDeleteView, TOTPSetupView, TOTPVerifyView
 from .views_employees import EmployeeInviteView, EmployeeViewSet
 
@@ -20,6 +30,7 @@ urlpatterns = [
     path("login/email/", PatientEmailLoginView.as_view(), name="patient-email-login"),
     path("login/google/", GoogleLoginView.as_view(), name="google-login"),
     path("login/google/patient/", PatientGoogleLoginView.as_view(), name="patient-google-login"),
+    path("login/firebase/", FirebaseLoginView.as_view(), name="firebase-login"),
     path("refresh/", TokenRefreshView.as_view(), name="token-refresh"),
     path("logout/", LogoutView.as_view(), name="logout"),
     path("me/", MeView.as_view(), name="me"),

@@ -1,6 +1,7 @@
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { I } from "../icons";
 import { CatBadge, PermRibbon } from "../components/Misc";
+import WalkInModal from "../components/WalkInModal";
 import { fetchOrders, fetchSamples, fetchEmployees, fetchAppointments } from "../api";
 import { ROLE_LABELS, initials, avatarClassFor } from "../constants";
 
@@ -17,21 +18,34 @@ export default function Dashboard({ user, lab, permissions }) {
   const [samples, setSamples] = useState([]);
   const [employees, setEmployees] = useState([]);
   const [appts, setAppts] = useState([]);
+  const [walkInOpen, setWalkInOpen] = useState(false);
   // Un user qui n'a pas accès aux finances voit moins de KPI ;
   // c'est piloté par la permission `viewFinance` (union des rôles).
   const hideFinance = !permissions.viewFinance;
+  // « Nouvelle analyse » crée un patient + appointment + sample + orders —
+  // c'est de la création d'échantillon, pas de l'édition de catalogue.
+  // Le rôle requis côté backend est secretary/nurse/lab_chief.
+  const canWalkIn = !!permissions.createSample;
 
-  useEffect(() => {
-    (async () => {
-      const [o, s, e, a] = await Promise.allSettled([
-        fetchOrders(), fetchSamples(), fetchEmployees(), fetchAppointments(),
-      ]);
-      if (o.status === "fulfilled") setOrders(o.value);
-      if (s.status === "fulfilled") setSamples(s.value);
-      if (e.status === "fulfilled") setEmployees(e.value);
-      if (a.status === "fulfilled") setAppts(a.value);
-    })();
+  const reload = useCallback(async () => {
+    const [o, s, e, a] = await Promise.allSettled([
+      fetchOrders(), fetchSamples(), fetchEmployees(), fetchAppointments(),
+    ]);
+    if (o.status === "fulfilled") setOrders(o.value);
+    if (s.status === "fulfilled") setSamples(s.value);
+    if (e.status === "fulfilled") setEmployees(e.value);
+    if (a.status === "fulfilled") setAppts(a.value);
   }, []);
+
+  useEffect(() => { reload(); }, [reload]);
+
+  const onWalkInCreated = useCallback((result) => {
+    // Petit feedback puis reload silencieux des KPI/queue.
+    const newPatient = result?.patient_created ? " · nouveau patient enregistré" : "";
+    // eslint-disable-next-line no-alert
+    alert(`Analyse créée ✓ ${result?.tests_count || ""} test${(result?.tests_count || 0) > 1 ? "s" : ""}${newPatient}.`);
+    reload();
+  }, [reload]);
 
   const kpis = useMemo(() => {
     const totalToday = appts.filter((a) => {
@@ -95,13 +109,26 @@ export default function Dashboard({ user, lab, permissions }) {
           </p>
         </div>
         <div className="page-actions">
-          {!permissions.editTests && <PermRibbon>Vue analyste</PermRibbon>}
+          {!canWalkIn && <PermRibbon>Vue analyste</PermRibbon>}
           <button className="btn btn-secondary"><I.Export size={14} sw={1.8} /> Exporter</button>
-          {permissions.editTests && (
-            <button className="btn btn-orange"><I.Plus size={14} sw={2} /> Nouvelle analyse</button>
+          {canWalkIn && (
+            <button
+              className="btn btn-orange"
+              onClick={() => setWalkInOpen(true)}
+              title="Créer une analyse pour un patient présent au comptoir"
+            >
+              <I.Plus size={14} sw={2} /> Nouvelle analyse
+            </button>
           )}
         </div>
       </div>
+
+      {walkInOpen && (
+        <WalkInModal
+          onClose={() => setWalkInOpen(false)}
+          onCreated={onWalkInCreated}
+        />
+      )}
 
       <div className="grid-4" style={{ marginBottom: 22 }}>
         {kpis.map((k, i) => (

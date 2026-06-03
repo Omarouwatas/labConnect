@@ -9,6 +9,8 @@ import Tests from "./screens/Tests";
 import Staff from "./screens/Staff";
 import Settings from "./screens/Settings";
 import NursesMap from "./screens/NursesMap";
+import Stats from "./screens/Stats";
+import Inventory from "./screens/Inventory";
 import Sidebar from "./components/Sidebar";
 import Topbar from "./components/Topbar";
 import { FullScreenLoader } from "./components/Misc";
@@ -19,6 +21,8 @@ const SCREEN_LABELS = {
   analyses:  "Analyses",
   tests:     "Tests & tarifs",
   staff:     "Personnel",
+  stats:     "Statistiques",
+  inventory: "Inventaire",
   map:       "Carte terrain",
   settings:  "Paramètres",
 };
@@ -69,6 +73,7 @@ function Shell({ showCreateLab }) {
     if (screen === "analyses" && !permissions.enterResult && !permissions.validate && !permissions.editTests) {
       setScreen("dashboard");
     }
+    if (screen === "inventory" && !permissions.editTests) setScreen("dashboard");
   }, [screen, permissions.editSettings, permissions.editStaff, permissions.enterResult, permissions.validate, permissions.editTests]);
 
   const ScreenCmp = {
@@ -76,6 +81,8 @@ function Shell({ showCreateLab }) {
     analyses:  <Analyses roles={staffRoles} permissions={permissions} />,
     tests:     <Tests permissions={permissions} />,
     staff:     <Staff permissions={permissions} />,
+    stats:     <Stats permissions={permissions} />,
+    inventory: <Inventory permissions={permissions} />,
     map:       <NursesMap lab={activeLab} />,
     settings:  <Settings permissions={permissions} lab={activeLab} />,
   }[screen];
