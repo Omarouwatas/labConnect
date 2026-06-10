@@ -74,39 +74,29 @@ class OTPVerifyView(APIView):
 
     @transaction.atomic
     def post(self, request: Request) -> Response:
-        from django.conf import settings as dj_settings
-
         ser = OTPVerifySerializer(data=request.data)
         ser.is_valid(raise_exception=True)
         phone = ser.validated_data["phone"]
         code = ser.validated_data["code"]
         purpose = ser.validated_data["purpose"]
 
-        # Mode démo (OTP_PROVIDER=mock) : n'importe quel code à 6 chiffres
-        # est accepté pour fluidifier les tests sans dépendre d'un vrai SMS.
-        is_mock = getattr(dj_settings, "OTP_PROVIDER", "mock") == "mock"
-        if is_mock and isinstance(code, str) and code.isdigit() and len(code) == 6:
-            # Consomme l'OTP s'il existe (cleanup), sinon on passe quand même.
-            otp = (
-                OTPCode.objects.filter(phone=phone, purpose=purpose, consumed_at__isnull=True)
-                .order_by("-created_at").first()
+        # On exige systématiquement un code OTP réel émis par OTPCode.issue.
+        # En dev (OTP_PROVIDER=mock), le code est simplement loggé en console
+        # Django par MockOTPProvider — le développeur le recopie. Plus aucun
+        # bypass "n'importe quel code à 6 chiffres" : l'app mobile et le
+        # backend partagent désormais une vraie boucle 2FA.
+        otp = (
+            OTPCode.objects.filter(
+                phone=phone, purpose=purpose, consumed_at__isnull=True
             )
-            if otp:
-                otp.consumed_at = timezone.now()
-                otp.save(update_fields=["consumed_at", "updated_at"])
-        else:
-            otp = (
-                OTPCode.objects.filter(
-                    phone=phone, purpose=purpose, consumed_at__isnull=True
-                )
-                .order_by("-created_at")
-                .first()
+            .order_by("-created_at")
+            .first()
+        )
+        if not otp or not otp.verify(code):
+            return Response(
+                {"error": {"code": "invalid_otp", "detail": "Code invalide ou expiré"}},
+                status=status.HTTP_400_BAD_REQUEST,
             )
-            if not otp or not otp.verify(code):
-                return Response(
-                    {"error": {"code": "invalid_otp", "detail": "Code invalide ou expiré"}},
-                    status=status.HTTP_400_BAD_REQUEST,
-                )
 
         # Get-or-create the User. New patients get auto-added to 'patient' group.
         user, created = User.objects.get_or_create(phone=phone)
@@ -131,12 +121,19 @@ class OTPVerifyView(APIView):
 
 
 class MeView(RetrieveUpdateAPIView):
-    """Get or update the current authenticated user."""
+    """Get or update the current authenticated user.
+
+    On garantit l'existence du `PatientProfile` à chaque accès — comme ça
+    UserMeSerializer peut exposer les champs CNAM / adresse / GPS via
+    `source="patient_profile.X"` sans risquer un RelatedObjectDoesNotExist
+    sur les comptes staff qui n'auraient pas (encore) de profil patient.
+    """
 
     serializer_class = UserMeSerializer
     permission_classes = (permissions.IsAuthenticated,)
 
     def get_object(self) -> User:  # type: ignore[override]
+        PatientProfile.objects.get_or_create(user=self.request.user)
         return self.request.user  # type: ignore[return-value]
 
 

@@ -227,6 +227,100 @@ class OTPCode(BaseModel):
         return self.expires_at < timezone.now()
 
 
+class TrustedDevice(BaseModel):
+    """Appareil reconnu comme « de confiance » pour le login biométrique.
+
+    Le flow :
+      1. L'utilisateur s'authentifie par OTP SMS classique sur son appareil.
+      2. L'app propose : « Activer Face ID / empreinte pour les prochaines
+         connexions sur cet appareil ? ».
+      3. Si oui → POST /auth/biometric/register/ avec un `device_id` stable
+         généré côté client (UUID v4 stocké dans le Keychain iOS / Keystore
+         Android via expo-secure-store).
+      4. Le serveur génère un `device_token` aléatoire (32 bytes), le hash
+         (SHA-256) et le persiste. Le token brut est renvoyé UNE SEULE FOIS
+         et stocké côté client dans le Keychain / Keystore.
+      5. Aux connexions suivantes : Face ID local débloque l'accès au token
+         dans le Keychain, l'app fait POST /auth/biometric/login/ avec
+         (phone, device_id, device_token), le serveur vérifie le hash et
+         émet une nouvelle paire JWT.
+
+    Sécurité :
+      - On ne stocke jamais le token brut côté serveur, seulement son hash.
+      - Le tuple (user, device_id) est unique : une nouvelle inscription
+         sur le même appareil rotate simplement le token.
+      - Un seul appareil peut être enregistré par numéro de téléphone (un
+         changement de phone côté User ne casse pas la cohérence — on
+         re-vérifie `device.user.phone == phone` au login).
+      - Le champ `revoked_at` permet à l'utilisateur (ou à un admin) de
+         révoquer un appareil compromis sans toucher au compte.
+    """
+
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name="trusted_devices",
+    )
+    # Snapshot du numéro qui a validé l'OTP — si l'utilisateur change de
+    # téléphone plus tard, le device n'est plus valable.
+    phone = models.CharField(max_length=20, db_index=True)
+    # UUID v4 généré côté client, stable pour cet install d'app.
+    device_id = models.CharField(max_length=64)
+    # Hash SHA-256 du token (jamais le token brut).
+    token_hash = models.CharField(max_length=64)
+    # Métadonnées informatives (pour l'écran « Appareils de confiance »).
+    device_label = models.CharField(max_length=120, blank=True)
+    platform = models.CharField(max_length=20, blank=True)  # ios | android
+    last_used_at = models.DateTimeField(null=True, blank=True)
+    revoked_at = models.DateTimeField(null=True, blank=True)
+
+    class Meta:
+        verbose_name = _("trusted device")
+        verbose_name_plural = _("trusted devices")
+        constraints = [
+            models.UniqueConstraint(
+                fields=["user", "device_id"], name="uniq_trusted_user_device"
+            ),
+        ]
+        indexes = [
+            models.Index(fields=["phone", "device_id"]),
+        ]
+
+    @classmethod
+    def hash_token(cls, token: str) -> str:
+        return hashlib.sha256(token.encode()).hexdigest()
+
+    @classmethod
+    def issue(
+        cls,
+        user,
+        phone: str,
+        device_id: str,
+        device_label: str = "",
+        platform: str = "",
+    ) -> tuple["TrustedDevice", str]:
+        """Crée ou rotate le device pour (user, device_id). Retourne (device, token_brut)."""
+        token = secrets.token_urlsafe(32)
+        device, _created = cls.objects.update_or_create(
+            user=user,
+            device_id=device_id,
+            defaults={
+                "phone": phone,
+                "device_label": device_label,
+                "platform": platform,
+                "token_hash": cls.hash_token(token),
+                "revoked_at": None,
+                "last_used_at": timezone.now(),
+            },
+        )
+        return device, token
+
+    def verify(self, token: str) -> bool:
+        if self.revoked_at is not None:
+            return False
+        return secrets.compare_digest(self.token_hash, self.hash_token(token))
+
+
 class TOTPDevice(BaseModel):
     """TOTP 2FA device for a staff user (RFC 6238, compatible Google/Microsoft Authenticator).
 

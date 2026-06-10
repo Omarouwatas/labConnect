@@ -209,6 +209,25 @@ export const fetchOrders        = (params = "") => api.get(`/lab/orders/${params
 export const fetchSamples       = (params = "") => api.get(`/lab/samples/${params}`).then(asArray);
 export const fetchAppointments  = (params = "") => api.get(`/appointments/${params}`).then(asArray);
 
+// ── Tournées (visites à domicile + affectation infirmière) ───────────────
+// Helpers consommés par l'écran « Tournées ».
+//   - fetchHomeVisits : accepte les query params backend :
+//       scope=mine|all  (défaut : mine pour nurse seule, all pour
+//                        secretary/chef)
+//       unassigned=1    (uniquement les visites sans nurse)
+//       date=YYYY-MM-DD (filtre par jour)
+//       include_done=1  (inclut les visites completed)
+//   - fetchNurses     : sélecteur d'affectation (staff 2FA).
+//   - assignNurse     : PATCH /appointments/{uuid}/assign-nurse/.
+//                      Passer null pour désassigner.
+//   - changeApptStatus: PATCH /appointments/{uuid}/status/ (start/finish).
+export const fetchHomeVisits   = (params = "") => api.get(`/appointments/home-visits/${params}`).then(asArray);
+export const fetchNurses       = ()             => api.get("/lab/nurses/").then(asArray);
+export const assignNurse       = (apptUuid, nurseUuid) =>
+  api.patch(`/appointments/${apptUuid}/assign-nurse/`, { nurse_uuid: nurseUuid });
+export const changeApptStatus  = (apptUuid, status, extra = {}) =>
+  api.patch(`/appointments/${apptUuid}/status/`, { status, ...extra });
+
 // Detail / write actions on a single order
 export const fetchOrderResult   = (uuid)        => api.get(`/lab/orders/${uuid}/result/`);
 export const enterResult        = (uuid, body)  => api.post(`/lab/orders/${uuid}/result/`, body);
@@ -239,3 +258,18 @@ export const updateInventoryItem  = (uuid, body)    => api.patch(`/lab/inventory
 export const deleteInventoryItem  = (uuid)          => api.delete(`/lab/inventory/${uuid}/`);
 export const postInventoryMove    = (uuid, body)    => api.post(`/lab/inventory/${uuid}/movement/`, body);
 export const fetchInventoryMoves  = (uuid)          => api.get(`/lab/inventory/${uuid}/movements/`).then(asArray);
+
+// ── Notifications staff ────────────────────────────────────────────────
+// Mêmes endpoints que côté mobile patient — on s'abstient de filtrer
+// côté client : c'est le backend qui ne renvoie que les notifs du
+// `request.user` connecté. Le staff voit ses propres notifs (à valider,
+// nouveau RDV reçu, etc.).
+export const fetchNotifications        = (params = "")  => api.get(`/notifications/mine/${params}`);
+export const fetchUnreadCount          = ()             => api.get("/notifications/unread/").then((r) => r?.unread || 0);
+export const markNotificationRead      = (uuid)         => api.patch(`/notifications/${uuid}/read/`);
+export const markAllNotificationsRead  = ()             => api.post("/notifications/read-all/", {});
+
+// PDF d'un résultat validé — accès patient OU staff du labo. Le
+// composant InvoiceModal peut désormais aussi proposer le PDF result.
+export const resultPdfUrl = (orderUuid) =>
+  `${import.meta.env.VITE_API_BASE || "http://127.0.0.1:8000/api/v1"}/lab/orders/${orderUuid}/result/pdf/`;

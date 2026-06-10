@@ -55,6 +55,11 @@ const ATOMS_BY_ROLE = {
     validate:     true,
     enterResult:  true,
     createSample: true,
+    // Manage = peut affecter/désaffecter des infirmier·es sur les visites
+    // à domicile et démarrer/clôturer n'importe quelle visite.
+    manageHomeVisits: true,
+    // ViewHomeVisits = écran « Tournées » dans la sidebar.
+    viewHomeVisits: true,
   },
   [ROLES.BIOLOGIST]: {
     viewFinance:  true,
@@ -70,15 +75,22 @@ const ATOMS_BY_ROLE = {
   },
   [ROLES.NURSE]: {
     createSample: true,
+    // Une infirmière voit son propre planning et peut démarrer/terminer
+    // ses visites, mais ne peut pas affecter d'autres infirmières.
+    viewHomeVisits: true,
   },
   [ROLES.SECRETARY]: {
     createSample: true,
+    // La secrétaire gère le planning des visites (affecte, replanifie).
+    manageHomeVisits: true,
+    viewHomeVisits: true,
   },
 };
 
 const EMPTY_PERMS = {
   editTests: false, editStaff: false, editSettings: false,
   viewFinance: false, validate: false, enterResult: false, createSample: false,
+  manageHomeVisits: false, viewHomeVisits: false,
 };
 
 /**

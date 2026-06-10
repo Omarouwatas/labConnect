@@ -8,7 +8,12 @@ from .models import Appointment, AppointmentStatus, VisitType
 
 
 class AppointmentSerializer(serializers.ModelSerializer):
-    """Lecture détaillée d'un RDV."""
+    """Lecture détaillée d'un RDV.
+
+    Inclut désormais la liste des tests demandés (code, nom, prix, split
+    CNAM) pour que l'app patient puisse afficher le détail prix dans sa
+    carte RDV — un patient doit savoir ce qu'il va payer.
+    """
     laboratory_uuid = serializers.UUIDField(source="laboratory.uuid", read_only=True)
     laboratory_name = serializers.CharField(source="laboratory.name", read_only=True)
     patient_uuid = serializers.UUIDField(source="patient.uuid", read_only=True)
@@ -19,6 +24,13 @@ class AppointmentSerializer(serializers.ModelSerializer):
     total_fee_mru = serializers.DecimalField(max_digits=10, decimal_places=2, read_only=True)
     home_latitude = serializers.SerializerMethodField()
     home_longitude = serializers.SerializerMethodField()
+    # Récap des analyses commandées sur ce RDV — un seul échantillon mobile
+    # par RDV, mais on agrège pour rester compatible avec un walk-in
+    # multi-échantillons.
+    items = serializers.SerializerMethodField()
+    items_total_mru = serializers.SerializerMethodField()
+    patient_due_mru = serializers.SerializerMethodField()
+    cnam_covered_mru = serializers.SerializerMethodField()
 
     class Meta:
         model = Appointment
@@ -31,6 +43,7 @@ class AppointmentSerializer(serializers.ModelSerializer):
             "home_address", "home_latitude", "home_longitude",
             "nurse_uuid", "nurse_name",
             "base_fee_mru", "surcharge_mru", "total_fee_mru",
+            "items", "items_total_mru", "patient_due_mru", "cnam_covered_mru",
             "notes",
             "created_at", "updated_at",
         )
@@ -50,6 +63,41 @@ class AppointmentSerializer(serializers.ModelSerializer):
         if not n:
             return None
         return f"{n.first_name} {n.last_name}".strip() or n.phone
+
+    def _iter_orders(self, obj):
+        """Itère sur tous les TestOrder de tous les Sample de ce RDV."""
+        for sample in obj.samples.all().select_related().prefetch_related("orders__test"):
+            for o in sample.orders.all():
+                yield o
+
+    def get_items(self, obj):
+        return [
+            {
+                "order_uuid": str(o.uuid),
+                "test_code": o.test.code,
+                "test_name": o.test.name,
+                "sample_type": o.test.sample_type,
+                "price_mru": str(o.price_mru),
+                "cnam_covered_mru": str(o.cnam_covered_mru),
+                "patient_due_mru": str(o.patient_due_mru),
+                "status": o.status,
+                # Code-barre du tube physiquement utilisé pour ce test.
+                # Vide tant que l'infirmier·e ne l'a pas saisi.
+                "tube_barcode": o.tube_barcode or "",
+            }
+            for o in self._iter_orders(obj)
+        ]
+
+    def get_items_total_mru(self, obj):
+        return str(sum((o.price_mru for o in self._iter_orders(obj)), start=0))
+
+    def get_patient_due_mru(self, obj):
+        # Total à charge patient = somme due par test + surcharge (frais visite/urgence).
+        total = sum((o.patient_due_mru for o in self._iter_orders(obj)), start=0)
+        return str(total + (obj.surcharge_mru or 0))
+
+    def get_cnam_covered_mru(self, obj):
+        return str(sum((o.cnam_covered_mru for o in self._iter_orders(obj)), start=0))
 
 
 class AppointmentCreateSerializer(serializers.ModelSerializer):
@@ -71,6 +119,11 @@ class AppointmentCreateSerializer(serializers.ModelSerializer):
         child=serializers.ListField(child=serializers.CharField(allow_blank=True)),
         write_only=True, required=False,
     )
+    # Coordonnées GPS du domicile (visite à domicile) — captées par le
+    # mobile via expo-location. Stockées dans `home_location` (PointField)
+    # pour aider l'infirmière à trouver le patient sur la carte de tournée.
+    home_latitude = serializers.FloatField(write_only=True, required=False, allow_null=True)
+    home_longitude = serializers.FloatField(write_only=True, required=False, allow_null=True)
 
     class Meta:
         model = Appointment
@@ -85,6 +138,8 @@ class AppointmentCreateSerializer(serializers.ModelSerializer):
             "patient_phone",
             "test_uuids",
             "prerequisite_answers",
+            "home_latitude",
+            "home_longitude",
         )
         extra_kwargs = {"laboratory": {"required": False, "write_only": True}}
 
@@ -148,6 +203,7 @@ class AppointmentCreateSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         from django.db import transaction
+        from django.contrib.gis.geos import Point
         from analyses.models import Sample, TestCatalogEntry, TestOrder
         from analyses.serializers import _make_barcode
         from analyses.views import _split_cnam
@@ -158,6 +214,11 @@ class AppointmentCreateSerializer(serializers.ModelSerializer):
         # du modèle Appointment — on les retire avant `.create()`.
         wanted_uuids = validated_data.pop("test_uuids", None) or []
         answers_by_test = validated_data.pop("prerequisite_answers", {}) or {}
+        # Coordonnées GPS → composées en PointField home_location.
+        lat = validated_data.pop("home_latitude", None)
+        lng = validated_data.pop("home_longitude", None)
+        if lat is not None and lng is not None:
+            validated_data["home_location"] = Point(float(lng), float(lat), srid=4326)
 
         with transaction.atomic():
             appt = Appointment.objects.create(

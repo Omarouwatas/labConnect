@@ -9,10 +9,11 @@
 import React, { useMemo, useState } from "react";
 import {
   View, Text, ScrollView, TouchableOpacity, StyleSheet,
-  Alert, TextInput, Switch, Pressable,
+  Alert, TextInput, Switch, Pressable, ActivityIndicator,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { CommonActions } from "@react-navigation/native";
+import * as Location from "expo-location";
 import * as api from "../api";
 import { useAuth } from "../auth";
 import { C, R, SHADOW, F, CURRENCY, labColor, labIcon } from "../theme";
@@ -49,11 +50,48 @@ export default function CartScreen({ route, navigation }) {
   const [dayKey, setDayKey] = useState(days[1]?.key || days[0].key);
   const [slot, setSlot] = useState("08:30");
   const [cnam, setCnam] = useState(!!lab.accepts_cnam);
-  const [homeAddress, setHomeAddress] = useState(user?.home_address || "");
+  // Pré-remplissage : si le patient a une adresse dans son profil, on
+  // l'utilise par défaut. Sinon le champ reste vide.
+  const [homeAddress, setHomeAddress] = useState(
+    user?.default_address || user?.home_address || "",
+  );
+  // Coords GPS — captées via le bouton "Utiliser ma position". Le backend
+  // les compose en Appointment.home_location (utile pour la map infirmière).
+  const [homeLat, setHomeLat] = useState(user?.default_latitude ?? null);
+  const [homeLng, setHomeLng] = useState(user?.default_longitude ?? null);
+  const [gpsBusy, setGpsBusy] = useState(false);
   // Réponses au questionnaire pré-test, indexées par test_uuid → liste alignée.
   const [answers, setAnswers] = useState({});
   const [submitting, setSubmitting] = useState(false);
   const [success, setSuccess] = useState(false);
+
+  /** Capture la position courante + reverse-geocode pour remplir l'adresse. */
+  const useCurrentLocation = async () => {
+    setGpsBusy(true);
+    try {
+      const { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== "granted") {
+        Alert.alert("Permission requise", "Activez la localisation pour utiliser votre position.");
+        return;
+      }
+      const pos = await Location.getCurrentPositionAsync({ accuracy: Location.Accuracy.High });
+      const { latitude, longitude } = pos.coords;
+      setHomeLat(latitude); setHomeLng(longitude);
+      try {
+        const places = await Location.reverseGeocodeAsync({ latitude, longitude });
+        const p = places?.[0];
+        if (p) {
+          const parts = [
+            p.name, p.street, p.district, p.subregion, p.city, p.region, p.country,
+          ].filter(Boolean);
+          const dedup = [...new Set(parts)].join(", ");
+          if (dedup) setHomeAddress(dedup);
+        }
+      } catch { /* offline reverse-geocode → on garde au moins les coords */ }
+    } catch (e) {
+      Alert.alert("Erreur GPS", e?.message || "Impossible d'obtenir votre position.");
+    } finally { setGpsBusy(false); }
+  };
 
   // Tests avec questions — on affiche un bloc questionnaire dédié.
   const testsWithQuestions = useMemo(
@@ -109,6 +147,10 @@ export default function CartScreen({ route, navigation }) {
         // Hint backend pour qu'il applique (ou pas) le pourcentage CNAM
         // — l'arithmétique finale reste côté serveur.
         cnamUsed: cnam,
+        // GPS du domicile — uniquement si le mode est domicile et qu'on
+        // a effectivement capturé une position via le bouton.
+        homeLatitude: mode === "domicile" && typeof homeLat === "number" ? homeLat : undefined,
+        homeLongitude: mode === "domicile" && typeof homeLng === "number" ? homeLng : undefined,
       });
 
       setSuccess(true);
@@ -197,12 +239,36 @@ export default function CartScreen({ route, navigation }) {
             <Text style={styles.sectLabel}>Adresse de prélèvement</Text>
             <TextInput
               value={homeAddress}
-              onChangeText={setHomeAddress}
+              onChangeText={(v) => {
+                setHomeAddress(v);
+                // Si l'utilisateur édite l'adresse à la main, on oublie
+                // les coords GPS (elles ne correspondent plus).
+                setHomeLat(null); setHomeLng(null);
+              }}
               placeholder="Quartier, rue, repère…"
               placeholderTextColor={C.inkSoft}
               style={styles.addressInput}
               multiline
             />
+            <TouchableOpacity
+              onPress={useCurrentLocation}
+              disabled={gpsBusy}
+              activeOpacity={0.85}
+              style={styles.gpsBtn}
+            >
+              {gpsBusy
+                ? <ActivityIndicator color={C.brand} size="small" />
+                : <Icon name="nav" size={18} color={C.brand} />}
+              <Text style={styles.gpsText}>Utiliser ma position actuelle</Text>
+            </TouchableOpacity>
+            {homeLat !== null && homeLng !== null && (
+              <View style={styles.gpsCoords}>
+                <Icon name="pinFill" size={14} color={C.brand} />
+                <Text style={styles.gpsCoordsText}>
+                  Géolocalisé · {Number(homeLat).toFixed(5)}°, {Number(homeLng).toFixed(5)}°
+                </Text>
+              </View>
+            )}
           </>
         )}
 
@@ -487,8 +553,20 @@ const styles = StyleSheet.create({
   addressInput: {
     backgroundColor: "#fff", borderRadius: 18, borderWidth: 1.5, borderColor: C.hair,
     padding: 14, fontSize: 14, color: C.ink, minHeight: 60,
-    marginBottom: 22,
+    marginBottom: 10,
   },
+  gpsBtn: {
+    flexDirection: "row", alignItems: "center", justifyContent: "center",
+    gap: 10, paddingVertical: 12, marginBottom: 8,
+    borderRadius: 14, borderWidth: 1.5, borderColor: C.brand,
+    backgroundColor: hexA(C.brand, 0.08),
+  },
+  gpsText: { fontSize: 13.5, fontWeight: "800", color: C.brandDeep || C.brand },
+  gpsCoords: {
+    flexDirection: "row", alignItems: "center", gap: 6,
+    alignSelf: "center", paddingBottom: 14,
+  },
+  gpsCoordsText: { fontSize: 11.5, fontWeight: "700", color: C.inkSoft, fontFamily: F.body },
 
   dayBtn: {
     width: 58, paddingVertical: 12,

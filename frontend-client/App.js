@@ -32,6 +32,14 @@ import CartScreen from "./src/screens/CartScreen";
 import BookingsScreen from "./src/screens/BookingsScreen";
 import ResultDetailScreen from "./src/screens/ResultDetailScreen";
 import ProfileScreen from "./src/screens/ProfileScreen";
+import NotificationsScreen from "./src/screens/NotificationsScreen";
+// Parcours infirmier·e — bascule activée quand `user.roles` contient
+// `nurse`. Voir RootNav plus bas pour la sélection du shell.
+import NurseRouteScreen from "./src/screens/nurse/NurseRouteScreen";
+import NurseMissionScreen from "./src/screens/nurse/NurseMissionScreen";
+import NurseCollectScreen from "./src/screens/nurse/NurseCollectScreen";
+import NurseValidateScreen from "./src/screens/nurse/NurseValidateScreen";
+import NurseProfileScreen from "./src/screens/nurse/NurseProfileScreen";
 import { C, applyFonts } from "./src/theme";
 import { Icon } from "./src/icons";
 
@@ -89,6 +97,61 @@ function MainTabs() {
   );
 }
 
+// ── Tab bar « Infirmier·e » — même style que MainTabs, mais avec deux
+// onglets dédiés (Tournée du jour + Profil). Les écrans Mission /
+// Prélèvement / Validation sont accessibles via push depuis Tournée et
+// ne figurent donc pas dans la barre.
+function NurseTabs() {
+  return (
+    <Tabs.Navigator
+      screenOptions={{
+        headerShown: false,
+        tabBarActiveTintColor: C.brand,
+        tabBarInactiveTintColor: "#9FB0B4",
+        tabBarStyle: {
+          backgroundColor: "#fff",
+          borderTopColor: C.hairSoft,
+          height: 64,
+          paddingBottom: 10, paddingTop: 6,
+        },
+        tabBarLabelStyle: { fontSize: 11, fontWeight: "800" },
+      }}
+    >
+      <Tabs.Screen
+        name="NurseRouteTab"
+        component={NurseRouteScreen}
+        options={{
+          tabBarLabel: "Tournée",
+          tabBarIcon: ({ color }) => (
+            <Icon name="route" size={24} color={color} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="NurseProfileTab"
+        component={NurseProfileScreen}
+        options={{
+          tabBarLabel: "Moi",
+          tabBarIcon: ({ color, focused }) => (
+            <Icon name={focused ? "userFill" : "user"} size={24} color={color} />
+          ),
+        }}
+      />
+    </Tabs.Navigator>
+  );
+}
+
+// Sélection du shell d'après les rôles renvoyés par /auth/me/.
+// Priorité au rôle nurse — si l'utilisateur est nurse ET patient (cas
+// possible : un compte test, ou un infirmier qui a aussi un suivi
+// médical), on lui présente la vue métier (Tournée). Le profil garde
+// un raccourci pour basculer si besoin.
+function pickRoleShell(user) {
+  const roles = user?.roles || [];
+  if (roles.includes("nurse")) return "nurse";
+  return "patient";
+}
+
 function RootNav() {
   const { user, loading } = useAuth();
   if (loading) {
@@ -98,6 +161,7 @@ function RootNav() {
       </View>
     );
   }
+  const shell = pickRoleShell(user);
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       {!user ? (
@@ -105,13 +169,44 @@ function RootNav() {
           <Stack.Screen name="Login" component={LoginScreen} />
           <Stack.Screen name="SignUp" component={SignUpScreen} options={{ animation: "slide_from_bottom" }} />
         </>
+      ) : shell === "nurse" ? (
+        <>
+          {/* ── Parcours infirmier·e ─────────────────────────────────── */}
+          <Stack.Screen name="NurseMain" component={NurseTabs} />
+          <Stack.Screen
+            name="NurseMission"
+            component={NurseMissionScreen}
+            options={{ animation: "slide_from_right" }}
+          />
+          <Stack.Screen
+            name="NurseCollect"
+            component={NurseCollectScreen}
+            options={{ animation: "slide_from_right" }}
+          />
+          <Stack.Screen
+            name="NurseValidate"
+            component={NurseValidateScreen}
+            options={{ animation: "slide_from_right" }}
+          />
+          <Stack.Screen
+            name="Notifications"
+            component={NotificationsScreen}
+            options={{ animation: "slide_from_right" }}
+          />
+        </>
       ) : (
         <>
+          {/* ── Parcours patient (existant) ──────────────────────────── */}
           <Stack.Screen name="Main" component={MainTabs} />
           <Stack.Screen name="Map" component={MapScreen} options={{ animation: "slide_from_right" }} />
           <Stack.Screen name="LabDetail" component={LabDetailScreen} options={{ animation: "slide_from_right" }} />
           <Stack.Screen name="Cart" component={CartScreen} options={{ animation: "slide_from_bottom" }} />
           <Stack.Screen name="ResultDetail" component={ResultDetailScreen} options={{ animation: "slide_from_right" }} />
+          <Stack.Screen
+            name="Notifications"
+            component={NotificationsScreen}
+            options={{ animation: "slide_from_right" }}
+          />
           {/* BookingsScreen monté UNIQUEMENT dans MainTabs — depuis Cart on
               utilise CommonActions.reset vers Main / BookingsTab, jamais
               un navigate("Bookings") (qui ferait planter Expo SDK 54). */}

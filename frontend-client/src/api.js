@@ -178,12 +178,30 @@ export async function googleLogin(idToken) {
   return data;
 }
 
-export async function updateProfile({ first_name, last_name, email, preferred_language }) {
+/**
+ * Patch le profil utilisateur (User + PatientProfile à plat).
+ *
+ * Les champs reconnus côté backend :
+ *   User             : first_name, last_name, email, preferred_language
+ *   PatientProfile   : cnam_number, cnam_coverage_pct, date_of_birth (YYYY-MM-DD),
+ *                      gender, blood_type, emergency_contact, default_address,
+ *                      default_latitude, default_longitude
+ *
+ * On accepte n'importe quel subset — les champs absents (undefined) ne
+ * sont pas envoyés. Pour vider une valeur, passer "" ou null explicitement.
+ */
+export async function updateProfile(patch = {}) {
+  const allowed = [
+    "first_name", "last_name", "email", "preferred_language",
+    "cnam_number", "cnam_coverage_pct",
+    "date_of_birth", "gender", "blood_type",
+    "emergency_contact", "default_address",
+    "default_latitude", "default_longitude",
+  ];
   const payload = {};
-  if (first_name !== undefined) payload.first_name = first_name;
-  if (last_name !== undefined) payload.last_name = last_name;
-  if (email !== undefined) payload.email = email;
-  if (preferred_language !== undefined) payload.preferred_language = preferred_language;
+  for (const k of allowed) {
+    if (patch[k] !== undefined) payload[k] = patch[k];
+  }
   return api.patch("/auth/me/", payload);
 }
 
@@ -196,6 +214,38 @@ export const logout = async () => {
 };
 
 export const fetchMe = () => api.get("/auth/me/");
+
+// ── Biométrie (Face ID / empreinte) ────────────────────────────────────────
+// Couplée à un appareil unique (device_id). Le `device_token` n'est délivré
+// qu'après une session OTP réussie. Voir src/biometric.js pour le stockage
+// local sécurisé.
+
+/** Pré-check : ce couple (phone, device_id) a-t-il un appareil de confiance ? */
+export const biometricCheck = (phone, deviceId) =>
+  api.post("/auth/biometric/check/", { phone, device_id: deviceId });
+
+/** Demande au backend un device_token (requiert d'être déjà authentifié). */
+export const biometricRegister = ({ deviceId, deviceLabel, platform }) =>
+  api.post("/auth/biometric/register/", {
+    device_id: deviceId,
+    device_label: deviceLabel || "",
+    platform: platform || "",
+  });
+
+/** Échange un (phone, device_id, device_token) contre une paire JWT. */
+export async function biometricLogin({ phone, deviceId, deviceToken }) {
+  const data = await api.post("/auth/biometric/login/", {
+    phone,
+    device_id: deviceId,
+    device_token: deviceToken,
+  });
+  await tokens.set(data.access, data.refresh);
+  return data;
+}
+
+/** Révoque cet appareil côté serveur (auth requise). */
+export const biometricRevoke = (deviceId) =>
+  api.post("/auth/biometric/revoke/", { device_id: deviceId });
 
 // ── Labs / catalogue (public) ───────────────────────────────────────────────
 
@@ -213,6 +263,7 @@ export const fetchMyAppointments = () => api.get("/appointments/mine/").then(asA
 export async function createAppointment({
   laboratoryUuid, visitType, scheduledFor, homeAddress, notes,
   testUuids, prerequisiteAnswers, cnamUsed,
+  homeLatitude, homeLongitude,
 }) {
   // testUuids et prerequisiteAnswers sont optionnels — si fournis, le
   // backend crée atomiquement Sample + TestOrder par test choisi (split
@@ -222,6 +273,11 @@ export async function createAppointment({
   // `cnamUsed` est un hint que le patient veut utiliser sa CNAM pour ce
   // RDV — le backend applique alors le pourcentage de couverture de son
   // profil. Le serveur reste source de vérité du calcul final.
+  //
+  // `homeLatitude`/`homeLongitude` sont captés par le CartScreen quand
+  // l'utilisateur tape « Utiliser ma position » — le backend les compose
+  // dans `Appointment.home_location` (PointField) pour la carte de
+  // tournée infirmière.
   return api.post("/appointments/", {
     laboratory_uuid: laboratoryUuid,
     visit_type: visitType, // in_lab | home | emergency
@@ -234,9 +290,100 @@ export async function createAppointment({
         ? prerequisiteAnswers
         : undefined,
     cnam_used: cnamUsed !== undefined ? !!cnamUsed : undefined,
+    home_latitude: typeof homeLatitude === "number" ? homeLatitude : undefined,
+    home_longitude: typeof homeLongitude === "number" ? homeLongitude : undefined,
   });
 }
 
 // ── Results ─────────────────────────────────────────────────────────────────
 
 export const fetchMyResults = () => api.get("/results/mine/").then(asArray);
+
+// ── Nurse / tournée à domicile ──────────────────────────────────────────────
+// Helpers pour l'app infirmier·e mobile :
+//   - fetchMyVisits()    : liste des visites à domicile assignées à
+//                          l'utilisateur·trice connecté·e (scope=mine).
+//                          Le backend filtre déjà sur assigned_nurse=user
+//                          pour le rôle nurse seul, mais on passe le
+//                          paramètre explicitement pour rester clair.
+//   - startVisit(uuid)   : PATCH status → in_progress, ce qui déclenche
+//                          la cascade backend (samples reçus, orders
+//                          en in_progress). Le prélèvement est ainsi
+//                          tracé dès que l'infirmière démarre.
+//   - completeVisit(u)   : PATCH status → completed. La visite quitte
+//                          la file active.
+//   - checkInVisit(u)    : transition optionnelle pending → checked_in
+//                          (« patient rencontré ») avant le prélèvement.
+//
+// `include_done=1` fait remonter aussi les visites terminées du jour
+// (utile pour le compteur et l'historique).
+export const fetchMyVisits = (params = "?scope=mine&include_done=1") =>
+  api.get(`/appointments/home-visits/${params}`).then(asArray);
+
+export const startVisit    = (uuid) =>
+  api.patch(`/appointments/${uuid}/status/`, { status: "in_progress" });
+export const completeVisit = (uuid) =>
+  api.patch(`/appointments/${uuid}/status/`, { status: "completed" });
+export const checkInVisit  = (uuid) =>
+  api.patch(`/appointments/${uuid}/status/`, { status: "checked_in" });
+
+// Détail d'un RDV (équivalent côté nurse de fetchMyAppointments mais
+// pour un seul UUID). Sert à NurseMissionScreen pour avoir les `items`
+// (= tests à prélever) complets sans dépendre du payload de la liste.
+export const fetchAppointment = (uuid) =>
+  api.get(`/appointments/${uuid}/`);
+
+/**
+ * Enregistre le code-barre des tubes physiquement utilisés.
+ *
+ * `tubes` est une map `{ order_uuid: "barcode" }`. Les ordres absents
+ * de la map sont laissés tels quels côté backend — utile pour soumettre
+ * en batch à la fin du prélèvement ou par tube au fur et à mesure.
+ */
+export const saveTubes = (apptUuid, tubes) =>
+  api.patch(`/appointments/${apptUuid}/tubes/`, { tubes });
+
+// ── Notifications ──────────────────────────────────────────────────────────
+//
+// Endpoints :
+//   GET    /notifications/mine/?unread=1&limit=N  → { results: [...], unread }
+//   GET    /notifications/unread/                 → { unread }
+//   PATCH  /notifications/{uuid}/read/            → notif mise à jour
+//   POST   /notifications/read-all/               → { marked }
+//
+// La cloche poll `unread` (léger) toutes les 30 s ; l'écran centre fetch
+// `mine` au focus. Pas de WebSocket — l'app patient n'en a pas besoin
+// dans ce contexte démo.
+export const fetchNotifications = (params = "") =>
+  api.get(`/notifications/mine/${params}`);
+export const fetchUnreadCount   = () =>
+  api.get("/notifications/unread/").then((r) => r?.unread || 0);
+export const markNotificationRead = (uuid) =>
+  api.patch(`/notifications/${uuid}/read/`);
+export const markAllNotificationsRead = () =>
+  api.post("/notifications/read-all/");
+
+// ── PDF du résultat ────────────────────────────────────────────────────────
+// L'URL est servie en mode authentifié (Bearer). Le client la fetch
+// manuellement (avec `fetchPdfBlob` ci-dessous) puis l'enregistre dans le
+// cache local pour l'ouvrir/partager. C'est plus robuste que de coller
+// un token en query string, qui fuirait dans les logs serveur.
+export const resultPdfUrl = (orderUuid) =>
+  `${API_BASE}/lab/orders/${orderUuid}/result/pdf/`;
+
+/**
+ * Télécharge le PDF du résultat. Renvoie un Blob (web) ou la string
+ * base64 (mobile, via res.text() + conversion). Pour Expo, on s'appuie
+ * sur `expo-file-system` côté UI plutôt que d'inventer un blob ici.
+ */
+export async function fetchResultPdfBytes(orderUuid) {
+  const access = await tokens.getAccess();
+  const res = await fetch(resultPdfUrl(orderUuid), {
+    headers: access ? { Authorization: `Bearer ${access}` } : {},
+  });
+  if (!res.ok) {
+    const text = await res.text().catch(() => "");
+    throw new ApiError(res.status, "pdf_unavailable", text || res.statusText, null);
+  }
+  return res.arrayBuffer();
+}

@@ -16,6 +16,7 @@
       "supportsTablet": true,
       "infoPlist": {
         "NSLocationWhenInUseUsageDescription": "labConnect utilise votre position pour trouver les laboratoires les plus proches.",
+        "NSFaceIDUsageDescription": "labConnect utilise Face ID pour vous reconnecter rapidement et en toute sécurité depuis cet appareil.",
         "NSAppTransportSecurity": {
           "NSAllowsArbitraryLoads": true,
           "NSAllowsLocalNetworking": true
@@ -28,7 +29,10 @@
         "backgroundColor": "#FAF7F2"
       },
       "edgeToEdgeEnabled": true,
-      "permissions": ["ACCESS_FINE_LOCATION", "ACCESS_COARSE_LOCATION"],
+      "permissions": [
+        "ACCESS_FINE_LOCATION",
+        "ACCESS_COARSE_LOCATION"
+      ],
       "usesCleartextTraffic": true
     },
     "web": {
@@ -40,14 +44,21 @@
         {
           "locationAlwaysAndWhenInUsePermission": "labConnect utilise votre position pour trouver les laboratoires."
         }
-      ]
+      ],
+      [
+        "expo-local-authentication",
+        {
+          "faceIDPermission": "labConnect utilise Face ID pour vous reconnecter rapidement et en toute sécurité."
+        }
+      ],
+      "expo-secure-store"
     ],
     "extra": {
       "googleClientIds": {
-        "expo":    "REPLACE_ME.apps.googleusercontent.com",
+        "expo": "REPLACE_ME.apps.googleusercontent.com",
         "android": "REPLACE_ME.apps.googleusercontent.com",
-        "ios":     "REPLACE_ME.apps.googleusercontent.com",
-        "web":     "REPLACE_ME.apps.googleusercontent.com"
+        "ios": "REPLACE_ME.apps.googleusercontent.com",
+        "web": "REPLACE_ME.apps.googleusercontent.com"
       }
     },
     "scheme": "labconnect"

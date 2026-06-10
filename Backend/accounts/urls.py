@@ -14,6 +14,12 @@ from .views import (
     FirebaseLoginView,
 )
 from .views_totp import TOTPConfirmView, TOTPDeviceDeleteView, TOTPSetupView, TOTPVerifyView
+from .views_biometric import (
+    BiometricCheckView,
+    BiometricLoginView,
+    BiometricRegisterView,
+    BiometricRevokeView,
+)
 from .views_employees import EmployeeInviteView, EmployeeViewSet
 
 app_name = "accounts"
@@ -40,4 +46,10 @@ urlpatterns = [
     path("totp/confirm/", TOTPConfirmView.as_view(), name="totp-confirm"),
     path("totp/verify/", TOTPVerifyView.as_view(), name="totp-verify"),
     path("totp/device/", TOTPDeviceDeleteView.as_view(), name="totp-device-delete"),
+
+    # ── Biométrie (Face ID / empreinte, app mobile patient) ───────────
+    path("biometric/check/", BiometricCheckView.as_view(), name="biometric-check"),
+    path("biometric/register/", BiometricRegisterView.as_view(), name="biometric-register"),
+    path("biometric/login/", BiometricLoginView.as_view(), name="biometric-login"),
+    path("biometric/revoke/", BiometricRevokeView.as_view(), name="biometric-revoke"),
 ]

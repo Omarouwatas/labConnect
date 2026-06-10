@@ -1,13 +1,21 @@
-// HomeScreen — version turquoise médicale Glovo-style.
-// Header avec salutation + lieu + cloche, search, mini-carte cliquable,
-// bannière CNAM, chips filtres, liste de labs en cards.
+// HomeScreen — recherche unifiée labos + analyses, mini-carte agrandie
+// avec position exacte, filtres distance/catégorie/CNAM/domicile.
 //
-// Garde le contrat backend : fetchLabsNearby OU fetchLabs en fallback,
-// cancellation via aliveRef pour éviter setState après unmount.
-import React, { useEffect, useMemo, useRef, useState } from "react";
+// La recherche fonctionne sur deux axes simultanés :
+//   1. Nom de labo + ville/adresse
+//   2. Code ou nom d'analyse (NFS, glycémie, etc.) — pour ça on charge les
+//      catalogues à la demande la 1ʳᵉ fois qu'une requête non vide est tapée,
+//      puis on les met en cache pour le reste de la session.
+//
+// Pour chaque labo, on affiche le nombre d'analyses qui matchent la requête,
+// la distance, l'icône lab et un état ouvert/fermé.
+//
+// La mini-carte (260px) montre la position exacte du patient (halo bleu
+// pulsant) + les labos à proximité. Tap sur la carte → MapScreen plein écran.
+import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
   View, Text, TextInput, FlatList, TouchableOpacity, StyleSheet,
-  ActivityIndicator, RefreshControl, Alert,
+  ActivityIndicator, RefreshControl, Pressable,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import * as Location from "expo-location";
@@ -17,19 +25,52 @@ import { C, R, SHADOW, F, DEFAULT_LOCATION, labColor, labIcon } from "../theme";
 import { Chip, Card, Tag, Stars, IconBtn, SectionTitle, hexA } from "../components/UI";
 import { Icon } from "../icons";
 import LabMapView from "../components/LabMapView";
+import NotificationsBell from "../components/NotificationsBell";
 
+// ── Filtres ─────────────────────────────────────────────────────────────
 const FILTERS = [
-  { id: "all",      label: "Tous",       icon: "sparkle" },
-  { id: "open",     label: "Ouvert",     icon: "clock" },
-  { id: "domicile", label: "À domicile", icon: "house2" },
-  { id: "cnam",     label: "CNAM",       icon: "shield" },
+  { id: "all",      label: "Tous",        icon: "sparkle" },
+  { id: "near",     label: "Près de moi", icon: "pinFill" },
+  { id: "open",     label: "Ouvert",      icon: "clock" },
+  { id: "domicile", label: "À domicile",  icon: "house2" },
+  { id: "cnam",     label: "CNAM",        icon: "shield" },
 ];
+
+const CATEGORIES = [
+  { id: "all",    label: "Toutes", icon: "flask" },
+  { id: "blood",  label: "Sang",   icon: "droplet" },
+  { id: "urine",  label: "Urine",  icon: "vial" },
+  { id: "swab",   label: "Frottis", icon: "syringe" },
+  { id: "stool",  label: "Selles", icon: "flask" },
+];
+
+// Distance approx via formule du haversine (km). Le backend renvoie
+// `distance_km` quand il peut, mais quand on est en fallback /labs/
+// classique on calcule côté client pour ordonner et filtrer.
+function distanceKm(a, b) {
+  if (!a || !b) return null;
+  const R_EARTH = 6371;
+  const toRad = (d) => (d * Math.PI) / 180;
+  const dLat = toRad(b.lat - a.lat);
+  const dLng = toRad(b.lng - a.lng);
+  const lat1 = toRad(a.lat);
+  const lat2 = toRad(b.lat);
+  const x = Math.sin(dLat / 2) ** 2
+          + Math.cos(lat1) * Math.cos(lat2) * Math.sin(dLng / 2) ** 2;
+  return 2 * R_EARTH * Math.asin(Math.sqrt(x));
+}
+
+const norm = (s) => (s || "").toString().toLowerCase().trim();
 
 export default function HomeScreen({ navigation }) {
   const { user } = useAuth();
   const [labs, setLabs] = useState([]);
+  // catalogsByLab[uuid] = [{code, name, sample_type, price_mru, …}]
+  const [catalogsByLab, setCatalogsByLab] = useState({});
+  const [catalogsLoading, setCatalogsLoading] = useState(false);
   const [loc, setLoc] = useState(null);
   const [filter, setFilter] = useState("all");
+  const [category, setCategory] = useState("all");
   const [query, setQuery] = useState("");
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
@@ -41,12 +82,14 @@ export default function HomeScreen({ navigation }) {
   const load = async (silent = false) => {
     if (!silent) setLoading(true);
     try {
-      // Géoloc best-effort
+      // Géoloc précise
       let here = null;
       try {
         const { status } = await Location.requestForegroundPermissionsAsync();
         if (status === "granted") {
-          const pos = await Location.getCurrentPositionAsync({ accuracy: Location.Accuracy.Balanced });
+          const pos = await Location.getCurrentPositionAsync({
+            accuracy: Location.Accuracy.Balanced,
+          });
           here = { lat: pos.coords.latitude, lng: pos.coords.longitude };
         }
       } catch { /* fallback Nouakchott */ }
@@ -56,10 +99,17 @@ export default function HomeScreen({ navigation }) {
       // Labos à proximité (fallback complet si l'endpoint nearby échoue)
       let arr = [];
       try {
-        arr = await api.fetchLabsNearby(here.lat, here.lng, 20);
+        arr = await api.fetchLabsNearby(here.lat, here.lng, 50);
       } catch {
         try { arr = await api.fetchLabs(); } catch { arr = []; }
       }
+      // Calcule la distance localement quand le backend n'a pas renvoyé.
+      arr = arr.map((l) => {
+        if (l.distance_km || !l.latitude || !l.longitude || !here) return l;
+        return { ...l, distance_km: distanceKm(here, { lat: l.latitude, lng: l.longitude }) };
+      });
+      // Tri par distance croissante
+      arr.sort((a, b) => (a.distance_km ?? 999) - (b.distance_km ?? 999));
       if (aliveRef.current) setLabs(arr);
     } finally {
       if (aliveRef.current) { setLoading(false); setRefreshing(false); }
@@ -67,21 +117,105 @@ export default function HomeScreen({ navigation }) {
   };
   useEffect(() => { load(); }, []);
 
-  const filtered = useMemo(() => {
-    return labs.filter((l) => {
-      if (filter === "open" && !(l.is_open ?? true)) return false;
-      if (filter === "domicile" && !l.accepts_home_visits) return false;
-      if (filter === "cnam" && !l.accepts_cnam) return false;
-      if (query.trim()) {
-        const q = query.toLowerCase();
-        if (!`${l.name} ${l.city || ""} ${l.address || ""}`.toLowerCase().includes(q)) return false;
+  /**
+   * Charge les catalogues des labos à la demande, la 1ʳᵉ fois qu'on a une
+   * requête texte non vide. Une fois en cache, on ne re-fetche pas.
+   * Limite intentionnelle : on ne hit que les 12 labos les plus proches
+   * pour éviter un fan-out trop large dans une démo (à terme un endpoint
+   * backend `/search/?q=...` ferait ça mieux).
+   */
+  const ensureCatalogs = useCallback(async () => {
+    if (catalogsLoading) return;
+    const toFetch = labs
+      .slice(0, 12)
+      .map((l) => l.uuid)
+      .filter((u) => !catalogsByLab[u]);
+    if (toFetch.length === 0) return;
+    setCatalogsLoading(true);
+    try {
+      const results = await Promise.allSettled(
+        toFetch.map((u) => api.fetchLabCatalog(u).then((items) => [u, items])),
+      );
+      const next = {};
+      for (const r of results) {
+        if (r.status === "fulfilled") {
+          const [uuid, items] = r.value;
+          next[uuid] = items || [];
+        }
       }
-      return true;
-    });
-  }, [labs, filter, query]);
+      if (aliveRef.current && Object.keys(next).length) {
+        setCatalogsByLab((prev) => ({ ...prev, ...next }));
+      }
+    } finally {
+      if (aliveRef.current) setCatalogsLoading(false);
+    }
+  }, [labs, catalogsByLab, catalogsLoading]);
+
+  // Déclenche le chargement des catalogues dès qu'une recherche commence
+  // ET qu'une catégorie autre que "toutes" est active. Pas de fetch si
+  // l'utilisateur ne cherche rien (réduit le trafic).
+  useEffect(() => {
+    const hasQuery = query.trim().length >= 2;
+    const hasCategory = category !== "all";
+    if (hasQuery || hasCategory) ensureCatalogs();
+  }, [query, category, ensureCatalogs]);
+
+  // ── Filtrage + matches ──────────────────────────────────────────────
+  const q = norm(query);
+  const filtered = useMemo(() => {
+    return labs
+      .map((l) => {
+        const cat = catalogsByLab[l.uuid] || [];
+
+        // Tests qui matchent la recherche (code/name) ET la catégorie
+        const matchingTests = cat.filter((t) => {
+          if (category !== "all" && (t.sample_type || "").toLowerCase() !== category) return false;
+          if (!q) return true;
+          return (
+            norm(t.code).includes(q)
+            || norm(t.name).includes(q)
+          );
+        });
+
+        // Détermine si le labo lui-même matche
+        const labMatches = q
+          ? `${norm(l.name)} ${norm(l.city)} ${norm(l.address)}`.includes(q)
+          : true;
+
+        // On garde si :
+        //   - aucun critère (filtre + recherche) → on garde tout
+        //   - sinon : il faut soit que le labo matche, soit qu'il y ait des tests qui matchent
+        const matched = (!q && category === "all") || labMatches || matchingTests.length > 0;
+
+        return {
+          ...l,
+          matched,
+          matchingTests,
+          matchCount: matchingTests.length,
+        };
+      })
+      .filter((l) => {
+        if (!l.matched) return false;
+        if (filter === "open" && !(l.is_open ?? true)) return false;
+        if (filter === "domicile" && !l.accepts_home_visits) return false;
+        if (filter === "cnam" && !l.accepts_cnam) return false;
+        if (filter === "near" && (l.distance_km ?? 999) > 5) return false;
+        return true;
+      });
+  }, [labs, catalogsByLab, q, category, filter]);
+
+  // Compteur global d'analyses qui matchent (toutes labos confondus)
+  const totalMatchingTests = useMemo(
+    () => filtered.reduce((s, l) => s + (l.matchCount || 0), 0),
+    [filtered],
+  );
 
   const firstName = user?.first_name || "vous";
   const onPickLab = (lab) => navigation.navigate("LabDetail", { lab });
+  const onOpenFullMap = () => navigation.navigate("Map", {
+    labs: filtered.length ? filtered : labs,
+    userLoc: loc,
+  });
 
   return (
     <View style={{ flex: 1, backgroundColor: C.bg }}>
@@ -110,39 +244,60 @@ export default function HomeScreen({ navigation }) {
                     <Icon name="chevronD" size={16} color={C.inkSoft} />
                   </View>
                 </View>
-                <View>
-                  <IconBtn name="bell" glyph={20} onPress={() => {}} />
-                  <View style={styles.notifDot} />
-                </View>
+                {/* Cloche notifications — badge unread géré par le
+                    composant lui-même (poll backend toutes les 30 s). */}
+                <NotificationsBell navigation={navigation} />
               </View>
 
-              {/* Search */}
+              {/* Recherche */}
               <View style={styles.searchBox}>
                 <Icon name="search" size={20} color={C.inkSoft} />
                 <TextInput
                   value={query}
                   onChangeText={setQuery}
-                  placeholder="Rechercher un labo ou une analyse…"
+                  placeholder="Labo, analyse, code (NFS, GLY…)"
                   placeholderTextColor={C.inkSoft}
                   style={styles.searchInput}
                   returnKeyType="search"
                 />
+                {query.length > 0 && (
+                  <TouchableOpacity onPress={() => setQuery("")} style={{ padding: 4 }}>
+                    <Icon name="close" size={18} color={C.inkSoft} />
+                  </TouchableOpacity>
+                )}
+                {catalogsLoading && <ActivityIndicator size="small" color={C.brand} />}
               </View>
+
+              {/* Bandeau de résultats — affiché dès qu'on cherche / filtre */}
+              {(q || category !== "all") && (
+                <View style={styles.resultBanner}>
+                  <Icon name="flask" size={15} color={C.brand} />
+                  <Text style={styles.resultBannerText}>
+                    {totalMatchingTests > 0
+                      ? `${totalMatchingTests} analyse${totalMatchingTests > 1 ? "s" : ""} dans ${filtered.length} labo${filtered.length > 1 ? "s" : ""}`
+                      : `${filtered.length} labo${filtered.length > 1 ? "s" : ""} correspondent`}
+                  </Text>
+                </View>
+              )}
             </SafeAreaView>
 
-            {/* Mini map */}
-            <View style={styles.mapCard}>
+            {/* Mini map agrandie (260px) — tap = fullscreen */}
+            <Pressable onPress={onOpenFullMap} style={styles.mapCard}>
               <LabMapView
                 labs={(filtered.length ? filtered : labs).slice(0, 20)}
                 userLocation={loc}
                 onLabPress={(uuid) => setSelected(uuid)}
-                height={200}
+                height={260}
               />
-              <View style={styles.mapBadge}>
+              <View pointerEvents="none" style={styles.mapBadge}>
                 <View style={{ width: 7, height: 7, borderRadius: 999, backgroundColor: C.leaf }} />
                 <Text style={styles.mapBadgeText}>
                   {labs.length} labos à proximité
                 </Text>
+              </View>
+              <View pointerEvents="none" style={styles.mapExpandBadge}>
+                <Icon name="chevronR" size={14} color="#fff" />
+                <Text style={styles.mapExpandText}>Plein écran</Text>
               </View>
               {selected ? (() => {
                 const l = labs.find((x) => x.uuid === selected);
@@ -150,7 +305,7 @@ export default function HomeScreen({ navigation }) {
                 return (
                   <TouchableOpacity
                     activeOpacity={0.9}
-                    onPress={() => onPickLab(l)}
+                    onPress={(e) => { e.stopPropagation && e.stopPropagation(); onPickLab(l); }}
                     style={styles.mapCallout}
                   >
                     <View style={[styles.labLogo, { backgroundColor: hexA(labColor(l.uuid), 0.16) }]}>
@@ -159,7 +314,7 @@ export default function HomeScreen({ navigation }) {
                     <View style={{ flex: 1 }}>
                       <Text style={styles.calloutName}>{l.name}</Text>
                       <Text style={styles.calloutSub}>
-                        {l.distance_km ? `${l.distance_km.toFixed(1)} km` : ""}
+                        {l.distance_km != null ? `${l.distance_km.toFixed(1)} km` : ""}
                         {l.eta_min ? ` · ${l.eta_min} min` : ""}
                       </Text>
                     </View>
@@ -167,7 +322,7 @@ export default function HomeScreen({ navigation }) {
                   </TouchableOpacity>
                 );
               })() : null}
-            </View>
+            </Pressable>
 
             {/* CNAM banner */}
             <View style={styles.cnamBanner}>
@@ -175,12 +330,20 @@ export default function HomeScreen({ navigation }) {
                 <Icon name="shieldFill" size={24} color={C.brand} />
               </View>
               <View style={{ flex: 1 }}>
-                <Text style={styles.cnamTitle}>Prise en charge CNAM</Text>
-                <Text style={styles.cnamSub}>Jusqu'à 80% remboursé sur vos analyses</Text>
+                <Text style={styles.cnamTitle}>
+                  {user?.cnam_number
+                    ? `CNAM ${user.cnam_coverage_pct ?? 0}% prise en charge`
+                    : "Prise en charge CNAM"}
+                </Text>
+                <Text style={styles.cnamSub}>
+                  {user?.cnam_number
+                    ? "Appliquée automatiquement à vos analyses éligibles"
+                    : "Ajoutez votre carte depuis Profil pour profiter du remboursement"}
+                </Text>
               </View>
             </View>
 
-            {/* Filters */}
+            {/* Filtres principaux */}
             <View style={styles.filtersWrap}>
               <FlatList
                 horizontal
@@ -200,24 +363,62 @@ export default function HomeScreen({ navigation }) {
               />
             </View>
 
+            {/* Filtres par catégorie d'analyse (sang/urine/...) */}
+            <View style={[styles.filtersWrap, { marginTop: 8 }]}>
+              <FlatList
+                horizontal
+                data={CATEGORIES}
+                keyExtractor={(c) => c.id}
+                showsHorizontalScrollIndicator={false}
+                contentContainerStyle={{ gap: 8, paddingHorizontal: 20 }}
+                renderItem={({ item }) => (
+                  <Chip
+                    active={category === item.id}
+                    onPress={() => setCategory(item.id)}
+                    icon={item.icon}
+                  >
+                    {item.label}
+                  </Chip>
+                )}
+              />
+            </View>
+
             {/* Section title */}
             <View style={{ paddingHorizontal: 20, marginTop: 18 }}>
-              <SectionTitle>Labos près de vous</SectionTitle>
+              <SectionTitle>
+                {q || category !== "all" ? "Labos correspondants" : "Labos près de vous"}
+              </SectionTitle>
             </View>
           </>
         }
         renderItem={({ item }) => (
           <View style={{ paddingHorizontal: 20, marginBottom: 12 }}>
-            <LabCard lab={item} onPress={() => onPickLab(item)} selected={item.uuid === selected} />
+            <LabCard
+              lab={item}
+              onPress={() => onPickLab(item)}
+              selected={item.uuid === selected}
+              searching={!!(q || category !== "all")}
+            />
           </View>
         )}
         ListEmptyComponent={
           loading ? (
             <ActivityIndicator color={C.brand} style={{ marginTop: 30 }} />
           ) : (
-            <Text style={styles.empty}>
-              Aucun labo ne correspond à vos filtres.
-            </Text>
+            <View style={{ alignItems: "center", paddingTop: 40, gap: 8 }}>
+              <Icon name="search" size={42} color={C.inkSoft} />
+              <Text style={styles.empty}>
+                Aucun labo ne correspond à vos critères.
+              </Text>
+              {(q || category !== "all" || filter !== "all") && (
+                <TouchableOpacity
+                  onPress={() => { setQuery(""); setCategory("all"); setFilter("all"); }}
+                  style={styles.resetBtn}
+                >
+                  <Text style={styles.resetBtnText}>Réinitialiser les filtres</Text>
+                </TouchableOpacity>
+              )}
+            </View>
           )
         }
       />
@@ -226,41 +427,75 @@ export default function HomeScreen({ navigation }) {
 }
 
 // ── LabCard ─────────────────────────────────────────────────────────────
-function LabCard({ lab, onPress, selected }) {
+function LabCard({ lab, onPress, selected, searching }) {
   const color = labColor(lab.uuid);
   const isOpen = lab.is_open ?? true;
-  const distance = lab.distance_km
+  const distance = lab.distance_km != null
     ? `${lab.distance_km.toFixed(1)} km`
     : (lab.city || "Nouakchott");
   const eta = lab.eta_min ? `${lab.eta_min} min` : null;
+
+  const matches = lab.matchingTests || [];
+  const previewTests = matches.slice(0, 3);
+
   return (
     <Card
       onPress={onPress}
       pad={14}
       style={[
-        { flexDirection: "row", alignItems: "center", gap: 13 },
+        { flexDirection: "column", gap: 10 },
         selected && { borderWidth: 2, borderColor: C.brand },
       ]}
     >
-      <View style={[styles.labLogo, { backgroundColor: hexA(color, 0.16) }]}>
-        <Icon name={labIcon(lab.uuid)} size={30} color={color} />
-      </View>
-      <View style={{ flex: 1, minWidth: 0 }}>
-        <View style={{ flexDirection: "row", alignItems: "center", gap: 8 }}>
-          <Text numberOfLines={1} style={styles.labName}>{lab.name}</Text>
-          {lab.rating ? <Stars value={lab.rating} /> : null}
+      <View style={{ flexDirection: "row", alignItems: "center", gap: 13 }}>
+        <View style={[styles.labLogo, { backgroundColor: hexA(color, 0.16) }]}>
+          <Icon name={labIcon(lab.uuid)} size={30} color={color} />
         </View>
-        <Text style={styles.labMeta}>
-          {lab.address ? `${distance} · ${lab.address}` : distance}
-        </Text>
-        <View style={{ flexDirection: "row", flexWrap: "wrap", gap: 6, marginTop: 6 }}>
-          <Tag color={isOpen ? C.leaf : "#9AA7AC"} icon="clock">
-            {isOpen ? (eta ? `Ouvert · ${eta}` : "Ouvert") : "Fermé"}
-          </Tag>
-          {lab.accepts_cnam && <Tag color={C.brand} icon="shield">CNAM</Tag>}
-          {lab.accepts_home_visits && <Tag color={C.grape} icon="house2">Domicile</Tag>}
+        <View style={{ flex: 1, minWidth: 0 }}>
+          <View style={{ flexDirection: "row", alignItems: "center", gap: 8 }}>
+            <Text numberOfLines={1} style={styles.labName}>{lab.name}</Text>
+            {lab.rating ? <Stars value={lab.rating} /> : null}
+          </View>
+          <Text style={styles.labMeta} numberOfLines={1}>
+            {lab.address ? `${distance} · ${lab.address}` : distance}
+          </Text>
+          <View style={{ flexDirection: "row", flexWrap: "wrap", gap: 6, marginTop: 6 }}>
+            <Tag color={isOpen ? C.leaf : "#9AA7AC"} icon="clock">
+              {isOpen ? (eta ? `Ouvert · ${eta}` : "Ouvert") : "Fermé"}
+            </Tag>
+            {lab.accepts_cnam && <Tag color={C.brand} icon="shield">CNAM</Tag>}
+            {lab.accepts_home_visits && <Tag color={C.grape} icon="house2">Domicile</Tag>}
+            {searching && lab.matchCount > 0 && (
+              <Tag color={C.coral} icon="flask">
+                {lab.matchCount} analyse{lab.matchCount > 1 ? "s" : ""}
+              </Tag>
+            )}
+          </View>
         </View>
       </View>
+
+      {/* Preview des analyses correspondantes — affiché seulement en recherche */}
+      {searching && previewTests.length > 0 && (
+        <View style={styles.matchPreview}>
+          {previewTests.map((t) => (
+            <View key={t.uuid} style={styles.matchPreviewRow}>
+              <Icon name="flask" size={13} color={C.brand} />
+              <Text style={styles.matchPreviewCode}>{t.code}</Text>
+              <Text style={styles.matchPreviewName} numberOfLines={1}>{t.name}</Text>
+              {t.price_mru && (
+                <Text style={styles.matchPreviewPrice}>
+                  {Number(t.price_mru).toLocaleString("fr-FR")} UM
+                </Text>
+              )}
+            </View>
+          ))}
+          {matches.length > previewTests.length && (
+            <Text style={styles.matchPreviewMore}>
+              + {matches.length - previewTests.length} autre{matches.length - previewTests.length > 1 ? "s" : ""}
+            </Text>
+          )}
+        </View>
+      )}
     </Card>
   );
 }
@@ -287,6 +522,14 @@ const styles = StyleSheet.create({
   },
   searchInput: { flex: 1, fontSize: 14.5, color: C.ink, fontWeight: "600" },
 
+  resultBanner: {
+    flexDirection: "row", alignItems: "center", gap: 8,
+    marginHorizontal: 20, marginTop: 10,
+    paddingHorizontal: 14, paddingVertical: 8,
+    backgroundColor: hexA(C.brand, 0.08), borderRadius: 12,
+  },
+  resultBannerText: { fontSize: 12.5, fontWeight: "800", color: C.brandDeep || C.brand },
+
   mapCard: {
     marginHorizontal: 20, marginTop: 12,
     borderRadius: R.lg, overflow: "hidden", ...SHADOW.md,
@@ -295,10 +538,17 @@ const styles = StyleSheet.create({
   mapBadge: {
     position: "absolute", top: 12, left: 12,
     flexDirection: "row", alignItems: "center", gap: 6,
-    backgroundColor: "rgba(255,255,255,0.92)",
+    backgroundColor: "rgba(255,255,255,0.95)",
     borderRadius: 999, paddingHorizontal: 12, paddingVertical: 6,
   },
   mapBadgeText: { fontSize: 12.5, fontWeight: "800", color: C.ink, fontFamily: F.bodyBold },
+  mapExpandBadge: {
+    position: "absolute", top: 12, right: 12,
+    flexDirection: "row", alignItems: "center", gap: 4,
+    backgroundColor: C.brand,
+    borderRadius: 999, paddingHorizontal: 10, paddingVertical: 6,
+  },
+  mapExpandText: { fontSize: 11.5, fontWeight: "800", color: "#fff" },
   mapCallout: {
     position: "absolute", bottom: 12, left: 12, right: 12,
     flexDirection: "row", alignItems: "center", gap: 11,
@@ -318,8 +568,8 @@ const styles = StyleSheet.create({
     width: 42, height: 42, borderRadius: 14, backgroundColor: "#fff",
     alignItems: "center", justifyContent: "center",
   },
-  cnamTitle: { fontSize: 15, fontWeight: "700", color: C.ink, fontFamily: F.displayBold },
-  cnamSub:   { fontSize: 12.5, fontWeight: "700", color: C.inkSoft, marginTop: 1, fontFamily: F.body },
+  cnamTitle: { fontSize: 14.5, fontWeight: "700", color: C.ink, fontFamily: F.displayBold },
+  cnamSub:   { fontSize: 12, fontWeight: "700", color: C.inkSoft, marginTop: 1, fontFamily: F.body },
 
   filtersWrap: { marginTop: 18 },
 
@@ -330,5 +580,25 @@ const styles = StyleSheet.create({
   labName: { fontSize: 16.5, fontWeight: "700", color: C.ink, flexShrink: 1, fontFamily: F.displayBold },
   labMeta: { fontSize: 13, fontWeight: "600", color: C.inkSoft, marginTop: 2, fontFamily: F.body },
 
-  empty: { textAlign: "center", color: C.inkSoft, padding: 30, fontWeight: "600" },
+  matchPreview: {
+    backgroundColor: C.bg, borderRadius: 12,
+    padding: 10, gap: 6,
+  },
+  matchPreviewRow: {
+    flexDirection: "row", alignItems: "center", gap: 8,
+  },
+  matchPreviewCode: { fontSize: 12.5, fontWeight: "800", color: C.brand, fontFamily: F.bodyBold },
+  matchPreviewName: { flex: 1, fontSize: 12.5, fontWeight: "700", color: C.ink },
+  matchPreviewPrice:{ fontSize: 12, fontWeight: "800", color: C.inkSoft, fontFamily: F.bodyBold },
+  matchPreviewMore: {
+    fontSize: 11.5, fontWeight: "700", color: C.brandDeep || C.brand,
+    marginTop: 4, paddingLeft: 21,
+  },
+
+  empty: { textAlign: "center", color: C.inkSoft, padding: 12, fontWeight: "700" },
+  resetBtn: {
+    marginTop: 12, paddingHorizontal: 16, paddingVertical: 10,
+    borderRadius: 999, backgroundColor: hexA(C.brand, 0.10),
+  },
+  resetBtnText: { fontSize: 13, fontWeight: "800", color: C.brandDeep || C.brand },
 });

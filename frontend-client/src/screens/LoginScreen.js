@@ -1,18 +1,38 @@
-// LoginScreen — refonte visuelle d'après le design Anthropic labConnect.
-// Hero turquoise avec icônes médicales flottantes (droplet, vial,
-// stethoscope, dna), formulaire téléphone +222, onglet Email + mot
-// de passe, bouton Google natif (3 méthodes d'auth backend).
+// LoginScreen — flow unifié :
+//
+//   1. Un seul champ « Email ou téléphone », pré-rempli avec le dernier
+//      identifiant utilisé (mémorisé dans AsyncStorage après chaque login).
+//   2. Un seul bouton « Se connecter ».
+//   3. Au tap :
+//        - Si l'identifiant correspond au téléphone d'un appareil de
+//          confiance enregistré → on déclenche Face ID / empreinte. Succès
+//          = JWT immédiat.
+//        - Sinon (ou Face ID échoué/annulé) → on bascule sur la 2ᵉ étape :
+//             • si email → champ « Mot de passe » → POST /auth/login/email/
+//             • si téléphone → on envoie un OTP SMS et on demande le code
+//                              → POST /auth/otp/verify/
+//   4. Bouton secondaire Google + lien vers SignUp en bas.
+//
+// La biométrie reste opt-in : elle est proposée après une 1ʳᵉ connexion
+// OTP réussie (alert « Activer Face ID ? »). Tant que ce n'est pas fait,
+// le bouton « Se connecter » mène directement à l'étape mot de passe / OTP.
 import React, { useEffect, useState } from "react";
 import {
   View, Text, TextInput, TouchableOpacity, StyleSheet,
-  ScrollView, KeyboardAvoidingView, Platform, Alert,
+  ScrollView, KeyboardAvoidingView, Platform, Alert, ActivityIndicator,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import * as WebBrowser from "expo-web-browser";
 import * as Google from "expo-auth-session/providers/google";
 import Constants from "expo-constants";
-import { useAuth } from "../auth";
+import { getLastIdentifier, useAuth } from "../auth";
 import * as api from "../api";
+import {
+  bioStore,
+  describeBiometric,
+  getDeviceId,
+  inspectBiometric,
+} from "../biometric";
 import { C, R, SHADOW, F } from "../theme";
 import { Btn, hexA } from "../components/UI";
 import { Icon } from "../icons";
@@ -20,20 +40,100 @@ import { Icon } from "../icons";
 WebBrowser.maybeCompleteAuthSession();
 const GOOGLE_IDS = Constants?.expoConfig?.extra?.googleClientIds || {};
 
-export default function LoginScreen({ navigation }) {
-  const { loginWithPhone, loginWithEmail, loginWithGoogle } = useAuth();
+// ── Helpers ────────────────────────────────────────────────────────────
 
-  // ── State auth ───────────────────────────────────────────────────────
-  const [tab, setTab] = useState("phone");        // phone | email
-  const [phone, setPhone] = useState("");
-  const [otpCode, setOtpCode] = useState("");
-  const [otpStep, setOtpStep] = useState("phone"); // phone | otp
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+/** Reconnaît un email à la présence d'un `@`. */
+const looksLikeEmail = (s) => typeof s === "string" && s.includes("@");
+
+/**
+ * Normalise un téléphone saisi par l'utilisateur en format E.164 mauritanien.
+ * Accepte : "46 12 34 56", "+22246123456", "22246123456", "0046123456"…
+ */
+function normalizePhone(raw) {
+  const v = (raw || "").trim();
+  const digits = v.replace(/\D/g, "");
+  if (!digits) return "";
+  if (v.startsWith("+")) return "+" + digits;
+  if (digits.startsWith("222")) return "+" + digits;
+  return "+222" + digits;
+}
+
+/** Compare deux numéros par les 8 derniers chiffres (insensible au préfixe). */
+function samePhone(a, b) {
+  if (!a || !b) return false;
+  const da = a.replace(/\D/g, "").slice(-8);
+  const db = b.replace(/\D/g, "").slice(-8);
+  return da.length === 8 && da === db;
+}
+
+// ── Composant principal ────────────────────────────────────────────────
+
+export default function LoginScreen({ navigation }) {
+  const {
+    loginWithPhone, loginWithEmail, loginWithGoogle,
+    loginWithBiometric, enableBiometric,
+  } = useAuth();
+
+  // ── State du flow ──────────────────────────────────────────────────
+  // step = "id"   → champ identifier seul, bouton "Se connecter"
+  //      = "pwd"  → identifier verrouillé + champ mot de passe (cas email)
+  //      = "otp"  → identifier verrouillé + champ code SMS (cas téléphone)
+  const [step, setStep] = useState("id");
+  const [identifier, setIdentifier] = useState("");
+  const [secret, setSecret] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [hint, setHint] = useState(null);
 
-  // ── Google OAuth ────────────────────────────────────────────────────
+  // ── State biométrie ──────────────────────────────────────────────
+  const [bio, setBio] = useState({
+    eligible: false,
+    label: "Face ID",
+    icon: "faceId",
+    phone: null,
+    supported: false,
+    types: [],
+  });
+
+  // ── Hydratation initiale : last identifier + état biométrie ─────
+  useEffect(() => {
+    let cancelled = false;
+    (async () => {
+      const [last, stored, insp] = await Promise.all([
+        getLastIdentifier(),
+        bioStore.get(),
+        inspectBiometric(),
+      ]);
+      if (cancelled) return;
+      if (last) setIdentifier(last);
+
+      if (!insp.supported || !stored) {
+        setBio((b) => ({ ...b, supported: insp.supported, types: insp.types || [] }));
+        return;
+      }
+      // Vérifie côté serveur que le device n'a pas été révoqué.
+      let okOnServer = false;
+      try {
+        const deviceId = await getDeviceId();
+        const res = await api.biometricCheck(stored.phone, deviceId);
+        okOnServer = !!res?.eligible;
+      } catch { okOnServer = false; }
+      if (!okOnServer) {
+        await bioStore.clear();
+        setBio((b) => ({ ...b, supported: true, types: insp.types, eligible: false }));
+        return;
+      }
+      const d = describeBiometric(insp.types);
+      setBio({
+        supported: true, types: insp.types,
+        eligible: true, label: d.label, icon: d.icon,
+        phone: stored.phone,
+      });
+    })();
+    return () => { cancelled = true; };
+  }, []);
+
+  // ── Google OAuth ─────────────────────────────────────────────────
   const [_req, googleResponse, promptGoogle] = Google.useIdTokenAuthRequest({
     clientId: GOOGLE_IDS.expo,
     iosClientId: GOOGLE_IDS.ios,
@@ -51,27 +151,96 @@ export default function LoginScreen({ navigation }) {
     }
   }, [googleResponse]);
 
-  // ── Actions ─────────────────────────────────────────────────────────
-  const askOtp = async () => {
+  // ── Actions ────────────────────────────────────────────────────────
+
+  /**
+   * Cœur du flow : appelée au tap sur « Se connecter ».
+   *   - step "id"  → on tente Face ID (si match) puis on bascule sur
+   *                  l'étape secret appropriée.
+   *   - step "pwd" → login email + mot de passe.
+   *   - step "otp" → login téléphone + code SMS.
+   */
+  const onPrimary = async () => {
     setError(null);
-    if (!phone.trim()) return setError("Saisissez votre numéro.");
-    setLoading(true);
-    try {
-      await api.otpRequest(`+222${phone.replace(/\D/g, "")}`, "login");
-      setOtpStep("otp");
-    } catch (e) {
-      setError(e?.detail || "Impossible d'envoyer le code.");
-    } finally { setLoading(false); }
+
+    // ─ Étape "id" : choisir le bon mode d'authentification ────────
+    if (step === "id") {
+      const raw = identifier.trim();
+      if (!raw) return setError("Saisissez votre email ou votre téléphone.");
+
+      // 1) Tentative biométrique si l'identifiant correspond
+      const isEmail = looksLikeEmail(raw);
+      const normalizedPhone = isEmail ? null : normalizePhone(raw);
+      const biometricMatches =
+        bio.eligible && !isEmail && samePhone(normalizedPhone, bio.phone);
+
+      if (biometricMatches) {
+        setLoading(true);
+        try {
+          const ok = await loginWithBiometric();
+          if (ok) return; // ✅ Connecté, le RootNav bascule sur Main
+          // sinon : Face ID annulé → on tombe en fallback
+        } catch (e) {
+          if (e?.code === "invalid_device") {
+            setBio((b) => ({ ...b, eligible: false }));
+            setError("Cet appareil a été révoqué, reconnectez-vous classiquement.");
+          }
+          // pour les autres erreurs, on poursuit avec le fallback
+        } finally { setLoading(false); }
+      }
+
+      // 2) Fallback : on demande le secret approprié
+      if (isEmail) {
+        setStep("pwd");
+        setHint(null);
+      } else {
+        // Téléphone → envoie l'OTP automatiquement
+        setLoading(true);
+        try {
+          await api.otpRequest(normalizedPhone, "login");
+          setStep("otp");
+          setHint(`Code envoyé au ${normalizedPhone}.`);
+        } catch (e) {
+          setError(e?.detail || "Impossible d'envoyer le code SMS.");
+        } finally { setLoading(false); }
+      }
+      return;
+    }
+
+    // ─ Étape "pwd" : email + mot de passe ────────────────────────
+    if (step === "pwd") {
+      if (!secret) return setError("Saisissez votre mot de passe.");
+      setLoading(true);
+      try {
+        await loginWithEmail(identifier.trim().toLowerCase(), secret);
+      } catch (e) {
+        setError(e?.detail || "Identifiants invalides.");
+      } finally { setLoading(false); }
+      return;
+    }
+
+    // ─ Étape "otp" : téléphone + code SMS ────────────────────────
+    if (step === "otp") {
+      if (!secret || secret.length < 4) return setError("Saisissez le code reçu.");
+      const phone = normalizePhone(identifier);
+      setLoading(true);
+      try {
+        await loginWithPhone(phone, secret);
+        // 1ʳᵉ connexion sur cet appareil → proposer Face ID pour la prochaine fois.
+        offerBiometricEnrollment();
+      } catch (e) {
+        setError(e?.detail || "Code invalide.");
+      } finally { setLoading(false); }
+      return;
+    }
   };
-  const verifyOtp = async () => {
+
+  /** Revenir à l'étape identifiant (changer d'email/téléphone). */
+  const onChangeIdentifier = () => {
+    setStep("id");
+    setSecret("");
     setError(null);
-    if (!otpCode || otpCode.length < 4) return setError("Saisissez le code reçu.");
-    setLoading(true);
-    try {
-      await loginWithPhone(`+222${phone.replace(/\D/g, "")}`, otpCode);
-    } catch (e) {
-      setError(e?.detail || "Code invalide.");
-    } finally { setLoading(false); }
+    setHint(null);
   };
 
   const doGoogleLogin = async (idToken) => {
@@ -93,23 +262,35 @@ export default function LoginScreen({ navigation }) {
     promptGoogle();
   };
 
-  const onEmail = async () => {
-    setError(null);
-    if (!email.trim() || !password) return setError("Email + mot de passe requis.");
-    setLoading(true);
+  /** Propose d'activer Face ID après une connexion OTP réussie. */
+  const offerBiometricEnrollment = async () => {
     try {
-      await loginWithEmail(email.trim(), password);
-    } catch (e) {
-      setError(e?.detail || "Identifiants invalides.");
-    } finally { setLoading(false); }
+      const insp = await inspectBiometric();
+      if (!insp.supported) return;
+      const d = describeBiometric(insp.types);
+      Alert.alert(
+        `Activer ${d.label} ?`,
+        `Reconnectez-vous instantanément la prochaine fois grâce à ${d.label}, sans passer par le SMS.`,
+        [
+          { text: "Plus tard", style: "cancel" },
+          { text: "Activer", onPress: () => enableBiometric().catch(() => {}) },
+        ],
+      );
+    } catch { /* opt-in, on ignore */ }
   };
 
-  // ── Render ──────────────────────────────────────────────────────────
+  // ── Render ─────────────────────────────────────────────────────────
+
+  const isEmailMode = looksLikeEmail(identifier);
+  const willUseBiometric =
+    step === "id" && bio.eligible &&
+    !isEmailMode &&
+    samePhone(normalizePhone(identifier), bio.phone);
+
   return (
     <View style={{ flex: 1, backgroundColor: C.bg }}>
       {/* Hero turquoise */}
       <View style={styles.hero}>
-        {/* icônes médicales flottantes décoratives */}
         <FloatingIcon name="droplet"     top={26} left="14%" rotate="18deg" />
         <FloatingIcon name="vial"        top={30} right="10%" rotate="-10deg" />
         <FloatingIcon name="stethoscope" top={64} left="60%" rotate="12deg" />
@@ -134,111 +315,143 @@ export default function LoginScreen({ navigation }) {
       >
         <ScrollView contentContainerStyle={styles.body} keyboardShouldPersistTaps="handled">
           <Text style={styles.bigHi}>Bienvenue</Text>
-          <Text style={styles.subHi}>Connectez-vous pour réserver vos analyses</Text>
+          <Text style={styles.subHi}>
+            Connectez-vous pour réserver vos analyses
+          </Text>
 
-          {/* Tabs : 2 modes (téléphone OTP / email + mot de passe) */}
-          <View style={styles.tabs}>
-            {[
-              { id: "phone", label: "Téléphone", icon: "phone" },
-              { id: "email", label: "Email",     icon: "mail" },
-            ].map((t) => {
-              const on = tab === t.id;
-              return (
-                <TouchableOpacity
-                  key={t.id}
-                  onPress={() => { setTab(t.id); setError(null); }}
-                  style={[styles.tabBtn, on && styles.tabBtnOn]}
-                  activeOpacity={0.85}
-                >
-                  <Icon name={t.icon} size={15} color={on ? "#fff" : C.inkSoft} />
-                  <Text style={[styles.tabLabel, on && styles.tabLabelOn]}>
-                    {t.label}
-                  </Text>
-                </TouchableOpacity>
-              );
-            })}
+          {/* ── Champ identifiant ─────────────────────────────────────── */}
+          <Text style={styles.fieldLabel}>Email ou téléphone</Text>
+          <View style={styles.inputWrap}>
+            <View style={styles.inputIcon}>
+              <Icon
+                name={isEmailMode ? "mail" : "phone"}
+                size={18}
+                color={C.brand}
+              />
+            </View>
+            <TextInput
+              value={identifier}
+              onChangeText={(v) => {
+                setIdentifier(v);
+                if (step !== "id") onChangeIdentifier();
+              }}
+              editable={step === "id"}
+              placeholder="vous@exemple.mr  ou  +222 46 12 34 56"
+              placeholderTextColor={C.inkSoft}
+              keyboardType={isEmailMode ? "email-address" : "default"}
+              autoCapitalize="none"
+              autoCorrect={false}
+              style={styles.input}
+            />
           </View>
 
+          {/* ── Champ secret (mot de passe ou code) ─────────────────── */}
+          {step === "pwd" && (
+            <>
+              <Text style={[styles.fieldLabel, { marginTop: 14 }]}>
+                Mot de passe
+              </Text>
+              <View style={styles.inputWrap}>
+                <View style={styles.inputIcon}>
+                  <Icon name="lock" size={18} color={C.brand} />
+                </View>
+                <TextInput
+                  value={secret}
+                  onChangeText={setSecret}
+                  placeholder="••••••••"
+                  placeholderTextColor={C.inkSoft}
+                  secureTextEntry
+                  autoCapitalize="none"
+                  autoFocus
+                  style={styles.input}
+                />
+              </View>
+            </>
+          )}
+
+          {step === "otp" && (
+            <>
+              <Text style={[styles.fieldLabel, { marginTop: 14 }]}>
+                Code reçu par SMS
+              </Text>
+              <TextInput
+                value={secret}
+                onChangeText={setSecret}
+                placeholder="• • • • • •"
+                placeholderTextColor={C.inkSoft}
+                keyboardType="number-pad"
+                maxLength={6}
+                autoFocus
+                style={styles.otpInput}
+              />
+            </>
+          )}
+
+          {/* ── Messages d'état ─────────────────────────────────────── */}
           {error ? (
             <View style={styles.errorBox}>
+              <Icon name="alert" size={16} color={C.coral} />
               <Text style={styles.errorText}>{error}</Text>
             </View>
           ) : null}
 
-          {/* ── Onglet téléphone ────────────────────────────────────── */}
-          {tab === "phone" && otpStep === "phone" && (
-            <>
-              <Text style={styles.fieldLabel}>Numéro de téléphone</Text>
-              <View style={styles.phoneRow}>
-                <Text style={styles.phonePrefix}>🇲🇷 +222</Text>
-                <View style={styles.phoneSep} />
-                <TextInput
-                  value={phone}
-                  onChangeText={setPhone}
-                  inputMode="numeric"
-                  placeholder="46 12 34 56"
-                  placeholderTextColor={C.inkSoft}
-                  style={styles.phoneInput}
-                />
-              </View>
-              <Btn full size="lg" iconR="arrowR" loading={loading} onPress={askOtp}>
-                Recevoir le code
-              </Btn>
-            </>
+          {hint && !error ? (
+            <View style={styles.hintBox}>
+              <Icon name="info" size={16} color={C.brand} />
+              <Text style={styles.hintText}>{hint}</Text>
+            </View>
+          ) : null}
+
+          {/* ── Bouton principal ────────────────────────────────────── */}
+          <View style={{ height: 8 }} />
+          <Btn
+            full size="lg"
+            icon={willUseBiometric ? bio.icon : undefined}
+            iconR={willUseBiometric ? undefined : "arrowR"}
+            loading={loading}
+            onPress={onPrimary}
+          >
+            {willUseBiometric
+              ? `Se connecter avec ${bio.label}`
+              : step === "pwd"
+                ? "Se connecter"
+                : step === "otp"
+                  ? "Vérifier le code"
+                  : "Se connecter"}
+          </Btn>
+
+          {/* Lien "modifier l'identifiant" en étapes secret */}
+          {step !== "id" && (
+            <TouchableOpacity
+              onPress={onChangeIdentifier}
+              style={styles.changeIdRow}
+            >
+              <Icon name="arrowL" size={15} color={C.inkSoft} />
+              <Text style={styles.changeIdText}>
+                Changer d'email ou de numéro
+              </Text>
+            </TouchableOpacity>
           )}
 
-          {tab === "phone" && otpStep === "otp" && (
-            <>
-              <Text style={styles.fieldLabel}>Code reçu par SMS</Text>
-              <TextInput
-                value={otpCode}
-                onChangeText={setOtpCode}
-                inputMode="numeric"
-                placeholder="123456"
-                placeholderTextColor={C.inkSoft}
-                style={styles.otpInput}
-                maxLength={6}
-              />
-              <Btn full size="lg" iconR="check" loading={loading} onPress={verifyOtp}>
-                Vérifier
-              </Btn>
-              <TouchableOpacity onPress={() => setOtpStep("phone")} style={{ marginTop: 14, alignSelf: "center", flexDirection: "row", alignItems: "center", gap: 6 }}>
-                <Icon name="arrowL" size={15} color={C.inkSoft} />
-                <Text style={{ color: C.inkSoft, fontWeight: "700" }}>Changer de numéro</Text>
-              </TouchableOpacity>
-            </>
+          {/* Lien "renvoyer le SMS" en mode OTP */}
+          {step === "otp" && (
+            <TouchableOpacity
+              onPress={async () => {
+                setError(null);
+                try {
+                  await api.otpRequest(normalizePhone(identifier), "login");
+                  setHint("Nouveau code envoyé.");
+                } catch (e) {
+                  setError(e?.detail || "Impossible de renvoyer le code.");
+                }
+              }}
+              style={{ alignSelf: "center", marginTop: 8, padding: 6 }}
+            >
+              <Text style={styles.resendText}>Renvoyer le SMS</Text>
+            </TouchableOpacity>
           )}
 
-          {/* ── Onglet email + mot de passe ───────────────────────── */}
-          {tab === "email" && (
-            <>
-              <Text style={styles.fieldLabel}>Email</Text>
-              <TextInput
-                value={email}
-                onChangeText={setEmail}
-                inputMode="email"
-                autoCapitalize="none"
-                placeholder="mariem@example.com"
-                placeholderTextColor={C.inkSoft}
-                style={styles.textInput}
-              />
-              <Text style={[styles.fieldLabel, { marginTop: 12 }]}>Mot de passe</Text>
-              <TextInput
-                value={password}
-                onChangeText={setPassword}
-                secureTextEntry
-                placeholder="••••••••"
-                placeholderTextColor={C.inkSoft}
-                style={styles.textInput}
-              />
-              <View style={{ height: 16 }} />
-              <Btn full size="lg" iconR="arrowR" loading={loading} onPress={onEmail}>
-                Se connecter
-              </Btn>
-            </>
-          )}
-
-          {/* Séparateur + Google natif (toujours visible) */}
+          {/* Séparateur + Google */}
           <View style={styles.dividerRow}>
             <View style={styles.dividerLine} />
             <Text style={styles.dividerText}>ou</Text>
@@ -326,55 +539,58 @@ const styles = StyleSheet.create({
   bigHi: { fontSize: 26, fontWeight: "700", color: C.ink, marginBottom: 4, fontFamily: F.displayBold },
   subHi: { fontSize: 14, fontWeight: "700", color: C.inkSoft, marginBottom: 20, fontFamily: F.body },
 
-  tabs: {
-    flexDirection: "row", gap: 6, backgroundColor: "#fff",
-    borderRadius: 999, padding: 5,
-    borderWidth: 1.5, borderColor: C.hair,
-    marginBottom: 16,
+  fieldLabel: {
+    fontWeight: "800", fontSize: 13, color: C.ink,
+    marginBottom: 8, fontFamily: F.bodyBold,
   },
-  tabBtn:    {
-    flex: 1, paddingVertical: 9, borderRadius: 999,
-    flexDirection: "row", alignItems: "center", justifyContent: "center", gap: 5,
-  },
-  tabBtnOn:  { backgroundColor: C.brand },
-  tabLabel:  { color: C.inkSoft, fontWeight: "800", fontSize: 13, fontFamily: F.bodyBold },
-  tabLabelOn:{ color: "#fff" },
 
-  errorBox: {
-    backgroundColor: hexA(C.coral, 0.13),
-    borderRadius: 14, padding: 12, marginBottom: 12,
-  },
-  errorText: { color: C.coral, fontWeight: "700", fontSize: 13.5 },
-
-  fieldLabel: { fontWeight: "800", fontSize: 13, color: C.ink, marginBottom: 8, fontFamily: F.bodyBold },
-
-  phoneRow: {
-    flexDirection: "row", alignItems: "center", gap: 10,
+  // Champ "boîte" avec icône à gauche
+  inputWrap: {
+    flexDirection: "row", alignItems: "center",
     backgroundColor: "#fff", borderRadius: 18,
-    paddingHorizontal: 16, paddingVertical: 6,
     borderWidth: 1.5, borderColor: C.hair,
-    marginBottom: 16,
+    paddingHorizontal: 8, paddingVertical: 4,
   },
-  phonePrefix: { fontSize: 17, fontWeight: "700", color: C.ink, fontFamily: F.display },
-  phoneSep: { width: 1, height: 22, backgroundColor: C.hair },
-  phoneInput: {
-    flex: 1, fontSize: 17, color: C.ink,
-    paddingVertical: 10, fontWeight: "600",
+  inputIcon: {
+    width: 36, height: 36, borderRadius: 10,
+    alignItems: "center", justifyContent: "center",
+    backgroundColor: hexA(C.brand, 0.10),
+    marginRight: 6,
+  },
+  input: {
+    flex: 1, fontSize: 15, color: C.ink,
+    paddingVertical: 12, paddingHorizontal: 4,
+    fontWeight: "600",
   },
 
   otpInput: {
     backgroundColor: "#fff", borderRadius: 18, borderWidth: 1.5, borderColor: C.hair,
     paddingHorizontal: 18, paddingVertical: 14,
-    fontSize: 22, color: C.ink, fontWeight: "700",
-    textAlign: "center", letterSpacing: 8,
-    marginBottom: 16,
+    fontSize: 24, color: C.ink, fontWeight: "700",
+    textAlign: "center", letterSpacing: 10,
   },
 
-  textInput: {
-    backgroundColor: "#fff", borderRadius: 18, borderWidth: 1.5, borderColor: C.hair,
-    paddingHorizontal: 16, paddingVertical: 13,
-    fontSize: 15, color: C.ink,
+  errorBox: {
+    flexDirection: "row", alignItems: "center", gap: 8,
+    backgroundColor: hexA(C.coral, 0.12),
+    borderRadius: 14, padding: 12, marginTop: 14,
   },
+  errorText: { flex: 1, color: C.coral, fontWeight: "700", fontSize: 13 },
+
+  hintBox: {
+    flexDirection: "row", alignItems: "center", gap: 8,
+    backgroundColor: hexA(C.brand, 0.10),
+    borderRadius: 14, padding: 12, marginTop: 14,
+  },
+  hintText: { flex: 1, color: C.brandDeep || C.brand, fontWeight: "700", fontSize: 13 },
+
+  changeIdRow: {
+    flexDirection: "row", alignItems: "center", justifyContent: "center",
+    gap: 6, marginTop: 14, padding: 6,
+  },
+  changeIdText: { color: C.inkSoft, fontWeight: "700", fontSize: 13 },
+
+  resendText: { color: C.brandDeep || C.brand, fontWeight: "800", fontSize: 13 },
 
   dividerRow: {
     flexDirection: "row", alignItems: "center", gap: 12,

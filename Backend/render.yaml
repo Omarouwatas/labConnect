@@ -1,0 +1,18 @@
+services:
+  - type: web
+    name: labconnect-api
+    runtime: python
+    buildCommand: "pip install -r requirements.txt && python manage.py collectstatic --noinput && python manage.py migrate"
+    startCommand: "gunicorn labconnect.wsgi:application"
+    envVars:
+      - key: DJANGO_SETTINGS_MODULE
+        value: labconnect.settings.prod
+      - key: DEBUG
+        value: "False"
+      - key: SECRET_KEY
+        generateValue: true
+      - key: DATABASE_URL
+        sync: false   # Vous collerez l'URL Supabase ici
+        value: "postgresql://postgres:2272Oh2773@@db.xqoacvcyiikfumcifbkr.supabase.co:5432/postgres"
+      - key: ALLOWED_HOSTS
+        value: "labconnect-api.onrender.com"

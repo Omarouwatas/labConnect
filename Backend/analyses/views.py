@@ -178,6 +178,12 @@ class SampleViewSet(viewsets.ModelViewSet):
         sample.orders.filter(status=OrderStatus.PENDING).update(
             status=OrderStatus.IN_PROGRESS, started_at=timezone.now(), technician=request.user
         )
+        # Notif patient — "votre échantillon est arrivé".
+        try:
+            from notifications.events import notify_sample_received
+            notify_sample_received(sample, by_user=request.user)
+        except Exception:
+            pass
         return Response(SampleSerializer(sample).data)
 
     @action(detail=True, methods=["patch"], url_path="reject")
@@ -190,6 +196,12 @@ class SampleViewSet(viewsets.ModelViewSet):
         sample.rejection_reason = reason
         sample.save(update_fields=["status", "rejection_reason", "updated_at"])
         sample.orders.update(status=OrderStatus.REJECTED)
+        # Notif patient — "votre échantillon a été écarté + motif".
+        try:
+            from notifications.events import notify_sample_rejected
+            notify_sample_rejected(sample, reason=reason, by_user=request.user)
+        except Exception:
+            pass
         return Response(SampleSerializer(sample).data)
 
 
@@ -247,6 +259,12 @@ class OrderViewSet(viewsets.ReadOnlyModelViewSet):
                 if order.technician_id is None:
                     order.technician = request.user
                 order.save(update_fields=["status", "completed_at", "technician", "updated_at"])
+            # Notif au biologiste/chef du labo : un résultat est à valider.
+            try:
+                from notifications.events import notify_result_entered
+                notify_result_entered(order, by_user=request.user)
+            except Exception:
+                pass
             return Response(TestResultSerializer(result).data, status=status.HTTP_201_CREATED)
 
         # PATCH → validation biologiste (avec correction optionnelle)
@@ -296,6 +314,13 @@ class OrderViewSet(viewsets.ReadOnlyModelViewSet):
         result.save(update_fields=update_fields)
         order.status = OrderStatus.VALIDATED
         order.save(update_fields=["status", "updated_at"])
+        # Notif patient — "votre résultat est disponible" (avec sévérité
+        # qui remonte à `critical` si le flag du résultat est critique).
+        try:
+            from notifications.events import notify_result_validated
+            notify_result_validated(order, by_user=request.user)
+        except Exception:
+            pass
         return Response(TestResultSerializer(result).data)
 
 
@@ -316,6 +341,73 @@ class MyResultsView(viewsets.ViewSet):
             "biologist",
         )
         return Response(TestResultSerializer(results, many=True).data)
+
+
+# ── PDF du résultat validé ───────────────────────────────────────────
+
+class ResultPDFView(APIView):
+    """``GET /api/v1/lab/orders/<uuid>/result/pdf/``
+
+    Stream le PDF officiel du résultat. Accès :
+      - patient propriétaire du RDV,
+      - staff du labo qui héberge l'ordre.
+
+    Précondition : le résultat doit être validé (biologist_validated_at
+    non null). Sinon on renvoie 409 plutôt que de fabriquer un brouillon.
+    """
+    permission_classes = (permissions.IsAuthenticated,)
+
+    def get(self, request, uuid):
+        from django.http import HttpResponse
+        from .pdf import render_result_pdf
+
+        try:
+            order = (
+                TestOrder.active
+                .select_related(
+                    "test", "result", "result__biologist", "technician",
+                    "sample", "sample__appointment", "sample__appointment__patient",
+                    "sample__appointment__patient__patient_profile",
+                    "sample__appointment__laboratory",
+                )
+                .get(uuid=uuid)
+            )
+        except TestOrder.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+
+        # Permission : owner-patient OU staff du labo de l'ordre.
+        user = request.user
+        is_patient_owner = (
+            order.sample.appointment.patient_id == user.id
+        )
+        roles = _roles(user)
+        is_lab_staff = (
+            current_lab_id(request) is not None
+            and order.sample.laboratory_id == current_lab_id(request)
+            and roles.intersection(RoleNames.ALL_STAFF)
+        )
+        if not (is_patient_owner or is_lab_staff):
+            raise PermissionDenied("Accès refusé.")
+
+        if not hasattr(order, "result") or order.result.biologist_validated_at is None:
+            return Response(
+                {"error": "Résultat non encore validé."},
+                status=status.HTTP_409_CONFLICT,
+            )
+
+        try:
+            pdf_bytes = render_result_pdf(order)
+        except ModuleNotFoundError as exc:
+            # reportlab pas installé — message clair pour le dev.
+            return Response(
+                {"error": "Génération PDF indisponible (reportlab manquant)."},
+                status=status.HTTP_503_SERVICE_UNAVAILABLE,
+            )
+
+        filename = f"resultat_{order.test.code}_{order.uuid.hex[:8]}.pdf"
+        resp = HttpResponse(pdf_bytes, content_type="application/pdf")
+        resp["Content-Disposition"] = f'inline; filename="{filename}"'
+        return resp
 
 
 # ── Walk-in : staff crée une analyse pour un patient présent au labo ──
@@ -474,19 +566,29 @@ class WalkInView(APIView):
             created_by=request.user,
         )
 
-        # Échantillon
+        # Échantillon — créé directement en "received" parce qu'au walk-in
+        # le patient est physiquement au comptoir : le prélèvement est
+        # effectué dans la foulée. C'est ce qui permet aux ordres
+        # d'apparaître tout de suite dans la file « À saisir » du
+        # technicien plutôt que d'être bloqués en `pending` invisible.
         sample_type = data.get("sample_type") or tests[0].sample_type
+        now = timezone.now()
         sample = Sample.objects.create(
             appointment=appt,
             laboratory=lab,
             barcode=_make_barcode(),
             sample_type=sample_type,
+            status=SampleStatus.RECEIVED,
+            received_at=now,
+            received_by=request.user,
         )
 
         # Un TestOrder par test — split CNAM/patient figé maintenant.
         # Le questionnaire pré-test est snapshotté côté ordre pour rester
         # cohérent avec les réponses données, même si le catalogue est
-        # modifié plus tard.
+        # modifié plus tard. Statut `in_progress` direct (cf. sample
+        # ci-dessus) — c'est le technicien qui pourra ensuite saisir
+        # le résultat depuis l'écran Analyses.
         answers_by_test = data.get("prerequisite_answers") or {}
         for t in tests:
             covered, due = _split_cnam(t.price_mru, coverage_pct)
@@ -500,6 +602,8 @@ class WalkInView(APIView):
                 cnam_covered_mru=covered, patient_due_mru=due,
                 prerequisite_questions_snapshot=qs,
                 prerequisite_answers=answers,
+                status=OrderStatus.IN_PROGRESS,
+                started_at=now,
             )
 
         total_mru = sum(int(t.price_mru) for t in tests)
@@ -555,6 +659,14 @@ class StatsView(APIView):
         )
         all_time = TestOrder.active.filter(sample__laboratory_id=lab_id)
 
+        # Permission finance — calculée tôt parce qu'on s'en sert dans
+        # plusieurs agrégats (by_day revenue, top_tests). Sans viewFinance,
+        # tous les montants remontent à `null`.
+        roles = _roles(request.user)
+        can_see_finance = bool(
+            roles.intersection({RoleNames.BIOLOGIST, RoleNames.LAB_CHIEF})
+        )
+
         # KPI principaux. `revenue_mru` = somme des ordres validés
         # (ce qui a été *facturable* — pas forcément encaissé).
         kpi_totals = base.aggregate(
@@ -596,13 +708,16 @@ class StatsView(APIView):
             .order_by("-count")
         )
 
-        # Activité par jour sur la fenêtre.
+        # Activité par jour sur la fenêtre. On annote aussi le revenu
+        # validé par jour pour tracer la courbe de chiffre d'affaires
+        # dans l'onglet Finances du dashboard chef.
         by_day_rows = (
             base.annotate(day=TruncDate("created_at"))
             .values("day")
             .annotate(
                 orders=Count("id"),
                 validated=Count("id", filter=models_q(status="validated")),
+                revenue=Sum("price_mru", filter=models_q(status="validated")),
             )
             .order_by("day")
         )
@@ -611,9 +726,39 @@ class StatsView(APIView):
                 "date": r["day"].isoformat() if r["day"] else None,
                 "orders": r["orders"],
                 "validated": r["validated"],
+                "revenue_mru": int(r["revenue"] or 0) if can_see_finance else None,
             }
             for r in by_day_rows
         ]
+
+        # Top tests par revenu validé sur la fenêtre — uniquement pour qui
+        # a accès aux finances. Utile au chef pour voir quels examens
+        # tirent le chiffre d'affaires (et ajuster la tarification).
+        top_tests = []
+        if can_see_finance:
+            top_test_rows = (
+                base.filter(status="validated")
+                .values("test__code", "test__name", "test__sample_type")
+                .annotate(
+                    count=Count("id"),
+                    revenue=Sum("price_mru"),
+                    cnam=Sum("cnam_covered_mru"),
+                    patient=Sum("patient_due_mru"),
+                )
+                .order_by("-revenue")[:8]
+            )
+            top_tests = [
+                {
+                    "test_code": r["test__code"],
+                    "test_name": r["test__name"],
+                    "sample_type": r["test__sample_type"],
+                    "count": r["count"],
+                    "revenue_mru": int(r["revenue"] or 0),
+                    "cnam_mru": int(r["cnam"] or 0),
+                    "patient_mru": int(r["patient"] or 0),
+                }
+                for r in top_test_rows
+            ]
 
         # Throughput technicien / biologiste sur la fenêtre.
         by_technician_rows = (
@@ -652,17 +797,22 @@ class StatsView(APIView):
 
         # Filtre permissions : sans viewFinance, on remonte les KPI
         # d'activité mais on nullifie les agrégats financiers.
-        roles = _roles(request.user)
-        can_see_finance = bool(
-            roles.intersection({RoleNames.BIOLOGIST, RoleNames.LAB_CHIEF})
-        )
+        # (`can_see_finance` est déjà calculé en haut de la méthode.)
         revenue = int(kpi_totals["revenue"] or 0) if can_see_finance else None
         cnam_share = int(kpi_totals["cnam_share"] or 0) if can_see_finance else None
         patient_share = int(kpi_totals["patient_share"] or 0) if can_see_finance else None
+        # Panier moyen = revenu / nombre d'ordres validés (None si pas de
+        # finance ou aucun validé pour éviter la division par zéro).
+        validated_count = kpi_totals["validated"] or 0
+        avg_basket = (
+            int(round((revenue or 0) / validated_count))
+            if (can_see_finance and validated_count) else None
+        )
 
         return Response({
             "period_days": days,
             "since": since,
+            "can_see_finance": can_see_finance,
             "kpis": {
                 "total_orders": kpi_totals["total"] or 0,
                 "completed_orders": kpi_totals["completed"] or 0,
@@ -671,6 +821,7 @@ class StatsView(APIView):
                 "revenue_mru": revenue,
                 "cnam_share_mru": cnam_share,
                 "patient_share_mru": patient_share,
+                "avg_basket_mru": avg_basket,
                 "avg_tat_hours": avg_tat_hours,
                 "all_time_total": all_time.count(),
             },
@@ -682,6 +833,7 @@ class StatsView(APIView):
             ],
             "by_day": by_day,
             "by_technician": by_technician,
+            "top_tests": top_tests,
             "low_stock_items": low_stock_items,
         })
 

@@ -79,6 +79,8 @@ const ICONS = {
   // Santé / médical
   shield:      { family: "feather", glyph: "shield" },
   shieldFill:  { family: "ion",     glyph: "shield-checkmark" },
+  fingerprint: { family: "mci",     glyph: "fingerprint" },
+  faceId:      { family: "mci",     glyph: "face-recognition" },
   vial:        { family: "mci",     glyph: "test-tube" },
   flask:       { family: "mci",     glyph: "flask-outline" },
   droplet:     { family: "feather", glyph: "droplet" },

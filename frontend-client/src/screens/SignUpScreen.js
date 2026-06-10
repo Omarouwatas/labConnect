@@ -140,7 +140,8 @@ export default function SignUpScreen({ navigation }) {
               </TouchableOpacity>
 
               <Text style={styles.hint}>
-                💡 Démo : tapez n'importe quel code à 6 chiffres ensuite.
+                Le code à 6 chiffres vous sera envoyé par SMS. En mode dev,
+                il s'affiche dans la console Django (logger MOCK-OTP).
               </Text>
             </>
           )}

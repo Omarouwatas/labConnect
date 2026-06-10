@@ -1,0 +1,83 @@
+# Blueprint Render — déclare l'infra côté Render à partir du code.
+#
+# Pourquoi ce fichier ?
+#   Sans render.yaml, vous configurez tout à la main dans le dashboard
+#   Render. Avec ce fichier à la racine du repo, Render reconnaît le
+#   "blueprint" au moment du Connect Repo et propose de tout créer en
+#   un clic. Bonus : le fichier vit dans le repo et peut être modifié
+#   en pull request, donc reproductible.
+#
+# Ce qu'on déclare ici
+#   - Un service Web Python qui sert le backend Django via gunicorn.
+#   - SECRET_KEY auto-généré par Render à la création.
+#   - DATABASE_URL et CORS_ALLOWED_ORIGINS marquées `sync: false`,
+#     ce qui veut dire "à renseigner manuellement dans le dashboard"
+#     — c'est volontaire : on ne veut pas committer la string de
+#     connexion Supabase dans Git.
+#
+# Pourquoi pas de service de DB Render ici ?
+#   La Postgres free de Render ne propose pas PostGIS. On utilise
+#   Supabase Postgres free (qui supporte PostGIS) à la place — voir
+#   le doc DEPLOY.md pour les étapes.
+#
+# Le rootDir pointe sur Backend/ parce que c'est là que vit le
+# manage.py et le requirements.txt. Render n'aura jamais à descendre
+# dans frontend-* pour ce service.
+
+services:
+  - type: web
+    name: labconnect-api
+    runtime: python
+    rootDir: Backend
+    plan: free
+    region: frankfurt           # Plus proche de la Mauritanie que Oregon
+
+    # ── Build : install deps, collect static, run migrations ────────
+    # `migrate` au moment du build évite l'oubli au premier déploiement.
+    # Si la DB est vide, ça crée toutes les tables ; si à jour, no-op.
+    buildCommand: |
+      pip install -r requirements.txt
+      python manage.py collectstatic --noinput
+      python manage.py migrate --noinput
+
+    # ── Start : gunicorn écoute sur $PORT que Render injecte ────────
+    # `--workers 2` est calé sur les 512 MB du free tier. Pas besoin
+    # de `--bind` explicite : gunicorn lit PORT depuis l'env.
+    startCommand: gunicorn labconnect.wsgi:application --workers 2 --timeout 60
+
+    # ── Variables d'env ────────────────────────────────────────────
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.9             # Aligné avec ce que Render supporte
+
+      - key: DJANGO_SETTINGS_MODULE
+        value: labconnect.settings.prod
+
+      # Render génère un SECRET_KEY cryptographiquement solide une fois
+      # à la création. On n'y touche plus jamais après.
+      - key: DJANGO_SECRET_KEY
+        generateValue: true
+
+      # Renseigner après création (Settings → Environment), via la
+      # chaîne de connexion fournie par Supabase Dashboard → Database.
+      - key: DATABASE_URL
+        sync: false
+
+      # Sous-domaine Render — adapter si vous renommez le service.
+      - key: DJANGO_ALLOWED_HOSTS
+        value: labconnect-api.onrender.com
+
+      # À ajuster avec l'URL de votre frontend-web (Vercel) une fois
+      # qu'elle est déployée. Format CSV, sans wildcards.
+      - key: CORS_ALLOWED_ORIGINS
+        sync: false
+
+      # OTP en mock pour la démo (tout code à 6 chiffres marche).
+      # Passer à "twilio" + ajouter les 3 vars Twilio en vrai.
+      - key: OTP_PROVIDER
+        value: mock
+
+      # Niveau de log Render. INFO suffit en démo, DEBUG si vous
+      # voulez voir les SQL queries (verbose).
+      - key: DJANGO_LOG_LEVEL
+        value: INFO

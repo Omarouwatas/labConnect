@@ -907,6 +907,30 @@ a { color: inherit; }
 @media (max-width: 900px) {
   .auth-shell { grid-template-columns: 1fr; }
   .auth-side { display: none; }
+  /* Réduit le pad de la carte d'auth quand on n'a plus la grande
+     colonne de présentation à gauche. */
+  .auth-main { padding: 32px 20px; }
+  .auth-card h2 { font-size: 32px; }
+}
+
+/* Téléphone : on serre encore plus, et on réduit les inputs TOTP qui
+   sont à 44×56 px (ne tiennent plus sur un écran 320 px de large). */
+@media (max-width: 640px) {
+  .auth-main { padding: 24px 16px; }
+  .auth-card h2 { font-size: 26px; }
+  .auth-card .lead { font-size: 13px; margin-bottom: 18px; }
+  .auth-foot {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+    margin-top: 14px;
+  }
+  .totp-grid { gap: 6px; }
+  .totp-grid input {
+    width: 38px; height: 50px;
+    font-size: 19px;
+  }
+  .auth-hint { font-size: 11.5px; padding: 9px 11px; }
 }
 .auth-side {
   background: linear-gradient(135deg, #1F1A17 0%, #2c241e 100%);
@@ -1079,4 +1103,338 @@ a { color: inherit; }
   text-align: center;
   color: var(--ink-3);
   font-size: 13.5px;
+}
+
+/* ===========================================================================
+   Hamburger & backdrop — masqués sur desktop, révélés par les media queries
+   ===========================================================================
+
+   Stratégie générale du responsive
+     ≥ 1025 px → layout desktop "classique" (sidebar fixe 248 px, topbar large)
+     ≤ 1024 px → resserrement des paddings et de la search, tout reste fluide
+     ≤  900 px → la sidebar bascule en drawer off-canvas (translateX), le
+                 hamburger apparaît, le backdrop devient cliquable
+     ≤  640 px → grilles 4 colonnes deviennent 2x2 puis 1, page-title shrink,
+                 modaux full-screen, crumbs compactés, search hidden,
+                 tableaux horizontalement scrollables
+
+   On ne touche pas aux classes utilitaires existantes (.grid-4, .card,
+   .tbl) en dehors des media queries — comme ça aucun écran n'est cassé
+   en desktop.
+   =========================================================================== */
+
+/* Hamburger dans la topbar — caché par défaut, révélé ≤ 900 px. */
+.topbar-menu-btn {
+  display: none;
+  width: 40px; height: 40px;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  border-radius: 10px;
+  cursor: pointer;
+  align-items: center; justify-content: center;
+  color: var(--ink);
+  flex-shrink: 0;
+}
+.topbar-menu-btn:hover { background: var(--bg-elev); }
+
+/* Bouton fermeture du drawer (dans la brand de la sidebar) — caché par
+   défaut. Visible uniquement quand la sidebar est en mode drawer. */
+.sidebar-close {
+  display: none;
+  margin-left: auto;
+  width: 34px; height: 34px;
+  border-radius: 10px;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  cursor: pointer;
+  color: var(--ink-2);
+  align-items: center; justify-content: center;
+}
+.sidebar-close:hover { background: var(--bg-elev); color: var(--ink); }
+
+/* Backdrop semi-opaque derrière le drawer mobile. Caché par défaut
+   (display:none) — la classe .open le révèle. Sur desktop il reste
+   masqué même si la prop `mobileMenuOpen` était à true par erreur,
+   parce que la sidebar n'est jamais translatée hors écran. */
+.sidebar-backdrop {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(31,26,23,0.34);
+  backdrop-filter: blur(2px);
+  z-index: 39;
+  animation: fadeIn 180ms ease;
+}
+
+/* ───────────────────────────────────────────────────────────────────
+   ≤ 1024 px : tablette / petite fenêtre desktop
+   On serre juste un peu : page padding, search, page-title.
+   ─────────────────────────────────────────────────────────────────── */
+@media (max-width: 1024px) {
+  .topbar { padding: 14px 20px; gap: 12px; }
+  .search input { width: 200px; }
+  .page { padding: 22px 22px 50px; }
+  .page-title { font-size: 36px; }
+  .card-pad { padding: 18px; }
+  .modal-head h2 { font-size: 24px; }
+}
+
+/* ───────────────────────────────────────────────────────────────────
+   ≤ 900 px : sidebar devient drawer off-canvas
+   ─────────────────────────────────────────────────────────────────── */
+@media (max-width: 900px) {
+  /* App passe en une seule colonne — la sidebar flotte au-dessus. */
+  .app {
+    grid-template-columns: 1fr;
+  }
+
+  /* Sidebar drawer : position fixed, translatée hors écran par défaut. */
+  .sidebar {
+    position: fixed;
+    top: 0; bottom: 0; left: 0;
+    width: 280px;
+    height: 100vh;
+    z-index: 40;
+    background: var(--bg);
+    border-right: 1px solid var(--line);
+    box-shadow: 0 16px 40px rgba(31,26,23,0.18);
+    transform: translateX(-100%);
+    transition: transform 240ms cubic-bezier(.2,.85,.3,1);
+    will-change: transform;
+  }
+  .sidebar.mobile-open { transform: translateX(0); }
+
+  /* Backdrop devient affichable ; .open le matérialise. */
+  .sidebar-backdrop { display: block; opacity: 0; pointer-events: none; }
+  .sidebar-backdrop.open { opacity: 1; pointer-events: auto; }
+
+  /* On dévoile la croix de fermeture dans la sidebar. */
+  .sidebar-close { display: inline-flex; }
+  /* Et le hamburger dans la topbar. */
+  .topbar-menu-btn { display: inline-flex; }
+
+  /* Topbar resserrée : on retire la search pour libérer l'espace —
+     elle réapparaît en grande largeur uniquement. */
+  .topbar {
+    padding: 12px 16px;
+    gap: 10px;
+  }
+  .search { display: none; }
+
+  /* Crumbs : on garde juste le nom du labo OU l'écran, pas les deux. */
+  .crumbs span { display: none; }
+  .crumbs strong { font-size: 14px; }
+
+  /* Page padding plus serré. */
+  .page { padding: 20px 16px 40px; }
+  .page-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+  .page-title { font-size: 30px; }
+  .page-actions { width: 100%; flex-wrap: wrap; }
+
+  /* Grilles : 4 colonnes deviennent 2 colonnes, 3 colonnes deviennent 1. */
+  .grid-4 { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .grid-3 { grid-template-columns: 1fr; gap: 12px; }
+  .grid-2 { grid-template-columns: 1fr; gap: 12px; }
+
+  /* Card-head : laisser les actions descendre en dessous. */
+  .card-head {
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 14px 16px;
+  }
+  .card-head h3 { font-size: 18px; }
+
+  /* Tables : on les rend horizontalement scrollables via leur conteneur.
+     Comme les .tbl sont dans des .card, on met overflow-x sur le wrapper. */
+  .card { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .tbl { min-width: 560px; }
+  .tbl thead th,
+  .tbl tbody td { padding: 10px 12px; }
+
+  /* Modal : marge externe réduite, max-width plus généreux. */
+  .modal-back { padding: 12px; }
+  .modal { max-width: 100%; max-height: 96vh; border-radius: 18px; }
+  .modal-head { padding: 18px 18px 6px; }
+  .modal-head h2 { font-size: 22px; }
+  .modal-body { padding: 12px 18px 16px; }
+  .modal-foot {
+    flex-direction: column;
+    gap: 10px;
+    align-items: stretch;
+    padding: 12px 18px;
+  }
+  .modal-foot .hint { font-size: 11.5px; text-align: center; }
+  .modal-foot .actions { justify-content: flex-end; flex-wrap: wrap; }
+
+  /* KPI cards plus compacts (Dashboard). */
+  .kpi { padding: 14px; }
+  .kpi-val { font-size: 28px; }
+}
+
+/* ───────────────────────────────────────────────────────────────────
+   ≤ 640 px : téléphones — tout s'empile
+   ─────────────────────────────────────────────────────────────────── */
+@media (max-width: 640px) {
+  .topbar { padding: 10px 12px; gap: 8px; }
+  .crumbs strong { font-size: 13px; }
+
+  .page { padding: 16px 12px 40px; }
+  .page-title { font-size: 26px; }
+  .page-sub { font-size: 13px; }
+
+  /* Toutes les grilles en colonne. */
+  .grid-4 { grid-template-columns: 1fr; }
+
+  /* Boutons compacts dans page-actions et topbar. */
+  .page-actions .btn { padding: 8px 12px; font-size: 12.5px; }
+  .btn-lg { padding: 10px 14px; font-size: 13.5px; }
+
+  /* Cards plus simples. */
+  .card-head { padding: 12px 14px; }
+  .card-head h3 { font-size: 16px; }
+  .card-pad { padding: 14px; }
+
+  /* Modal : full-screen sur très petit. */
+  .modal-back { padding: 0; align-items: stretch; }
+  .modal {
+    max-height: 100vh;
+    height: 100vh;
+    border-radius: 0;
+  }
+  .modal-body { padding: 10px 16px 14px; }
+  .modal-foot .actions .btn { flex: 1; justify-content: center; }
+
+  /* Drawer prend (presque) toute la largeur. */
+  .sidebar { width: min(280px, 86vw); }
+
+  /* Lab switcher + role switcher : laisser place pour le hamburger et la cloche. */
+  .role-switch-trigger { padding: 4px 8px 4px 4px; }
+  .role-switch-trigger .avatar { width: 26px; height: 26px; }
+  .role-switch-trigger .ri-name { display: none; } /* si la classe existe */
+
+  /* Lab switcher : juste l'avatar/marque visible. */
+  .lab-switch-name { display: none; }
+
+  /* Tableaux : pad encore plus serré. */
+  .tbl thead th,
+  .tbl tbody td { padding: 8px 10px; font-size: 12.5px; }
+
+  /* Empty state moins haut. */
+  .empty { padding: 24px 16px; font-size: 12.5px; }
+
+  /* Page-header : titre full-width, actions en dessous. */
+  .page-actions {
+    width: 100%;
+    justify-content: stretch;
+  }
+  .page-actions .btn { flex: 1 1 auto; }
+
+  /* Notifications dropdown : devient quasi full-width sous la cloche. */
+  /* (le composant gère déjà maxWidth: 92vw via style inline) */
+}
+
+/* ───────────────────────────────────────────────────────────────────
+   Override des grids inline (style attribute) sur mobile
+   ───────────────────────────────────────────────────────────────────
+   La codebase a plein de `<div style={{ display: "grid",
+   gridTemplateColumns: "1fr 1fr" }}>` dans les écrans (Dashboard,
+   Analyses, Inventory, Settings, Tests, Staff, Stats, NursesMap,
+   AppointmentDetailModal, WalkInModal…). Re-éditer chaque composant
+   coûte cher et risque d'introduire des régressions.
+
+   Plus simple : on cible les inline-style en CSS via attribute selector
+   et on force la grille à une colonne sous 640 px. Le `!important` est
+   nécessaire parce qu'un style inline gagne toujours sur une règle de
+   feuille, sauf en cas d'égalité de spécificité ET !important.
+
+   On exclut les conteneurs qui utilisent `repeat(` parce qu'ils sont
+   souvent dimensionnés dynamiquement (timeline étapes RDV par exemple)
+   et l'empilement casserait le visuel.
+   ─────────────────────────────────────────────────────────────────── */
+/* Note React + DOM : les inline-styles JSX `gridTemplateColumns`
+   sortent dans le DOM en kebab-case (`grid-template-columns:`). On
+   matche donc cette forme-là. */
+@media (max-width: 640px) {
+  div[style*="grid-template-columns"]:not([style*="repeat("]) {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* Sous 900 px, on cible spécifiquement les ratios à deux colonnes qui
+   ne tiennent plus en largeur, sans toucher aux grilles "simples"
+   (1fr 1fr) qui peuvent encore se passer en deux colonnes. */
+@media (max-width: 900px) {
+  div[style*="grid-template-columns: 1.4fr"],
+  div[style*="grid-template-columns:1.4fr"],
+  div[style*="grid-template-columns: 1.6fr"],
+  div[style*="grid-template-columns:1.6fr"],
+  div[style*="grid-template-columns: 1fr 1.2fr"],
+  div[style*="grid-template-columns: 2fr 1fr"],
+  div[style*="grid-template-columns:2fr 1fr"] {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* ───────────────────────────────────────────────────────────────────
+   Cas spéciaux par écran
+   ───────────────────────────────────────────────────────────────────
+   Ces overrides ciblent des layouts en hauteur fixe ou des affichages
+   denses qui ne suivent pas naturellement les règles ci-dessus.
+   ─────────────────────────────────────────────────────────────────── */
+@media (max-width: 900px) {
+  /* NursesMap : carte Leaflet à hauteur fixe 620 px (cf. inline style).
+     On la rabaisse pour qu'elle ne mange pas l'écran et qu'on voie
+     aussi la liste des visites en-dessous. */
+  div[style*="height: 620"],
+  div[style*="height:620"] { height: 340px !important; }
+
+  /* Dashboard bar-chart : 180 px en desktop, on réduit à 140 px et on
+     resserre le gap pour que les labels jours tiennent. */
+  .bar-chart { height: 140px; gap: 6px; }
+  .bar-chart .bar .lbl { font-size: 9px; }
+
+  /* Feed (activité récente) : moins de pad latéral. */
+  .feed-item { padding: 10px 16px; }
+}
+
+@media (max-width: 640px) {
+  /* AppointmentDetailModal : la timeline étapes (5 cases avec libellés
+     "Demandé / Confirmé / Patient arrivé / Prélèvement / Terminé")
+     est dense sur téléphone. On garde 5 colonnes (la barre de
+     progression linéaire reste lisible) mais on réduit drastiquement
+     la typo des labels — ils wrap si besoin. Le gap est resserré. */
+  .modal-body div[style*="repeat("] {
+    gap: 4px !important;
+    padding: 10px !important;
+  }
+  .modal-body div[style*="repeat("] > div > div:last-child {
+    font-size: 9.5px !important;
+    line-height: 1.2;
+  }
+
+  /* Bar-chart encore plus petit. */
+  .bar-chart { height: 110px; }
+  .bar-chart .bar .lbl { font-size: 8.5px; bottom: -18px; }
+
+  /* Cartes RDV (Dashboard "Rendez-vous récents") : table dense, on
+     n'a déjà le scroll horizontal — on aligne la cellule patient à
+     gauche sans avatar trop large. */
+  .tbl .avatar { width: 24px !important; height: 24px !important; font-size: 10px !important; }
+}
+
+/* ───────────────────────────────────────────────────────────────────
+   Touch / pointer fin : on désactive les hover trop visuels
+   sur tactile pour éviter le "hover-stuck" qui reste affiché après
+   le tap. Les survols restent disponibles à la souris.
+   ─────────────────────────────────────────────────────────────────── */
+@media (hover: none) {
+  .nav-item:hover,
+  .btn:hover,
+  .icon-btn:hover,
+  .card-head:hover { background: initial; }
 }

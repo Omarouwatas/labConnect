@@ -6,6 +6,7 @@ from .views import (
     InvoiceView,
     MyResultsView,
     OrderViewSet,
+    ResultPDFView,
     SampleViewSet,
     StatsView,
     WalkInView,
@@ -21,4 +22,6 @@ urlpatterns = router.urls + [
     path("lab/walk-in/", WalkInView.as_view(), name="lab-walk-in"),
     path("lab/invoices/<uuid:appointment_uuid>/", InvoiceView.as_view(), name="lab-invoice"),
     path("lab/stats/", StatsView.as_view(), name="lab-stats"),
+    # PDF du résultat validé (accessible patient OU staff).
+    path("lab/orders/<uuid:uuid>/result/pdf/", ResultPDFView.as_view(), name="result-pdf"),
 ]

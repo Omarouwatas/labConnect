@@ -136,6 +136,11 @@ class TestOrderSerializer(serializers.ModelSerializer):
             "test_code", "test_name", "price_mru",
             "cnam_covered_mru", "patient_due_mru",
             "sample_barcode", "appointment_uuid", "patient_name",
+            # Code-barre du tube physiquement utilisé pour ce test,
+            # saisi par l'infirmier·e pendant le prélèvement. Exposé
+            # ici pour que le biologiste le voie dans la file « À
+            # valider » de l'écran Analyses.
+            "tube_barcode",
             "started_at", "completed_at",
             "has_result",
             "prerequisite_answers", "prerequisite_questions_snapshot",
@@ -158,19 +163,22 @@ class TestResultSerializer(serializers.ModelSerializer):
     biologist_name = serializers.SerializerMethodField()
     test_name = serializers.CharField(source="order.test.name", read_only=True)
     test_code = serializers.CharField(source="order.test.code", read_only=True)
+    # Exposé pour que le client (mobile patient) puisse construire l'URL
+    # du PDF officiel sans avoir à inférer le UUID depuis ailleurs.
+    order_uuid = serializers.UUIDField(source="order.uuid", read_only=True)
     patient_phone = serializers.CharField(source="order.sample.appointment.patient.phone", read_only=True)
 
     class Meta:
         model = TestResult
         fields = (
-            "uuid",
+            "uuid", "order_uuid",
             "test_name", "test_code", "patient_phone",
             "value", "unit", "reference_range", "flag",
             "technician_notes", "technician_name", "technician_signed_at",
             "biologist_name", "biologist_validated_at", "biologist_comment",
             "original_value",
         )
-        read_only_fields = ("uuid", "technician_signed_at",
+        read_only_fields = ("uuid", "order_uuid", "technician_signed_at",
                             "biologist_validated_at", "technician_name", "biologist_name",
                             "test_name", "test_code", "patient_phone",
                             "original_value")

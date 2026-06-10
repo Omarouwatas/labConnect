@@ -14,7 +14,7 @@ import Inventory from "./screens/Inventory";
 import Sidebar from "./components/Sidebar";
 import Topbar from "./components/Topbar";
 import { FullScreenLoader } from "./components/Misc";
-import { fetchCatalog, fetchEmployees, fetchOrders } from "./api";
+import { fetchCatalog, fetchEmployees, fetchOrders, fetchHomeVisits } from "./api";
 
 const SCREEN_LABELS = {
   dashboard: "Tableau de bord",
@@ -23,16 +23,17 @@ const SCREEN_LABELS = {
   staff:     "Personnel",
   stats:     "Statistiques",
   inventory: "Inventaire",
-  map:       "Carte terrain",
+  map:       "Tournées",
   settings:  "Paramètres",
 };
 
 function defaultScreenFor(roles) {
   const arr = roles || [];
-  // Chef → vue d'ensemble. Sinon, si l'utilisateur peut saisir ou valider,
-  // son boulot quotidien = écran Analyses.
+  // Chaque rôle atterrit sur son écran de travail quotidien.
   if (arr.includes("lab_chief")) return "dashboard";
   if (arr.includes("biologist") || arr.includes("technician")) return "analyses";
+  // Une infirmière sans autre rôle commence sur sa tournée du jour.
+  if (arr.includes("nurse")) return "map";
   return "dashboard";
 }
 
@@ -43,6 +44,11 @@ function Shell({ showCreateLab }) {
   const displayRole = primaryRole(staffRoles);
   const [screen, setScreen] = useState(() => defaultScreenFor(staffRoles));
   const [counts, setCounts] = useState({});
+  // Drawer mobile — ouvert/fermé. Sur desktop la sidebar est toujours
+  // visible ; en dessous de 900 px elle se cache et s'ouvre via le
+  // hamburger de la topbar. On ferme automatiquement quand on change
+  // d'écran (la navigation a eu lieu, l'utilisateur veut voir le contenu).
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const permissions = permissionsFor(staffRoles);
 
@@ -50,11 +56,17 @@ function Shell({ showCreateLab }) {
     (async () => {
       try {
         const targetStatus = permissions.validate ? "completed" : "in_progress";
-        const [tests, staff, toAct] = await Promise.allSettled([
+        const [tests, staff, toAct, todayVisits] = await Promise.allSettled([
           fetchCatalog(),
           fetchEmployees(),
           (permissions.enterResult || permissions.validate)
             ? fetchOrders(`?status=${targetStatus}`)
+            : Promise.resolve([]),
+          // Badge sidebar « Tournées » : nombre de visites à domicile
+          // pertinentes pour cet utilisateur (mine si nurse seule, all
+          // sinon — le backend décide en fonction du rôle).
+          permissions.viewHomeVisits
+            ? fetchHomeVisits()
             : Promise.resolve([]),
         ]);
         const len = (s) => s.status === "fulfilled" ? s.value.length : undefined;
@@ -62,19 +74,32 @@ function Shell({ showCreateLab }) {
           tests: len(tests),
           staff: len(staff),
           toAct: len(toAct),
+          todayVisits: len(todayVisits),
         });
       } catch { /* ignore */ }
     })();
-  }, [screen, activeLab?.uuid, permissions.enterResult, permissions.validate]);
+  }, [screen, activeLab?.uuid, permissions.enterResult, permissions.validate, permissions.viewHomeVisits]);
 
+  // Garde-fou : si l'écran courant n'est plus accessible (changement
+  // de rôle, init désynchronisé), on rebondit vers le dashboard. C'est
+  // une ceinture-et-bretelles avec le filtre côté Sidebar : la sidebar
+  // masque l'item, mais on peut atterrir ici si l'état est obsolète.
   useEffect(() => {
     if (screen === "settings" && !permissions.editSettings) setScreen("dashboard");
-    if (screen === "map" && !(permissions.editStaff || permissions.editSettings)) setScreen("dashboard");
+    if (screen === "map" && !permissions.viewHomeVisits) setScreen("dashboard");
     if (screen === "analyses" && !permissions.enterResult && !permissions.validate && !permissions.editTests) {
       setScreen("dashboard");
     }
     if (screen === "inventory" && !permissions.editTests) setScreen("dashboard");
-  }, [screen, permissions.editSettings, permissions.editStaff, permissions.enterResult, permissions.validate, permissions.editTests]);
+    if (screen === "staff" && !permissions.editStaff && !permissions.viewFinance) {
+      setScreen("dashboard");
+    }
+  }, [
+    screen,
+    permissions.editSettings, permissions.viewHomeVisits,
+    permissions.enterResult, permissions.validate, permissions.editTests,
+    permissions.editStaff, permissions.viewFinance,
+  ]);
 
   const ScreenCmp = {
     dashboard: <Dashboard user={user} lab={activeLab} roles={staffRoles} primaryRole={displayRole} permissions={permissions} />,
@@ -83,18 +108,31 @@ function Shell({ showCreateLab }) {
     staff:     <Staff permissions={permissions} />,
     stats:     <Stats permissions={permissions} />,
     inventory: <Inventory permissions={permissions} />,
-    map:       <NursesMap lab={activeLab} />,
+    map:       <NursesMap lab={activeLab} permissions={permissions} />,
     settings:  <Settings permissions={permissions} lab={activeLab} />,
   }[screen];
 
+  // Bascule l'écran ET ferme le drawer mobile en même temps (sinon
+  // le menu reste ouvert par-dessus l'écran qu'on vient d'ouvrir).
+  const navigate = (next) => { setScreen(next); setMobileMenuOpen(false); };
+
   return (
-    <div className="app">
+    <div className={`app ${mobileMenuOpen ? "menu-open" : ""}`}>
       <Sidebar
         active={screen}
-        onNavigate={setScreen}
+        onNavigate={navigate}
         permissions={permissions}
         lab={activeLab}
         counts={counts}
+        mobileOpen={mobileMenuOpen}
+        onMobileClose={() => setMobileMenuOpen(false)}
+      />
+      {/* Backdrop semi-opaque cliquable — visible uniquement quand le
+          drawer mobile est ouvert. Sur desktop ce div est masqué via CSS. */}
+      <div
+        className={`sidebar-backdrop ${mobileMenuOpen ? "open" : ""}`}
+        onClick={() => setMobileMenuOpen(false)}
+        aria-hidden="true"
       />
       <main>
         <Topbar
@@ -107,6 +145,7 @@ function Shell({ showCreateLab }) {
           roles={staffRoles}
           primaryRole={displayRole}
           onLogout={logout}
+          onMenuOpen={() => setMobileMenuOpen(true)}
         />
         {ScreenCmp}
       </main>

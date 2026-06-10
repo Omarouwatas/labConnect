@@ -156,6 +156,15 @@ class TestOrder(BaseModel):
     )
     started_at = models.DateTimeField(null=True, blank=True)
     completed_at = models.DateTimeField(null=True, blank=True)
+    # Code-barre du tube physiquement utilisé pour ce test. Saisi par
+    # l'infirmier·e au moment du prélèvement (un tube différent par test
+    # quand les types d'échantillon diffèrent — EDTA, sec, fluoré…).
+    # Indexé pour permettre une recherche rapide « ce tube correspond à
+    # quel ordre / quel patient ? » au labo.
+    tube_barcode = models.CharField(
+        max_length=64, blank=True, db_index=True,
+        help_text="Code-barre du tube utilisé pour ce test.",
+    )
 
     class Meta:
         verbose_name = "test order"

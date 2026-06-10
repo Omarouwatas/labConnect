@@ -1,14 +1,16 @@
 // ResultDetailScreen — détail d'un résultat validé avec jauge visuelle
 // (Bas / Réf / Haut) et commentaire du biologiste.
-import React from "react";
+import React, { useState } from "react";
 import { View, Text, ScrollView, StyleSheet } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { C, R, SHADOW, F } from "../theme";
 import { Btn, IconBtn, Tag, Avatar, Card, hexA } from "../components/UI";
 import { Icon } from "../icons";
+import { downloadAndOpenResultPdf } from "../pdfDownload";
 
 export default function ResultDetailScreen({ route, navigation }) {
   const { result: r } = route.params;
+  const [downloading, setDownloading] = useState(false);
   const flag = (r.flag || "normal").toLowerCase();
   const meta = flag === "normal"
     ? { c: C.leaf,  t: "Dans la norme",  pos: 50 }
@@ -75,7 +77,26 @@ export default function ResultDetailScreen({ route, navigation }) {
           </Card>
         ) : null}
 
-        <Btn full size="lg" variant="dark" icon="download">Télécharger le PDF</Btn>
+        {/* Téléchargement du PDF officiel du résultat. L'order_uuid est
+            celui exposé par TestResultSerializer côté backend — c'est
+            la clé utilisée par l'endpoint /lab/orders/{uuid}/result/pdf. */}
+        <Btn
+          full size="lg" variant="dark" icon="download"
+          loading={downloading}
+          disabled={downloading || !(r.order_uuid || r.order)}
+          onPress={async () => {
+            const orderUuid = r.order_uuid || r.order?.uuid || r.order;
+            if (!orderUuid) return;
+            setDownloading(true);
+            await downloadAndOpenResultPdf(
+              orderUuid,
+              r.test_code || r.test_name || "resultat",
+            );
+            setDownloading(false);
+          }}
+        >
+          {downloading ? "Préparation du PDF…" : "Télécharger le PDF"}
+        </Btn>
       </ScrollView>
     </View>
   );

@@ -1,6 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, { useEffect, useMemo, useRef, useCallback } from "react";
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, useWindowDimensions } from "react-native";
 import { WebView } from "react-native-webview";
 import { C, DEFAULT_LOCATION } from "../theme";
 
@@ -12,7 +12,15 @@ import { C, DEFAULT_LOCATION } from "../theme";
  *   userLocation    : { lat, lng } | null
  *   center          : { lat, lng }  ← centre initial
  *   onLabPress(uuid): callback exécuté quand l'utilisateur tappe un marqueur
- *   height          : nombre (défaut 320)
+ *   height          : nombre — boîte fixe (mode mini-carte).
+ *                     Si OMIS / undefined → mode plein écran : le composant
+ *                     mesure window.width × window.height et fait remplir
+ *                     ces dimensions explicites au wrap. C'est nécessaire
+ *                     parce que `flex: 1` sur une WebView est intermittent
+ *                     sur iOS quand elle est imbriquée dans plusieurs vues.
+ *
+ * ⚠️ Ne JAMAIS mettre de valeur par défaut sur `height` sinon
+ *    `height !== undefined` reste toujours vrai et on a une boîte fixe.
  *
  * Le HTML est construit UNE seule fois (state initial figé). Les
  * changements de `labs` / `userLocation` sont propagés via
@@ -24,8 +32,11 @@ export default function LabMapView({
   userLocation = null,
   center = DEFAULT_LOCATION,
   onLabPress,
-  height = 320,
+  height,
 }) {
+  // Dimensions de la fenêtre — utilisées UNIQUEMENT en mode plein écran.
+  // Le hook est réactif aux rotations.
+  const { width: winW, height: winH } = useWindowDimensions();
   const webRef = useRef(null);
   const initialReady = useRef(false);
 
@@ -39,6 +50,23 @@ export default function LabMapView({
 
   const onLoadEnd = useCallback(() => {
     initialReady.current = true;
+    // Au moment où la WebView signale `load`, le natif vient juste de
+    // lui donner ses dimensions finales. On force Leaflet à les re-lire.
+    if (webRef.current) {
+      webRef.current.injectJavaScript(
+        "window.__invalidateSize && window.__invalidateSize(); true;",
+      );
+    }
+  }, []);
+
+  // Re-déclenche aussi un invalidateSize quand la WebView est mesurée
+  // après coup (animation de transition de stack, rotation, etc.).
+  const onLayout = useCallback(() => {
+    if (initialReady.current && webRef.current) {
+      webRef.current.injectJavaScript(
+        "window.__invalidateSize && window.__invalidateSize(); true;",
+      );
+    }
   }, []);
 
   // Sync labs → WebView dès qu'elle est prête (ou plus tard si elle ne l'est
@@ -64,8 +92,22 @@ export default function LabMapView({
     } catch { /* ignore */ }
   }, [onLabPress]);
 
+  // Deux modes :
+  //   - `height` défini   → boîte fixe (mini-carte HomeScreen) avec
+  //                         coins arrondis.
+  //   - `height` undefined → mode plein écran (MapScreen). On donne
+  //                          des dimensions EXPLICITES en pixels via
+  //                          useWindowDimensions, pas de flex/absolute,
+  //                          parce que les deux sont peu fiables avec
+  //                          react-native-webview sur iOS quand on
+  //                          imbrique plusieurs vues.
+  const fullscreen = height === undefined;
+  const wrapStyle = fullscreen
+    ? { width: winW, height: winH, backgroundColor: C.bgElev }
+    : [styles.wrap, { height }];
+
   return (
-    <View style={[styles.wrap, { height }]}>
+    <View style={wrapStyle} onLayout={onLayout}>
       <WebView
         ref={webRef}
         source={{ html: initialHtml }}
@@ -93,7 +135,21 @@ function buildHtml({ labs, userLocation, center }) {
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 <style>
-  html, body, #map { margin: 0; padding: 0; height: 100%; width: 100%; background: #E8F1F0; }
+  /* On force 100% partout dans la chaîne html → body → #map, et
+     position:absolute sur #map en backup au cas où la box du body
+     serait mal mesurée par WebKit/Android lors du premier layout. */
+  html, body {
+    margin: 0; padding: 0;
+    height: 100%; width: 100%;
+    overflow: hidden;
+    background: #E8F1F0;
+  }
+  #map {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    height: 100%; width: 100%;
+    background: #E8F1F0;
+  }
   /* Marqueur labo : pin "goutte" turquoise médical avec ombre douce. */
   .lab-marker {
     width: 34px; height: 34px;
@@ -110,12 +166,30 @@ function buildHtml({ labs, userLocation, center }) {
     background: #fff;
     border-radius: 50%;
   }
+  /* Position de l'utilisateur : pastille bleue pulsante façon GPS, avec
+     halo doux pour suggérer la précision de la mesure. */
   .user-marker {
-    background: ${C.grape};
+    position: relative;
+    width: 22px; height: 22px;
+  }
+  .user-marker::before {
+    content: '';
+    position: absolute; inset: -14px;
+    background: rgba(74,111,165,0.18);
+    border-radius: 50%;
+    animation: pulse 2.4s ease-out infinite;
+  }
+  .user-marker::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: #4A6FA5;
     border: 4px solid #fff;
     border-radius: 50%;
-    width: 22px; height: 22px;
-    box-shadow: 0 4px 12px rgba(124,107,255,0.5);
+    box-shadow: 0 4px 12px rgba(74,111,165,0.5);
+  }
+  @keyframes pulse {
+    0%   { transform: scale(0.6); opacity: 0.85; }
+    100% { transform: scale(2.4); opacity: 0;    }
   }
   .leaflet-container { background: #E8F1F0 !important; }
   .leaflet-popup-content { font-family: -apple-system, system-ui, sans-serif; }
@@ -140,6 +214,23 @@ function buildHtml({ labs, userLocation, center }) {
     maxZoom: 19,
     attribution: '© OSM'
   }).addTo(map);
+
+  // Hack classique Leaflet dans une WebView : la première mesure est
+  // faite avant que le natif n'ait fini son layout, donc la carte ne
+  // remplit que la fraction visible au moment du L.map(). On force
+  // des recalculs :
+  //   - dès que tout le DOM est prêt (load)
+  //   - une fois après un tick (raf)
+  //   - et à chaque resize de la fenêtre (rotation, switch home/map…)
+  function invalidate() { try { map.invalidateSize(true); } catch (e) {} }
+  window.addEventListener('load', invalidate);
+  window.addEventListener('resize', invalidate);
+  requestAnimationFrame(invalidate);
+  setTimeout(invalidate, 80);
+  setTimeout(invalidate, 400);
+
+  // Exposé pour qu'on puisse le déclencher depuis RN via injectJavaScript.
+  window.__invalidateSize = invalidate;
 
   function notifyRN(payload) {
     if (window.ReactNativeWebView) {
@@ -192,6 +283,10 @@ function buildHtml({ labs, userLocation, center }) {
 }
 
 const styles = StyleSheet.create({
+  // Mode mini-carte : hauteur fixe + coins arrondis.
   wrap: { borderRadius: 14, overflow: "hidden", backgroundColor: C.bgElev },
+  // Le WebView remplit son parent — qui a soit une hauteur fixe (mini)
+  // soit des dimensions en pixels via useWindowDimensions (fullscreen).
+  // Dans les deux cas, le parent a une hauteur concrète → flex:1 marche.
   web: { flex: 1, backgroundColor: "transparent" },
 });

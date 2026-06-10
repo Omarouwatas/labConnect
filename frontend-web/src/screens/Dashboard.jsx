@@ -2,6 +2,9 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { I } from "../icons";
 import { CatBadge, PermRibbon } from "../components/Misc";
 import WalkInModal from "../components/WalkInModal";
+import AppointmentDetailModal from "../components/AppointmentDetailModal";
+import InvoiceModal from "../components/InvoiceModal";
+import FinanceTab from "../components/FinanceTab";
 import { fetchOrders, fetchSamples, fetchEmployees, fetchAppointments } from "../api";
 import { ROLE_LABELS, initials, avatarClassFor } from "../constants";
 
@@ -19,6 +22,19 @@ export default function Dashboard({ user, lab, permissions }) {
   const [employees, setEmployees] = useState([]);
   const [appts, setAppts] = useState([]);
   const [walkInOpen, setWalkInOpen] = useState(false);
+  // Modal de gestion d'un RDV — null = fermé. On garde l'objet complet
+  // (et non juste l'uuid) pour éviter un round-trip à l'ouverture.
+  const [activeAppt, setActiveAppt] = useState(null);
+  // Onglet actif du dashboard : "overview" (activité) ou "finance" (CA,
+  // CNAM, factures). Le tab Finances n'existe que pour qui a viewFinance
+  // (chef de labo / biologiste).
+  const [tab, setTab] = useState("overview");
+  // Facture ouverte depuis le tab Finances — uuid du RDV ou null.
+  const [invoiceAppt, setInvoiceAppt] = useState(null);
+  const showFinanceTab = !!permissions.viewFinance;
+  // Garde-fou : si on perd la permission alors qu'on est sur le tab
+  // finance, on rebascule sur overview.
+  const effectiveTab = (tab === "finance" && showFinanceTab) ? "finance" : "overview";
   // Un user qui n'a pas accès aux finances voit moins de KPI ;
   // c'est piloté par la permission `viewFinance` (union des rôles).
   const hideFinance = !permissions.viewFinance;
@@ -43,7 +59,7 @@ export default function Dashboard({ user, lab, permissions }) {
     // Petit feedback puis reload silencieux des KPI/queue.
     const newPatient = result?.patient_created ? " · nouveau patient enregistré" : "";
     // eslint-disable-next-line no-alert
-    alert(`Analyse créée ✓ ${result?.tests_count || ""} test${(result?.tests_count || 0) > 1 ? "s" : ""}${newPatient}.`);
+    //alert(`Analyse créée ✓ ${result?.tests_count || ""} test${(result?.tests_count || 0) > 1 ? "s" : ""}${newPatient}.`);
     reload();
   }, [reload]);
 
@@ -99,13 +115,63 @@ export default function Dashboard({ user, lab, permissions }) {
     .filter((o) => o.status === "in_progress" || o.status === "pending")
     .slice(0, 5);
 
+  // Rendez-vous récents — affichage explicite des RDV pris depuis l'app
+  // mobile ou créés en walk-in. On garde les 8 plus récents, triés par
+  // `scheduled_for` croissant (les RDV imminents en premier, puis les
+  // futurs plus lointains, puis le passé en bas).
+  const upcomingAppts = useMemo(() => {
+    const now = Date.now();
+    const sorted = [...appts].sort((a, b) => {
+      const da = new Date(a.scheduled_for).getTime();
+      const db = new Date(b.scheduled_for).getTime();
+      const aFuture = da >= now ? 0 : 1;
+      const bFuture = db >= now ? 0 : 1;
+      if (aFuture !== bFuture) return aFuture - bFuture;
+      return aFuture === 0 ? da - db : db - da; // futur asc, passé desc
+    });
+    return sorted.slice(0, 8);
+  }, [appts]);
+
+  const fmtApptWhen = (iso) => {
+    if (!iso) return "—";
+    const d = new Date(iso);
+    const now = new Date();
+    const sameDay = d.toDateString() === now.toDateString();
+    const tomorrow = new Date(now);
+    tomorrow.setDate(now.getDate() + 1);
+    const isTomorrow = d.toDateString() === tomorrow.toDateString();
+    const hm = d.toLocaleTimeString("fr-FR", { hour: "2-digit", minute: "2-digit" });
+    if (sameDay) return `Aujourd'hui · ${hm}`;
+    if (isTomorrow) return `Demain · ${hm}`;
+    return d.toLocaleString("fr-FR", {
+      day: "2-digit", month: "short", hour: "2-digit", minute: "2-digit",
+    });
+  };
+
+  const apptStatusLabel = (s) => ({
+    pending: { label: "En attente", cls: "" },
+    confirmed: { label: "Confirmé", cls: "blue" },
+    in_progress: { label: "En cours", cls: "amber" },
+    completed: { label: "Terminé", cls: "green" },
+    cancelled: { label: "Annulé", cls: "rose" },
+    no_show: { label: "Absent", cls: "rose" },
+  }[s] || { label: s, cls: "" });
+
+  const visitTypeLabel = (t) => ({
+    in_lab: "Au labo",
+    home: "À domicile",
+    emergency: "Urgence",
+  }[t] || t);
+
   return (
     <div className="page">
       <div className="page-header">
         <div>
           <h1 className="page-title">Bonjour <em>{greetingFirst}</em>, voici votre journée.</h1>
           <p className="page-sub">
-            Vue d'ensemble des analyses en cours, du staff en poste et de l'activité du laboratoire.
+            {effectiveTab === "finance"
+              ? "Chiffre d'affaires, couverture CNAM et facturation du laboratoire."
+              : "Vue d'ensemble des analyses en cours, du staff en poste et de l'activité du laboratoire."}
           </p>
         </div>
         <div className="page-actions">
@@ -123,12 +189,65 @@ export default function Dashboard({ user, lab, permissions }) {
         </div>
       </div>
 
+      {/* Onglets — n'apparaissent que si l'utilisateur a accès aux
+          finances. Sinon le dashboard reste mono-vue (overview). */}
+      {showFinanceTab && (
+        <div className="segmented" style={{ marginBottom: 22 }}>
+          <button
+            className={effectiveTab === "overview" ? "active" : ""}
+            onClick={() => setTab("overview")}
+          >
+            <I.Home size={13} sw={1.8} style={{ marginRight: 6, verticalAlign: "-2px" }} />
+            Vue d'ensemble
+          </button>
+          <button
+            className={effectiveTab === "finance" ? "active" : ""}
+            onClick={() => setTab("finance")}
+          >
+            <I.BarChart size={13} sw={1.8} style={{ marginRight: 6, verticalAlign: "-2px" }} />
+            Finances
+          </button>
+        </div>
+      )}
+
       {walkInOpen && (
         <WalkInModal
           onClose={() => setWalkInOpen(false)}
           onCreated={onWalkInCreated}
         />
       )}
+
+      {activeAppt && (
+        <AppointmentDetailModal
+          appt={activeAppt}
+          permissions={permissions}
+          onClose={() => setActiveAppt(null)}
+          onUpdated={(updated) => {
+            // Met à jour la ligne dans la table sans tout recharger,
+            // puis lance un reload silencieux pour rafraîchir aussi
+            // les KPI et la file d'attente impactées par la cascade.
+            setAppts((prev) => prev.map((a) => a.uuid === updated.uuid ? updated : a));
+            reload();
+          }}
+        />
+      )}
+
+      {/* Facture détaillée — ouverte depuis le tab Finances. */}
+      {invoiceAppt && (
+        <InvoiceModal
+          apptUuid={invoiceAppt}
+          onClose={() => setInvoiceAppt(null)}
+        />
+      )}
+
+      {/* ── Tab Finances ──────────────────────────────────────────── */}
+      {effectiveTab === "finance" && (
+        <FinanceTab appts={appts} onOpenInvoice={setInvoiceAppt} />
+      )}
+
+      {/* ── Tab Vue d'ensemble (contenu existant) ─────────────────── */}
+      {effectiveTab === "overview" && (
+      <>{/* fragment ouvrant — fermé en fin de page */}
 
       <div className="grid-4" style={{ marginBottom: 22 }}>
         {kpis.map((k, i) => (
@@ -203,6 +322,87 @@ export default function Dashboard({ user, lab, permissions }) {
         </div>
       </div>
 
+      {/* ── Rendez-vous récents ─────────────────────────────────────
+          Affiche les 8 RDV les plus pertinents (imminents d'abord, puis
+          futurs lointains, puis passés) : ceux pris depuis l'app mobile,
+          du walk-in comptoir et des consoles staff confondus. C'est la
+          source de vérité visible côté web — précédemment seul un KPI
+          comptabilisait les RDV du jour. */}
+      <div className="card" style={{ marginTop: 16 }}>
+        <div className="card-head">
+          <div>
+            <h3>Rendez-vous récents</h3>
+            <div className="sub">
+              {appts.length} RDV au total · les 8 prochains
+              {appts.length > 8 ? " — utilisez Analyses pour la liste complète" : ""}
+            </div>
+          </div>
+          <span className="badge orange"><span className="dot" />{appts.length}</span>
+        </div>
+        <table className="tbl">
+          <thead>
+            <tr>
+              <th>Patient</th>
+              <th>Quand</th>
+              <th>Type</th>
+              <th>Statut</th>
+              <th className="num">Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            {upcomingAppts.length === 0 && (
+              <tr><td colSpan={5} className="empty">
+                {lab
+                  ? `Aucun rendez-vous pour ${lab.name || "ce laboratoire"}.`
+                  : "Sélectionnez un laboratoire actif en haut à droite."}
+              </td></tr>
+            )}
+            {upcomingAppts.map((a) => {
+              const st = apptStatusLabel(a.status);
+              // Toute la ligne est cliquable → ouvre la modal de gestion.
+              // On garde un curseur pointer + un léger hover pour signaler
+              // que c'est actionnable, sans alourdir le visuel.
+              return (
+                <tr
+                  key={a.uuid}
+                  onClick={() => setActiveAppt(a)}
+                  style={{ cursor: "pointer" }}
+                  title="Voir le détail et avancer le rendez-vous"
+                >
+                  <td>
+                    <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                      <div className={`avatar ${avatarClassFor(a.patient_uuid)}`} style={{ width: 28, height: 28, fontSize: 11 }}>
+                        {initials(a.patient_name || a.patient_phone || "?")}
+                      </div>
+                      <div>
+                        <div style={{ fontWeight: 500, fontSize: 13 }}>
+                          {a.patient_name || "—"}
+                        </div>
+                        <div style={{ fontSize: 11.5, color: "var(--ink-3)", fontFamily: "var(--mono)" }}>
+                          {a.patient_phone || "—"}
+                        </div>
+                      </div>
+                    </div>
+                  </td>
+                  <td style={{ fontSize: 13 }}>{fmtApptWhen(a.scheduled_for)}</td>
+                  <td>
+                    <span className="badge"><span className="dot" />{visitTypeLabel(a.visit_type)}</span>
+                  </td>
+                  <td>
+                    <span className={`badge ${st.cls}`}><span className="dot" />{st.label}</span>
+                  </td>
+                  <td className="num" style={{ fontFamily: "var(--mono)" }}>
+                    {a.patient_due_mru
+                      ? `${Number(a.patient_due_mru).toFixed(0)} MRU`
+                      : (a.total_fee_mru ? `${Number(a.total_fee_mru).toFixed(0)} MRU` : "—")}
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
+
       <div style={{ display: "grid", gridTemplateColumns: "1fr 1.2fr", gap: 16, marginTop: 16 }}>
         <div className="card">
           <div className="card-head">
@@ -269,6 +469,8 @@ export default function Dashboard({ user, lab, permissions }) {
           </table>
         </div>
       </div>
+      </>
+      )}{/* ── fin tab Vue d'ensemble ── */}
     </div>
   );
 }

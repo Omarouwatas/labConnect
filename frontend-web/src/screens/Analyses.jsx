@@ -3,10 +3,54 @@ import { I } from "../icons";
 import { CatBadge, PermRibbon } from "../components/Misc";
 import Modal from "../components/Modal";
 import WalkInModal from "../components/WalkInModal";
+import InvoiceModal from "../components/InvoiceModal";
 import {
-  fetchOrders, fetchOrderResult, enterResult, validateResult, fetchInvoice,
+  fetchOrders, fetchOrderResult, enterResult, validateResult,
+  resultPdfUrl, tokens,
 } from "../api";
 import { CURRENCY, initials, avatarClassFor } from "../constants";
+
+/**
+ * Télécharge le PDF officiel du résultat validé.
+ *
+ * Pourquoi un fetch + blob plutôt qu'un simple `<a href>` ou
+ * `window.open()` ? Parce que l'endpoint exige l'`Authorization`
+ * Bearer, qui ne se propage pas avec une navigation directe. On fait
+ * donc un fetch authentifié, on récupère le blob et on génère une URL
+ * temporaire `blob:` qui s'ouvre dans un nouvel onglet (le navigateur
+ * propose alors « Enregistrer sous » / aperçu PDF natif).
+ */
+async function downloadResultPdf(orderUuid, label = "resultat") {
+  try {
+    const res = await fetch(resultPdfUrl(orderUuid), {
+      headers: tokens.access ? { Authorization: `Bearer ${tokens.access}` } : {},
+    });
+    if (!res.ok) {
+      const text = await res.text().catch(() => "");
+      // eslint-disable-next-line no-alert
+      alert(`PDF indisponible : ${text || res.statusText}`);
+      return;
+    }
+    const blob = await res.blob();
+    const url = URL.createObjectURL(blob);
+    // On ouvre dans un nouvel onglet — le navigateur affiche le PDF
+    // avec ses contrôles natifs (zoom, impression, download).
+    const a = document.createElement("a");
+    a.href = url;
+    a.target = "_blank";
+    a.rel = "noopener";
+    a.download = `${label}.pdf`;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    // Petite latence avant de révoquer l'URL pour laisser le temps au
+    // navigateur d'ouvrir le PDF.
+    setTimeout(() => URL.revokeObjectURL(url), 30_000);
+  } catch (e) {
+    // eslint-disable-next-line no-alert
+    alert("Erreur lors du téléchargement du PDF.");
+  }
+}
 
 // ──────────────────────────────────────────────────────────────────────────
 // Helpers
@@ -212,6 +256,18 @@ function ValidationModal({ order, onClose, onValidated, readOnly = false }) {
           </div>
           <div className="actions">
             <button className="btn btn-ghost" onClick={onClose}>Fermer</button>
+            {readOnly && (
+              // Résultat déjà validé → on offre le PDF officiel. C'est
+              // le même PDF que celui que le patient reçoit dans son app,
+              // utile pour réimprimer ou contresigner physiquement.
+              <button
+                className="btn btn-ghost"
+                onClick={() => downloadResultPdf(order.uuid, `${order.test_code}_${order.uuid?.slice(0,8) || ""}`)}
+                title="Télécharger le PDF officiel"
+              >
+                <I.Export size={14} sw={1.8} /> PDF résultat
+              </button>
+            )}
             {!readOnly && (
               <button className="btn btn-orange" onClick={submit} disabled={saving || loading || !result}>
                 {saving ? <span className="spinner" /> : <I.Check size={14} sw={2} />}
@@ -242,6 +298,40 @@ function ValidationModal({ order, onClose, onValidated, readOnly = false }) {
                 Valeur d'origine archivée : <span style={{ fontFamily: "var(--mono)" }}>{result.original_value}</span>
               </span>
             )}
+          </div>
+
+          {/* Bandeau tube + échantillon — info opérationnelle pour le
+              biologiste. Le n° de tube est saisi par l'infirmier·e à la
+              fin du prélèvement à domicile, ou par la secrétaire au
+              comptoir. On le met en évidence (mono + chip) pour réduire
+              les erreurs d'appariement entre tubes et résultats. */}
+          <div style={{
+            display: "flex", alignItems: "center", gap: 14, marginBottom: 14,
+            padding: 12, background: "var(--bg)", borderRadius: 8,
+            border: "1px solid var(--line)",
+          }}>
+            <div style={{ flex: 1 }}>
+              <div className="kpi-label" style={{ marginBottom: 4 }}>Échantillon</div>
+              <div style={{ fontFamily: "var(--mono)", fontWeight: 700, fontSize: 14 }}>
+                {order.sample_barcode || "—"}
+              </div>
+            </div>
+            <div style={{ flex: 1 }}>
+              <div className="kpi-label" style={{ marginBottom: 4 }}>N° tube physique</div>
+              {order.tube_barcode ? (
+                <span style={{
+                  fontFamily: "var(--mono)", fontWeight: 700, fontSize: 14,
+                  background: "var(--o-glow)", color: "var(--o-deep)",
+                  padding: "3px 9px", borderRadius: 6,
+                }}>
+                  {order.tube_barcode}
+                </span>
+              ) : (
+                <span style={{ fontSize: 13, color: "var(--ink-3)", fontStyle: "italic" }}>
+                  non renseigné par l'infirmier·e
+                </span>
+              )}
+            </div>
           </div>
 
           {/* Contexte clinique : réponses au questionnaire pré-test
@@ -323,145 +413,6 @@ function ValidationModal({ order, onClose, onValidated, readOnly = false }) {
 }
 
 // ──────────────────────────────────────────────────────────────────────────
-// Modal — facture du rendez-vous
-// ──────────────────────────────────────────────────────────────────────────
-
-function InvoiceModal({ apptUuid, onClose }) {
-  const [data, setData] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [err, setErr] = useState(null);
-
-  useEffect(() => {
-    let cancelled = false;
-    (async () => {
-      try {
-        const inv = await fetchInvoice(apptUuid);
-        if (!cancelled) setData(inv);
-      } catch (e) {
-        if (!cancelled) setErr(e?.detail || "Facture indisponible.");
-      } finally { if (!cancelled) setLoading(false); }
-    })();
-    return () => { cancelled = true; };
-  }, [apptUuid]);
-
-  return (
-    <Modal
-      wide
-      title={<>Facture du <em>rendez-vous</em></>}
-      subtitle={data ? `${data.laboratory?.name || "—"} · ${data.patient?.name || "—"}` : "Chargement…"}
-      onClose={onClose}
-      footer={
-        <>
-          <div className="hint">
-            {data?.patient?.cnam_coverage_pct
-              ? `Patient couvert CNAM à ${data.patient.cnam_coverage_pct}%.`
-              : "Pas de couverture CNAM enregistrée pour ce patient."}
-          </div>
-          <div className="actions">
-            <button className="btn btn-ghost" onClick={onClose}>Fermer</button>
-            <button className="btn btn-orange" onClick={() => window.print()} disabled={!data}>
-              <I.Export size={14} sw={1.8} /> Imprimer
-            </button>
-          </div>
-        </>
-      }
-    >
-      {err && <div className="auth-error" style={{ marginBottom: 12 }}>{err}</div>}
-      {loading && <div className="empty"><span className="spinner" /> Chargement de la facture…</div>}
-      {!loading && data && (
-        <>
-          <div style={{
-            display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14,
-            padding: 14, background: "var(--bg)", borderRadius: 10, marginBottom: 14,
-          }}>
-            <div>
-              <div className="kpi-label">Patient</div>
-              <div style={{ fontWeight: 600, fontSize: 14, marginTop: 4 }}>{data.patient.name}</div>
-              <div style={{ fontSize: 12, color: "var(--ink-3)", fontFamily: "var(--mono)" }}>
-                {data.patient.phone}
-              </div>
-              {data.patient.cnam_number && (
-                <div style={{ marginTop: 6, fontSize: 12 }}>
-                  CNAM <span style={{ fontFamily: "var(--mono)" }}>{data.patient.cnam_number}</span>
-                  {" "}· couverture <strong>{data.patient.cnam_coverage_pct}%</strong>
-                </div>
-              )}
-            </div>
-            <div>
-              <div className="kpi-label">Rendez-vous</div>
-              <div style={{ fontSize: 13, marginTop: 4 }}>{fmtDateTime(data.scheduled_for)}</div>
-              <div style={{ fontSize: 12, color: "var(--ink-3)" }}>{data.visit_type === "in_lab" ? "Au comptoir" : "Visite à domicile"}</div>
-            </div>
-          </div>
-
-          <table className="tbl" style={{ marginBottom: 14 }}>
-            <thead>
-              <tr>
-                <th>Test</th>
-                <th>Échantillon</th>
-                <th className="num">Prix</th>
-                <th className="num">CNAM</th>
-                <th className="num">Patient</th>
-                <th>Statut</th>
-              </tr>
-            </thead>
-            <tbody>
-              {data.items.length === 0 && (
-                <tr><td colSpan={6} className="empty">Aucun test sur ce RDV.</td></tr>
-              )}
-              {data.items.map((it) => (
-                <tr key={it.order_uuid}>
-                  <td>
-                    <div style={{ fontFamily: "var(--mono)", fontWeight: 600, fontSize: 13 }}>{it.test_code}</div>
-                    <div style={{ fontSize: 12, color: "var(--ink-3)" }}>{it.test_name}</div>
-                  </td>
-                  <td className="num" style={{ color: "var(--ink-3)", fontSize: 12 }}>{it.sample_barcode}</td>
-                  <td className="num">{CURRENCY.format(it.price_mru)}</td>
-                  <td className="num" style={{ color: "var(--ink-3)" }}>
-                    {it.cnam_covered_mru > 0 ? CURRENCY.format(it.cnam_covered_mru) : "—"}
-                  </td>
-                  <td className="num" style={{ fontWeight: 500 }}>{CURRENCY.format(it.patient_due_mru || it.price_mru)}</td>
-                  <td><StatusBadge status={it.status} /></td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-
-          <div style={{
-            display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 14,
-            padding: 14, background: "var(--bg)", borderRadius: 10,
-          }}>
-            <div>
-              <div className="kpi-label">Sous-total tests</div>
-              <div style={{ fontFamily: "var(--mono)", fontSize: 18, fontWeight: 600, marginTop: 4 }}>
-                {CURRENCY.format(data.subtotal_mru)}
-              </div>
-            </div>
-            <div>
-              <div className="kpi-label">Pris en charge CNAM</div>
-              <div style={{ fontFamily: "var(--mono)", fontSize: 18, fontWeight: 600, marginTop: 4, color: "var(--ink-2)" }}>
-                {CURRENCY.format(data.cnam_covered_total_mru)}
-              </div>
-            </div>
-            <div>
-              <div className="kpi-label">À charge patient</div>
-              <div style={{ fontFamily: "var(--mono)", fontSize: 22, fontWeight: 700, marginTop: 4, color: "var(--o-deep)" }}>
-                {CURRENCY.format(data.patient_due_total_mru)}
-              </div>
-              {data.appointment_fees_mru > 0 && (
-                <div style={{ fontSize: 11, color: "var(--ink-3)" }}>
-                  dont {CURRENCY.format(data.appointment_fees_mru)} de frais RDV
-                </div>
-              )}
-            </div>
-          </div>
-        </>
-      )}
-    </Modal>
-  );
-}
-
-// ──────────────────────────────────────────────────────────────────────────
 // Main screen
 // ──────────────────────────────────────────────────────────────────────────
 
@@ -499,8 +450,12 @@ export default function Analyses({ permissions }) {
     const newPatient = result?.patient_created ? " · nouveau patient enregistré" : "";
     // eslint-disable-next-line no-alert
     alert(`Analyse créée ✓ ${result?.tests_count || ""} test${(result?.tests_count || 0) > 1 ? "s" : ""}${newPatient}.`);
-    // On bascule sur la file « À saisir » et on reload — le nouvel ordre
-    // y apparaîtra (status = pending → in_progress après réception sample).
+    // Le walk-in crée le sample directement en `received` et les orders
+    // en `in_progress` (le patient est physiquement au comptoir, le
+    // prélèvement est fait dans la foulée). Du coup le nouvel ordre
+    // apparaît immédiatement dans la file « À saisir » — on s'y bascule
+    // si on n'y est pas déjà, sinon on relit la liste pour qu'il soit
+    // visible sans rechargement manuel.
     if (tab !== "in_progress") setTab("in_progress");
     else reload();
   }, [tab, reload]);
@@ -668,6 +623,19 @@ export default function Analyses({ permissions }) {
                         <button className="btn btn-ghost" style={{ padding: "6px 10px", fontSize: 12 }}
                           onClick={() => setActing({ mode: "view", order: o })}>
                           Voir
+                        </button>
+                        {/* Téléchargement direct du PDF officiel du
+                            résultat — le backend stream le PDF avec un
+                            content-disposition inline, le navigateur
+                            l'ouvre/le télécharge selon la conf user.
+                            On utilise window.open + l'URL absolue avec
+                            le token JWT injecté dans le header par fetch.
+                            Comme un <a target=_blank> ne propage pas
+                            d'Authorization, on fait un fetch + blob. */}
+                        <button className="btn btn-ghost" style={{ padding: "6px 10px", fontSize: 12 }}
+                          onClick={() => downloadResultPdf(o.uuid, o.test_code)}
+                          title="Télécharger le PDF officiel du résultat">
+                          <I.Export size={12} sw={1.8} /> PDF
                         </button>
                         {permissions.viewFinance && o.appointment_uuid && (
                           <button className="btn btn-ghost" style={{ padding: "6px 10px", fontSize: 12 }}

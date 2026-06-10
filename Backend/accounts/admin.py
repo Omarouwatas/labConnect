@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 
-from .models import OTPCode, PatientProfile, StaffProfile, User
+from .models import OTPCode, PatientProfile, StaffProfile, TrustedDevice, User
 
 
 @admin.register(User)
@@ -53,3 +53,11 @@ class OTPCodeAdmin(admin.ModelAdmin):
     list_filter = ("purpose",)
     search_fields = ("phone",)
     readonly_fields = ("salt", "code_hash")
+
+
+@admin.register(TrustedDevice)
+class TrustedDeviceAdmin(admin.ModelAdmin):
+    list_display = ("user", "phone", "device_label", "platform", "last_used_at", "revoked_at")
+    list_filter = ("platform", "revoked_at")
+    search_fields = ("user__phone", "phone", "device_id", "device_label")
+    readonly_fields = ("token_hash", "device_id")

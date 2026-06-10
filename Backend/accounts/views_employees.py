@@ -133,6 +133,42 @@ class EmployeeUpdateSerializer(serializers.Serializer):
 
 # ── Views ──────────────────────────────────────────────────────────────────
 
+class NurseListView(APIView):
+    """GET /api/v1/lab/nurses/
+
+    Liste minimaliste des infirmiers actifs du labo courant. Sert
+    notamment au sélecteur du modal d'affectation côté écran
+    « Tournées ». Accessible à tout staff 2FA (la secrétaire en a
+    besoin pour affecter, l'infirmière peut consulter ses collègues).
+    """
+    permission_classes = (IsStaffAnd2FA,)
+
+    def get(self, request: Request) -> Response:
+        lab_id = current_lab_id(request)
+        if not lab_id:
+            return Response([])
+        profiles = (
+            StaffProfile.active
+            .filter(laboratory_id=lab_id, user__groups__name=RoleNames.NURSE)
+            .select_related("user")
+            .distinct()
+            .order_by("user__first_name", "user__last_name")
+        )
+        data = [
+            {
+                "uuid": str(p.user.uuid),
+                "first_name": p.user.first_name,
+                "last_name": p.user.last_name,
+                "phone": p.user.phone or "",
+                "email": p.user.email or "",
+                "is_on_duty": p.is_on_duty,
+                "employee_id": p.employee_id,
+            }
+            for p in profiles
+        ]
+        return Response(data)
+
+
 class EmployeeInviteView(APIView):
     """POST /api/v1/lab/employees/invite"""
     permission_classes = (IsStaffAnd2FA, IsLabChief)

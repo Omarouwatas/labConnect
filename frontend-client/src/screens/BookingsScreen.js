@@ -115,6 +115,15 @@ export default function BookingsScreen({ navigation }) {
 function ApptCard({ a }) {
   const color = labColor(a.laboratory_uuid || a.lab || "");
   const isHome = a.visit_type === "home";
+  const [open, setOpen] = React.useState(false);
+
+  const items = a.items || [];
+  // Total à charge patient prioritaire ; fallback au total brut si pas
+  // d'items (RDV legacy sans test_uuids).
+  const due = a.patient_due_mru ?? a.total_fee_mru;
+  const itemsTotal = a.items_total_mru;
+  const covered = a.cnam_covered_mru ? Number(a.cnam_covered_mru) : 0;
+
   return (
     <Card pad={16}>
       <View style={styles.row}>
@@ -130,6 +139,7 @@ function ApptCard({ a }) {
               <Icon name={isHome ? "house2" : "hospital"} size={13} color={C.inkSoft} />
               <Text style={styles.apptSub}>
                 {isHome ? "À domicile" : "Au laboratoire"}
+                {items.length > 0 ? ` · ${items.length} analyse${items.length > 1 ? "s" : ""}` : ""}
               </Text>
             </View>
           </View>
@@ -137,18 +147,77 @@ function ApptCard({ a }) {
         <StatusBadge status={a.status || "pending"} />
       </View>
 
-      {/* Date & total */}
+      {/* Date & total à charge patient */}
       <View style={styles.dateRow}>
         <View style={{ flexDirection: "row", alignItems: "center", gap: 7 }}>
           <Icon name="calendar" size={17} color={C.brand} />
           <Text style={styles.dateText}>{fmtDateLong(a.scheduled_for)}</Text>
         </View>
-        {a.patient_due_mru !== undefined && a.patient_due_mru !== null ? (
-          <Text style={styles.totalText}>{CURRENCY.format(a.patient_due_mru)}</Text>
-        ) : a.total_fee_mru ? (
-          <Text style={styles.totalText}>{CURRENCY.format(a.total_fee_mru)}</Text>
+        {due !== undefined && due !== null && Number(due) > 0 ? (
+          <View style={{ marginLeft: "auto", alignItems: "flex-end" }}>
+            <Text style={styles.totalText}>{CURRENCY.format(due)}</Text>
+            {covered > 0 && (
+              <Text style={styles.totalSubText}>CNAM −{CURRENCY.format(covered)}</Text>
+            )}
+          </View>
         ) : null}
       </View>
+
+      {/* Liste détaillée des analyses — dépliable */}
+      {items.length > 0 && (
+        <>
+          <TouchableOpacity
+            activeOpacity={0.85}
+            onPress={() => setOpen((v) => !v)}
+            style={styles.itemsToggle}
+          >
+            <Icon name="flask" size={16} color={C.brand} />
+            <Text style={styles.itemsToggleText}>
+              {open ? "Masquer le détail" : "Voir le détail des analyses"}
+            </Text>
+            <Icon name={open ? "chevronU" : "chevronD"} size={16} color={C.inkSoft} />
+          </TouchableOpacity>
+          {open && (
+            <View style={styles.itemsList}>
+              {items.map((it, i) => (
+                <View key={`${it.test_code}-${i}`} style={styles.itemRow}>
+                  <View style={{ flex: 1, minWidth: 0 }}>
+                    <Text style={styles.itemCode} numberOfLines={1}>
+                      {it.test_code}
+                      <Text style={styles.itemName}> · {it.test_name}</Text>
+                    </Text>
+                    {Number(it.cnam_covered_mru) > 0 && (
+                      <Text style={styles.itemCnam}>
+                        CNAM −{CURRENCY.format(it.cnam_covered_mru)}
+                      </Text>
+                    )}
+                  </View>
+                  <View style={{ alignItems: "flex-end" }}>
+                    <Text style={styles.itemPrice}>{CURRENCY.format(it.patient_due_mru || it.price_mru)}</Text>
+                    {Number(it.cnam_covered_mru) > 0 && (
+                      <Text style={styles.itemPriceStrike}>{CURRENCY.format(it.price_mru)}</Text>
+                    )}
+                  </View>
+                </View>
+              ))}
+              {itemsTotal && Number(itemsTotal) > 0 && (
+                <View style={styles.itemsTotal}>
+                  <Text style={styles.itemsTotalLabel}>Sous-total analyses</Text>
+                  <Text style={styles.itemsTotalValue}>{CURRENCY.format(itemsTotal)}</Text>
+                </View>
+              )}
+              {a.surcharge_mru && Number(a.surcharge_mru) > 0 ? (
+                <View style={styles.itemsTotal}>
+                  <Text style={styles.itemsTotalLabel}>
+                    {isHome ? "Frais de visite à domicile" : "Supplément"}
+                  </Text>
+                  <Text style={styles.itemsTotalValue}>{CURRENCY.format(a.surcharge_mru)}</Text>
+                </View>
+              ) : null}
+            </View>
+          )}
+        </>
+      )}
 
       {a.notes ? (
         <View style={styles.noteBlock}>
@@ -253,7 +322,35 @@ const styles = StyleSheet.create({
     backgroundColor: C.bg, borderRadius: 14,
   },
   dateText:  { fontSize: 13.5, fontWeight: "700", color: C.ink },
-  totalText: { marginLeft: "auto", fontSize: 14, fontWeight: "700", color: C.ink },
+  totalText: { fontSize: 15, fontWeight: "800", color: C.ink, fontFamily: F.displayBold },
+  totalSubText: { fontSize: 11, fontWeight: "700", color: C.leaf, marginTop: 1 },
+
+  itemsToggle: {
+    flexDirection: "row", alignItems: "center", gap: 7,
+    paddingVertical: 11, paddingHorizontal: 4, marginTop: 8,
+    borderTopWidth: 1, borderTopColor: C.hair,
+  },
+  itemsToggleText: { flex: 1, fontSize: 13, fontWeight: "800", color: C.brandDeep || C.brand },
+  itemsList: { marginTop: 2 },
+  itemRow: {
+    flexDirection: "row", alignItems: "center", gap: 10,
+    paddingVertical: 9,
+    borderBottomWidth: 1, borderBottomColor: C.hairSoft || C.hair,
+  },
+  itemCode:  { fontSize: 13, fontWeight: "800", color: C.ink },
+  itemName:  { fontSize: 12.5, fontWeight: "600", color: C.inkSoft },
+  itemCnam:  { fontSize: 11, fontWeight: "700", color: C.leaf, marginTop: 2 },
+  itemPrice: { fontSize: 13.5, fontWeight: "800", color: C.ink, fontFamily: F.bodyBold },
+  itemPriceStrike: {
+    fontSize: 11, fontWeight: "700", color: C.inkSoft,
+    textDecorationLine: "line-through", marginTop: 1,
+  },
+  itemsTotal: {
+    flexDirection: "row", alignItems: "center",
+    paddingTop: 10, marginTop: 4,
+  },
+  itemsTotalLabel: { flex: 1, fontSize: 12.5, fontWeight: "700", color: C.inkSoft },
+  itemsTotalValue:{ fontSize: 13, fontWeight: "800", color: C.ink, fontFamily: F.bodyBold },
 
   noteBlock: {
     flexDirection: "row", gap: 8, alignItems: "flex-start",

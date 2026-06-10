@@ -341,6 +341,80 @@ Supprime le device TOTP du user courant. `204` si OK, `404` sinon.
 
 ---
 
+## Biométrie (Face ID / empreinte digitale)
+
+Authentification sans SMS sur un appareil de confiance. Le mobile gère la
+biométrie *localement* (Touch ID / Face ID / empreinte) ; le backend ne
+sait rien du visage ni du doigt, il vérifie juste qu'un
+`(phone, device_id, device_token)` correspond à un `TrustedDevice` non
+révoqué. Le `device_token` est stocké côté client dans le Secure Enclave
+iOS / Keystore Android (cf. `expo-secure-store`) — seul Face ID peut le
+débloquer, donc l'attaquant a besoin de l'appareil *et* du visage de la
+victime.
+
+### `POST /auth/biometric/check/`  *(public)*
+
+L'application interroge ce endpoint au démarrage pour décider d'afficher
+ou non le bouton « Se connecter avec Face ID ». Aucune info personnelle
+révélée, juste un booléen.
+
+**Body** : `{ "phone": "+22246123456", "device_id": "uuid-v4-stable" }`
+**Réponse 200** : `{ "eligible": true }`
+
+### `POST /auth/biometric/register/`  *(authentifié)*
+
+Enregistre l'appareil courant après une connexion OTP réussie. Le
+`device_token` est renvoyé **une seule fois** — à stocker dans le
+Keychain / Keystore côté client. Re-appelable pour rotate le token.
+
+**Body**
+```json
+{
+  "device_id": "uuid-v4-stable",
+  "device_label": "iPhone d'Omar",
+  "platform": "ios"
+}
+```
+
+**Réponse 201**
+```json
+{
+  "device_token": "abc123…(brut, à stocker)",
+  "device_uuid": "8f6e...",
+  "phone": "+22246123456"
+}
+```
+
+### `POST /auth/biometric/login/`  *(public)*
+
+Échange un `(phone, device_id, device_token)` contre une paire JWT.
+Émet la même réponse que `/auth/otp/verify/`.
+
+**Body**
+```json
+{
+  "phone": "+22246123456",
+  "device_id": "uuid-v4-stable",
+  "device_token": "abc123…"
+}
+```
+
+**Erreurs** :
+- `401 invalid_device` — device révoqué ou token incorrect → l'app doit purger son stockage local.
+- `401 phone_mismatch` — le numéro associé au compte a changé côté serveur.
+- `403 user_inactive`.
+
+### `POST /auth/biometric/revoke/`  *(authentifié)*
+
+Désactive cet appareil de confiance (soft delete avec timestamp pour
+l'audit). À appeler quand l'utilisateur clique « Désactiver Face ID »
+dans son profil.
+
+**Body** : `{ "device_id": "uuid-v4-stable" }`
+**Réponse 204** si OK, `404` sinon.
+
+---
+
 ## Laboratoires
 
 ### `GET /laboratories/`  *(public)*
