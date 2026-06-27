@@ -1,0 +1,139 @@
+{
+  "nodes": [
+    {
+      "id": "file:Backend/laboratories/migrations/0002_alter_laboratory_emergency_fee_mru_and_more.py",
+      "type": "file",
+      "name": "0002_alter_laboratory_emergency_fee_mru_and_more.py",
+      "filePath": "Backend/laboratories/migrations/0002_alter_laboratory_emergency_fee_mru_and_more.py",
+      "summary": "Django migration that alters the Laboratory model's emergency_fee_mru, home_visit_fee_mru, opening_hours, and technician_mode fields, adding validators and updated default values.",
+      "tags": ["database", "migration", "django", "configuration"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:Backend/manage.py",
+      "type": "file",
+      "name": "manage.py",
+      "filePath": "Backend/manage.py",
+      "summary": "Standard Django management script that serves as the command-line entry point for the labconnect backend, defaulting to the dev settings module.",
+      "tags": ["entry-point", "django", "cli", "utility"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:Backend/notifications/__init__.py",
+      "type": "file",
+      "name": "__init__.py",
+      "filePath": "Backend/notifications/__init__.py",
+      "summary": "Empty Python package initializer that marks the notifications directory as a Django app package.",
+      "tags": ["entry-point", "package-init"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:Backend/notifications/apps.py",
+      "type": "file",
+      "name": "apps.py",
+      "filePath": "Backend/notifications/apps.py",
+      "summary": "Django AppConfig for the notifications app, registering it under the name 'notifications' with BigAutoField as the default primary key type.",
+      "tags": ["configuration", "django", "app-config"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:Backend/notifications/migrations/__init__.py",
+      "type": "file",
+      "name": "__init__.py",
+      "filePath": "Backend/notifications/migrations/__init__.py",
+      "summary": "Empty Python package initializer that marks the notifications/migrations directory as a package.",
+      "tags": ["package-init"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:Backend/notifications/migrations/0001_initial.py",
+      "type": "file",
+      "name": "0001_initial.py",
+      "filePath": "Backend/notifications/migrations/0001_initial.py",
+      "summary": "Initial Django migration that creates the Notification model with UUID, kind, severity, title, body, payload, and read_at fields linked to the auth user model, plus two composite indexes for efficient per-user querying.",
+      "tags": ["database", "migration", "django", "schema-definition"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:Backend/notifications/migrations/0002_rename_notif_user_created_idx_notificatio_user_id_05b4bc_idx_and_more.py",
+      "type": "file",
+      "name": "0002_rename_notif_user_created_idx_notificatio_user_id_05b4bc_idx_and_more.py",
+      "filePath": "Backend/notifications/migrations/0002_rename_notif_user_created_idx_notificatio_user_id_05b4bc_idx_and_more.py",
+      "summary": "Django migration that renames the two Notification model database indexes to match Django 5.x auto-generated naming conventions.",
+      "tags": ["database", "migration", "django"],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:frontend-client/.claude/settings.json",
+      "type": "config",
+      "name": "settings.json",
+      "filePath": "frontend-client/.claude/settings.json",
+      "summary": "Claude Code project settings for the frontend-client (Expo mobile app), enabling the official Expo plugin for AI-assisted development.",
+      "tags": ["configuration", "tooling", "development"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend-web/eslint.config.js",
+      "type": "file",
+      "name": "eslint.config.js",
+      "filePath": "frontend-web/eslint.config.js",
+      "summary": "ESLint flat config for the React web dashboard, enabling recommended JavaScript rules alongside React Hooks and React Refresh plugins targeting .js and .jsx files.",
+      "tags": ["configuration", "linting", "build-system", "react"],
+      "complexity": "simple",
+      "languageNotes": "Uses the new ESLint flat config format (eslint.config.js) introduced in ESLint v9, replacing .eslintrc files."
+    },
+    {
+      "id": "file:frontend-web/src/App.css",
+      "type": "file",
+      "name": "App.css",
+      "filePath": "frontend-web/src/App.css",
+      "summary": "Placeholder CSS file for the root App component; all actual design tokens and component styles have been migrated to index.css.",
+      "tags": ["markup", "stylesheet"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend-web/src/index.css",
+      "type": "file",
+      "name": "index.css",
+      "filePath": "frontend-web/src/index.css",
+      "summary": "Global stylesheet for the labConnect web dashboard defining the complete design system: CSS custom properties for colors, typography, spacing, shadows, and all reusable component styles including sidebar, cards, tables, modals, and form elements.",
+      "tags": ["markup", "stylesheet", "design-system", "component"],
+      "complexity": "complex",
+      "languageNotes": "Comprehensive design token system using CSS custom properties (variables) on :root, enabling consistent theming across the entire React web application."
+    },
+    {
+      "id": "file:frontend-web/vite.config.js",
+      "type": "file",
+      "name": "vite.config.js",
+      "filePath": "frontend-web/vite.config.js",
+      "summary": "Minimal Vite build configuration for the React web dashboard, loading the official @vitejs/plugin-react plugin for JSX transform and Fast Refresh support.",
+      "tags": ["configuration", "build-system", "react"],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:render.yaml",
+      "type": "config",
+      "name": "render.yaml",
+      "filePath": "render.yaml",
+      "summary": "Render blueprint declaring the labconnect-api web service that builds and deploys the Django backend via gunicorn, with auto-generated SECRET_KEY and manually-configured DATABASE_URL and CORS_ALLOWED_ORIGINS pointing to Supabase Postgres.",
+      "tags": ["infrastructure", "deployment", "configuration", "ci-cd"],
+      "complexity": "moderate"
+    }
+  ],
+  "edges": [
+    {
+      "source": "config:render.yaml",
+      "target": "file:Backend/manage.py",
+      "type": "deploys",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend-web/src/index.css",
+      "target": "file:frontend-web/src/App.css",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    }
+  ]
+}

@@ -1,0 +1,1255 @@
+[
+  {
+    "id": "file:frontend-web/src/App.jsx",
+    "name": "App.jsx",
+    "filePath": "frontend-web/src/App.jsx",
+    "summary": "Root application component providing role-aware routing via Shell and Gate sub-components; Shell renders the main navigation layout and switches screens based on user roles and permissions, while Gate guards access and handles lab onboarding flow.",
+    "type": "file"
+  },
+  {
+    "id": "file:frontend-web/src/api.js",
+    "name": "api.js",
+    "filePath": "frontend-web/src/api.js",
+    "summary": "Central API client module providing JWT token management, authenticated fetch wrapper with auto-refresh, and domain-specific CRUD functions covering auth, labs, catalog, employees, orders, appointments, inventory, notifications, and results.",
+    "type": "file"
+  },
+  {
+    "id": "file:frontend-web/src/auth.jsx",
+    "name": "auth.jsx",
+    "filePath": "frontend-web/src/auth.jsx",
+    "summary": "Authentication context provider and hook; AuthProvider hydrates user state from the API on mount and exposes login, Google OAuth login, and logout actions along with active lab selection.",
+    "type": "file"
+  },
+  {
+    "id": "file:frontend-web/src/components/AppointmentDetailModal.jsx",
+    "name": "AppointmentDetailModal.jsx",
+    "filePath": "frontend-web/src/components/AppointmentDetailModal.jsx",
+    "summary": "Modal component for viewing and progressing an appointment through its lifecycle steps (pending, sample collected, results entered, validated), displaying patient info, test items, and allowing status transitions.",
+    "type": "file"
+  },
+  {
+    "id": "file:frontend-web/src/components/FinanceTab.jsx",
+    "name": "FinanceTab.jsx",
+    "filePath": "frontend-web/src/components/FinanceTab.jsx",
+    "summary": "Finance tab component embedded in the Dashboard that fetches and displays daily/weekly appointment revenue summaries, CNAM reimbursement breakdowns, and invoice access with filtering capabilities.",
+    "type": "file"
+  },
+  {
+    "id": "file:frontend-web/src/components/InvoiceModal.jsx",
+    "name": "InvoiceModal.jsx",
+    "filePath": "frontend-web/src/components/InvoiceModal.jsx",
+    "summary": "Modal component that fetches and displays the detailed invoice for an appointment, showing test items, pricing, CNAM coverage, and payment status badge.",
+    "type": "file"
+  },
+  {
+    "id": "file:frontend-web/src/components/LabSwitcher.jsx",
+    "name": "LabSwitcher.jsx",
+    "filePath": "frontend-web/src/components/LabSwitcher.jsx",
+    "summary": "Dropdown component in the Topbar that allows staff with access to multiple labs to switch the active laboratory context.",
+    "type": "file"
+  },
+  {
+    "id": "file:frontend-web/src/components/MapPicker.jsx",
+    "name": "MapPicker.jsx",
+    "filePath": "frontend-web/src/components/MapPicker.jsx",
+    "summary": "Interactive map component using Leaflet that lets users pick a geographic location by clicking or searching, with reverse geocoding to display the selected address.",
+    "type": "file"
+  },
+  {
+    "id": "file:frontend-web/src/components/Misc.jsx",
+    "name": "Misc.jsx",
+    "filePath": "frontend-web/src/components/Misc.jsx",
+    "summary": "Shared micro-components module exporting CatBadge for category labels, PermRibbon for permission display, and FullScreenLoader for loading states.",
+    "type": "file"
+  },
+  {
+    "id": "file:frontend-web/src/components/Modal.jsx",
+    "name": "Modal.jsx",
+    "filePath": "frontend-web/src/components/Modal.jsx",
+    "summary": "Generic modal overlay component with close button, backdrop click-to-close, and title slot used as the base modal wrapper across the application.",
+    "type": "file"
+  },
+  {
+    "id": "file:frontend-web/src/components/NotificationsBell.jsx",
+    "name": "NotificationsBell.jsx",
+    "filePath": "frontend-web/src/components/NotificationsBell.jsx",
+    "summary": "Bell icon component in the Topbar that polls for unread notification counts, displays a dropdown list of notifications with relative timestamps, and allows marking individual or all notifications as read.",
+    "type": "file"
+  },
+  {
+    "id": "file:frontend-web/src/components/RoleSwitcher.jsx",
+    "name": "RoleSwitcher.jsx",
+    "filePath": "frontend-web/src/components/RoleSwitcher.jsx",
+    "summary": "Topbar dropdown component enabling multi-role staff users to switch their active role view, with click-outside dismissal.",
+    "type": "file"
+  },
+  {
+    "id": "file:frontend-web/src/components/Sidebar.jsx",
+    "name": "Sidebar.jsx",
+    "filePath": "frontend-web/src/components/Sidebar.jsx",
+    "summary": "Navigation sidebar component rendering role-filtered menu items with badge counts for pending actions, supporting mobile toggle and active screen highlighting.",
+    "type": "file"
+  },
+  {
+    "id": "file:frontend-web/src/components/Switch.jsx",
+    "name": "Switch.jsx",
+    "filePath": "frontend-web/src/components/Switch.jsx",
+    "summary": "Minimal toggle switch input component used for boolean settings fields across the application.",
+    "type": "file"
+  },
+  {
+    "id": "file:frontend-web/src/components/Topbar.jsx",
+    "name": "Topbar.jsx",
+    "filePath": "frontend-web/src/components/Topbar.jsx",
+    "summary": "Top navigation bar component composing LabSwitcher, RoleSwitcher, and NotificationsBell alongside a hamburger menu toggle for mobile layouts.",
+    "type": "file"
+  },
+  {
+    "id": "file:frontend-web/src/components/WalkInModal.jsx",
+    "name": "WalkInModal.jsx",
+    "filePath": "frontend-web/src/components/WalkInModal.jsx",
+    "summary": "Walk-in appointment creation modal allowing staff to search for and add tests from the catalog, enter patient details, configure CNAM coverage, select appointment type (in-lab vs home visit), and submit the order.",
+    "type": "file"
+  },
+  {
+    "id": "file:frontend-web/src/constants.js",
+    "name": "constants.js",
+    "filePath": "frontend-web/src/constants.js",
+    "summary": "Application-wide constants and utility functions module exporting role definitions, permission maps, category lists, UI helpers (initials, avatar classes), and lab configuration defaults used across all screens.",
+    "type": "file"
+  },
+  {
+    "id": "file:frontend-web/src/hooks/useClickOutside.js",
+    "name": "useClickOutside.js",
+    "filePath": "frontend-web/src/hooks/useClickOutside.js",
+    "summary": "Custom React hook that attaches a mousedown event listener to detect clicks outside a given DOM ref and invokes a callback, used for closing dropdowns.",
+    "type": "file"
+  },
+  {
+    "id": "file:frontend-web/src/icons.jsx",
+    "name": "icons.jsx",
+    "filePath": "frontend-web/src/icons.jsx",
+    "summary": "Icon component module that renders Heroicons SVG icons by name via the I export, providing a thin wrapper around a large static icon map used across all UI components.",
+    "type": "file"
+  },
+  {
+    "id": "file:frontend-web/src/main.jsx",
+    "name": "main.jsx",
+    "filePath": "frontend-web/src/main.jsx",
+    "summary": "Vite/React application entry point that mounts the App component into the DOM root with React 18 createRoot.",
+    "type": "file"
+  },
+  {
+    "id": "file:frontend-web/src/screens/Analyses.jsx",
+    "name": "Analyses.jsx",
+    "filePath": "frontend-web/src/screens/Analyses.jsx",
+    "summary": "Main analyses screen managing lab orders across in-progress and completed states, with sub-components for result entry (ResultEntryModal), result validation (ValidationModal), PDF download, and sample management.",
+    "type": "file"
+  },
+  {
+    "id": "file:frontend-web/src/screens/Dashboard.jsx",
+    "name": "Dashboard.jsx",
+    "filePath": "frontend-web/src/screens/Dashboard.jsx",
+    "summary": "Main dashboard screen showing today's appointment list with status badges, walk-in creation, appointment detail modal, invoice access, and an embedded FinanceTab for revenue tracking.",
+    "type": "file"
+  },
+  {
+    "id": "file:frontend-web/src/screens/Inventory.jsx",
+    "name": "Inventory.jsx",
+    "filePath": "frontend-web/src/screens/Inventory.jsx",
+    "summary": "Inventory management screen with item CRUD (ItemModal), stock movement recording (MovementModal), and a table view of lab supplies with quantity tracking.",
+    "type": "file"
+  },
+  {
+    "id": "file:frontend-web/src/screens/Login.jsx",
+    "name": "Login.jsx",
+    "filePath": "frontend-web/src/screens/Login.jsx",
+    "summary": "Authentication screen providing email/password staff login form and Google OAuth sign-in button, with error display and loading state.",
+    "type": "file"
+  },
+  {
+    "id": "file:frontend-web/src/screens/NursesMap.jsx",
+    "name": "NursesMap.jsx",
+    "filePath": "frontend-web/src/screens/NursesMap.jsx",
+    "summary": "Nurse management screen displaying today's home visit appointments on a Leaflet map, allowing supervisors to assign nurses to visits and track visit status.",
+    "type": "file"
+  },
+  {
+    "id": "file:frontend-web/src/screens/Onboarding.jsx",
+    "name": "Onboarding.jsx",
+    "filePath": "frontend-web/src/screens/Onboarding.jsx",
+    "summary": "Lab onboarding screen for new staff without an assigned lab, allowing them to create a new laboratory or join an existing one by providing name, location, and address details.",
+    "type": "file"
+  },
+  {
+    "id": "file:frontend-web/src/screens/Settings.jsx",
+    "name": "Settings.jsx",
+    "filePath": "frontend-web/src/screens/Settings.jsx",
+    "summary": "Lab settings screen for administrators to update laboratory configuration including name, address, location via MapPicker, contact details, and CNAM/home-visit feature toggles.",
+    "type": "file"
+  },
+  {
+    "id": "file:frontend-web/src/screens/Staff.jsx",
+    "name": "Staff.jsx",
+    "filePath": "frontend-web/src/screens/Staff.jsx",
+    "summary": "Staff management screen for administrators to view, invite, update roles, and deactivate lab employees, with a modal form for editing staff details.",
+    "type": "file"
+  },
+  {
+    "id": "file:frontend-web/src/screens/Stats.jsx",
+    "name": "Stats.jsx",
+    "filePath": "frontend-web/src/screens/Stats.jsx",
+    "summary": "Statistics screen fetching aggregated lab performance data and rendering horizontal bar charts for top tests, daily appointment volume bars, and summary KPI cards.",
+    "type": "file"
+  },
+  {
+    "id": "file:frontend-web/src/screens/Tests.jsx",
+    "name": "Tests.jsx",
+    "filePath": "frontend-web/src/screens/Tests.jsx",
+    "summary": "Test catalog management screen for creating, editing, and deleting lab tests with pricing and category, including a preset picker for quick population from standard test templates.",
+    "type": "file"
+  },
+  {
+    "id": "file:Backend/accounts/admin.py",
+    "name": "admin.py",
+    "filePath": "Backend/accounts/admin.py",
+    "summary": "Registers all accounts-domain models (User, PatientProfile, StaffProfile, OTPCode, TrustedDevice) with the Django admin site, configuring list displays and search fields for operational use.",
+    "type": "file"
+  },
+  {
+    "id": "file:Backend/accounts/management/commands/bootstrap_chief.py",
+    "name": "bootstrap_chief.py",
+    "filePath": "Backend/accounts/management/commands/bootstrap_chief.py",
+    "summary": "Django management command that provisions a fully-configured lab-chief user together with an associated Laboratory and StaffProfile in a single atomic step, intended for initial environment setup.",
+    "type": "file"
+  },
+  {
+    "id": "file:Backend/accounts/management/commands/create_chef.py",
+    "name": "create_chef.py",
+    "filePath": "Backend/accounts/management/commands/create_chef.py",
+    "summary": "Django management command for creating or updating a lab-chief user account with email/phone credentials and assigning the lab-chief group role.",
+    "type": "file"
+  },
+  {
+    "id": "file:Backend/accounts/management/commands/seed_roles.py",
+    "name": "seed_roles.py",
+    "filePath": "Backend/accounts/management/commands/seed_roles.py",
+    "summary": "Lightweight management command that bootstraps all role-based Django Groups (patient, secretary, nurse, technician, biologist, lab_chief) required by the platform permission system.",
+    "type": "file"
+  },
+  {
+    "id": "file:Backend/accounts/managers.py",
+    "name": "managers.py",
+    "filePath": "Backend/accounts/managers.py",
+    "summary": "Provides the custom UserManager that replaces the default Django user manager, enforcing phone-number normalization and supporting both regular and superuser creation flows.",
+    "type": "file"
+  },
+  {
+    "id": "file:Backend/accounts/migrations/0001_initial.py",
+    "name": "0001_initial.py",
+    "filePath": "Backend/accounts/migrations/0001_initial.py",
+    "summary": "Initial Django migration that creates the User, PatientProfile, StaffProfile, OTPCode, TrustedDevice, and TOTPDevice database tables for the accounts application.",
+    "type": "file"
+  },
+  {
+    "id": "file:Backend/accounts/models.py",
+    "name": "models.py",
+    "filePath": "Backend/accounts/models.py",
+    "summary": "Core identity and authentication models for the platform, defining the custom User (phone-primary), PatientProfile, StaffProfile, OTPCode (hashed, expiring), TrustedDevice (biometric tokens), and TOTPDevice.",
+    "type": "file"
+  },
+  {
+    "id": "file:Backend/accounts/serializers.py",
+    "name": "serializers.py",
+    "filePath": "Backend/accounts/serializers.py",
+    "summary": "DRF serializers for OTP request/verification flows, full user profile read/write (including PatientProfile and GIS point), and login serializers for staff, Google, and Firebase authentication strategies.",
+    "type": "file"
+  },
+  {
+    "id": "file:Backend/accounts/services/__init__.py",
+    "name": "__init__.py",
+    "filePath": "Backend/accounts/services/__init__.py",
+    "summary": "Empty package initializer for the accounts services sub-package, enabling Python module resolution.",
+    "type": "file"
+  },
+  {
+    "id": "file:Backend/accounts/services/firebase.py",
+    "name": "firebase.py",
+    "filePath": "Backend/accounts/services/firebase.py",
+    "summary": "Pure-Python Firebase JWT verification service that fetches and caches Google's public RSA certificates, then decodes and validates Firebase ID tokens including audience, issuer, and expiry claims.",
+    "type": "file"
+  },
+  {
+    "id": "file:Backend/accounts/services/otp.py",
+    "name": "otp.py",
+    "filePath": "Backend/accounts/services/otp.py",
+    "summary": "OTP delivery abstraction layer that defines OTPProvider interface with Mock, Twilio SMS, and WhatsApp concrete implementations, plus factory get_provider() and 6-digit code generator.",
+    "type": "file"
+  },
+  {
+    "id": "file:Backend/accounts/tokens.py",
+    "name": "tokens.py",
+    "filePath": "Backend/accounts/tokens.py",
+    "summary": "Custom SimpleJWT token classes that embed the user's role group names into the JWT payload, enabling client-side role awareness without extra API calls.",
+    "type": "file"
+  },
+  {
+    "id": "file:Backend/accounts/urls.py",
+    "name": "urls.py",
+    "filePath": "Backend/accounts/urls.py",
+    "summary": "URL router for the accounts app, mapping OTP, login, logout, biometric, TOTP, and employee management endpoints to their respective view classes.",
+    "type": "file"
+  },
+  {
+    "id": "file:Backend/accounts/views.py",
+    "name": "views.py",
+    "filePath": "Backend/accounts/views.py",
+    "summary": "Core authentication views handling OTP request/verify, staff and patient email login, Google OAuth login (both patient and staff), Firebase login, user profile retrieval, and logout with JWT blacklisting.",
+    "type": "file"
+  },
+  {
+    "id": "file:Backend/accounts/views_biometric.py",
+    "name": "views_biometric.py",
+    "filePath": "Backend/accounts/views_biometric.py",
+    "summary": "API views implementing the biometric authentication flow: device enrollment check, token issuance (register), login with hashed-token verification, and device revocation.",
+    "type": "file"
+  },
+  {
+    "id": "file:Backend/accounts/views_employees.py",
+    "name": "views_employees.py",
+    "filePath": "Backend/accounts/views_employees.py",
+    "summary": "Staff and employee management views including nurse listing, employee invitation (with user auto-provisioning), employee profile update, and soft-delete, all scoped to the requesting user's laboratory.",
+    "type": "file"
+  },
+  {
+    "id": "file:Backend/accounts/views_totp.py",
+    "name": "views_totp.py",
+    "filePath": "Backend/accounts/views_totp.py",
+    "summary": "TOTP (Time-based One-Time Password) setup, confirmation, verification, and device-deletion API views for staff two-factor authentication, backed by a pyotp-compatible service layer.",
+    "type": "file"
+  },
+  {
+    "id": "file:Backend/appointments/models.py",
+    "name": "models.py",
+    "filePath": "Backend/appointments/models.py",
+    "summary": "Defines the Appointment model with VisitType and AppointmentStatus enumerations, supporting both clinic and home visits with GIS location, CNAM coverage, assigned nurse, and fee calculation.",
+    "type": "file"
+  },
+  {
+    "id": "file:Backend/appointments/serializers.py",
+    "name": "serializers.py",
+    "filePath": "Backend/appointments/serializers.py",
+    "summary": "DRF serializers for appointment read (with CNAM and fee aggregation), creation (with walk-in patient auto-provisioning and test-order building), and status transitions.",
+    "type": "file"
+  },
+  {
+    "id": "file:Backend/appointments/urls.py",
+    "name": "urls.py",
+    "filePath": "Backend/appointments/urls.py",
+    "summary": "Minimal URL configuration for the appointments app, registering the AppointmentViewSet router and custom action routes.",
+    "type": "file"
+  },
+  {
+    "id": "file:Backend/appointments/views.py",
+    "name": "views.py",
+    "filePath": "Backend/appointments/views.py",
+    "summary": "Appointment ViewSet with role-aware queryset scoping, nurse assignment, sample tube labelling, appointment cancellation, and status-change transitions that cascade to Sample and TestOrder records with push notifications.",
+    "type": "file"
+  },
+  {
+    "id": "file:Backend/core/permissions.py",
+    "name": "permissions.py",
+    "filePath": "Backend/core/permissions.py",
+    "summary": "Central permission classes and constants for the labConnect platform, defining role name strings, HasRole base permission, role-specific shortcuts (IsPatient, IsNurse, IsLabChief…), 2FA verification checks, and the current_lab_id request helper.",
+    "type": "file"
+  },
+  {
+    "id": "file:Backend/laboratories/admin.py",
+    "name": "admin.py",
+    "filePath": "Backend/laboratories/admin.py",
+    "summary": "Registers the Laboratory model with the Django admin, configuring list display, search, and location-aware map widget via djgeojson.",
+    "type": "file"
+  },
+  {
+    "id": "file:Backend/laboratories/migrations/0001_initial.py",
+    "name": "0001_initial.py",
+    "filePath": "Backend/laboratories/migrations/0001_initial.py",
+    "summary": "Initial Django migration creating the Laboratory table with PostGIS location field and all core laboratory attributes.",
+    "type": "file"
+  },
+  {
+    "id": "file:Backend/laboratories/migrations/0003_alter_laboratory_opening_hours.py",
+    "name": "0003_alter_laboratory_opening_hours.py",
+    "filePath": "Backend/laboratories/migrations/0003_alter_laboratory_opening_hours.py",
+    "summary": "Django migration altering the opening_hours JSON field on the Laboratory model to use the updated default structure.",
+    "type": "file"
+  },
+  {
+    "id": "file:Backend/laboratories/models.py",
+    "name": "models.py",
+    "filePath": "Backend/laboratories/models.py",
+    "summary": "Defines the Laboratory model with GIS location (PostGIS Point), opening hours (JSON), fee settings for home and emergency visits, CNAM support flag, and a slug identifier.",
+    "type": "file"
+  },
+  {
+    "id": "file:Backend/laboratories/serializers.py",
+    "name": "serializers.py",
+    "filePath": "Backend/laboratories/serializers.py",
+    "summary": "DRF serializers for Laboratory list (with lat/lng extraction from PostGIS Point), detail view, opening-hours day validation, and full lab configuration update.",
+    "type": "file"
+  },
+  {
+    "id": "file:Backend/laboratories/urls.py",
+    "name": "urls.py",
+    "filePath": "Backend/laboratories/urls.py",
+    "summary": "URL router for the laboratories app, registering public lab search/nearby endpoints, employee management, and chef-scoped lab management routes.",
+    "type": "file"
+  },
+  {
+    "id": "file:Backend/laboratories/views.py",
+    "name": "views.py",
+    "filePath": "Backend/laboratories/views.py",
+    "summary": "Laboratory views providing public geo-search (nearby by radius), lab-chief self-service (list, create, update opening hours and fees), and an inline serializer for laboratory creation.",
+    "type": "file"
+  },
+  {
+    "id": "file:frontend-client/App.js",
+    "name": "App.js",
+    "filePath": "frontend-client/App.js",
+    "summary": "Root application component for the React Native mobile client, defining the full navigation tree with role-based shells: a patient tab navigator (Home, Bookings, Profile) and a nurse tab navigator (Route, Profile), wrapped in AuthProvider and NavigationContainer.",
+    "type": "file"
+  },
+  {
+    "id": "file:frontend-client/src/screens/BookingsScreen.js",
+    "name": "BookingsScreen.js",
+    "filePath": "frontend-client/src/screens/BookingsScreen.js",
+    "summary": "Patient screen displaying appointments and test results via a segmented tab (Rendez-vous / Résultats), with navigation to ResultDetailScreen on result tap.",
+    "type": "file"
+  },
+  {
+    "id": "file:frontend-client/src/screens/CartScreen.js",
+    "name": "CartScreen.js",
+    "filePath": "frontend-client/src/screens/CartScreen.js",
+    "summary": "Appointment booking screen with date/slot picker, mode toggle (lab vs home visit), CNAM coverage breakdown, prerequisite questionnaire, GPS capture, and animated confirmation overlay after successful booking.",
+    "type": "file"
+  },
+  {
+    "id": "file:frontend-client/src/screens/HomeScreen.js",
+    "name": "HomeScreen.js",
+    "filePath": "frontend-client/src/screens/HomeScreen.js",
+    "summary": "Main patient home screen with unified lab + analysis search (name, city, analysis code), distance/category/CNAM/home-visit filters, a mini Leaflet map (260 px), and a full lab list sorted by relevance.",
+    "type": "file"
+  },
+  {
+    "id": "file:frontend-client/src/screens/LabDetailScreen.js",
+    "name": "LabDetailScreen.js",
+    "filePath": "frontend-client/src/screens/LabDetailScreen.js",
+    "summary": "Lab detail screen showing hero banner, rating, distance, CNAM status, test catalog with category filters, and a sticky footer to navigate to CartScreen with selected tests.",
+    "type": "file"
+  },
+  {
+    "id": "file:frontend-client/src/components/LabMapView.js",
+    "name": "LabMapView.js",
+    "filePath": "frontend-client/src/components/LabMapView.js",
+    "summary": "Shared React Native component embedding a Leaflet map in a WebView, supporting lab markers, animated user location, lab popup press callbacks, and both mini-card and fullscreen layout modes.",
+    "type": "file"
+  },
+  {
+    "id": "file:frontend-client/src/screens/LoginScreen.js",
+    "name": "LoginScreen.js",
+    "filePath": "frontend-client/src/screens/LoginScreen.js",
+    "summary": "Unified login screen supporting email/password, OTP phone flow, Google OAuth, and biometric (Face ID / fingerprint) authentication, with last-identifier prefill and biometric opt-in prompt after first OTP login.",
+    "type": "file"
+  },
+  {
+    "id": "file:frontend-client/src/screens/MapScreen.js",
+    "name": "MapScreen.js",
+    "filePath": "frontend-client/src/screens/MapScreen.js",
+    "summary": "Full-screen map screen embedding LabMapView in absolute layout, with a floating back header and an animated callout panel at the bottom that appears when a lab marker is tapped.",
+    "type": "file"
+  },
+  {
+    "id": "file:frontend-client/src/components/NotificationsBell.js",
+    "name": "NotificationsBell.js",
+    "filePath": "frontend-client/src/components/NotificationsBell.js",
+    "summary": "Reusable bell icon button with unread-count badge, polling the notifications API every 30 seconds and refreshing on parent screen focus via navigation listener.",
+    "type": "file"
+  },
+  {
+    "id": "file:frontend-client/src/screens/NotificationsScreen.js",
+    "name": "NotificationsScreen.js",
+    "filePath": "frontend-client/src/screens/NotificationsScreen.js",
+    "summary": "Notification center screen shared by both patient and nurse roles, showing a list of notifications with icon/color by kind, mark-as-read on tap, and a bulk mark-all-read action.",
+    "type": "file"
+  },
+  {
+    "id": "file:frontend-client/src/screens/nurse/NurseCollectScreen.js",
+    "name": "NurseCollectScreen.js",
+    "filePath": "frontend-client/src/screens/nurse/NurseCollectScreen.js",
+    "summary": "Nurse sample collection screen with identity verification checkbox, per-tube barcode entry and checklist, progress bar, and backend visit status transition to in_progress on screen open.",
+    "type": "file"
+  },
+  {
+    "id": "file:frontend-client/src/screens/nurse/NurseMissionScreen.js",
+    "name": "NurseMissionScreen.js",
+    "filePath": "frontend-client/src/screens/nurse/NurseMissionScreen.js",
+    "summary": "Nurse mission detail screen showing patient info, address map, ordered test list with colored tube caps, fasting/notes instructions, and a CTA to proceed to sample collection.",
+    "type": "file"
+  },
+  {
+    "id": "file:frontend-client/src/screens/nurse/NurseProfileScreen.js",
+    "name": "NurseProfileScreen.js",
+    "filePath": "frontend-client/src/screens/nurse/NurseProfileScreen.js",
+    "summary": "Simplified nurse profile screen displaying nurse identity and biometric toggle (enable/disable Face ID or fingerprint), plus a logout button.",
+    "type": "file"
+  },
+  {
+    "id": "file:frontend-client/src/screens/nurse/NurseRouteScreen.js",
+    "name": "NurseRouteScreen.js",
+    "filePath": "frontend-client/src/screens/nurse/NurseRouteScreen.js",
+    "summary": "Nurse main tab screen showing today's home-visit timeline with 3 KPI counters (done, samples, km), vertical timeline with status dots, and tappable visit cards that navigate to NurseMissionScreen.",
+    "type": "file"
+  },
+  {
+    "id": "file:frontend-client/src/screens/nurse/NurseValidateScreen.js",
+    "name": "NurseValidateScreen.js",
+    "filePath": "frontend-client/src/screens/nurse/NurseValidateScreen.js",
+    "summary": "Nurse visit closure screen with visit summary, PanResponder-based finger-signature canvas (no external SVG dep), and a confirm button that calls completeVisit() to finalize the appointment.",
+    "type": "file"
+  },
+  {
+    "id": "file:frontend-client/src/screens/ProfileScreen.js",
+    "name": "ProfileScreen.js",
+    "filePath": "frontend-client/src/screens/ProfileScreen.js",
+    "summary": "Patient profile screen with turquoise hero header, editable fields (name, email, DOB, gender, blood type, address, CNAM number/coverage) each opening a bottom-sheet modal, biometric toggle, and logout button.",
+    "type": "file"
+  },
+  {
+    "id": "file:frontend-client/src/screens/ResultDetailScreen.js",
+    "name": "ResultDetailScreen.js",
+    "filePath": "frontend-client/src/screens/ResultDetailScreen.js",
+    "summary": "Test result detail screen displaying the measured value, unit, low/normal/high/critical flag with a visual gauge, biologist comment, and a PDF download button via the pdfDownload helper.",
+    "type": "file"
+  },
+  {
+    "id": "file:frontend-client/src/screens/SignUpScreen.js",
+    "name": "SignUpScreen.js",
+    "filePath": "frontend-client/src/screens/SignUpScreen.js",
+    "summary": "Two-step patient registration screen: first step collects name/phone/email and triggers OTP, second step verifies the SMS code and patches the user profile with the supplied name.",
+    "type": "file"
+  },
+  {
+    "id": "file:frontend-client/src/components/UI.js",
+    "name": "UI.js",
+    "filePath": "frontend-client/src/components/UI.js",
+    "summary": "Shared React Native UI component library providing Btn, IconBtn, Chip, Card, StatusBadge, Tag, Stars, Avatar, SectionTitle, FloatBack, ScreenHeader, Divider, and hexA color utility, all styled with the labConnect turquoise design system.",
+    "type": "file"
+  },
+  {
+    "id": "file:frontend-client/src/api.js",
+    "name": "api.js",
+    "filePath": "frontend-client/src/api.js",
+    "summary": "Central REST client for the labConnect mobile app: auto-detects the backend URL from Expo host metadata, manages JWT tokens in AsyncStorage with an in-memory cache, handles 401 token refresh, and exports typed functions for auth, labs, appointments, nurse visits, notifications, and PDF retrieval.",
+    "type": "file"
+  },
+  {
+    "id": "file:frontend-client/src/auth.js",
+    "name": "auth.js",
+    "filePath": "frontend-client/src/auth.js",
+    "summary": "React Context-based authentication provider exposing login methods (phone OTP, email/password, Google, biometric), biometric enable/disable, profile update, and logout, with user state hydrated from the backend on mount.",
+    "type": "file"
+  },
+  {
+    "id": "file:frontend-client/src/biometric.js",
+    "name": "biometric.js",
+    "filePath": "frontend-client/src/biometric.js",
+    "summary": "Low-level biometric authentication helpers bridging expo-local-authentication, expo-secure-store, and expo-crypto: generates a stable device ID, inspects hardware capability, triggers OS biometric prompt, and manages SecureStore persistence of the device token and phone.",
+    "type": "file"
+  },
+  {
+    "id": "file:frontend-client/src/icons.js",
+    "name": "icons.js",
+    "filePath": "frontend-client/src/icons.js",
+    "summary": "Unified icon abstraction layer exposing a single Icon component backed by Feather, MaterialCommunityIcons, and Ionicons, with a camelCase name map covering navigation, actions, medical, and geo icons.",
+    "type": "file"
+  },
+  {
+    "id": "file:frontend-client/index.js",
+    "name": "index.js",
+    "filePath": "frontend-client/index.js",
+    "summary": "Expo app entry point that registers the root App component via registerRootComponent, ensuring correct setup in both Expo Go and native builds.",
+    "type": "file"
+  },
+  {
+    "id": "file:frontend-client/src/pdfDownload.js",
+    "name": "pdfDownload.js",
+    "filePath": "frontend-client/src/pdfDownload.js",
+    "summary": "Helper module that performs an authenticated PDF download from the backend, writes the result to the Expo file cache as base64, then opens the native share sheet so the patient can save, print, or forward their result.",
+    "type": "file"
+  },
+  {
+    "id": "file:frontend-client/src/theme.js",
+    "name": "theme.js",
+    "filePath": "frontend-client/src/theme.js",
+    "summary": "Central design token module exporting the color palette (C), font families (F), border-radius scale (R), shadow presets (SHADOW), Mauritanian currency formatter (CURRENCY), geographic defaults, appointment status styles, sample category colors, and deterministic lab color/icon pickers.",
+    "type": "file"
+  },
+  {
+    "id": "file:Backend/analyses/models.py",
+    "name": "models.py",
+    "filePath": "Backend/analyses/models.py",
+    "summary": "Defines the full analyses domain model: TestCatalogEntry (lab test catalogue with CNAM and questionnaire support), Sample (physical specimen with barcode and lifecycle tracking), TestOrder (per-test request with CNAM cost split), and TestResult (technician-entered, biologist-validated result with audit trail).",
+    "type": "file"
+  },
+  {
+    "id": "file:Backend/analyses/serializers.py",
+    "name": "serializers.py",
+    "filePath": "Backend/analyses/serializers.py",
+    "summary": "Provides DRF serializers for the analyses domain: read/create serializers for Sample (with atomic barcode generation and lab-scope validation), TestOrder (read-only with computed fields), TestResult (with technician and biologist name resolution), and dedicated create/validate serializers for multi-role workflows.",
+    "type": "file"
+  },
+  {
+    "id": "file:Backend/analyses/urls.py",
+    "name": "urls.py",
+    "filePath": "Backend/analyses/urls.py",
+    "summary": "Registers DRF router URLs for CatalogViewSet, SampleViewSet, and OrderViewSet, and adds manual paths for patient-facing results, walk-in, invoice, statistics, and PDF download endpoints.",
+    "type": "file"
+  },
+  {
+    "id": "file:Backend/analyses/views.py",
+    "name": "views.py",
+    "filePath": "Backend/analyses/views.py",
+    "summary": "Implements the complete multi-role analyses API: catalogue management (lab chief), sample collection and reception (nurse/secretary/technician), test result entry and biologist validation, patient result listing, PDF streaming, walk-in patient registration, aggregated lab statistics with role-gated financial data, and invoice generation.",
+    "type": "file"
+  },
+  {
+    "id": "file:Backend/core/models.py",
+    "name": "models.py",
+    "filePath": "Backend/core/models.py",
+    "summary": "Provides the shared BaseModel abstract class and ActiveManager used across all apps: UUIDs for external exposure, BigAutoField internal PK, created/updated timestamps, and soft-delete with an active-only queryset manager.",
+    "type": "file"
+  },
+  {
+    "id": "file:Backend/inventory/models.py",
+    "name": "models.py",
+    "filePath": "Backend/inventory/models.py",
+    "summary": "Defines inventory management models: InventoryItem (lab reagents, consumables, and equipment with stock level tracking and alert thresholds) and InventoryMovement (auditable signed-delta stock changes applied atomically with SELECT FOR UPDATE to prevent race conditions).",
+    "type": "file"
+  },
+  {
+    "id": "file:Backend/inventory/serializers.py",
+    "name": "serializers.py",
+    "filePath": "Backend/inventory/serializers.py",
+    "summary": "DRF serializers for inventory management: read serializer for InventoryItem (exposes computed is_low_stock), create serializer accepting an initial_stock, movement read serializer with actor name, and movement create serializer with sign-consistency validation.",
+    "type": "file"
+  },
+  {
+    "id": "file:Backend/inventory/urls.py",
+    "name": "urls.py",
+    "filePath": "Backend/inventory/urls.py",
+    "summary": "Registers the InventoryItemViewSet under the lab/inventory router prefix.",
+    "type": "file"
+  },
+  {
+    "id": "file:Backend/inventory/views.py",
+    "name": "views.py",
+    "filePath": "Backend/inventory/views.py",
+    "summary": "Implements CRUD for inventory items and stock movement recording; enforces role-based access (lab_chief/technician/biologist for edits, lab_chief only for deletion) and delegates atomic stock updates to InventoryMovement.apply().",
+    "type": "file"
+  },
+  {
+    "id": "file:Backend/notifications/events.py",
+    "name": "events.py",
+    "filePath": "Backend/notifications/events.py",
+    "summary": "Provides domain-event helper functions that encapsulate notification creation: resolves recipients (patient, assigned nurse, or lab staff by role), formats French-language titles and bodies, and emits Notification records for appointment lifecycle events, sample receipt/rejection, and result entry/validation.",
+    "type": "file"
+  },
+  {
+    "id": "file:Backend/notifications/models.py",
+    "name": "models.py",
+    "filePath": "Backend/notifications/models.py",
+    "summary": "Defines the Notification model for transactional user messages with kind, severity, title, body, and an opaque JSON payload for deep-linking; supports polling-based read tracking without requiring WebSockets or push infrastructure.",
+    "type": "file"
+  },
+  {
+    "id": "file:Backend/notifications/serializers.py",
+    "name": "serializers.py",
+    "filePath": "Backend/notifications/serializers.py",
+    "summary": "Provides a read-only NotificationSerializer exposing all fields needed for client display and deep-link navigation.",
+    "type": "file"
+  },
+  {
+    "id": "file:Backend/notifications/urls.py",
+    "name": "urls.py",
+    "filePath": "Backend/notifications/urls.py",
+    "summary": "Registers explicit URL paths for the four notification actions (mine, unread, mark_read, mark_all_read) without using a DefaultRouter, as the ViewSet exposes only custom actions rather than standard list/create.",
+    "type": "file"
+  },
+  {
+    "id": "file:Backend/notifications/views.py",
+    "name": "views.py",
+    "filePath": "Backend/notifications/views.py",
+    "summary": "Implements read-only notification delivery for the authenticated user: paginated personal notification list with optional unread filter, lightweight unread badge count, and single/bulk mark-as-read actions.",
+    "type": "file"
+  },
+  {
+    "id": "file:Backend/labconnect/settings/base.py",
+    "name": "base.py",
+    "filePath": "Backend/labconnect/settings/base.py",
+    "summary": "Master Django settings shared across all environments for the LabConnect platform, configuring installed apps, middleware, PostgreSQL/PostGIS database, DRF with JWT (RS256), Celery task routing, Django Channels (Redis), MinIO object storage, OTP, Firebase, CORS, i18n (French/Arabic), brute-force protection via django-axes, and structured logging.",
+    "type": "file"
+  },
+  {
+    "id": "file:Backend/labconnect/settings/dev.py",
+    "name": "dev.py",
+    "filePath": "Backend/labconnect/settings/dev.py",
+    "summary": "Development environment Django settings that override base.py, enabling DEBUG, relaxing CORS to allow all local network and LAN IP ranges for Expo Go mobile development, switching JWT from RS256 to HS256 with SECRET_KEY, and using the console email backend.",
+    "type": "file"
+  },
+  {
+    "id": "file:Backend/labconnect/settings/prod.py",
+    "name": "prod.py",
+    "filePath": "Backend/labconnect/settings/prod.py",
+    "summary": "Production Django settings targeting Render.com free tier with Supabase Postgres, configuring DATABASE_URL-based connection with PostGIS and SSL, WhiteNoise static file serving, synchronous Celery (eager mode, no Redis), full HTTPS security headers (HSTS, SSL redirect, secure cookies), optional Sentry error tracking, and HS256 JWT fallback when RS256 keys are absent.",
+    "type": "file"
+  },
+  {
+    "id": "service:Backend/.dockerignore",
+    "name": ".dockerignore",
+    "filePath": "Backend/.dockerignore",
+    "summary": "Docker build-context exclusion list for the Django backend, preventing Python bytecode artifacts, virtual environments, secrets (.env), VCS/IDE metadata, generated static and media directories, and Docker configuration files from being sent to the daemon.",
+    "type": "service"
+  },
+  {
+    "id": "service:Backend/docker-compose.yml",
+    "name": "docker-compose.yml",
+    "filePath": "Backend/docker-compose.yml",
+    "summary": "Docker Compose configuration that provisions a PostgreSQL 15 Alpine database service with a named persistent volume and a pg_isready health check; the backend application container is not defined here, making this a database-only compose file.",
+    "type": "service"
+  },
+  {
+    "id": "service:Backend/docker-compose.yml:db",
+    "name": "db",
+    "filePath": "Backend/docker-compose.yml",
+    "summary": "PostgreSQL 15 Alpine database service with credentials for projet_db, exposed on port 5432 with a persistent named volume and a pg_isready health check.",
+    "type": "service"
+  },
+  {
+    "id": "service:Backend/Dockerfile",
+    "name": "Dockerfile",
+    "filePath": "Backend/Dockerfile",
+    "summary": "Single-stage Docker build for the Django REST backend, installing system and Python dependencies from requirements.txt, copying the project, creating a non-root django-user, and launching the application via Gunicorn on port 8000 serving the labconnect WSGI entrypoint.",
+    "type": "service"
+  },
+  {
+    "id": "document:Backend/README_API.md",
+    "name": "README_API.md",
+    "filePath": "Backend/README_API.md",
+    "summary": "Developer setup and API reference guide for the SmartLAB Django backend, covering virtualenv setup, PostgreSQL/PostGIS configuration (Docker and local options), GeoDjango GDAL/GEOS installation on Windows, JWT authentication endpoints, main REST API routes, and technical architecture notes.",
+    "type": "document"
+  },
+  {
+    "id": "config:Backend/render.yaml",
+    "name": "render.yaml",
+    "filePath": "Backend/render.yaml",
+    "summary": "Render.com deployment configuration defining the labconnect-api Python web service with build commands (pip install, collectstatic, migrate), gunicorn start command, and environment variables including Supabase PostgreSQL URL and production Django settings.",
+    "type": "config"
+  },
+  {
+    "id": "document:Backend/requirements.txt",
+    "name": "requirements.txt",
+    "filePath": "Backend/requirements.txt",
+    "summary": "Python dependency manifest for the SmartLAB backend, specifying pinned versions for Django 5, DRF with JWT and OpenAPI, PostgreSQL/psycopg2, TOTP/QR codes, PDF generation via reportlab, Django Channels and Celery for async tasks, MinIO for object storage, and gunicorn/whitenoise for production serving.",
+    "type": "document"
+  },
+  {
+    "id": "document:frontend-client/AGENTS.md",
+    "name": "AGENTS.md",
+    "filePath": "frontend-client/AGENTS.md",
+    "summary": "Agent guidance note for the React Native (Expo) mobile client, directing any AI agent to always consult the versioned Expo v54 documentation before writing code.",
+    "type": "document"
+  },
+  {
+    "id": "document:frontend-client/CLAUDE.md",
+    "name": "CLAUDE.md",
+    "filePath": "frontend-client/CLAUDE.md",
+    "summary": "Claude Code context file for the frontend-client directory that defers all agent instructions to AGENTS.md via a reference directive.",
+    "type": "document"
+  },
+  {
+    "id": "config:frontend-client/app.json",
+    "name": "app.json",
+    "filePath": "frontend-client/app.json",
+    "summary": "Expo application configuration for the labConnect mobile client, defining app identity, icons, splash screen, iOS/Android platform settings, biometric and location permissions, and Google OAuth client IDs.",
+    "type": "config"
+  },
+  {
+    "id": "config:frontend-client/package.json",
+    "name": "package.json",
+    "filePath": "frontend-client/package.json",
+    "summary": "NPM package manifest for the labConnect React Native (Expo 54) mobile client, listing all runtime dependencies including navigation, authentication, biometrics, file system, and font packages, along with Expo CLI start scripts for Android, iOS, and web targets.",
+    "type": "config"
+  },
+  {
+    "id": "document:frontend-web/README.md",
+    "name": "README.md",
+    "filePath": "frontend-web/README.md",
+    "summary": "Default Vite + React template README describing the scaffold setup, available plugins (@vitejs/plugin-react using Oxc and SWC), React Compiler status, and ESLint configuration guidance.",
+    "type": "document"
+  },
+  {
+    "id": "file:frontend-web/index.html",
+    "name": "index.html",
+    "filePath": "frontend-web/index.html",
+    "summary": "Root HTML shell for the labConnect web SPA, loading Google Fonts (Inter, JetBrains Mono, Instrument Serif), Leaflet map library from CDN, and Google Sign-In client, then mounting the React app via /src/main.jsx.",
+    "type": "file"
+  },
+  {
+    "id": "config:frontend-web/package.json",
+    "name": "package.json",
+    "filePath": "frontend-web/package.json",
+    "summary": "Vite project manifest for the labConnect web frontend, declaring React 19 as the sole runtime dependency and configuring standard dev, build, lint, and preview scripts via Vite 8.",
+    "type": "config"
+  },
+  {
+    "id": "config:.claude/settings.local.json",
+    "name": "settings.local.json",
+    "filePath": ".claude/settings.local.json",
+    "summary": "Claude Code local permission allowlist for this project, granting bash commands for Python, Node, npm, git, and Expo toolchain operations used during development.",
+    "type": "config"
+  },
+  {
+    "id": "file:.understand-anything/.understandignore",
+    "name": ".understandignore",
+    "filePath": ".understand-anything/.understandignore",
+    "summary": "Configuration file specifying patterns for files and directories to exclude from the understand-anything analysis tool, with all test-file exclusion patterns currently commented out.",
+    "type": "file"
+  },
+  {
+    "id": "document:API.md",
+    "name": "API.md",
+    "filePath": "API.md",
+    "summary": "Comprehensive REST API reference for labConnect covering all 71 endpoints across authentication, biometrics, laboratories, personnel, test catalog, samples, inventory, orders/results, and appointments — including role-based access rules and 2FA requirements.",
+    "type": "document"
+  },
+  {
+    "id": "file:Backend/accounts/__init__.py",
+    "name": "__init__.py",
+    "filePath": "Backend/accounts/__init__.py",
+    "summary": "Empty Python package initializer for the accounts Django app.",
+    "type": "file"
+  },
+  {
+    "id": "file:Backend/accounts/apps.py",
+    "name": "apps.py",
+    "filePath": "Backend/accounts/apps.py",
+    "summary": "Django app configuration for the accounts module, registering the app with its default auto field and wiring up signals on ready.",
+    "type": "file"
+  },
+  {
+    "id": "file:Backend/accounts/backends.py",
+    "name": "backends.py",
+    "filePath": "Backend/accounts/backends.py",
+    "summary": "Custom Django authentication backend that allows users to log in using either their email address or phone number, performing case-insensitive email lookup.",
+    "type": "file"
+  },
+  {
+    "id": "file:Backend/accounts/management/__init__.py",
+    "name": "__init__.py",
+    "filePath": "Backend/accounts/management/__init__.py",
+    "summary": "Empty Python package initializer for the accounts management commands package.",
+    "type": "file"
+  },
+  {
+    "id": "file:Backend/accounts/management/commands/__init__.py",
+    "name": "__init__.py",
+    "filePath": "Backend/accounts/management/commands/__init__.py",
+    "summary": "Empty Python package initializer for the accounts management commands sub-package.",
+    "type": "file"
+  },
+  {
+    "id": "file:Backend/accounts/management/commands/runlan.py",
+    "name": "runlan.py",
+    "filePath": "Backend/accounts/management/commands/runlan.py",
+    "summary": "Custom Django management command that starts the development server bound to 0.0.0.0:8000 and prints the LAN IP address so mobile devices on the same Wi-Fi can reach the backend without manual IP lookup.",
+    "type": "file"
+  },
+  {
+    "id": "file:Backend/accounts/migrations/__init__.py",
+    "name": "__init__.py",
+    "filePath": "Backend/accounts/migrations/__init__.py",
+    "summary": "Empty Python package initializer for the accounts migrations package.",
+    "type": "file"
+  },
+  {
+    "id": "file:Backend/accounts/migrations/0002_rename_accounts_ot_phone_purpose_idx_accounts_ot_phone_573c27_idx_and_more.py",
+    "name": "0002_rename_accounts_ot_phone_purpose_idx_accounts_ot_phone_573c27_idx_and_more.py",
+    "filePath": "Backend/accounts/migrations/0002_rename_accounts_ot_phone_purpose_idx_accounts_ot_phone_573c27_idx_and_more.py",
+    "summary": "Django migration that renames database indexes and alters OTP-related fields in the accounts app, as part of a schema refinement pass after the initial migration.",
+    "type": "file"
+  },
+  {
+    "id": "file:Backend/accounts/migrations/0003_alter_user_email_alter_user_phone.py",
+    "name": "0003_alter_user_email_alter_user_phone.py",
+    "filePath": "Backend/accounts/migrations/0003_alter_user_email_alter_user_phone.py",
+    "summary": "Django migration that alters the email and phone fields on the User model, likely adjusting uniqueness or nullability constraints.",
+    "type": "file"
+  },
+  {
+    "id": "file:Backend/accounts/migrations/0004_alter_staffprofile_user_and_more.py",
+    "name": "0004_alter_staffprofile_user_and_more.py",
+    "filePath": "Backend/accounts/migrations/0004_alter_staffprofile_user_and_more.py",
+    "summary": "Django migration that alters the StaffProfile user field and additional related fields, refining profile model relationships.",
+    "type": "file"
+  },
+  {
+    "id": "file:Backend/accounts/migrations/0005_patientprofile_cnam.py",
+    "name": "0005_patientprofile_cnam.py",
+    "filePath": "Backend/accounts/migrations/0005_patientprofile_cnam.py",
+    "summary": "Django migration that adds CNAM (national health insurance) fields to the PatientProfile model, enabling reimbursement data storage.",
+    "type": "file"
+  },
+  {
+    "id": "file:Backend/accounts/migrations/0006_trusteddevice.py",
+    "name": "0006_trusteddevice.py",
+    "filePath": "Backend/accounts/migrations/0006_trusteddevice.py",
+    "summary": "Django migration that creates the TrustedDevice model for storing biometric-authenticated device tokens, enabling persistent biometric login without repeated 2FA challenges.",
+    "type": "file"
+  },
+  {
+    "id": "file:Backend/accounts/migrations/0007_rename_accounts_tr_phone_8a1f3c_idx_accounts_tr_phone_df3b46_idx.py",
+    "name": "0007_rename_accounts_tr_phone_8a1f3c_idx_accounts_tr_phone_df3b46_idx.py",
+    "filePath": "Backend/accounts/migrations/0007_rename_accounts_tr_phone_8a1f3c_idx_accounts_tr_phone_df3b46_idx.py",
+    "summary": "Django migration that renames a database index on the TrustedDevice model's phone field to a more stable name.",
+    "type": "file"
+  },
+  {
+    "id": "file:Backend/accounts/services/totp.py",
+    "name": "totp.py",
+    "filePath": "Backend/accounts/services/totp.py",
+    "summary": "TOTP 2FA service implementing RFC 6238 using pyotp, providing secret generation, code verification with ±1 window tolerance, provisioning URI construction, and base64 QR code generation for authenticator app enrollment.",
+    "type": "file"
+  },
+  {
+    "id": "file:Backend/accounts/signals.py",
+    "name": "signals.py",
+    "filePath": "Backend/accounts/signals.py",
+    "summary": "Placeholder signals module for the accounts app, reserved for future audit logging of user creation and login events.",
+    "type": "file"
+  },
+  {
+    "id": "file:Backend/analyses/__init__.py",
+    "name": "__init__.py",
+    "filePath": "Backend/analyses/__init__.py",
+    "summary": "Empty Python package initializer for the analyses Django app.",
+    "type": "file"
+  },
+  {
+    "id": "file:Backend/analyses/apps.py",
+    "name": "apps.py",
+    "filePath": "Backend/analyses/apps.py",
+    "summary": "Django app configuration for the analyses module, registering the app name and default auto field type.",
+    "type": "file"
+  },
+  {
+    "id": "file:Backend/analyses/migrations/__init__.py",
+    "name": "__init__.py",
+    "filePath": "Backend/analyses/migrations/__init__.py",
+    "summary": "Empty Python package initializer for the analyses migrations package.",
+    "type": "file"
+  },
+  {
+    "id": "file:Backend/analyses/migrations/0001_initial.py",
+    "name": "0001_initial.py",
+    "filePath": "Backend/analyses/migrations/0001_initial.py",
+    "summary": "Initial Django migration for the analyses app, creating TestCatalogEntry, Sample, TestOrder, and TestResult models with full field definitions, foreign key relationships, indexes, and status choice enumerations.",
+    "type": "file"
+  },
+  {
+    "id": "file:Backend/analyses/migrations/0002_rename_catalog_lab_active_idx_analyses_te_laborat_66cc20_idx_and_more.py",
+    "name": "0002_rename_catalog_lab_active_idx_analyses_te_laborat_66cc20_idx_and_more.py",
+    "filePath": "Backend/analyses/migrations/0002_rename_catalog_lab_active_idx_analyses_te_laborat_66cc20_idx_and_more.py",
+    "summary": "Django migration that renames catalog and laboratory indexes in the analyses app and makes additional field alterations as part of a schema refinement pass.",
+    "type": "file"
+  },
+  {
+    "id": "file:Backend/analyses/migrations/0003_testorder_cnam_split_testresult_original_value.py",
+    "name": "0003_testorder_cnam_split_testresult_original_value.py",
+    "filePath": "Backend/analyses/migrations/0003_testorder_cnam_split_testresult_original_value.py",
+    "summary": "Django migration that adds CNAM split fields to TestOrder and an original_value field to TestResult, supporting CNAM reimbursement tracking and result audit history.",
+    "type": "file"
+  },
+  {
+    "id": "file:Backend/analyses/migrations/0004_questionnaire.py",
+    "name": "0004_questionnaire.py",
+    "filePath": "Backend/analyses/migrations/0004_questionnaire.py",
+    "summary": "Django migration that creates the Questionnaire model in the analyses app, enabling pre-analysis patient intake questionnaires linked to appointments or orders.",
+    "type": "file"
+  },
+  {
+    "id": "file:Backend/analyses/migrations/0005_testorder_tube_barcode.py",
+    "name": "0005_testorder_tube_barcode.py",
+    "filePath": "Backend/analyses/migrations/0005_testorder_tube_barcode.py",
+    "summary": "Django migration that adds a `tube_barcode` indexed CharField to the TestOrder model, enabling tube-level barcode tracking for lab analyses.",
+    "type": "file"
+  },
+  {
+    "id": "file:Backend/analyses/pdf.py",
+    "name": "pdf.py",
+    "filePath": "Backend/analyses/pdf.py",
+    "summary": "PDF generation module for validated lab results using ReportLab Platypus, producing a structured A4 report with patient info, result values, clinical context, and biologist signature.",
+    "type": "file"
+  },
+  {
+    "id": "file:Backend/appointments/__init__.py",
+    "name": "__init__.py",
+    "filePath": "Backend/appointments/__init__.py",
+    "summary": "Empty Python package marker for the appointments Django app.",
+    "type": "file"
+  },
+  {
+    "id": "file:Backend/appointments/apps.py",
+    "name": "apps.py",
+    "filePath": "Backend/appointments/apps.py",
+    "summary": "Django AppConfig for the appointments app, registering it under the name 'appointments' with BigAutoField as the default primary key type.",
+    "type": "file"
+  },
+  {
+    "id": "file:Backend/appointments/migrations/__init__.py",
+    "name": "__init__.py",
+    "filePath": "Backend/appointments/migrations/__init__.py",
+    "summary": "Empty Python package marker for the appointments migrations directory.",
+    "type": "file"
+  },
+  {
+    "id": "file:Backend/appointments/migrations/0001_initial.py",
+    "name": "0001_initial.py",
+    "filePath": "Backend/appointments/migrations/0001_initial.py",
+    "summary": "Initial Django migration creating the Appointment model with full field set including visit type, status lifecycle, geolocation for home visits, fee fields, nurse assignment, and composite database indexes.",
+    "type": "file"
+  },
+  {
+    "id": "file:Backend/appointments/migrations/0002_rename_appt_lab_sched_idx_appointment_laborat_a57603_idx_and_more.py",
+    "name": "0002_rename_appt_lab_sched_idx_appointment_laborat_a57603_idx_and_more.py",
+    "filePath": "Backend/appointments/migrations/0002_rename_appt_lab_sched_idx_appointment_laborat_a57603_idx_and_more.py",
+    "summary": "Django migration that renames three Appointment database indexes to Django's auto-generated naming convention and adds a help text to the assigned_nurse FK.",
+    "type": "file"
+  },
+  {
+    "id": "file:Backend/core/__init__.py",
+    "name": "__init__.py",
+    "filePath": "Backend/core/__init__.py",
+    "summary": "Empty Python package marker for the core shared infrastructure Django app.",
+    "type": "file"
+  },
+  {
+    "id": "file:Backend/core/apps.py",
+    "name": "apps.py",
+    "filePath": "Backend/core/apps.py",
+    "summary": "Django AppConfig for the core app, registering shared infrastructure utilities under the name 'core'.",
+    "type": "file"
+  },
+  {
+    "id": "file:Backend/core/exceptions.py",
+    "name": "exceptions.py",
+    "filePath": "Backend/core/exceptions.py",
+    "summary": "Custom DRF exception handler that wraps all API errors in a consistent envelope shape with a stable `code` field alongside the error detail.",
+    "type": "file"
+  },
+  {
+    "id": "file:Backend/core/pagination.py",
+    "name": "pagination.py",
+    "filePath": "Backend/core/pagination.py",
+    "summary": "Shared DRF pagination class setting a default page size of 20 with a maximum of 100, reused across all list endpoints in the project.",
+    "type": "file"
+  },
+  {
+    "id": "file:Backend/inventory/__init__.py",
+    "name": "__init__.py",
+    "filePath": "Backend/inventory/__init__.py",
+    "summary": "Empty Python package marker for the inventory Django app.",
+    "type": "file"
+  },
+  {
+    "id": "file:Backend/inventory/apps.py",
+    "name": "apps.py",
+    "filePath": "Backend/inventory/apps.py",
+    "summary": "Django AppConfig for the inventory app, registering reagent and consumable stock management under the name 'inventory'.",
+    "type": "file"
+  },
+  {
+    "id": "file:Backend/inventory/migrations/__init__.py",
+    "name": "__init__.py",
+    "filePath": "Backend/inventory/migrations/__init__.py",
+    "summary": "Empty Python package marker for the inventory migrations directory.",
+    "type": "file"
+  },
+  {
+    "id": "file:Backend/inventory/migrations/0001_initial.py",
+    "name": "0001_initial.py",
+    "filePath": "Backend/inventory/migrations/0001_initial.py",
+    "summary": "Initial Django migration creating the InventoryItem and InventoryMovement models for reagent/consumable stock tracking, with category choices, min-stock alerting, unit cost, and movement audit trail.",
+    "type": "file"
+  },
+  {
+    "id": "file:Backend/inventory/migrations/0002_rename_inventory_i_laborat_5b7a6f_idx_inventory_i_laborat_ab2e4b_idx_and_more.py",
+    "name": "0002_rename_inventory_i_laborat_5b7a6f_idx_inventory_i_laborat_ab2e4b_idx_and_more.py",
+    "filePath": "Backend/inventory/migrations/0002_rename_inventory_i_laborat_5b7a6f_idx_inventory_i_laborat_ab2e4b_idx_and_more.py",
+    "summary": "Django migration that renames two InventoryItem and InventoryMovement indexes to auto-generated naming convention.",
+    "type": "file"
+  },
+  {
+    "id": "file:Backend/labconnect/__init__.py",
+    "name": "__init__.py",
+    "filePath": "Backend/labconnect/__init__.py",
+    "summary": "Django project package init that imports and exposes the Celery app instance so it is loaded when Django starts, ensuring task autodiscovery runs.",
+    "type": "file"
+  },
+  {
+    "id": "file:Backend/labconnect/asgi.py",
+    "name": "asgi.py",
+    "filePath": "Backend/labconnect/asgi.py",
+    "summary": "ASGI entry point that configures Django Channels to route HTTP traffic to the Django ASGI app and WebSocket traffic through a URLRouter, ready for future realtime features.",
+    "type": "file"
+  },
+  {
+    "id": "file:Backend/labconnect/celery.py",
+    "name": "celery.py",
+    "filePath": "Backend/labconnect/celery.py",
+    "summary": "Celery application configuration for LabConnect, reading settings from Django's CELERY namespace and providing a debug task for introspection.",
+    "type": "file"
+  },
+  {
+    "id": "file:Backend/labconnect/settings/__init__.py",
+    "name": "__init__.py",
+    "filePath": "Backend/labconnect/settings/__init__.py",
+    "summary": "Empty package marker for the labconnect settings module, enabling split settings (dev/prod) as a package.",
+    "type": "file"
+  },
+  {
+    "id": "file:Backend/labconnect/urls.py",
+    "name": "urls.py",
+    "filePath": "Backend/labconnect/urls.py",
+    "summary": "Root URL configuration aggregating all app routers under `/api/v1/`, plus Django admin, drf-spectacular OpenAPI schema, Swagger UI, and ReDoc endpoints.",
+    "type": "file"
+  },
+  {
+    "id": "file:Backend/labconnect/wsgi.py",
+    "name": "wsgi.py",
+    "filePath": "Backend/labconnect/wsgi.py",
+    "summary": "WSGI entry point for synchronous HTTP serving via gunicorn, pointing to the production settings module.",
+    "type": "file"
+  },
+  {
+    "id": "file:Backend/laboratories/__init__.py",
+    "name": "__init__.py",
+    "filePath": "Backend/laboratories/__init__.py",
+    "summary": "Empty Python package marker for the laboratories Django app.",
+    "type": "file"
+  },
+  {
+    "id": "file:Backend/laboratories/apps.py",
+    "name": "apps.py",
+    "filePath": "Backend/laboratories/apps.py",
+    "summary": "Django AppConfig for the laboratories app, registering laboratory entity management under the name 'laboratories'.",
+    "type": "file"
+  },
+  {
+    "id": "file:Backend/laboratories/migrations/__init__.py",
+    "name": "__init__.py",
+    "filePath": "Backend/laboratories/migrations/__init__.py",
+    "summary": "Empty Python package marker for the laboratories migrations directory.",
+    "type": "file"
+  },
+  {
+    "id": "file:Backend/laboratories/migrations/0002_alter_laboratory_emergency_fee_mru_and_more.py",
+    "name": "0002_alter_laboratory_emergency_fee_mru_and_more.py",
+    "filePath": "Backend/laboratories/migrations/0002_alter_laboratory_emergency_fee_mru_and_more.py",
+    "summary": "Django migration that alters the Laboratory model's emergency_fee_mru, home_visit_fee_mru, opening_hours, and technician_mode fields, adding validators and updated default values.",
+    "type": "file"
+  },
+  {
+    "id": "file:Backend/manage.py",
+    "name": "manage.py",
+    "filePath": "Backend/manage.py",
+    "summary": "Standard Django management script that serves as the command-line entry point for the labconnect backend, defaulting to the dev settings module.",
+    "type": "file"
+  },
+  {
+    "id": "file:Backend/notifications/__init__.py",
+    "name": "__init__.py",
+    "filePath": "Backend/notifications/__init__.py",
+    "summary": "Empty Python package initializer that marks the notifications directory as a Django app package.",
+    "type": "file"
+  },
+  {
+    "id": "file:Backend/notifications/apps.py",
+    "name": "apps.py",
+    "filePath": "Backend/notifications/apps.py",
+    "summary": "Django AppConfig for the notifications app, registering it under the name 'notifications' with BigAutoField as the default primary key type.",
+    "type": "file"
+  },
+  {
+    "id": "file:Backend/notifications/migrations/__init__.py",
+    "name": "__init__.py",
+    "filePath": "Backend/notifications/migrations/__init__.py",
+    "summary": "Empty Python package initializer that marks the notifications/migrations directory as a package.",
+    "type": "file"
+  },
+  {
+    "id": "file:Backend/notifications/migrations/0001_initial.py",
+    "name": "0001_initial.py",
+    "filePath": "Backend/notifications/migrations/0001_initial.py",
+    "summary": "Initial Django migration that creates the Notification model with UUID, kind, severity, title, body, payload, and read_at fields linked to the auth user model, plus two composite indexes for efficient per-user querying.",
+    "type": "file"
+  },
+  {
+    "id": "file:Backend/notifications/migrations/0002_rename_notif_user_created_idx_notificatio_user_id_05b4bc_idx_and_more.py",
+    "name": "0002_rename_notif_user_created_idx_notificatio_user_id_05b4bc_idx_and_more.py",
+    "filePath": "Backend/notifications/migrations/0002_rename_notif_user_created_idx_notificatio_user_id_05b4bc_idx_and_more.py",
+    "summary": "Django migration that renames the two Notification model database indexes to match Django 5.x auto-generated naming conventions.",
+    "type": "file"
+  },
+  {
+    "id": "config:frontend-client/.claude/settings.json",
+    "name": "settings.json",
+    "filePath": "frontend-client/.claude/settings.json",
+    "summary": "Claude Code project settings for the frontend-client (Expo mobile app), enabling the official Expo plugin for AI-assisted development.",
+    "type": "config"
+  },
+  {
+    "id": "file:frontend-web/eslint.config.js",
+    "name": "eslint.config.js",
+    "filePath": "frontend-web/eslint.config.js",
+    "summary": "ESLint flat config for the React web dashboard, enabling recommended JavaScript rules alongside React Hooks and React Refresh plugins targeting .js and .jsx files.",
+    "type": "file"
+  },
+  {
+    "id": "file:frontend-web/src/App.css",
+    "name": "App.css",
+    "filePath": "frontend-web/src/App.css",
+    "summary": "Placeholder CSS file for the root App component; all actual design tokens and component styles have been migrated to index.css.",
+    "type": "file"
+  },
+  {
+    "id": "file:frontend-web/src/index.css",
+    "name": "index.css",
+    "filePath": "frontend-web/src/index.css",
+    "summary": "Global stylesheet for the labConnect web dashboard defining the complete design system: CSS custom properties for colors, typography, spacing, shadows, and all reusable component styles including sidebar, cards, tables, modals, and form elements.",
+    "type": "file"
+  },
+  {
+    "id": "file:frontend-web/vite.config.js",
+    "name": "vite.config.js",
+    "filePath": "frontend-web/vite.config.js",
+    "summary": "Minimal Vite build configuration for the React web dashboard, loading the official @vitejs/plugin-react plugin for JSX transform and Fast Refresh support.",
+    "type": "file"
+  },
+  {
+    "id": "config:render.yaml",
+    "name": "render.yaml",
+    "filePath": "render.yaml",
+    "summary": "Render blueprint declaring the labconnect-api web service that builds and deploys the Django backend via gunicorn, with auto-generated SECRET_KEY and manually-configured DATABASE_URL and CORS_ALLOWED_ORIGINS pointing to Supabase Postgres.",
+    "type": "config"
+  }
+]

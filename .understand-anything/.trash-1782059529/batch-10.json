@@ -1,0 +1,368 @@
+{
+  "nodes": [
+    {
+      "id": "config:.claude/settings.local.json",
+      "type": "config",
+      "name": "settings.local.json",
+      "filePath": ".claude/settings.local.json",
+      "summary": "Claude Code local permission allowlist for this project, granting bash commands for Python, Node, npm, git, and Expo toolchain operations used during development.",
+      "tags": ["configuration", "development", "security"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:.understand-anything/.understandignore",
+      "type": "file",
+      "name": ".understandignore",
+      "filePath": ".understand-anything/.understandignore",
+      "summary": "Configuration file specifying patterns for files and directories to exclude from the understand-anything analysis tool, with all test-file exclusion patterns currently commented out.",
+      "tags": ["configuration", "tooling", "documentation"],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:API.md",
+      "type": "document",
+      "name": "API.md",
+      "filePath": "API.md",
+      "summary": "Comprehensive REST API reference for labConnect covering all 71 endpoints across authentication, biometrics, laboratories, personnel, test catalog, samples, inventory, orders/results, and appointments — including role-based access rules and 2FA requirements.",
+      "tags": ["documentation", "api-schema", "reference"],
+      "complexity": "complex",
+      "languageNotes": "Written primarily in French with mixed French/English technical terms; covers JWT auth flows, TOTP/biometric 2FA, and CNAM reimbursement workflows."
+    },
+    {
+      "id": "file:Backend/accounts/__init__.py",
+      "type": "file",
+      "name": "__init__.py",
+      "filePath": "Backend/accounts/__init__.py",
+      "summary": "Empty Python package initializer for the accounts Django app.",
+      "tags": ["entry-point", "configuration"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:Backend/accounts/apps.py",
+      "type": "file",
+      "name": "apps.py",
+      "filePath": "Backend/accounts/apps.py",
+      "summary": "Django app configuration for the accounts module, registering the app with its default auto field and wiring up signals on ready.",
+      "tags": ["configuration", "django", "entry-point"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:Backend/accounts/backends.py",
+      "type": "file",
+      "name": "backends.py",
+      "filePath": "Backend/accounts/backends.py",
+      "summary": "Custom Django authentication backend that allows users to log in using either their email address or phone number, performing case-insensitive email lookup.",
+      "tags": ["service", "authentication", "middleware"],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:Backend/accounts/backends.py:EmailOrPhoneBackend",
+      "type": "class",
+      "name": "EmailOrPhoneBackend",
+      "filePath": "Backend/accounts/backends.py",
+      "lineRange": [10, 30],
+      "summary": "Extends Django's ModelBackend to authenticate users by email or phone number using a combined Q-filter lookup and password check.",
+      "tags": ["authentication", "middleware", "service"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:Backend/accounts/management/__init__.py",
+      "type": "file",
+      "name": "__init__.py",
+      "filePath": "Backend/accounts/management/__init__.py",
+      "summary": "Empty Python package initializer for the accounts management commands package.",
+      "tags": ["entry-point", "configuration"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:Backend/accounts/management/commands/__init__.py",
+      "type": "file",
+      "name": "__init__.py",
+      "filePath": "Backend/accounts/management/commands/__init__.py",
+      "summary": "Empty Python package initializer for the accounts management commands sub-package.",
+      "tags": ["entry-point", "configuration"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:Backend/accounts/management/commands/runlan.py",
+      "type": "file",
+      "name": "runlan.py",
+      "filePath": "Backend/accounts/management/commands/runlan.py",
+      "summary": "Custom Django management command that starts the development server bound to 0.0.0.0:8000 and prints the LAN IP address so mobile devices on the same Wi-Fi can reach the backend without manual IP lookup.",
+      "tags": ["utility", "development", "entry-point"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:Backend/accounts/migrations/__init__.py",
+      "type": "file",
+      "name": "__init__.py",
+      "filePath": "Backend/accounts/migrations/__init__.py",
+      "summary": "Empty Python package initializer for the accounts migrations package.",
+      "tags": ["entry-point", "configuration"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:Backend/accounts/migrations/0002_rename_accounts_ot_phone_purpose_idx_accounts_ot_phone_573c27_idx_and_more.py",
+      "type": "file",
+      "name": "0002_rename_accounts_ot_phone_purpose_idx_accounts_ot_phone_573c27_idx_and_more.py",
+      "filePath": "Backend/accounts/migrations/0002_rename_accounts_ot_phone_purpose_idx_accounts_ot_phone_573c27_idx_and_more.py",
+      "summary": "Django migration that renames database indexes and alters OTP-related fields in the accounts app, as part of a schema refinement pass after the initial migration.",
+      "tags": ["database", "migration", "configuration"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:Backend/accounts/migrations/0003_alter_user_email_alter_user_phone.py",
+      "type": "file",
+      "name": "0003_alter_user_email_alter_user_phone.py",
+      "filePath": "Backend/accounts/migrations/0003_alter_user_email_alter_user_phone.py",
+      "summary": "Django migration that alters the email and phone fields on the User model, likely adjusting uniqueness or nullability constraints.",
+      "tags": ["database", "migration", "configuration"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:Backend/accounts/migrations/0004_alter_staffprofile_user_and_more.py",
+      "type": "file",
+      "name": "0004_alter_staffprofile_user_and_more.py",
+      "filePath": "Backend/accounts/migrations/0004_alter_staffprofile_user_and_more.py",
+      "summary": "Django migration that alters the StaffProfile user field and additional related fields, refining profile model relationships.",
+      "tags": ["database", "migration", "configuration"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:Backend/accounts/migrations/0005_patientprofile_cnam.py",
+      "type": "file",
+      "name": "0005_patientprofile_cnam.py",
+      "filePath": "Backend/accounts/migrations/0005_patientprofile_cnam.py",
+      "summary": "Django migration that adds CNAM (national health insurance) fields to the PatientProfile model, enabling reimbursement data storage.",
+      "tags": ["database", "migration", "configuration"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:Backend/accounts/migrations/0006_trusteddevice.py",
+      "type": "file",
+      "name": "0006_trusteddevice.py",
+      "filePath": "Backend/accounts/migrations/0006_trusteddevice.py",
+      "summary": "Django migration that creates the TrustedDevice model for storing biometric-authenticated device tokens, enabling persistent biometric login without repeated 2FA challenges.",
+      "tags": ["database", "migration", "configuration"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:Backend/accounts/migrations/0007_rename_accounts_tr_phone_8a1f3c_idx_accounts_tr_phone_df3b46_idx.py",
+      "type": "file",
+      "name": "0007_rename_accounts_tr_phone_8a1f3c_idx_accounts_tr_phone_df3b46_idx.py",
+      "filePath": "Backend/accounts/migrations/0007_rename_accounts_tr_phone_8a1f3c_idx_accounts_tr_phone_df3b46_idx.py",
+      "summary": "Django migration that renames a database index on the TrustedDevice model's phone field to a more stable name.",
+      "tags": ["database", "migration", "configuration"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:Backend/accounts/services/totp.py",
+      "type": "file",
+      "name": "totp.py",
+      "filePath": "Backend/accounts/services/totp.py",
+      "summary": "TOTP 2FA service implementing RFC 6238 using pyotp, providing secret generation, code verification with ±1 window tolerance, provisioning URI construction, and base64 QR code generation for authenticator app enrollment.",
+      "tags": ["service", "authentication", "utility"],
+      "complexity": "simple",
+      "languageNotes": "Uses pyotp and qrcode libraries; QR output is base64-encoded PNG suitable for direct embedding in React Native Image components."
+    },
+    {
+      "id": "function:Backend/accounts/services/totp.py:generate_secret",
+      "type": "function",
+      "name": "generate_secret",
+      "filePath": "Backend/accounts/services/totp.py",
+      "lineRange": [19, 21],
+      "summary": "Generates a cryptographically secure 32-character base32 TOTP secret using pyotp.",
+      "tags": ["utility", "authentication", "security"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:Backend/accounts/services/totp.py:verify_code",
+      "type": "function",
+      "name": "verify_code",
+      "filePath": "Backend/accounts/services/totp.py",
+      "lineRange": [28, 31],
+      "summary": "Verifies a TOTP code against a secret with ±1 step clock-drift tolerance, returning a boolean result.",
+      "tags": ["authentication", "validation", "security"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:Backend/accounts/services/totp.py:provisioning_uri",
+      "type": "function",
+      "name": "provisioning_uri",
+      "filePath": "Backend/accounts/services/totp.py",
+      "lineRange": [34, 39],
+      "summary": "Builds the otpauth:// provisioning URI used by authenticator apps to register a TOTP account, including app name and phone as issuer/account.",
+      "tags": ["authentication", "utility"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:Backend/accounts/services/totp.py:qr_code_base64",
+      "type": "function",
+      "name": "qr_code_base64",
+      "filePath": "Backend/accounts/services/totp.py",
+      "lineRange": [42, 52],
+      "summary": "Generates a base64-encoded PNG QR code from the TOTP provisioning URI, ready for embedding in mobile app image components.",
+      "tags": ["utility", "authentication", "serialization"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:Backend/accounts/signals.py",
+      "type": "file",
+      "name": "signals.py",
+      "filePath": "Backend/accounts/signals.py",
+      "summary": "Placeholder signals module for the accounts app, reserved for future audit logging of user creation and login events.",
+      "tags": ["event-handler", "placeholder"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:Backend/analyses/__init__.py",
+      "type": "file",
+      "name": "__init__.py",
+      "filePath": "Backend/analyses/__init__.py",
+      "summary": "Empty Python package initializer for the analyses Django app.",
+      "tags": ["entry-point", "configuration"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:Backend/analyses/apps.py",
+      "type": "file",
+      "name": "apps.py",
+      "filePath": "Backend/analyses/apps.py",
+      "summary": "Django app configuration for the analyses module, registering the app name and default auto field type.",
+      "tags": ["configuration", "django", "entry-point"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:Backend/analyses/migrations/__init__.py",
+      "type": "file",
+      "name": "__init__.py",
+      "filePath": "Backend/analyses/migrations/__init__.py",
+      "summary": "Empty Python package initializer for the analyses migrations package.",
+      "tags": ["entry-point", "configuration"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:Backend/analyses/migrations/0001_initial.py",
+      "type": "file",
+      "name": "0001_initial.py",
+      "filePath": "Backend/analyses/migrations/0001_initial.py",
+      "summary": "Initial Django migration for the analyses app, creating TestCatalogEntry, Sample, TestOrder, and TestResult models with full field definitions, foreign key relationships, indexes, and status choice enumerations.",
+      "tags": ["database", "migration", "data-model"],
+      "complexity": "complex",
+      "languageNotes": "Creates four interrelated models: TestCatalogEntry (lab test definitions with pricing), Sample (collected specimens), TestOrder (ordered tests per sample), and TestResult (technician and biologist results with validation flow)."
+    },
+    {
+      "id": "file:Backend/analyses/migrations/0002_rename_catalog_lab_active_idx_analyses_te_laborat_66cc20_idx_and_more.py",
+      "type": "file",
+      "name": "0002_rename_catalog_lab_active_idx_analyses_te_laborat_66cc20_idx_and_more.py",
+      "filePath": "Backend/analyses/migrations/0002_rename_catalog_lab_active_idx_analyses_te_laborat_66cc20_idx_and_more.py",
+      "summary": "Django migration that renames catalog and laboratory indexes in the analyses app and makes additional field alterations as part of a schema refinement pass.",
+      "tags": ["database", "migration", "configuration"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:Backend/analyses/migrations/0003_testorder_cnam_split_testresult_original_value.py",
+      "type": "file",
+      "name": "0003_testorder_cnam_split_testresult_original_value.py",
+      "filePath": "Backend/analyses/migrations/0003_testorder_cnam_split_testresult_original_value.py",
+      "summary": "Django migration that adds CNAM split fields to TestOrder and an original_value field to TestResult, supporting CNAM reimbursement tracking and result audit history.",
+      "tags": ["database", "migration", "configuration"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:Backend/analyses/migrations/0004_questionnaire.py",
+      "type": "file",
+      "name": "0004_questionnaire.py",
+      "filePath": "Backend/analyses/migrations/0004_questionnaire.py",
+      "summary": "Django migration that creates the Questionnaire model in the analyses app, enabling pre-analysis patient intake questionnaires linked to appointments or orders.",
+      "tags": ["database", "migration", "configuration"],
+      "complexity": "simple"
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:Backend/accounts/backends.py",
+      "target": "class:Backend/accounts/backends.py:EmailOrPhoneBackend",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Backend/accounts/backends.py",
+      "target": "class:Backend/accounts/backends.py:EmailOrPhoneBackend",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Backend/accounts/services/totp.py",
+      "target": "function:Backend/accounts/services/totp.py:generate_secret",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Backend/accounts/services/totp.py",
+      "target": "function:Backend/accounts/services/totp.py:verify_code",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Backend/accounts/services/totp.py",
+      "target": "function:Backend/accounts/services/totp.py:provisioning_uri",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Backend/accounts/services/totp.py",
+      "target": "function:Backend/accounts/services/totp.py:qr_code_base64",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:Backend/accounts/services/totp.py",
+      "target": "function:Backend/accounts/services/totp.py:generate_secret",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Backend/accounts/services/totp.py",
+      "target": "function:Backend/accounts/services/totp.py:verify_code",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Backend/accounts/services/totp.py",
+      "target": "function:Backend/accounts/services/totp.py:provisioning_uri",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:Backend/accounts/services/totp.py",
+      "target": "function:Backend/accounts/services/totp.py:qr_code_base64",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "document:API.md",
+      "target": "file:Backend/accounts/backends.py",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:API.md",
+      "target": "file:Backend/accounts/services/totp.py",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    }
+  ]
+}

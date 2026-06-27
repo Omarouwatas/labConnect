@@ -1,0 +1,16 @@
+{
+  "fixedSectionOk": true,
+  "nodesRecovered": 1,
+  "edgesRestored": 2,
+  "crossBatchEdgesAdded": 0,
+  "typesRemapped": 0,
+  "complexityRemapped": 0,
+  "notes": [
+    "Fixed section is clean: 322 input nodes, 0 nodes without IDs, 0 unknown types, 0 unknown complexity values. The merge script had no normalization work to do (no func: prefixes, no double prefixes, no skewed complexity), which indicates this LLM batch run produced well-formed output.",
+    "Single dropped edge: class:Backend/analyses/views.py:SampleViewSet -> function:Backend/notifications/events.py:notify_sample_received (calls). The target function exists in the real source file (Backend/notifications/events.py, confirmed by reading the file). It was analyzed by batch-4.json which captured the calls edge but the function itself was only partially catalogued — the file node and 5 sibling functions were captured but notify_sample_received was omitted from the node list (likely an LLM truncation in batch-4 output). Recovered by creating the function node with lineRange [188,207], complexity=simple, and restoring both the contains edge (file->function) and the calls edge.",
+    "Cross-batch import edge check: all 283 import edges backed by the importMap were already present in the assembled graph. Zero edges needed to be added.",
+    "The 16 files present in importMap but absent from the graph are non-code assets (docker-compose.yml, Dockerfile, README.md, package.json, render.yaml, settings.json, CLAUDE.md, AGENTS.md, etc.) — their absence is correct and expected.",
+    "Hub file coverage looks healthy: Backend/core/permissions.py has 12 importers in graph (import map also shows 12), Backend/accounts/models.py has 10 (map shows 10), frontend-web/src/api.js has 17 (map shows 17), frontend-client/src/theme.js has 20 (map shows 20). All hub file counts match or exceed the import map counts.",
+    "Complexity distribution (simple:157, moderate:80, complex:85) is reasonable for a medium-sized Django+React+React-Native codebase with many thin serializer/model files driving the simple count."
+  ]
+}

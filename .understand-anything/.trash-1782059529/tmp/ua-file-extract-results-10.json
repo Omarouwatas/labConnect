@@ -1,0 +1,1207 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 25,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": ".claude/settings.local.json",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 36,
+      "nonEmptyLines": 36,
+      "sections": [
+        {
+          "heading": "permissions",
+          "level": 1,
+          "line": 2
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 1
+      }
+    },
+    {
+      "path": ".understand-anything/.understandignore",
+      "language": "unknown",
+      "fileCategory": "code",
+      "totalLines": 27,
+      "nonEmptyLines": 25,
+      "metrics": {}
+    },
+    {
+      "path": "API.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 1111,
+      "nonEmptyLines": 864,
+      "sections": [
+        {
+          "heading": "labConnect — API reference",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "Authentification",
+          "level": 2,
+          "line": 12
+        },
+        {
+          "heading": "Rôles canoniques",
+          "level": 3,
+          "line": 31
+        },
+        {
+          "heading": "Table des matières",
+          "level": 2,
+          "line": 49
+        },
+        {
+          "heading": "Auth",
+          "level": 2,
+          "line": 103
+        },
+        {
+          "heading": "`POST /auth/otp/request/`  *(public)*",
+          "level": 3,
+          "line": 105
+        },
+        {
+          "heading": "`POST /auth/otp/verify/`  *(public)*",
+          "level": 3,
+          "line": 128
+        },
+        {
+          "heading": "`POST /auth/login/staff/`  *(public)*",
+          "level": 3,
+          "line": 164
+        },
+        {
+          "heading": "`POST /auth/login/google/`  *(public)*",
+          "level": 3,
+          "line": 183
+        },
+        {
+          "heading": "`POST /auth/login/google/patient/`  *(public)*",
+          "level": 3,
+          "line": 197
+        },
+        {
+          "heading": "`POST /auth/login/firebase/`  *(public)*",
+          "level": 3,
+          "line": 223
+        },
+        {
+          "heading": "`POST /auth/refresh/`  *(public)*",
+          "level": 3,
+          "line": 246
+        },
+        {
+          "heading": "`POST /auth/logout/`  *(authentifié)*",
+          "level": 3,
+          "line": 262
+        },
+        {
+          "heading": "`GET /auth/me/`  *(authentifié)*",
+          "level": 3,
+          "line": 277
+        },
+        {
+          "heading": "`PATCH /auth/me/`  *(authentifié)*",
+          "level": 3,
+          "line": 297
+        },
+        {
+          "heading": "`POST /auth/totp/setup/`  *(staff authentifié)*  *(mocké)*",
+          "level": 3,
+          "line": 308
+        },
+        {
+          "heading": "`POST /auth/totp/confirm/`  *(staff authentifié)*  *(mocké)*",
+          "level": 3,
+          "line": 324
+        },
+        {
+          "heading": "`POST /auth/totp/verify/`  *(authentifié)*  *(mocké)*",
+          "level": 3,
+          "line": 329
+        },
+        {
+          "heading": "`DELETE /auth/totp/device/`  *(authentifié)*",
+          "level": 3,
+          "line": 338
+        },
+        {
+          "heading": "Biométrie (Face ID / empreinte digitale)",
+          "level": 2,
+          "line": 344
+        },
+        {
+          "heading": "`POST /auth/biometric/check/`  *(public)*",
+          "level": 3,
+          "line": 355
+        },
+        {
+          "heading": "`POST /auth/biometric/register/`  *(authentifié)*",
+          "level": 3,
+          "line": 364
+        },
+        {
+          "heading": "`POST /auth/biometric/login/`  *(public)*",
+          "level": 3,
+          "line": 388
+        },
+        {
+          "heading": "`POST /auth/biometric/revoke/`  *(authentifié)*",
+          "level": 3,
+          "line": 407
+        },
+        {
+          "heading": "Laboratoires",
+          "level": 2,
+          "line": 418
+        },
+        {
+          "heading": "`GET /laboratories/`  *(public)*",
+          "level": 3,
+          "line": 420
+        },
+        {
+          "heading": "`GET /laboratories/{uuid}/`  *(public)*",
+          "level": 3,
+          "line": 445
+        },
+        {
+          "heading": "`GET /laboratories/nearby/`  *(public)*",
+          "level": 3,
+          "line": 449
+        },
+        {
+          "heading": "`GET /lab/config`  *(chef de labo + 2FA)*",
+          "level": 3,
+          "line": 463
+        },
+        {
+          "heading": "`PATCH /lab/config`  *(chef de labo + 2FA)*",
+          "level": 3,
+          "line": 491
+        },
+        {
+          "heading": "Personnel",
+          "level": 2,
+          "line": 510
+        },
+        {
+          "heading": "`POST /lab/employees/invite`  *(chef de labo + 2FA)*",
+          "level": 3,
+          "line": 512
+        },
+        {
+          "heading": "`GET /lab/employees/`  *(chef de labo + 2FA)*",
+          "level": 3,
+          "line": 541
+        },
+        {
+          "heading": "`GET /lab/employees/{uuid}/`  *(chef de labo + 2FA)*",
+          "level": 3,
+          "line": 564
+        },
+        {
+          "heading": "`PATCH /lab/employees/{uuid}/`  *(chef de labo + 2FA)*",
+          "level": 3,
+          "line": 568
+        },
+        {
+          "heading": "`DELETE /lab/employees/{uuid}/`  *(chef de labo + 2FA)*",
+          "level": 3,
+          "line": 584
+        },
+        {
+          "heading": "Catalogue de tests",
+          "level": 2,
+          "line": 593
+        },
+        {
+          "heading": "`GET /lab/catalog/`  *(authentifié)*",
+          "level": 3,
+          "line": 595
+        },
+        {
+          "heading": "`POST /lab/catalog/`  *(chef de labo + 2FA)*",
+          "level": 3,
+          "line": 617
+        },
+        {
+          "heading": "`PATCH /lab/catalog/{uuid}/`  *(chef de labo + 2FA)*",
+          "level": 3,
+          "line": 635
+        },
+        {
+          "heading": "`DELETE /lab/catalog/{uuid}/`  *(chef de labo + 2FA)*",
+          "level": 3,
+          "line": 639
+        },
+        {
+          "heading": "Échantillons",
+          "level": 2,
+          "line": 645
+        },
+        {
+          "heading": "`GET /lab/samples/`  *(staff + 2FA)*",
+          "level": 3,
+          "line": 647
+        },
+        {
+          "heading": "`POST /lab/samples/`  *(secrétaire / infirmier / chef + 2FA)*",
+          "level": 3,
+          "line": 671
+        },
+        {
+          "heading": "`PATCH /lab/samples/{uuid}/receive/`  *(technicien / biologiste / chef + 2FA)*",
+          "level": 3,
+          "line": 684
+        },
+        {
+          "heading": "`PATCH /lab/samples/{uuid}/reject/`  *(technicien / biologiste / chef + 2FA)*",
+          "level": 3,
+          "line": 690
+        },
+        {
+          "heading": "`POST /lab/walk-in/`  *(secrétaire / infirmier·e / chef + 2FA)*",
+          "level": 3,
+          "line": 699
+        },
+        {
+          "heading": "`GET /lab/invoices/{appointment_uuid}/`  *(staff + 2FA)*",
+          "level": 3,
+          "line": 761
+        },
+        {
+          "heading": "`GET /lab/stats/?days=7`  *(staff + 2FA)*",
+          "level": 3,
+          "line": 809
+        },
+        {
+          "heading": "Inventaire",
+          "level": 2,
+          "line": 854
+        },
+        {
+          "heading": "`GET /lab/inventory/`  *(staff + 2FA)*",
+          "level": 3,
+          "line": 861
+        },
+        {
+          "heading": "`POST /lab/inventory/`  *(chef / technicien / biologiste + 2FA)*",
+          "level": 3,
+          "line": 870
+        },
+        {
+          "heading": "`PATCH /lab/inventory/{uuid}/`  *(chef / technicien / biologiste + 2FA)*",
+          "level": 3,
+          "line": 890
+        },
+        {
+          "heading": "`DELETE /lab/inventory/{uuid}/`  *(chef + 2FA)*",
+          "level": 3,
+          "line": 895
+        },
+        {
+          "heading": "`POST /lab/inventory/{uuid}/movement/`  *(chef / technicien / biologiste + 2FA)*",
+          "level": 3,
+          "line": 899
+        },
+        {
+          "heading": "`GET /lab/inventory/{uuid}/movements/`  *(staff + 2FA)*",
+          "level": 3,
+          "line": 927
+        },
+        {
+          "heading": "Ordres & résultats",
+          "level": 2,
+          "line": 933
+        },
+        {
+          "heading": "`GET /lab/orders/`  *(staff + 2FA)*",
+          "level": 3,
+          "line": 935
+        },
+        {
+          "heading": "`GET /lab/orders/{uuid}/result/`  *(staff + 2FA)*",
+          "level": 3,
+          "line": 960
+        },
+        {
+          "heading": "`POST /lab/orders/{uuid}/result/`  *(technicien / biologiste / chef + 2FA)*",
+          "level": 3,
+          "line": 964
+        },
+        {
+          "heading": "`PATCH /lab/orders/{uuid}/result/`  *(biologiste / chef + 2FA)*",
+          "level": 3,
+          "line": 980
+        },
+        {
+          "heading": "`GET /results/mine/`  *(authentifié)*",
+          "level": 3,
+          "line": 1003
+        },
+        {
+          "heading": "Rendez-vous",
+          "level": 2,
+          "line": 1012
+        },
+        {
+          "heading": "`GET /appointments/`  *(patient OU staff + 2FA)*",
+          "level": 3,
+          "line": 1014
+        },
+        {
+          "heading": "`POST /appointments/`  *(patient OU secrétaire/chef + 2FA)*",
+          "level": 3,
+          "line": 1046
+        },
+        {
+          "heading": "`GET /appointments/mine/`  *(patient)*",
+          "level": 3,
+          "line": 1065
+        },
+        {
+          "heading": "`GET /appointments/home-visits/`  *(infirmier + 2FA)*",
+          "level": 3,
+          "line": 1069
+        },
+        {
+          "heading": "`PATCH /appointments/{uuid}/cancel/`  *(patient ou staff)*",
+          "level": 3,
+          "line": 1074
+        },
+        {
+          "heading": "`PATCH /appointments/{uuid}/status/`  *(staff + 2FA)*",
+          "level": 3,
+          "line": 1081
+        },
+        {
+          "heading": "Schéma OpenAPI",
+          "level": 2,
+          "line": 1093
+        },
+        {
+          "heading": "Comptes de démonstration",
+          "level": 2,
+          "line": 1101
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 71
+      }
+    },
+    {
+      "path": "Backend/accounts/__init__.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 1,
+      "nonEmptyLines": 0,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "Backend/accounts/apps.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 11,
+      "nonEmptyLines": 8,
+      "classes": [
+        {
+          "name": "AccountsConfig",
+          "startLine": 4,
+          "endLine": 11,
+          "methods": [
+            "ready"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "AccountsConfig",
+          "line": 4,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "Backend/accounts/backends.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 30,
+      "nonEmptyLines": 24,
+      "classes": [
+        {
+          "name": "EmailOrPhoneBackend",
+          "startLine": 10,
+          "endLine": 30,
+          "methods": [
+            "authenticate"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "EmailOrPhoneBackend",
+          "line": 10,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "authenticate",
+          "callee": "kwargs.get",
+          "lineNumber": 17
+        },
+        {
+          "caller": "authenticate",
+          "callee": "UserModel.objects.get",
+          "lineNumber": 23
+        },
+        {
+          "caller": "authenticate",
+          "callee": "Q",
+          "lineNumber": 23
+        },
+        {
+          "caller": "authenticate",
+          "callee": "Q",
+          "lineNumber": 23
+        },
+        {
+          "caller": "authenticate",
+          "callee": "user.check_password",
+          "lineNumber": 28
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "Backend/accounts/management/__init__.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 1,
+      "nonEmptyLines": 0,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "Backend/accounts/management/commands/__init__.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 1,
+      "nonEmptyLines": 0,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "Backend/accounts/management/commands/runlan.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 52,
+      "nonEmptyLines": 42,
+      "functions": [
+        {
+          "name": "_lan_ip",
+          "startLine": 16,
+          "endLine": 26,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "Command",
+          "startLine": 29,
+          "endLine": 52,
+          "methods": [
+            "handle"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "_lan_ip",
+          "line": 16,
+          "isDefault": false
+        },
+        {
+          "name": "Command",
+          "line": 29,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "_lan_ip",
+          "callee": "socket.socket",
+          "lineNumber": 18
+        },
+        {
+          "caller": "_lan_ip",
+          "callee": "s.connect",
+          "lineNumber": 21
+        },
+        {
+          "caller": "_lan_ip",
+          "callee": "s.getsockname",
+          "lineNumber": 22
+        },
+        {
+          "caller": "_lan_ip",
+          "callee": "s.close",
+          "lineNumber": 26
+        },
+        {
+          "caller": "handle",
+          "callee": "_lan_ip",
+          "lineNumber": 36
+        },
+        {
+          "caller": "handle",
+          "callee": "self.stdout.write",
+          "lineNumber": 38
+        },
+        {
+          "caller": "handle",
+          "callee": "self.style.SUCCESS",
+          "lineNumber": 38
+        },
+        {
+          "caller": "handle",
+          "callee": "self.stdout.write",
+          "lineNumber": 39
+        },
+        {
+          "caller": "handle",
+          "callee": "self.style.SUCCESS",
+          "lineNumber": 39
+        },
+        {
+          "caller": "handle",
+          "callee": "self.stdout.write",
+          "lineNumber": 40
+        },
+        {
+          "caller": "handle",
+          "callee": "self.style.SUCCESS",
+          "lineNumber": 40
+        },
+        {
+          "caller": "handle",
+          "callee": "self.stdout.write",
+          "lineNumber": 41
+        },
+        {
+          "caller": "handle",
+          "callee": "self.style.WARNING",
+          "lineNumber": 41
+        },
+        {
+          "caller": "handle",
+          "callee": "self.stdout.write",
+          "lineNumber": 42
+        },
+        {
+          "caller": "handle",
+          "callee": "self.style.WARNING",
+          "lineNumber": 42
+        },
+        {
+          "caller": "handle",
+          "callee": "self.stdout.write",
+          "lineNumber": 43
+        },
+        {
+          "caller": "handle",
+          "callee": "self.stdout.write",
+          "lineNumber": 44
+        },
+        {
+          "caller": "handle",
+          "callee": "self.style.SUCCESS",
+          "lineNumber": 44
+        },
+        {
+          "caller": "handle",
+          "callee": "self.stdout.write",
+          "lineNumber": 45
+        },
+        {
+          "caller": "handle",
+          "callee": "super().handle",
+          "lineNumber": 52
+        },
+        {
+          "caller": "handle",
+          "callee": "super",
+          "lineNumber": 52
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 2,
+        "functionCount": 1,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "Backend/accounts/migrations/__init__.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 1,
+      "nonEmptyLines": 0,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "Backend/accounts/migrations/0002_rename_accounts_ot_phone_purpose_idx_accounts_ot_phone_573c27_idx_and_more.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 39,
+      "nonEmptyLines": 34,
+      "classes": [
+        {
+          "name": "Migration",
+          "startLine": 6,
+          "endLine": 39,
+          "methods": [],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "Migration",
+          "line": 6,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "Backend/accounts/migrations/0003_alter_user_email_alter_user_phone.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 23,
+      "nonEmptyLines": 18,
+      "classes": [
+        {
+          "name": "Migration",
+          "startLine": 6,
+          "endLine": 23,
+          "methods": [],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "Migration",
+          "line": 6,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "Backend/accounts/migrations/0004_alter_staffprofile_user_and_more.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 25,
+      "nonEmptyLines": 20,
+      "classes": [
+        {
+          "name": "Migration",
+          "startLine": 8,
+          "endLine": 25,
+          "methods": [],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "Migration",
+          "line": 8,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "Backend/accounts/migrations/0005_patientprofile_cnam.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 26,
+      "nonEmptyLines": 21,
+      "classes": [
+        {
+          "name": "Migration",
+          "startLine": 6,
+          "endLine": 26,
+          "methods": [],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "Migration",
+          "line": 6,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "Backend/accounts/migrations/0006_trusteddevice.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 60,
+      "nonEmptyLines": 54,
+      "classes": [
+        {
+          "name": "Migration",
+          "startLine": 14,
+          "endLine": 60,
+          "methods": [],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "Migration",
+          "line": 14,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "Backend/accounts/migrations/0007_rename_accounts_tr_phone_8a1f3c_idx_accounts_tr_phone_df3b46_idx.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 18,
+      "nonEmptyLines": 13,
+      "classes": [
+        {
+          "name": "Migration",
+          "startLine": 6,
+          "endLine": 18,
+          "methods": [],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "Migration",
+          "line": 6,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "Backend/accounts/services/totp.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 52,
+      "nonEmptyLines": 37,
+      "functions": [
+        {
+          "name": "generate_secret",
+          "startLine": 19,
+          "endLine": 21,
+          "params": []
+        },
+        {
+          "name": "get_totp",
+          "startLine": 24,
+          "endLine": 25,
+          "params": [
+            "secret"
+          ]
+        },
+        {
+          "name": "verify_code",
+          "startLine": 28,
+          "endLine": 31,
+          "params": [
+            "secret",
+            "code"
+          ]
+        },
+        {
+          "name": "provisioning_uri",
+          "startLine": 34,
+          "endLine": 39,
+          "params": [
+            "secret",
+            "phone"
+          ]
+        },
+        {
+          "name": "qr_code_base64",
+          "startLine": 42,
+          "endLine": 52,
+          "params": [
+            "secret",
+            "phone"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "generate_secret",
+          "line": 19,
+          "isDefault": false
+        },
+        {
+          "name": "get_totp",
+          "line": 24,
+          "isDefault": false
+        },
+        {
+          "name": "verify_code",
+          "line": 28,
+          "isDefault": false
+        },
+        {
+          "name": "provisioning_uri",
+          "line": 34,
+          "isDefault": false
+        },
+        {
+          "name": "qr_code_base64",
+          "line": 42,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "generate_secret",
+          "callee": "pyotp.random_base32",
+          "lineNumber": 21
+        },
+        {
+          "caller": "get_totp",
+          "callee": "pyotp.TOTP",
+          "lineNumber": 25
+        },
+        {
+          "caller": "verify_code",
+          "callee": "get_totp",
+          "lineNumber": 30
+        },
+        {
+          "caller": "verify_code",
+          "callee": "totp.verify",
+          "lineNumber": 31
+        },
+        {
+          "caller": "provisioning_uri",
+          "callee": "get_totp(secret).provisioning_uri",
+          "lineNumber": 36
+        },
+        {
+          "caller": "provisioning_uri",
+          "callee": "get_totp",
+          "lineNumber": 36
+        },
+        {
+          "caller": "qr_code_base64",
+          "callee": "provisioning_uri",
+          "lineNumber": 48
+        },
+        {
+          "caller": "qr_code_base64",
+          "callee": "qrcode.make",
+          "lineNumber": 49
+        },
+        {
+          "caller": "qr_code_base64",
+          "callee": "io.BytesIO",
+          "lineNumber": 50
+        },
+        {
+          "caller": "qr_code_base64",
+          "callee": "img.save",
+          "lineNumber": 51
+        },
+        {
+          "caller": "qr_code_base64",
+          "callee": "base64.b64encode(buffer.getvalue()).decode",
+          "lineNumber": 52
+        },
+        {
+          "caller": "qr_code_base64",
+          "callee": "base64.b64encode",
+          "lineNumber": 52
+        },
+        {
+          "caller": "qr_code_base64",
+          "callee": "buffer.getvalue",
+          "lineNumber": 52
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 5,
+        "functionCount": 5,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "Backend/accounts/signals.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 6,
+      "nonEmptyLines": 5,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "Backend/analyses/__init__.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 1,
+      "nonEmptyLines": 0,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "Backend/analyses/apps.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 7,
+      "nonEmptyLines": 5,
+      "classes": [
+        {
+          "name": "AnalysesConfig",
+          "startLine": 4,
+          "endLine": 7,
+          "methods": [],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "AnalysesConfig",
+          "line": 4,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "Backend/analyses/migrations/__init__.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 1,
+      "nonEmptyLines": 0,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "Backend/analyses/migrations/0001_initial.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 201,
+      "nonEmptyLines": 188,
+      "classes": [
+        {
+          "name": "Migration",
+          "startLine": 40,
+          "endLine": 201,
+          "methods": [],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "Migration",
+          "line": 40,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "Backend/analyses/migrations/0002_rename_catalog_lab_active_idx_analyses_te_laborat_66cc20_idx_and_more.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 46,
+      "nonEmptyLines": 41,
+      "classes": [
+        {
+          "name": "Migration",
+          "startLine": 8,
+          "endLine": 46,
+          "methods": [],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "Migration",
+          "line": 8,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "Backend/analyses/migrations/0003_testorder_cnam_split_testresult_original_value.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 28,
+      "nonEmptyLines": 23,
+      "classes": [
+        {
+          "name": "Migration",
+          "startLine": 6,
+          "endLine": 28,
+          "methods": [],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "Migration",
+          "line": 6,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "Backend/analyses/migrations/0004_questionnaire.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 28,
+      "nonEmptyLines": 23,
+      "classes": [
+        {
+          "name": "Migration",
+          "startLine": 6,
+          "endLine": 28,
+          "methods": [],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "Migration",
+          "line": 6,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    }
+  ]
+}

@@ -1,0 +1,4174 @@
+[
+  {
+    "source": "file:frontend-web/src/App.jsx",
+    "target": "function:frontend-web/src/App.jsx:Shell",
+    "type": "contains",
+    "direction": "forward",
+    "weight": 1
+  },
+  {
+    "source": "file:frontend-web/src/App.jsx",
+    "target": "function:frontend-web/src/App.jsx:Gate",
+    "type": "contains",
+    "direction": "forward",
+    "weight": 1
+  },
+  {
+    "source": "file:frontend-web/src/App.jsx",
+    "target": "function:frontend-web/src/App.jsx:App",
+    "type": "contains",
+    "direction": "forward",
+    "weight": 1
+  },
+  {
+    "source": "file:frontend-web/src/App.jsx",
+    "target": "function:frontend-web/src/App.jsx:App",
+    "type": "exports",
+    "direction": "forward",
+    "weight": 0.8
+  },
+  {
+    "source": "file:frontend-web/src/App.jsx",
+    "target": "file:frontend-web/src/api.js",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-web/src/App.jsx",
+    "target": "file:frontend-web/src/auth.jsx",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-web/src/App.jsx",
+    "target": "file:frontend-web/src/components/Misc.jsx",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-web/src/App.jsx",
+    "target": "file:frontend-web/src/components/Sidebar.jsx",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-web/src/App.jsx",
+    "target": "file:frontend-web/src/components/Topbar.jsx",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-web/src/App.jsx",
+    "target": "file:frontend-web/src/constants.js",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-web/src/App.jsx",
+    "target": "file:frontend-web/src/screens/Analyses.jsx",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-web/src/App.jsx",
+    "target": "file:frontend-web/src/screens/Dashboard.jsx",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-web/src/App.jsx",
+    "target": "file:frontend-web/src/screens/Inventory.jsx",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-web/src/App.jsx",
+    "target": "file:frontend-web/src/screens/Login.jsx",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-web/src/App.jsx",
+    "target": "file:frontend-web/src/screens/NursesMap.jsx",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-web/src/App.jsx",
+    "target": "file:frontend-web/src/screens/Onboarding.jsx",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-web/src/App.jsx",
+    "target": "file:frontend-web/src/screens/Settings.jsx",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-web/src/App.jsx",
+    "target": "file:frontend-web/src/screens/Staff.jsx",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-web/src/App.jsx",
+    "target": "file:frontend-web/src/screens/Stats.jsx",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-web/src/App.jsx",
+    "target": "file:frontend-web/src/screens/Tests.jsx",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-web/src/api.js",
+    "target": "class:frontend-web/src/api.js:ApiError",
+    "type": "contains",
+    "direction": "forward",
+    "weight": 1
+  },
+  {
+    "source": "file:frontend-web/src/api.js",
+    "target": "class:frontend-web/src/api.js:ApiError",
+    "type": "exports",
+    "direction": "forward",
+    "weight": 0.8
+  },
+  {
+    "source": "file:frontend-web/src/api.js",
+    "target": "function:frontend-web/src/api.js:rawFetch",
+    "type": "contains",
+    "direction": "forward",
+    "weight": 1
+  },
+  {
+    "source": "file:frontend-web/src/api.js",
+    "target": "function:frontend-web/src/api.js:geocode",
+    "type": "contains",
+    "direction": "forward",
+    "weight": 1
+  },
+  {
+    "source": "file:frontend-web/src/api.js",
+    "target": "function:frontend-web/src/api.js:geocode",
+    "type": "exports",
+    "direction": "forward",
+    "weight": 0.8
+  },
+  {
+    "source": "file:frontend-web/src/api.js",
+    "target": "function:frontend-web/src/api.js:reverseGeocode",
+    "type": "contains",
+    "direction": "forward",
+    "weight": 1
+  },
+  {
+    "source": "file:frontend-web/src/api.js",
+    "target": "function:frontend-web/src/api.js:reverseGeocode",
+    "type": "exports",
+    "direction": "forward",
+    "weight": 0.8
+  },
+  {
+    "source": "file:frontend-web/src/auth.jsx",
+    "target": "function:frontend-web/src/auth.jsx:AuthProvider",
+    "type": "contains",
+    "direction": "forward",
+    "weight": 1
+  },
+  {
+    "source": "file:frontend-web/src/auth.jsx",
+    "target": "function:frontend-web/src/auth.jsx:AuthProvider",
+    "type": "exports",
+    "direction": "forward",
+    "weight": 0.8
+  },
+  {
+    "source": "file:frontend-web/src/auth.jsx",
+    "target": "function:frontend-web/src/auth.jsx:useAuth",
+    "type": "contains",
+    "direction": "forward",
+    "weight": 1
+  },
+  {
+    "source": "file:frontend-web/src/auth.jsx",
+    "target": "function:frontend-web/src/auth.jsx:useAuth",
+    "type": "exports",
+    "direction": "forward",
+    "weight": 0.8
+  },
+  {
+    "source": "file:frontend-web/src/auth.jsx",
+    "target": "file:frontend-web/src/api.js",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-web/src/auth.jsx",
+    "target": "file:frontend-web/src/constants.js",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-web/src/components/AppointmentDetailModal.jsx",
+    "target": "function:frontend-web/src/components/AppointmentDetailModal.jsx:AppointmentDetailModal",
+    "type": "contains",
+    "direction": "forward",
+    "weight": 1
+  },
+  {
+    "source": "file:frontend-web/src/components/AppointmentDetailModal.jsx",
+    "target": "function:frontend-web/src/components/AppointmentDetailModal.jsx:AppointmentDetailModal",
+    "type": "exports",
+    "direction": "forward",
+    "weight": 0.8
+  },
+  {
+    "source": "file:frontend-web/src/components/AppointmentDetailModal.jsx",
+    "target": "file:frontend-web/src/api.js",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-web/src/components/AppointmentDetailModal.jsx",
+    "target": "file:frontend-web/src/components/Misc.jsx",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-web/src/components/AppointmentDetailModal.jsx",
+    "target": "file:frontend-web/src/components/Modal.jsx",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-web/src/components/AppointmentDetailModal.jsx",
+    "target": "file:frontend-web/src/constants.js",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-web/src/components/AppointmentDetailModal.jsx",
+    "target": "file:frontend-web/src/icons.jsx",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-web/src/components/FinanceTab.jsx",
+    "target": "function:frontend-web/src/components/FinanceTab.jsx:FinanceTab",
+    "type": "contains",
+    "direction": "forward",
+    "weight": 1
+  },
+  {
+    "source": "file:frontend-web/src/components/FinanceTab.jsx",
+    "target": "function:frontend-web/src/components/FinanceTab.jsx:FinanceTab",
+    "type": "exports",
+    "direction": "forward",
+    "weight": 0.8
+  },
+  {
+    "source": "file:frontend-web/src/components/FinanceTab.jsx",
+    "target": "file:frontend-web/src/api.js",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-web/src/components/FinanceTab.jsx",
+    "target": "file:frontend-web/src/components/Misc.jsx",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-web/src/components/FinanceTab.jsx",
+    "target": "file:frontend-web/src/constants.js",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-web/src/components/FinanceTab.jsx",
+    "target": "file:frontend-web/src/icons.jsx",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-web/src/components/InvoiceModal.jsx",
+    "target": "function:frontend-web/src/components/InvoiceModal.jsx:InvoiceModal",
+    "type": "contains",
+    "direction": "forward",
+    "weight": 1
+  },
+  {
+    "source": "file:frontend-web/src/components/InvoiceModal.jsx",
+    "target": "function:frontend-web/src/components/InvoiceModal.jsx:InvoiceModal",
+    "type": "exports",
+    "direction": "forward",
+    "weight": 0.8
+  },
+  {
+    "source": "file:frontend-web/src/components/InvoiceModal.jsx",
+    "target": "file:frontend-web/src/api.js",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-web/src/components/InvoiceModal.jsx",
+    "target": "file:frontend-web/src/components/Modal.jsx",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-web/src/components/InvoiceModal.jsx",
+    "target": "file:frontend-web/src/constants.js",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-web/src/components/InvoiceModal.jsx",
+    "target": "file:frontend-web/src/icons.jsx",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-web/src/components/LabSwitcher.jsx",
+    "target": "file:frontend-web/src/hooks/useClickOutside.js",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-web/src/components/LabSwitcher.jsx",
+    "target": "file:frontend-web/src/icons.jsx",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-web/src/components/MapPicker.jsx",
+    "target": "function:frontend-web/src/components/MapPicker.jsx:MapPicker",
+    "type": "contains",
+    "direction": "forward",
+    "weight": 1
+  },
+  {
+    "source": "file:frontend-web/src/components/MapPicker.jsx",
+    "target": "function:frontend-web/src/components/MapPicker.jsx:MapPicker",
+    "type": "exports",
+    "direction": "forward",
+    "weight": 0.8
+  },
+  {
+    "source": "file:frontend-web/src/components/MapPicker.jsx",
+    "target": "file:frontend-web/src/api.js",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-web/src/components/MapPicker.jsx",
+    "target": "file:frontend-web/src/constants.js",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-web/src/components/MapPicker.jsx",
+    "target": "file:frontend-web/src/icons.jsx",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-web/src/components/Misc.jsx",
+    "target": "file:frontend-web/src/constants.js",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-web/src/components/Misc.jsx",
+    "target": "file:frontend-web/src/icons.jsx",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-web/src/components/Modal.jsx",
+    "target": "file:frontend-web/src/icons.jsx",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-web/src/components/NotificationsBell.jsx",
+    "target": "function:frontend-web/src/components/NotificationsBell.jsx:NotificationsBell",
+    "type": "contains",
+    "direction": "forward",
+    "weight": 1
+  },
+  {
+    "source": "file:frontend-web/src/components/NotificationsBell.jsx",
+    "target": "function:frontend-web/src/components/NotificationsBell.jsx:NotificationsBell",
+    "type": "exports",
+    "direction": "forward",
+    "weight": 0.8
+  },
+  {
+    "source": "file:frontend-web/src/components/NotificationsBell.jsx",
+    "target": "file:frontend-web/src/api.js",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-web/src/components/NotificationsBell.jsx",
+    "target": "file:frontend-web/src/icons.jsx",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-web/src/components/RoleSwitcher.jsx",
+    "target": "file:frontend-web/src/constants.js",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-web/src/components/RoleSwitcher.jsx",
+    "target": "file:frontend-web/src/hooks/useClickOutside.js",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-web/src/components/RoleSwitcher.jsx",
+    "target": "file:frontend-web/src/icons.jsx",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-web/src/components/Sidebar.jsx",
+    "target": "file:frontend-web/src/icons.jsx",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-web/src/components/Topbar.jsx",
+    "target": "file:frontend-web/src/components/LabSwitcher.jsx",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-web/src/components/Topbar.jsx",
+    "target": "file:frontend-web/src/components/NotificationsBell.jsx",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-web/src/components/Topbar.jsx",
+    "target": "file:frontend-web/src/components/RoleSwitcher.jsx",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-web/src/components/Topbar.jsx",
+    "target": "file:frontend-web/src/icons.jsx",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-web/src/components/WalkInModal.jsx",
+    "target": "function:frontend-web/src/components/WalkInModal.jsx:WalkInModal",
+    "type": "contains",
+    "direction": "forward",
+    "weight": 1
+  },
+  {
+    "source": "file:frontend-web/src/components/WalkInModal.jsx",
+    "target": "function:frontend-web/src/components/WalkInModal.jsx:WalkInModal",
+    "type": "exports",
+    "direction": "forward",
+    "weight": 0.8
+  },
+  {
+    "source": "file:frontend-web/src/components/WalkInModal.jsx",
+    "target": "file:frontend-web/src/api.js",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-web/src/components/WalkInModal.jsx",
+    "target": "file:frontend-web/src/components/Misc.jsx",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-web/src/components/WalkInModal.jsx",
+    "target": "file:frontend-web/src/components/Modal.jsx",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-web/src/components/WalkInModal.jsx",
+    "target": "file:frontend-web/src/constants.js",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-web/src/components/WalkInModal.jsx",
+    "target": "file:frontend-web/src/icons.jsx",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-web/src/constants.js",
+    "target": "function:frontend-web/src/constants.js:permissionsFor",
+    "type": "contains",
+    "direction": "forward",
+    "weight": 1
+  },
+  {
+    "source": "file:frontend-web/src/constants.js",
+    "target": "function:frontend-web/src/constants.js:permissionsFor",
+    "type": "exports",
+    "direction": "forward",
+    "weight": 0.8
+  },
+  {
+    "source": "file:frontend-web/src/screens/Analyses.jsx",
+    "target": "function:frontend-web/src/screens/Analyses.jsx:ResultEntryModal",
+    "type": "contains",
+    "direction": "forward",
+    "weight": 1
+  },
+  {
+    "source": "file:frontend-web/src/screens/Analyses.jsx",
+    "target": "function:frontend-web/src/screens/Analyses.jsx:ValidationModal",
+    "type": "contains",
+    "direction": "forward",
+    "weight": 1
+  },
+  {
+    "source": "file:frontend-web/src/screens/Analyses.jsx",
+    "target": "function:frontend-web/src/screens/Analyses.jsx:Analyses",
+    "type": "contains",
+    "direction": "forward",
+    "weight": 1
+  },
+  {
+    "source": "file:frontend-web/src/screens/Analyses.jsx",
+    "target": "function:frontend-web/src/screens/Analyses.jsx:Analyses",
+    "type": "exports",
+    "direction": "forward",
+    "weight": 0.8
+  },
+  {
+    "source": "file:frontend-web/src/screens/Analyses.jsx",
+    "target": "file:frontend-web/src/api.js",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-web/src/screens/Analyses.jsx",
+    "target": "file:frontend-web/src/components/InvoiceModal.jsx",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-web/src/screens/Analyses.jsx",
+    "target": "file:frontend-web/src/components/Misc.jsx",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-web/src/screens/Analyses.jsx",
+    "target": "file:frontend-web/src/components/Modal.jsx",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-web/src/screens/Analyses.jsx",
+    "target": "file:frontend-web/src/components/WalkInModal.jsx",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-web/src/screens/Analyses.jsx",
+    "target": "file:frontend-web/src/constants.js",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-web/src/screens/Analyses.jsx",
+    "target": "file:frontend-web/src/icons.jsx",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-web/src/screens/Dashboard.jsx",
+    "target": "function:frontend-web/src/screens/Dashboard.jsx:Dashboard",
+    "type": "contains",
+    "direction": "forward",
+    "weight": 1
+  },
+  {
+    "source": "file:frontend-web/src/screens/Dashboard.jsx",
+    "target": "function:frontend-web/src/screens/Dashboard.jsx:Dashboard",
+    "type": "exports",
+    "direction": "forward",
+    "weight": 0.8
+  },
+  {
+    "source": "file:frontend-web/src/screens/Dashboard.jsx",
+    "target": "file:frontend-web/src/api.js",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-web/src/screens/Dashboard.jsx",
+    "target": "file:frontend-web/src/components/AppointmentDetailModal.jsx",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-web/src/screens/Dashboard.jsx",
+    "target": "file:frontend-web/src/components/FinanceTab.jsx",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-web/src/screens/Dashboard.jsx",
+    "target": "file:frontend-web/src/components/InvoiceModal.jsx",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-web/src/screens/Dashboard.jsx",
+    "target": "file:frontend-web/src/components/Misc.jsx",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-web/src/screens/Dashboard.jsx",
+    "target": "file:frontend-web/src/components/WalkInModal.jsx",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-web/src/screens/Dashboard.jsx",
+    "target": "file:frontend-web/src/constants.js",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-web/src/screens/Dashboard.jsx",
+    "target": "file:frontend-web/src/icons.jsx",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-web/src/screens/Inventory.jsx",
+    "target": "function:frontend-web/src/screens/Inventory.jsx:ItemModal",
+    "type": "contains",
+    "direction": "forward",
+    "weight": 1
+  },
+  {
+    "source": "file:frontend-web/src/screens/Inventory.jsx",
+    "target": "function:frontend-web/src/screens/Inventory.jsx:MovementModal",
+    "type": "contains",
+    "direction": "forward",
+    "weight": 1
+  },
+  {
+    "source": "file:frontend-web/src/screens/Inventory.jsx",
+    "target": "function:frontend-web/src/screens/Inventory.jsx:Inventory",
+    "type": "contains",
+    "direction": "forward",
+    "weight": 1
+  },
+  {
+    "source": "file:frontend-web/src/screens/Inventory.jsx",
+    "target": "function:frontend-web/src/screens/Inventory.jsx:Inventory",
+    "type": "exports",
+    "direction": "forward",
+    "weight": 0.8
+  },
+  {
+    "source": "file:frontend-web/src/screens/Inventory.jsx",
+    "target": "file:frontend-web/src/api.js",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-web/src/screens/Inventory.jsx",
+    "target": "file:frontend-web/src/components/Misc.jsx",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-web/src/screens/Inventory.jsx",
+    "target": "file:frontend-web/src/components/Modal.jsx",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-web/src/screens/Inventory.jsx",
+    "target": "file:frontend-web/src/constants.js",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-web/src/screens/Inventory.jsx",
+    "target": "file:frontend-web/src/icons.jsx",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-web/src/screens/Login.jsx",
+    "target": "function:frontend-web/src/screens/Login.jsx:Login",
+    "type": "contains",
+    "direction": "forward",
+    "weight": 1
+  },
+  {
+    "source": "file:frontend-web/src/screens/Login.jsx",
+    "target": "function:frontend-web/src/screens/Login.jsx:Login",
+    "type": "exports",
+    "direction": "forward",
+    "weight": 0.8
+  },
+  {
+    "source": "file:frontend-web/src/screens/Login.jsx",
+    "target": "file:frontend-web/src/auth.jsx",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-web/src/screens/Login.jsx",
+    "target": "file:frontend-web/src/icons.jsx",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-web/src/screens/NursesMap.jsx",
+    "target": "function:frontend-web/src/screens/NursesMap.jsx:AssignNurseModal",
+    "type": "contains",
+    "direction": "forward",
+    "weight": 1
+  },
+  {
+    "source": "file:frontend-web/src/screens/NursesMap.jsx",
+    "target": "function:frontend-web/src/screens/NursesMap.jsx:NursesMap",
+    "type": "contains",
+    "direction": "forward",
+    "weight": 1
+  },
+  {
+    "source": "file:frontend-web/src/screens/NursesMap.jsx",
+    "target": "function:frontend-web/src/screens/NursesMap.jsx:NursesMap",
+    "type": "exports",
+    "direction": "forward",
+    "weight": 0.8
+  },
+  {
+    "source": "file:frontend-web/src/screens/NursesMap.jsx",
+    "target": "file:frontend-web/src/api.js",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-web/src/screens/NursesMap.jsx",
+    "target": "file:frontend-web/src/auth.jsx",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-web/src/screens/NursesMap.jsx",
+    "target": "file:frontend-web/src/components/Modal.jsx",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-web/src/screens/NursesMap.jsx",
+    "target": "file:frontend-web/src/constants.js",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-web/src/screens/NursesMap.jsx",
+    "target": "file:frontend-web/src/icons.jsx",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-web/src/screens/Onboarding.jsx",
+    "target": "file:frontend-web/src/api.js",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-web/src/screens/Onboarding.jsx",
+    "target": "file:frontend-web/src/auth.jsx",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-web/src/screens/Onboarding.jsx",
+    "target": "file:frontend-web/src/components/MapPicker.jsx",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-web/src/screens/Onboarding.jsx",
+    "target": "file:frontend-web/src/constants.js",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-web/src/screens/Onboarding.jsx",
+    "target": "file:frontend-web/src/icons.jsx",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-web/src/screens/Settings.jsx",
+    "target": "file:frontend-web/src/api.js",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-web/src/screens/Settings.jsx",
+    "target": "file:frontend-web/src/components/MapPicker.jsx",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-web/src/screens/Settings.jsx",
+    "target": "file:frontend-web/src/components/Switch.jsx",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-web/src/screens/Settings.jsx",
+    "target": "file:frontend-web/src/constants.js",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-web/src/screens/Settings.jsx",
+    "target": "file:frontend-web/src/icons.jsx",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-web/src/screens/Staff.jsx",
+    "target": "function:frontend-web/src/screens/Staff.jsx:StaffModal",
+    "type": "contains",
+    "direction": "forward",
+    "weight": 1
+  },
+  {
+    "source": "file:frontend-web/src/screens/Staff.jsx",
+    "target": "function:frontend-web/src/screens/Staff.jsx:Staff",
+    "type": "contains",
+    "direction": "forward",
+    "weight": 1
+  },
+  {
+    "source": "file:frontend-web/src/screens/Staff.jsx",
+    "target": "function:frontend-web/src/screens/Staff.jsx:Staff",
+    "type": "exports",
+    "direction": "forward",
+    "weight": 0.8
+  },
+  {
+    "source": "file:frontend-web/src/screens/Staff.jsx",
+    "target": "file:frontend-web/src/api.js",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-web/src/screens/Staff.jsx",
+    "target": "file:frontend-web/src/components/Misc.jsx",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-web/src/screens/Staff.jsx",
+    "target": "file:frontend-web/src/components/Modal.jsx",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-web/src/screens/Staff.jsx",
+    "target": "file:frontend-web/src/components/Switch.jsx",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-web/src/screens/Staff.jsx",
+    "target": "file:frontend-web/src/constants.js",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-web/src/screens/Staff.jsx",
+    "target": "file:frontend-web/src/icons.jsx",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-web/src/screens/Stats.jsx",
+    "target": "function:frontend-web/src/screens/Stats.jsx:Stats",
+    "type": "contains",
+    "direction": "forward",
+    "weight": 1
+  },
+  {
+    "source": "file:frontend-web/src/screens/Stats.jsx",
+    "target": "function:frontend-web/src/screens/Stats.jsx:Stats",
+    "type": "exports",
+    "direction": "forward",
+    "weight": 0.8
+  },
+  {
+    "source": "file:frontend-web/src/screens/Stats.jsx",
+    "target": "file:frontend-web/src/api.js",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-web/src/screens/Stats.jsx",
+    "target": "file:frontend-web/src/components/Misc.jsx",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-web/src/screens/Stats.jsx",
+    "target": "file:frontend-web/src/constants.js",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-web/src/screens/Stats.jsx",
+    "target": "file:frontend-web/src/icons.jsx",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-web/src/screens/Tests.jsx",
+    "target": "function:frontend-web/src/screens/Tests.jsx:TestModal",
+    "type": "contains",
+    "direction": "forward",
+    "weight": 1
+  },
+  {
+    "source": "file:frontend-web/src/screens/Tests.jsx",
+    "target": "function:frontend-web/src/screens/Tests.jsx:Tests",
+    "type": "contains",
+    "direction": "forward",
+    "weight": 1
+  },
+  {
+    "source": "file:frontend-web/src/screens/Tests.jsx",
+    "target": "function:frontend-web/src/screens/Tests.jsx:Tests",
+    "type": "exports",
+    "direction": "forward",
+    "weight": 0.8
+  },
+  {
+    "source": "file:frontend-web/src/screens/Tests.jsx",
+    "target": "file:frontend-web/src/api.js",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-web/src/screens/Tests.jsx",
+    "target": "file:frontend-web/src/components/Misc.jsx",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-web/src/screens/Tests.jsx",
+    "target": "file:frontend-web/src/components/Modal.jsx",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-web/src/screens/Tests.jsx",
+    "target": "file:frontend-web/src/components/Switch.jsx",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-web/src/screens/Tests.jsx",
+    "target": "file:frontend-web/src/constants.js",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-web/src/screens/Tests.jsx",
+    "target": "file:frontend-web/src/icons.jsx",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-web/src/main.jsx",
+    "target": "file:frontend-web/src/App.jsx",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-web/src/main.jsx",
+    "target": "file:frontend-web/src/index.css",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:Backend/accounts/admin.py",
+    "target": "file:Backend/accounts/models.py",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:Backend/accounts/admin.py",
+    "target": "class:Backend/accounts/admin.py:UserAdmin",
+    "type": "contains",
+    "direction": "forward",
+    "weight": 1
+  },
+  {
+    "source": "file:Backend/accounts/admin.py",
+    "target": "class:Backend/accounts/admin.py:UserAdmin",
+    "type": "exports",
+    "direction": "forward",
+    "weight": 0.8
+  },
+  {
+    "source": "file:Backend/accounts/management/commands/bootstrap_chief.py",
+    "target": "file:Backend/accounts/models.py",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:Backend/accounts/management/commands/bootstrap_chief.py",
+    "target": "file:Backend/core/permissions.py",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:Backend/accounts/management/commands/bootstrap_chief.py",
+    "target": "file:Backend/laboratories/models.py",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:Backend/accounts/management/commands/bootstrap_chief.py",
+    "target": "class:Backend/accounts/management/commands/bootstrap_chief.py:Command",
+    "type": "contains",
+    "direction": "forward",
+    "weight": 1
+  },
+  {
+    "source": "file:Backend/accounts/management/commands/bootstrap_chief.py",
+    "target": "class:Backend/accounts/management/commands/bootstrap_chief.py:Command",
+    "type": "exports",
+    "direction": "forward",
+    "weight": 0.8
+  },
+  {
+    "source": "file:Backend/accounts/management/commands/create_chef.py",
+    "target": "file:Backend/accounts/models.py",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:Backend/accounts/management/commands/create_chef.py",
+    "target": "file:Backend/core/permissions.py",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:Backend/accounts/management/commands/create_chef.py",
+    "target": "class:Backend/accounts/management/commands/create_chef.py:Command",
+    "type": "contains",
+    "direction": "forward",
+    "weight": 1
+  },
+  {
+    "source": "file:Backend/accounts/management/commands/create_chef.py",
+    "target": "class:Backend/accounts/management/commands/create_chef.py:Command",
+    "type": "exports",
+    "direction": "forward",
+    "weight": 0.8
+  },
+  {
+    "source": "file:Backend/accounts/management/commands/seed_roles.py",
+    "target": "file:Backend/core/permissions.py",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:Backend/accounts/management/commands/seed_roles.py",
+    "target": "class:Backend/accounts/management/commands/seed_roles.py:Command",
+    "type": "contains",
+    "direction": "forward",
+    "weight": 1
+  },
+  {
+    "source": "file:Backend/accounts/management/commands/seed_roles.py",
+    "target": "class:Backend/accounts/management/commands/seed_roles.py:Command",
+    "type": "exports",
+    "direction": "forward",
+    "weight": 0.8
+  },
+  {
+    "source": "file:Backend/accounts/managers.py",
+    "target": "class:Backend/accounts/managers.py:UserManager",
+    "type": "contains",
+    "direction": "forward",
+    "weight": 1
+  },
+  {
+    "source": "file:Backend/accounts/managers.py",
+    "target": "class:Backend/accounts/managers.py:UserManager",
+    "type": "exports",
+    "direction": "forward",
+    "weight": 0.8
+  },
+  {
+    "source": "file:Backend/accounts/migrations/0001_initial.py",
+    "target": "file:Backend/accounts/managers.py",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:Backend/accounts/models.py",
+    "target": "file:Backend/accounts/managers.py",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:Backend/accounts/models.py",
+    "target": "file:Backend/core/models.py",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:Backend/accounts/models.py",
+    "target": "class:Backend/accounts/models.py:User",
+    "type": "contains",
+    "direction": "forward",
+    "weight": 1
+  },
+  {
+    "source": "file:Backend/accounts/models.py",
+    "target": "class:Backend/accounts/models.py:User",
+    "type": "exports",
+    "direction": "forward",
+    "weight": 0.8
+  },
+  {
+    "source": "file:Backend/accounts/models.py",
+    "target": "class:Backend/accounts/models.py:OTPCode",
+    "type": "contains",
+    "direction": "forward",
+    "weight": 1
+  },
+  {
+    "source": "file:Backend/accounts/models.py",
+    "target": "class:Backend/accounts/models.py:OTPCode",
+    "type": "exports",
+    "direction": "forward",
+    "weight": 0.8
+  },
+  {
+    "source": "file:Backend/accounts/models.py",
+    "target": "class:Backend/accounts/models.py:TrustedDevice",
+    "type": "contains",
+    "direction": "forward",
+    "weight": 1
+  },
+  {
+    "source": "file:Backend/accounts/models.py",
+    "target": "class:Backend/accounts/models.py:TrustedDevice",
+    "type": "exports",
+    "direction": "forward",
+    "weight": 0.8
+  },
+  {
+    "source": "file:Backend/accounts/models.py",
+    "target": "class:Backend/accounts/models.py:PatientProfile",
+    "type": "contains",
+    "direction": "forward",
+    "weight": 1
+  },
+  {
+    "source": "file:Backend/accounts/models.py",
+    "target": "class:Backend/accounts/models.py:PatientProfile",
+    "type": "exports",
+    "direction": "forward",
+    "weight": 0.8
+  },
+  {
+    "source": "file:Backend/accounts/models.py",
+    "target": "class:Backend/accounts/models.py:StaffProfile",
+    "type": "contains",
+    "direction": "forward",
+    "weight": 1
+  },
+  {
+    "source": "file:Backend/accounts/models.py",
+    "target": "class:Backend/accounts/models.py:StaffProfile",
+    "type": "exports",
+    "direction": "forward",
+    "weight": 0.8
+  },
+  {
+    "source": "file:Backend/accounts/models.py",
+    "target": "class:Backend/accounts/models.py:TOTPDevice",
+    "type": "contains",
+    "direction": "forward",
+    "weight": 1
+  },
+  {
+    "source": "file:Backend/accounts/models.py",
+    "target": "class:Backend/accounts/models.py:TOTPDevice",
+    "type": "exports",
+    "direction": "forward",
+    "weight": 0.8
+  },
+  {
+    "source": "class:Backend/accounts/models.py:User",
+    "target": "class:Backend/accounts/managers.py:UserManager",
+    "type": "depends_on",
+    "direction": "forward",
+    "weight": 0.6
+  },
+  {
+    "source": "file:Backend/accounts/serializers.py",
+    "target": "file:Backend/accounts/models.py",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:Backend/accounts/serializers.py",
+    "target": "class:Backend/accounts/serializers.py:UserMeSerializer",
+    "type": "contains",
+    "direction": "forward",
+    "weight": 1
+  },
+  {
+    "source": "file:Backend/accounts/serializers.py",
+    "target": "class:Backend/accounts/serializers.py:UserMeSerializer",
+    "type": "exports",
+    "direction": "forward",
+    "weight": 0.8
+  },
+  {
+    "source": "file:Backend/accounts/serializers.py",
+    "target": "class:Backend/accounts/serializers.py:OTPRequestSerializer",
+    "type": "contains",
+    "direction": "forward",
+    "weight": 1
+  },
+  {
+    "source": "file:Backend/accounts/serializers.py",
+    "target": "class:Backend/accounts/serializers.py:OTPRequestSerializer",
+    "type": "exports",
+    "direction": "forward",
+    "weight": 0.8
+  },
+  {
+    "source": "file:Backend/accounts/serializers.py",
+    "target": "class:Backend/accounts/serializers.py:OTPVerifySerializer",
+    "type": "contains",
+    "direction": "forward",
+    "weight": 1
+  },
+  {
+    "source": "file:Backend/accounts/serializers.py",
+    "target": "class:Backend/accounts/serializers.py:OTPVerifySerializer",
+    "type": "exports",
+    "direction": "forward",
+    "weight": 0.8
+  },
+  {
+    "source": "file:Backend/accounts/services/firebase.py",
+    "target": "function:Backend/accounts/services/firebase.py:verify_id_token",
+    "type": "contains",
+    "direction": "forward",
+    "weight": 1
+  },
+  {
+    "source": "file:Backend/accounts/services/firebase.py",
+    "target": "function:Backend/accounts/services/firebase.py:verify_id_token",
+    "type": "exports",
+    "direction": "forward",
+    "weight": 0.8
+  },
+  {
+    "source": "file:Backend/accounts/services/firebase.py",
+    "target": "function:Backend/accounts/services/firebase.py:_load_public_keys",
+    "type": "contains",
+    "direction": "forward",
+    "weight": 1
+  },
+  {
+    "source": "file:Backend/accounts/services/firebase.py",
+    "target": "function:Backend/accounts/services/firebase.py:_load_public_keys",
+    "type": "exports",
+    "direction": "forward",
+    "weight": 0.8
+  },
+  {
+    "source": "function:Backend/accounts/services/firebase.py:verify_id_token",
+    "target": "function:Backend/accounts/services/firebase.py:_load_public_keys",
+    "type": "calls",
+    "direction": "forward",
+    "weight": 0.8
+  },
+  {
+    "source": "file:Backend/accounts/services/otp.py",
+    "target": "class:Backend/accounts/services/otp.py:TwilioSMSProvider",
+    "type": "contains",
+    "direction": "forward",
+    "weight": 1
+  },
+  {
+    "source": "file:Backend/accounts/services/otp.py",
+    "target": "class:Backend/accounts/services/otp.py:TwilioSMSProvider",
+    "type": "exports",
+    "direction": "forward",
+    "weight": 0.8
+  },
+  {
+    "source": "file:Backend/accounts/services/otp.py",
+    "target": "function:Backend/accounts/services/otp.py:get_provider",
+    "type": "contains",
+    "direction": "forward",
+    "weight": 1
+  },
+  {
+    "source": "file:Backend/accounts/services/otp.py",
+    "target": "function:Backend/accounts/services/otp.py:get_provider",
+    "type": "exports",
+    "direction": "forward",
+    "weight": 0.8
+  },
+  {
+    "source": "file:Backend/accounts/tokens.py",
+    "target": "file:Backend/core/permissions.py",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:Backend/accounts/tokens.py",
+    "target": "class:Backend/accounts/tokens.py:LabConnectRefreshToken",
+    "type": "contains",
+    "direction": "forward",
+    "weight": 1
+  },
+  {
+    "source": "file:Backend/accounts/tokens.py",
+    "target": "class:Backend/accounts/tokens.py:LabConnectRefreshToken",
+    "type": "exports",
+    "direction": "forward",
+    "weight": 0.8
+  },
+  {
+    "source": "file:Backend/accounts/urls.py",
+    "target": "file:Backend/accounts/views_biometric.py",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:Backend/accounts/urls.py",
+    "target": "file:Backend/accounts/views_employees.py",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:Backend/accounts/urls.py",
+    "target": "file:Backend/accounts/views_totp.py",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:Backend/accounts/urls.py",
+    "target": "file:Backend/accounts/views.py",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:Backend/accounts/views.py",
+    "target": "file:Backend/accounts/models.py",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:Backend/accounts/views.py",
+    "target": "file:Backend/accounts/serializers.py",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:Backend/accounts/views.py",
+    "target": "file:Backend/accounts/services/firebase.py",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:Backend/accounts/views.py",
+    "target": "file:Backend/accounts/services/otp.py",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:Backend/accounts/views.py",
+    "target": "file:Backend/accounts/tokens.py",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:Backend/accounts/views.py",
+    "target": "file:Backend/core/permissions.py",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:Backend/accounts/views.py",
+    "target": "class:Backend/accounts/views.py:OTPRequestView",
+    "type": "contains",
+    "direction": "forward",
+    "weight": 1
+  },
+  {
+    "source": "file:Backend/accounts/views.py",
+    "target": "class:Backend/accounts/views.py:OTPRequestView",
+    "type": "exports",
+    "direction": "forward",
+    "weight": 0.8
+  },
+  {
+    "source": "file:Backend/accounts/views.py",
+    "target": "class:Backend/accounts/views.py:OTPVerifyView",
+    "type": "contains",
+    "direction": "forward",
+    "weight": 1
+  },
+  {
+    "source": "file:Backend/accounts/views.py",
+    "target": "class:Backend/accounts/views.py:OTPVerifyView",
+    "type": "exports",
+    "direction": "forward",
+    "weight": 0.8
+  },
+  {
+    "source": "file:Backend/accounts/views.py",
+    "target": "class:Backend/accounts/views.py:MeView",
+    "type": "contains",
+    "direction": "forward",
+    "weight": 1
+  },
+  {
+    "source": "file:Backend/accounts/views.py",
+    "target": "class:Backend/accounts/views.py:MeView",
+    "type": "exports",
+    "direction": "forward",
+    "weight": 0.8
+  },
+  {
+    "source": "file:Backend/accounts/views.py",
+    "target": "class:Backend/accounts/views.py:LogoutView",
+    "type": "contains",
+    "direction": "forward",
+    "weight": 1
+  },
+  {
+    "source": "file:Backend/accounts/views.py",
+    "target": "class:Backend/accounts/views.py:LogoutView",
+    "type": "exports",
+    "direction": "forward",
+    "weight": 0.8
+  },
+  {
+    "source": "file:Backend/accounts/views.py",
+    "target": "class:Backend/accounts/views.py:StaffLoginView",
+    "type": "contains",
+    "direction": "forward",
+    "weight": 1
+  },
+  {
+    "source": "file:Backend/accounts/views.py",
+    "target": "class:Backend/accounts/views.py:StaffLoginView",
+    "type": "exports",
+    "direction": "forward",
+    "weight": 0.8
+  },
+  {
+    "source": "file:Backend/accounts/views.py",
+    "target": "class:Backend/accounts/views.py:PatientGoogleLoginView",
+    "type": "contains",
+    "direction": "forward",
+    "weight": 1
+  },
+  {
+    "source": "file:Backend/accounts/views.py",
+    "target": "class:Backend/accounts/views.py:PatientGoogleLoginView",
+    "type": "exports",
+    "direction": "forward",
+    "weight": 0.8
+  },
+  {
+    "source": "file:Backend/accounts/views.py",
+    "target": "class:Backend/accounts/views.py:GoogleLoginView",
+    "type": "contains",
+    "direction": "forward",
+    "weight": 1
+  },
+  {
+    "source": "file:Backend/accounts/views.py",
+    "target": "class:Backend/accounts/views.py:GoogleLoginView",
+    "type": "exports",
+    "direction": "forward",
+    "weight": 0.8
+  },
+  {
+    "source": "file:Backend/accounts/views.py",
+    "target": "class:Backend/accounts/views.py:FirebaseLoginView",
+    "type": "contains",
+    "direction": "forward",
+    "weight": 1
+  },
+  {
+    "source": "file:Backend/accounts/views.py",
+    "target": "class:Backend/accounts/views.py:FirebaseLoginView",
+    "type": "exports",
+    "direction": "forward",
+    "weight": 0.8
+  },
+  {
+    "source": "file:Backend/accounts/views.py",
+    "target": "function:Backend/accounts/views.py:verify_google_token",
+    "type": "contains",
+    "direction": "forward",
+    "weight": 1
+  },
+  {
+    "source": "file:Backend/accounts/views.py",
+    "target": "function:Backend/accounts/views.py:verify_google_token",
+    "type": "exports",
+    "direction": "forward",
+    "weight": 0.8
+  },
+  {
+    "source": "class:Backend/accounts/views.py:FirebaseLoginView",
+    "target": "function:Backend/accounts/services/firebase.py:verify_id_token",
+    "type": "calls",
+    "direction": "forward",
+    "weight": 0.8
+  },
+  {
+    "source": "class:Backend/accounts/views.py:OTPRequestView",
+    "target": "function:Backend/accounts/services/otp.py:get_provider",
+    "type": "calls",
+    "direction": "forward",
+    "weight": 0.8
+  },
+  {
+    "source": "class:Backend/accounts/views.py:PatientGoogleLoginView",
+    "target": "function:Backend/accounts/views.py:verify_google_token",
+    "type": "calls",
+    "direction": "forward",
+    "weight": 0.8
+  },
+  {
+    "source": "class:Backend/accounts/views.py:GoogleLoginView",
+    "target": "function:Backend/accounts/views.py:verify_google_token",
+    "type": "calls",
+    "direction": "forward",
+    "weight": 0.8
+  },
+  {
+    "source": "file:Backend/accounts/views_biometric.py",
+    "target": "file:Backend/accounts/models.py",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:Backend/accounts/views_biometric.py",
+    "target": "file:Backend/accounts/serializers.py",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:Backend/accounts/views_biometric.py",
+    "target": "file:Backend/accounts/tokens.py",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:Backend/accounts/views_biometric.py",
+    "target": "class:Backend/accounts/views_biometric.py:BiometricCheckView",
+    "type": "contains",
+    "direction": "forward",
+    "weight": 1
+  },
+  {
+    "source": "file:Backend/accounts/views_biometric.py",
+    "target": "class:Backend/accounts/views_biometric.py:BiometricCheckView",
+    "type": "exports",
+    "direction": "forward",
+    "weight": 0.8
+  },
+  {
+    "source": "file:Backend/accounts/views_biometric.py",
+    "target": "class:Backend/accounts/views_biometric.py:BiometricRegisterView",
+    "type": "contains",
+    "direction": "forward",
+    "weight": 1
+  },
+  {
+    "source": "file:Backend/accounts/views_biometric.py",
+    "target": "class:Backend/accounts/views_biometric.py:BiometricRegisterView",
+    "type": "exports",
+    "direction": "forward",
+    "weight": 0.8
+  },
+  {
+    "source": "file:Backend/accounts/views_biometric.py",
+    "target": "class:Backend/accounts/views_biometric.py:BiometricLoginView",
+    "type": "contains",
+    "direction": "forward",
+    "weight": 1
+  },
+  {
+    "source": "file:Backend/accounts/views_biometric.py",
+    "target": "class:Backend/accounts/views_biometric.py:BiometricLoginView",
+    "type": "exports",
+    "direction": "forward",
+    "weight": 0.8
+  },
+  {
+    "source": "file:Backend/accounts/views_biometric.py",
+    "target": "class:Backend/accounts/views_biometric.py:BiometricRevokeView",
+    "type": "contains",
+    "direction": "forward",
+    "weight": 1
+  },
+  {
+    "source": "file:Backend/accounts/views_biometric.py",
+    "target": "class:Backend/accounts/views_biometric.py:BiometricRevokeView",
+    "type": "exports",
+    "direction": "forward",
+    "weight": 0.8
+  },
+  {
+    "source": "class:Backend/accounts/views_biometric.py:BiometricRegisterView",
+    "target": "class:Backend/accounts/models.py:TrustedDevice",
+    "type": "calls",
+    "direction": "forward",
+    "weight": 0.8
+  },
+  {
+    "source": "class:Backend/accounts/views_biometric.py:BiometricLoginView",
+    "target": "class:Backend/accounts/models.py:TrustedDevice",
+    "type": "calls",
+    "direction": "forward",
+    "weight": 0.8
+  },
+  {
+    "source": "class:Backend/accounts/views_biometric.py:BiometricLoginView",
+    "target": "class:Backend/accounts/tokens.py:LabConnectRefreshToken",
+    "type": "calls",
+    "direction": "forward",
+    "weight": 0.8
+  },
+  {
+    "source": "file:Backend/accounts/views_employees.py",
+    "target": "file:Backend/accounts/models.py",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:Backend/accounts/views_employees.py",
+    "target": "file:Backend/accounts/views.py",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:Backend/accounts/views_employees.py",
+    "target": "file:Backend/core/permissions.py",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:Backend/accounts/views_employees.py",
+    "target": "file:Backend/laboratories/models.py",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:Backend/accounts/views_employees.py",
+    "target": "class:Backend/accounts/views_employees.py:EmployeeInviteSerializer",
+    "type": "contains",
+    "direction": "forward",
+    "weight": 1
+  },
+  {
+    "source": "file:Backend/accounts/views_employees.py",
+    "target": "class:Backend/accounts/views_employees.py:EmployeeInviteSerializer",
+    "type": "exports",
+    "direction": "forward",
+    "weight": 0.8
+  },
+  {
+    "source": "file:Backend/accounts/views_employees.py",
+    "target": "class:Backend/accounts/views_employees.py:StaffProfileSerializer",
+    "type": "contains",
+    "direction": "forward",
+    "weight": 1
+  },
+  {
+    "source": "file:Backend/accounts/views_employees.py",
+    "target": "class:Backend/accounts/views_employees.py:StaffProfileSerializer",
+    "type": "exports",
+    "direction": "forward",
+    "weight": 0.8
+  },
+  {
+    "source": "file:Backend/accounts/views_employees.py",
+    "target": "class:Backend/accounts/views_employees.py:NurseListView",
+    "type": "contains",
+    "direction": "forward",
+    "weight": 1
+  },
+  {
+    "source": "file:Backend/accounts/views_employees.py",
+    "target": "class:Backend/accounts/views_employees.py:NurseListView",
+    "type": "exports",
+    "direction": "forward",
+    "weight": 0.8
+  },
+  {
+    "source": "file:Backend/accounts/views_employees.py",
+    "target": "class:Backend/accounts/views_employees.py:EmployeeInviteView",
+    "type": "contains",
+    "direction": "forward",
+    "weight": 1
+  },
+  {
+    "source": "file:Backend/accounts/views_employees.py",
+    "target": "class:Backend/accounts/views_employees.py:EmployeeInviteView",
+    "type": "exports",
+    "direction": "forward",
+    "weight": 0.8
+  },
+  {
+    "source": "file:Backend/accounts/views_employees.py",
+    "target": "class:Backend/accounts/views_employees.py:EmployeeViewSet",
+    "type": "contains",
+    "direction": "forward",
+    "weight": 1
+  },
+  {
+    "source": "file:Backend/accounts/views_employees.py",
+    "target": "class:Backend/accounts/views_employees.py:EmployeeViewSet",
+    "type": "exports",
+    "direction": "forward",
+    "weight": 0.8
+  },
+  {
+    "source": "file:Backend/accounts/views_totp.py",
+    "target": "file:Backend/accounts/models.py",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:Backend/accounts/views_totp.py",
+    "target": "file:Backend/accounts/services/__init__.py",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:Backend/accounts/views_totp.py",
+    "target": "file:Backend/accounts/tokens.py",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:Backend/accounts/views_totp.py",
+    "target": "file:Backend/core/permissions.py",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:Backend/accounts/views_totp.py",
+    "target": "class:Backend/accounts/views_totp.py:TOTPSetupView",
+    "type": "contains",
+    "direction": "forward",
+    "weight": 1
+  },
+  {
+    "source": "file:Backend/accounts/views_totp.py",
+    "target": "class:Backend/accounts/views_totp.py:TOTPSetupView",
+    "type": "exports",
+    "direction": "forward",
+    "weight": 0.8
+  },
+  {
+    "source": "file:Backend/accounts/views_totp.py",
+    "target": "class:Backend/accounts/views_totp.py:TOTPConfirmView",
+    "type": "contains",
+    "direction": "forward",
+    "weight": 1
+  },
+  {
+    "source": "file:Backend/accounts/views_totp.py",
+    "target": "class:Backend/accounts/views_totp.py:TOTPConfirmView",
+    "type": "exports",
+    "direction": "forward",
+    "weight": 0.8
+  },
+  {
+    "source": "file:Backend/accounts/views_totp.py",
+    "target": "class:Backend/accounts/views_totp.py:TOTPVerifyView",
+    "type": "contains",
+    "direction": "forward",
+    "weight": 1
+  },
+  {
+    "source": "file:Backend/accounts/views_totp.py",
+    "target": "class:Backend/accounts/views_totp.py:TOTPVerifyView",
+    "type": "exports",
+    "direction": "forward",
+    "weight": 0.8
+  },
+  {
+    "source": "file:Backend/accounts/views_totp.py",
+    "target": "class:Backend/accounts/views_totp.py:TOTPDeviceDeleteView",
+    "type": "contains",
+    "direction": "forward",
+    "weight": 1
+  },
+  {
+    "source": "file:Backend/accounts/views_totp.py",
+    "target": "class:Backend/accounts/views_totp.py:TOTPDeviceDeleteView",
+    "type": "exports",
+    "direction": "forward",
+    "weight": 0.8
+  },
+  {
+    "source": "class:Backend/accounts/views_totp.py:TOTPVerifyView",
+    "target": "class:Backend/accounts/tokens.py:LabConnectRefreshToken",
+    "type": "calls",
+    "direction": "forward",
+    "weight": 0.8
+  },
+  {
+    "source": "file:Backend/appointments/models.py",
+    "target": "file:Backend/core/models.py",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:Backend/appointments/models.py",
+    "target": "class:Backend/appointments/models.py:Appointment",
+    "type": "contains",
+    "direction": "forward",
+    "weight": 1
+  },
+  {
+    "source": "file:Backend/appointments/models.py",
+    "target": "class:Backend/appointments/models.py:Appointment",
+    "type": "exports",
+    "direction": "forward",
+    "weight": 0.8
+  },
+  {
+    "source": "file:Backend/appointments/serializers.py",
+    "target": "file:Backend/appointments/models.py",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:Backend/appointments/serializers.py",
+    "target": "file:Backend/core/permissions.py",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:Backend/appointments/serializers.py",
+    "target": "class:Backend/appointments/serializers.py:AppointmentSerializer",
+    "type": "contains",
+    "direction": "forward",
+    "weight": 1
+  },
+  {
+    "source": "file:Backend/appointments/serializers.py",
+    "target": "class:Backend/appointments/serializers.py:AppointmentSerializer",
+    "type": "exports",
+    "direction": "forward",
+    "weight": 0.8
+  },
+  {
+    "source": "file:Backend/appointments/serializers.py",
+    "target": "class:Backend/appointments/serializers.py:AppointmentCreateSerializer",
+    "type": "contains",
+    "direction": "forward",
+    "weight": 1
+  },
+  {
+    "source": "file:Backend/appointments/serializers.py",
+    "target": "class:Backend/appointments/serializers.py:AppointmentCreateSerializer",
+    "type": "exports",
+    "direction": "forward",
+    "weight": 0.8
+  },
+  {
+    "source": "file:Backend/appointments/urls.py",
+    "target": "file:Backend/appointments/views.py",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:Backend/appointments/views.py",
+    "target": "file:Backend/accounts/models.py",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:Backend/appointments/views.py",
+    "target": "file:Backend/appointments/models.py",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:Backend/appointments/views.py",
+    "target": "file:Backend/appointments/serializers.py",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:Backend/appointments/views.py",
+    "target": "file:Backend/core/permissions.py",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:Backend/appointments/views.py",
+    "target": "class:Backend/appointments/views.py:AppointmentViewSet",
+    "type": "contains",
+    "direction": "forward",
+    "weight": 1
+  },
+  {
+    "source": "file:Backend/appointments/views.py",
+    "target": "class:Backend/appointments/views.py:AppointmentViewSet",
+    "type": "exports",
+    "direction": "forward",
+    "weight": 0.8
+  },
+  {
+    "source": "file:Backend/appointments/views.py",
+    "target": "class:Backend/appointments/views.py:IsPatientOrStaff",
+    "type": "contains",
+    "direction": "forward",
+    "weight": 1
+  },
+  {
+    "source": "file:Backend/appointments/views.py",
+    "target": "class:Backend/appointments/views.py:IsPatientOrStaff",
+    "type": "exports",
+    "direction": "forward",
+    "weight": 0.8
+  },
+  {
+    "source": "class:Backend/appointments/views.py:AppointmentViewSet",
+    "target": "class:Backend/appointments/serializers.py:AppointmentSerializer",
+    "type": "calls",
+    "direction": "forward",
+    "weight": 0.8
+  },
+  {
+    "source": "class:Backend/appointments/views.py:AppointmentViewSet",
+    "target": "class:Backend/appointments/serializers.py:AppointmentCreateSerializer",
+    "type": "calls",
+    "direction": "forward",
+    "weight": 0.8
+  },
+  {
+    "source": "class:Backend/appointments/views.py:AppointmentViewSet",
+    "target": "class:Backend/appointments/models.py:Appointment",
+    "type": "calls",
+    "direction": "forward",
+    "weight": 0.8
+  },
+  {
+    "source": "class:Backend/appointments/views.py:AppointmentViewSet",
+    "target": "function:Backend/core/permissions.py:current_lab_id",
+    "type": "calls",
+    "direction": "forward",
+    "weight": 0.8
+  },
+  {
+    "source": "file:Backend/core/permissions.py",
+    "target": "class:Backend/core/permissions.py:RoleNames",
+    "type": "contains",
+    "direction": "forward",
+    "weight": 1
+  },
+  {
+    "source": "file:Backend/core/permissions.py",
+    "target": "class:Backend/core/permissions.py:RoleNames",
+    "type": "exports",
+    "direction": "forward",
+    "weight": 0.8
+  },
+  {
+    "source": "file:Backend/core/permissions.py",
+    "target": "class:Backend/core/permissions.py:HasRole",
+    "type": "contains",
+    "direction": "forward",
+    "weight": 1
+  },
+  {
+    "source": "file:Backend/core/permissions.py",
+    "target": "class:Backend/core/permissions.py:HasRole",
+    "type": "exports",
+    "direction": "forward",
+    "weight": 0.8
+  },
+  {
+    "source": "file:Backend/core/permissions.py",
+    "target": "class:Backend/core/permissions.py:Is2FAVerified",
+    "type": "contains",
+    "direction": "forward",
+    "weight": 1
+  },
+  {
+    "source": "file:Backend/core/permissions.py",
+    "target": "class:Backend/core/permissions.py:Is2FAVerified",
+    "type": "exports",
+    "direction": "forward",
+    "weight": 0.8
+  },
+  {
+    "source": "file:Backend/core/permissions.py",
+    "target": "class:Backend/core/permissions.py:IsStaffAnd2FA",
+    "type": "contains",
+    "direction": "forward",
+    "weight": 1
+  },
+  {
+    "source": "file:Backend/core/permissions.py",
+    "target": "class:Backend/core/permissions.py:IsStaffAnd2FA",
+    "type": "exports",
+    "direction": "forward",
+    "weight": 0.8
+  },
+  {
+    "source": "file:Backend/core/permissions.py",
+    "target": "class:Backend/core/permissions.py:LabScopedQuerysetMixin",
+    "type": "contains",
+    "direction": "forward",
+    "weight": 1
+  },
+  {
+    "source": "file:Backend/core/permissions.py",
+    "target": "class:Backend/core/permissions.py:LabScopedQuerysetMixin",
+    "type": "exports",
+    "direction": "forward",
+    "weight": 0.8
+  },
+  {
+    "source": "file:Backend/core/permissions.py",
+    "target": "function:Backend/core/permissions.py:current_lab_id",
+    "type": "contains",
+    "direction": "forward",
+    "weight": 1
+  },
+  {
+    "source": "file:Backend/core/permissions.py",
+    "target": "function:Backend/core/permissions.py:current_lab_id",
+    "type": "exports",
+    "direction": "forward",
+    "weight": 0.8
+  },
+  {
+    "source": "class:Backend/core/permissions.py:IsStaffAnd2FA",
+    "target": "class:Backend/core/permissions.py:Is2FAVerified",
+    "type": "depends_on",
+    "direction": "forward",
+    "weight": 0.6
+  },
+  {
+    "source": "class:Backend/core/permissions.py:LabScopedQuerysetMixin",
+    "target": "function:Backend/core/permissions.py:current_lab_id",
+    "type": "calls",
+    "direction": "forward",
+    "weight": 0.8
+  },
+  {
+    "source": "file:Backend/laboratories/admin.py",
+    "target": "file:Backend/laboratories/models.py",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:Backend/laboratories/migrations/0001_initial.py",
+    "target": "file:Backend/laboratories/models.py",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:Backend/laboratories/migrations/0003_alter_laboratory_opening_hours.py",
+    "target": "file:Backend/laboratories/models.py",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:Backend/laboratories/models.py",
+    "target": "file:Backend/core/models.py",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:Backend/laboratories/models.py",
+    "target": "class:Backend/laboratories/models.py:Laboratory",
+    "type": "contains",
+    "direction": "forward",
+    "weight": 1
+  },
+  {
+    "source": "file:Backend/laboratories/models.py",
+    "target": "class:Backend/laboratories/models.py:Laboratory",
+    "type": "exports",
+    "direction": "forward",
+    "weight": 0.8
+  },
+  {
+    "source": "file:Backend/laboratories/serializers.py",
+    "target": "file:Backend/laboratories/models.py",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:Backend/laboratories/serializers.py",
+    "target": "class:Backend/laboratories/serializers.py:LaboratoryListSerializer",
+    "type": "contains",
+    "direction": "forward",
+    "weight": 1
+  },
+  {
+    "source": "file:Backend/laboratories/serializers.py",
+    "target": "class:Backend/laboratories/serializers.py:LaboratoryListSerializer",
+    "type": "exports",
+    "direction": "forward",
+    "weight": 0.8
+  },
+  {
+    "source": "file:Backend/laboratories/serializers.py",
+    "target": "class:Backend/laboratories/serializers.py:LaboratoryConfigSerializer",
+    "type": "contains",
+    "direction": "forward",
+    "weight": 1
+  },
+  {
+    "source": "file:Backend/laboratories/serializers.py",
+    "target": "class:Backend/laboratories/serializers.py:LaboratoryConfigSerializer",
+    "type": "exports",
+    "direction": "forward",
+    "weight": 0.8
+  },
+  {
+    "source": "file:Backend/laboratories/serializers.py",
+    "target": "class:Backend/laboratories/serializers.py:DayHoursSerializer",
+    "type": "contains",
+    "direction": "forward",
+    "weight": 1
+  },
+  {
+    "source": "file:Backend/laboratories/serializers.py",
+    "target": "class:Backend/laboratories/serializers.py:DayHoursSerializer",
+    "type": "exports",
+    "direction": "forward",
+    "weight": 0.8
+  },
+  {
+    "source": "class:Backend/laboratories/serializers.py:LaboratoryConfigSerializer",
+    "target": "class:Backend/laboratories/serializers.py:DayHoursSerializer",
+    "type": "calls",
+    "direction": "forward",
+    "weight": 0.8
+  },
+  {
+    "source": "file:Backend/laboratories/urls.py",
+    "target": "file:Backend/accounts/views_employees.py",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:Backend/laboratories/urls.py",
+    "target": "file:Backend/laboratories/views.py",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:Backend/laboratories/views.py",
+    "target": "file:Backend/accounts/models.py",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:Backend/laboratories/views.py",
+    "target": "file:Backend/core/permissions.py",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:Backend/laboratories/views.py",
+    "target": "file:Backend/laboratories/models.py",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:Backend/laboratories/views.py",
+    "target": "file:Backend/laboratories/serializers.py",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:Backend/laboratories/views.py",
+    "target": "class:Backend/laboratories/views.py:LaboratoryPublicViewSet",
+    "type": "contains",
+    "direction": "forward",
+    "weight": 1
+  },
+  {
+    "source": "file:Backend/laboratories/views.py",
+    "target": "class:Backend/laboratories/views.py:LaboratoryPublicViewSet",
+    "type": "exports",
+    "direction": "forward",
+    "weight": 0.8
+  },
+  {
+    "source": "file:Backend/laboratories/views.py",
+    "target": "class:Backend/laboratories/views.py:ChefLaboratoryViewSet",
+    "type": "contains",
+    "direction": "forward",
+    "weight": 1
+  },
+  {
+    "source": "file:Backend/laboratories/views.py",
+    "target": "class:Backend/laboratories/views.py:ChefLaboratoryViewSet",
+    "type": "exports",
+    "direction": "forward",
+    "weight": 0.8
+  },
+  {
+    "source": "file:Backend/laboratories/views.py",
+    "target": "class:Backend/laboratories/views.py:LaboratoryCreateSerializer",
+    "type": "contains",
+    "direction": "forward",
+    "weight": 1
+  },
+  {
+    "source": "file:Backend/laboratories/views.py",
+    "target": "class:Backend/laboratories/views.py:LaboratoryCreateSerializer",
+    "type": "exports",
+    "direction": "forward",
+    "weight": 0.8
+  },
+  {
+    "source": "class:Backend/laboratories/views.py:LaboratoryPublicViewSet",
+    "target": "class:Backend/laboratories/serializers.py:LaboratoryListSerializer",
+    "type": "calls",
+    "direction": "forward",
+    "weight": 0.8
+  },
+  {
+    "source": "class:Backend/laboratories/views.py:ChefLaboratoryViewSet",
+    "target": "class:Backend/laboratories/serializers.py:LaboratoryConfigSerializer",
+    "type": "calls",
+    "direction": "forward",
+    "weight": 0.8
+  },
+  {
+    "source": "class:Backend/laboratories/views.py:ChefLaboratoryViewSet",
+    "target": "function:Backend/core/permissions.py:current_lab_id",
+    "type": "calls",
+    "direction": "forward",
+    "weight": 0.8
+  },
+  {
+    "source": "class:Backend/laboratories/views.py:ChefLaboratoryViewSet",
+    "target": "class:Backend/laboratories/models.py:Laboratory",
+    "type": "calls",
+    "direction": "forward",
+    "weight": 0.8
+  },
+  {
+    "source": "class:Backend/laboratories/views.py:LaboratoryCreateSerializer",
+    "target": "class:Backend/laboratories/models.py:Laboratory",
+    "type": "calls",
+    "direction": "forward",
+    "weight": 0.8
+  },
+  {
+    "source": "file:Backend/accounts/models.py",
+    "target": "class:Backend/core/models.py:BaseModel",
+    "type": "inherits",
+    "direction": "forward",
+    "weight": 0.9
+  },
+  {
+    "source": "file:Backend/appointments/models.py",
+    "target": "class:Backend/core/models.py:BaseModel",
+    "type": "inherits",
+    "direction": "forward",
+    "weight": 0.9
+  },
+  {
+    "source": "file:Backend/laboratories/models.py",
+    "target": "class:Backend/core/models.py:BaseModel",
+    "type": "inherits",
+    "direction": "forward",
+    "weight": 0.9
+  },
+  {
+    "source": "file:frontend-client/App.js",
+    "target": "function:frontend-client/App.js:MainTabs",
+    "type": "contains",
+    "direction": "forward",
+    "weight": 1
+  },
+  {
+    "source": "file:frontend-client/App.js",
+    "target": "function:frontend-client/App.js:NurseTabs",
+    "type": "contains",
+    "direction": "forward",
+    "weight": 1
+  },
+  {
+    "source": "file:frontend-client/App.js",
+    "target": "function:frontend-client/App.js:RootNav",
+    "type": "contains",
+    "direction": "forward",
+    "weight": 1
+  },
+  {
+    "source": "file:frontend-client/App.js",
+    "target": "function:frontend-client/App.js:App",
+    "type": "contains",
+    "direction": "forward",
+    "weight": 1
+  },
+  {
+    "source": "file:frontend-client/App.js",
+    "target": "function:frontend-client/App.js:App",
+    "type": "exports",
+    "direction": "forward",
+    "weight": 0.8
+  },
+  {
+    "source": "file:frontend-client/src/components/LabMapView.js",
+    "target": "function:frontend-client/src/components/LabMapView.js:LabMapView",
+    "type": "contains",
+    "direction": "forward",
+    "weight": 1
+  },
+  {
+    "source": "file:frontend-client/src/components/LabMapView.js",
+    "target": "function:frontend-client/src/components/LabMapView.js:buildHtml",
+    "type": "contains",
+    "direction": "forward",
+    "weight": 1
+  },
+  {
+    "source": "file:frontend-client/src/components/LabMapView.js",
+    "target": "function:frontend-client/src/components/LabMapView.js:LabMapView",
+    "type": "exports",
+    "direction": "forward",
+    "weight": 0.8
+  },
+  {
+    "source": "file:frontend-client/App.js",
+    "target": "file:frontend-client/src/auth.js",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-client/App.js",
+    "target": "file:frontend-client/src/icons.js",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-client/App.js",
+    "target": "file:frontend-client/src/screens/BookingsScreen.js",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-client/App.js",
+    "target": "file:frontend-client/src/screens/CartScreen.js",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-client/App.js",
+    "target": "file:frontend-client/src/screens/HomeScreen.js",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-client/App.js",
+    "target": "file:frontend-client/src/screens/LabDetailScreen.js",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-client/App.js",
+    "target": "file:frontend-client/src/screens/LoginScreen.js",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-client/App.js",
+    "target": "file:frontend-client/src/screens/MapScreen.js",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-client/App.js",
+    "target": "file:frontend-client/src/screens/NotificationsScreen.js",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-client/App.js",
+    "target": "file:frontend-client/src/screens/nurse/NurseCollectScreen.js",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-client/App.js",
+    "target": "file:frontend-client/src/screens/nurse/NurseMissionScreen.js",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-client/App.js",
+    "target": "file:frontend-client/src/screens/nurse/NurseProfileScreen.js",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-client/App.js",
+    "target": "file:frontend-client/src/screens/nurse/NurseRouteScreen.js",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-client/App.js",
+    "target": "file:frontend-client/src/screens/nurse/NurseValidateScreen.js",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-client/App.js",
+    "target": "file:frontend-client/src/screens/ProfileScreen.js",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-client/App.js",
+    "target": "file:frontend-client/src/screens/ResultDetailScreen.js",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-client/App.js",
+    "target": "file:frontend-client/src/screens/SignUpScreen.js",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-client/App.js",
+    "target": "file:frontend-client/src/theme.js",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-client/src/components/LabMapView.js",
+    "target": "file:frontend-client/src/theme.js",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-client/src/components/NotificationsBell.js",
+    "target": "file:frontend-client/src/api.js",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-client/src/components/NotificationsBell.js",
+    "target": "file:frontend-client/src/icons.js",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-client/src/components/NotificationsBell.js",
+    "target": "file:frontend-client/src/theme.js",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-client/src/screens/BookingsScreen.js",
+    "target": "file:frontend-client/src/api.js",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-client/src/screens/BookingsScreen.js",
+    "target": "file:frontend-client/src/auth.js",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-client/src/screens/BookingsScreen.js",
+    "target": "file:frontend-client/src/components/UI.js",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-client/src/screens/BookingsScreen.js",
+    "target": "file:frontend-client/src/icons.js",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-client/src/screens/BookingsScreen.js",
+    "target": "file:frontend-client/src/theme.js",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-client/src/screens/CartScreen.js",
+    "target": "file:frontend-client/src/api.js",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-client/src/screens/CartScreen.js",
+    "target": "file:frontend-client/src/auth.js",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-client/src/screens/CartScreen.js",
+    "target": "file:frontend-client/src/components/UI.js",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-client/src/screens/CartScreen.js",
+    "target": "file:frontend-client/src/icons.js",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-client/src/screens/CartScreen.js",
+    "target": "file:frontend-client/src/theme.js",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-client/src/screens/HomeScreen.js",
+    "target": "file:frontend-client/src/api.js",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-client/src/screens/HomeScreen.js",
+    "target": "file:frontend-client/src/auth.js",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-client/src/screens/HomeScreen.js",
+    "target": "file:frontend-client/src/components/LabMapView.js",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-client/src/screens/HomeScreen.js",
+    "target": "file:frontend-client/src/components/NotificationsBell.js",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-client/src/screens/HomeScreen.js",
+    "target": "file:frontend-client/src/components/UI.js",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-client/src/screens/HomeScreen.js",
+    "target": "file:frontend-client/src/icons.js",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-client/src/screens/HomeScreen.js",
+    "target": "file:frontend-client/src/theme.js",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-client/src/screens/LabDetailScreen.js",
+    "target": "file:frontend-client/src/api.js",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-client/src/screens/LabDetailScreen.js",
+    "target": "file:frontend-client/src/components/UI.js",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-client/src/screens/LabDetailScreen.js",
+    "target": "file:frontend-client/src/icons.js",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-client/src/screens/LabDetailScreen.js",
+    "target": "file:frontend-client/src/theme.js",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-client/src/screens/LoginScreen.js",
+    "target": "file:frontend-client/src/api.js",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-client/src/screens/LoginScreen.js",
+    "target": "file:frontend-client/src/auth.js",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-client/src/screens/LoginScreen.js",
+    "target": "file:frontend-client/src/biometric.js",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-client/src/screens/LoginScreen.js",
+    "target": "file:frontend-client/src/components/UI.js",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-client/src/screens/LoginScreen.js",
+    "target": "file:frontend-client/src/icons.js",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-client/src/screens/LoginScreen.js",
+    "target": "file:frontend-client/src/theme.js",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-client/src/screens/MapScreen.js",
+    "target": "file:frontend-client/src/components/LabMapView.js",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-client/src/screens/MapScreen.js",
+    "target": "file:frontend-client/src/components/UI.js",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-client/src/screens/MapScreen.js",
+    "target": "file:frontend-client/src/icons.js",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-client/src/screens/MapScreen.js",
+    "target": "file:frontend-client/src/theme.js",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-client/src/screens/NotificationsScreen.js",
+    "target": "file:frontend-client/src/api.js",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-client/src/screens/NotificationsScreen.js",
+    "target": "file:frontend-client/src/components/UI.js",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-client/src/screens/NotificationsScreen.js",
+    "target": "file:frontend-client/src/icons.js",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-client/src/screens/NotificationsScreen.js",
+    "target": "file:frontend-client/src/theme.js",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-client/src/screens/nurse/NurseCollectScreen.js",
+    "target": "file:frontend-client/src/api.js",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-client/src/screens/nurse/NurseCollectScreen.js",
+    "target": "file:frontend-client/src/components/UI.js",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-client/src/screens/nurse/NurseCollectScreen.js",
+    "target": "file:frontend-client/src/icons.js",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-client/src/screens/nurse/NurseCollectScreen.js",
+    "target": "file:frontend-client/src/theme.js",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-client/src/screens/nurse/NurseMissionScreen.js",
+    "target": "file:frontend-client/src/api.js",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-client/src/screens/nurse/NurseMissionScreen.js",
+    "target": "file:frontend-client/src/components/UI.js",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-client/src/screens/nurse/NurseMissionScreen.js",
+    "target": "file:frontend-client/src/icons.js",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-client/src/screens/nurse/NurseMissionScreen.js",
+    "target": "file:frontend-client/src/theme.js",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-client/src/screens/nurse/NurseProfileScreen.js",
+    "target": "file:frontend-client/src/auth.js",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-client/src/screens/nurse/NurseProfileScreen.js",
+    "target": "file:frontend-client/src/biometric.js",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-client/src/screens/nurse/NurseProfileScreen.js",
+    "target": "file:frontend-client/src/components/UI.js",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-client/src/screens/nurse/NurseProfileScreen.js",
+    "target": "file:frontend-client/src/icons.js",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-client/src/screens/nurse/NurseProfileScreen.js",
+    "target": "file:frontend-client/src/theme.js",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-client/src/screens/nurse/NurseRouteScreen.js",
+    "target": "file:frontend-client/src/api.js",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-client/src/screens/nurse/NurseRouteScreen.js",
+    "target": "file:frontend-client/src/auth.js",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-client/src/screens/nurse/NurseRouteScreen.js",
+    "target": "file:frontend-client/src/components/NotificationsBell.js",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-client/src/screens/nurse/NurseRouteScreen.js",
+    "target": "file:frontend-client/src/components/UI.js",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-client/src/screens/nurse/NurseRouteScreen.js",
+    "target": "file:frontend-client/src/icons.js",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-client/src/screens/nurse/NurseRouteScreen.js",
+    "target": "file:frontend-client/src/theme.js",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-client/src/screens/nurse/NurseValidateScreen.js",
+    "target": "file:frontend-client/src/api.js",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-client/src/screens/nurse/NurseValidateScreen.js",
+    "target": "file:frontend-client/src/auth.js",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-client/src/screens/nurse/NurseValidateScreen.js",
+    "target": "file:frontend-client/src/components/UI.js",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-client/src/screens/nurse/NurseValidateScreen.js",
+    "target": "file:frontend-client/src/icons.js",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-client/src/screens/nurse/NurseValidateScreen.js",
+    "target": "file:frontend-client/src/theme.js",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-client/src/screens/ProfileScreen.js",
+    "target": "file:frontend-client/src/auth.js",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-client/src/screens/ProfileScreen.js",
+    "target": "file:frontend-client/src/biometric.js",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-client/src/screens/ProfileScreen.js",
+    "target": "file:frontend-client/src/components/UI.js",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-client/src/screens/ProfileScreen.js",
+    "target": "file:frontend-client/src/icons.js",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-client/src/screens/ProfileScreen.js",
+    "target": "file:frontend-client/src/theme.js",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-client/src/screens/ResultDetailScreen.js",
+    "target": "file:frontend-client/src/components/UI.js",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-client/src/screens/ResultDetailScreen.js",
+    "target": "file:frontend-client/src/icons.js",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-client/src/screens/ResultDetailScreen.js",
+    "target": "file:frontend-client/src/pdfDownload.js",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-client/src/screens/ResultDetailScreen.js",
+    "target": "file:frontend-client/src/theme.js",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-client/src/screens/SignUpScreen.js",
+    "target": "file:frontend-client/src/api.js",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-client/src/screens/SignUpScreen.js",
+    "target": "file:frontend-client/src/auth.js",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-client/src/screens/SignUpScreen.js",
+    "target": "file:frontend-client/src/theme.js",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-client/src/components/UI.js",
+    "target": "file:frontend-client/src/icons.js",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-client/src/components/UI.js",
+    "target": "file:frontend-client/src/theme.js",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-client/src/auth.js",
+    "target": "file:frontend-client/src/api.js",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-client/src/auth.js",
+    "target": "file:frontend-client/src/biometric.js",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-client/src/icons.js",
+    "target": "file:frontend-client/src/theme.js",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-client/src/pdfDownload.js",
+    "target": "file:frontend-client/src/api.js",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-client/index.js",
+    "target": "file:frontend-client/App.js",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-client/src/components/UI.js",
+    "target": "function:frontend-client/src/components/UI.js:Btn",
+    "type": "contains",
+    "direction": "forward",
+    "weight": 1
+  },
+  {
+    "source": "file:frontend-client/src/components/UI.js",
+    "target": "function:frontend-client/src/components/UI.js:ScreenHeader",
+    "type": "contains",
+    "direction": "forward",
+    "weight": 1
+  },
+  {
+    "source": "file:frontend-client/src/components/UI.js",
+    "target": "function:frontend-client/src/components/UI.js:Btn",
+    "type": "exports",
+    "direction": "forward",
+    "weight": 0.8
+  },
+  {
+    "source": "file:frontend-client/src/components/UI.js",
+    "target": "function:frontend-client/src/components/UI.js:ScreenHeader",
+    "type": "exports",
+    "direction": "forward",
+    "weight": 0.8
+  },
+  {
+    "source": "file:frontend-client/src/api.js",
+    "target": "class:frontend-client/src/api.js:ApiError",
+    "type": "contains",
+    "direction": "forward",
+    "weight": 1
+  },
+  {
+    "source": "file:frontend-client/src/api.js",
+    "target": "function:frontend-client/src/api.js:createAppointment",
+    "type": "contains",
+    "direction": "forward",
+    "weight": 1
+  },
+  {
+    "source": "file:frontend-client/src/api.js",
+    "target": "function:frontend-client/src/api.js:fetchResultPdfBytes",
+    "type": "contains",
+    "direction": "forward",
+    "weight": 1
+  },
+  {
+    "source": "file:frontend-client/src/api.js",
+    "target": "class:frontend-client/src/api.js:ApiError",
+    "type": "exports",
+    "direction": "forward",
+    "weight": 0.8
+  },
+  {
+    "source": "file:frontend-client/src/api.js",
+    "target": "function:frontend-client/src/api.js:createAppointment",
+    "type": "exports",
+    "direction": "forward",
+    "weight": 0.8
+  },
+  {
+    "source": "file:frontend-client/src/api.js",
+    "target": "function:frontend-client/src/api.js:fetchResultPdfBytes",
+    "type": "exports",
+    "direction": "forward",
+    "weight": 0.8
+  },
+  {
+    "source": "file:frontend-client/src/auth.js",
+    "target": "function:frontend-client/src/auth.js:AuthProvider",
+    "type": "contains",
+    "direction": "forward",
+    "weight": 1
+  },
+  {
+    "source": "file:frontend-client/src/auth.js",
+    "target": "function:frontend-client/src/auth.js:useAuth",
+    "type": "contains",
+    "direction": "forward",
+    "weight": 1
+  },
+  {
+    "source": "file:frontend-client/src/auth.js",
+    "target": "function:frontend-client/src/auth.js:AuthProvider",
+    "type": "exports",
+    "direction": "forward",
+    "weight": 0.8
+  },
+  {
+    "source": "file:frontend-client/src/auth.js",
+    "target": "function:frontend-client/src/auth.js:useAuth",
+    "type": "exports",
+    "direction": "forward",
+    "weight": 0.8
+  },
+  {
+    "source": "file:frontend-client/src/biometric.js",
+    "target": "function:frontend-client/src/biometric.js:getDeviceId",
+    "type": "contains",
+    "direction": "forward",
+    "weight": 1
+  },
+  {
+    "source": "file:frontend-client/src/biometric.js",
+    "target": "function:frontend-client/src/biometric.js:inspectBiometric",
+    "type": "contains",
+    "direction": "forward",
+    "weight": 1
+  },
+  {
+    "source": "file:frontend-client/src/biometric.js",
+    "target": "function:frontend-client/src/biometric.js:promptBiometric",
+    "type": "contains",
+    "direction": "forward",
+    "weight": 1
+  },
+  {
+    "source": "file:frontend-client/src/biometric.js",
+    "target": "function:frontend-client/src/biometric.js:getDeviceId",
+    "type": "exports",
+    "direction": "forward",
+    "weight": 0.8
+  },
+  {
+    "source": "file:frontend-client/src/biometric.js",
+    "target": "function:frontend-client/src/biometric.js:inspectBiometric",
+    "type": "exports",
+    "direction": "forward",
+    "weight": 0.8
+  },
+  {
+    "source": "file:frontend-client/src/biometric.js",
+    "target": "function:frontend-client/src/biometric.js:promptBiometric",
+    "type": "exports",
+    "direction": "forward",
+    "weight": 0.8
+  },
+  {
+    "source": "file:frontend-client/src/icons.js",
+    "target": "function:frontend-client/src/icons.js:Icon",
+    "type": "contains",
+    "direction": "forward",
+    "weight": 1
+  },
+  {
+    "source": "file:frontend-client/src/icons.js",
+    "target": "function:frontend-client/src/icons.js:Icon",
+    "type": "exports",
+    "direction": "forward",
+    "weight": 0.8
+  },
+  {
+    "source": "file:frontend-client/src/pdfDownload.js",
+    "target": "function:frontend-client/src/pdfDownload.js:downloadAndOpenResultPdf",
+    "type": "contains",
+    "direction": "forward",
+    "weight": 1
+  },
+  {
+    "source": "file:frontend-client/src/pdfDownload.js",
+    "target": "function:frontend-client/src/pdfDownload.js:downloadAndOpenResultPdf",
+    "type": "exports",
+    "direction": "forward",
+    "weight": 0.8
+  },
+  {
+    "source": "file:frontend-client/src/theme.js",
+    "target": "function:frontend-client/src/theme.js:applyFonts",
+    "type": "contains",
+    "direction": "forward",
+    "weight": 1
+  },
+  {
+    "source": "file:frontend-client/src/theme.js",
+    "target": "function:frontend-client/src/theme.js:applyFonts",
+    "type": "exports",
+    "direction": "forward",
+    "weight": 0.8
+  },
+  {
+    "source": "file:Backend/analyses/models.py",
+    "target": "file:Backend/core/models.py",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:Backend/analyses/models.py",
+    "target": "class:Backend/analyses/models.py:TestCatalogEntry",
+    "type": "contains",
+    "direction": "forward",
+    "weight": 1
+  },
+  {
+    "source": "file:Backend/analyses/models.py",
+    "target": "class:Backend/analyses/models.py:Sample",
+    "type": "contains",
+    "direction": "forward",
+    "weight": 1
+  },
+  {
+    "source": "file:Backend/analyses/models.py",
+    "target": "class:Backend/analyses/models.py:TestOrder",
+    "type": "contains",
+    "direction": "forward",
+    "weight": 1
+  },
+  {
+    "source": "file:Backend/analyses/models.py",
+    "target": "class:Backend/analyses/models.py:TestResult",
+    "type": "contains",
+    "direction": "forward",
+    "weight": 1
+  },
+  {
+    "source": "class:Backend/analyses/models.py:TestCatalogEntry",
+    "target": "class:Backend/core/models.py:BaseModel",
+    "type": "inherits",
+    "direction": "forward",
+    "weight": 0.9
+  },
+  {
+    "source": "class:Backend/analyses/models.py:Sample",
+    "target": "class:Backend/core/models.py:BaseModel",
+    "type": "inherits",
+    "direction": "forward",
+    "weight": 0.9
+  },
+  {
+    "source": "class:Backend/analyses/models.py:TestOrder",
+    "target": "class:Backend/core/models.py:BaseModel",
+    "type": "inherits",
+    "direction": "forward",
+    "weight": 0.9
+  },
+  {
+    "source": "class:Backend/analyses/models.py:TestResult",
+    "target": "class:Backend/core/models.py:BaseModel",
+    "type": "inherits",
+    "direction": "forward",
+    "weight": 0.9
+  },
+  {
+    "source": "file:Backend/analyses/serializers.py",
+    "target": "file:Backend/analyses/models.py",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:Backend/analyses/serializers.py",
+    "target": "class:Backend/analyses/serializers.py:SampleCreateSerializer",
+    "type": "contains",
+    "direction": "forward",
+    "weight": 1
+  },
+  {
+    "source": "file:Backend/analyses/serializers.py",
+    "target": "class:Backend/analyses/serializers.py:SampleCreateSerializer",
+    "type": "exports",
+    "direction": "forward",
+    "weight": 0.8
+  },
+  {
+    "source": "file:Backend/analyses/urls.py",
+    "target": "file:Backend/analyses/views.py",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:Backend/analyses/views.py",
+    "target": "file:Backend/analyses/models.py",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:Backend/analyses/views.py",
+    "target": "file:Backend/analyses/serializers.py",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:Backend/analyses/views.py",
+    "target": "file:Backend/core/permissions.py",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:Backend/analyses/views.py",
+    "target": "class:Backend/analyses/views.py:CatalogViewSet",
+    "type": "contains",
+    "direction": "forward",
+    "weight": 1
+  },
+  {
+    "source": "file:Backend/analyses/views.py",
+    "target": "class:Backend/analyses/views.py:SampleViewSet",
+    "type": "contains",
+    "direction": "forward",
+    "weight": 1
+  },
+  {
+    "source": "file:Backend/analyses/views.py",
+    "target": "class:Backend/analyses/views.py:OrderViewSet",
+    "type": "contains",
+    "direction": "forward",
+    "weight": 1
+  },
+  {
+    "source": "file:Backend/analyses/views.py",
+    "target": "class:Backend/analyses/views.py:WalkInView",
+    "type": "contains",
+    "direction": "forward",
+    "weight": 1
+  },
+  {
+    "source": "file:Backend/analyses/views.py",
+    "target": "class:Backend/analyses/views.py:StatsView",
+    "type": "contains",
+    "direction": "forward",
+    "weight": 1
+  },
+  {
+    "source": "file:Backend/analyses/views.py",
+    "target": "class:Backend/analyses/views.py:InvoiceView",
+    "type": "contains",
+    "direction": "forward",
+    "weight": 1
+  },
+  {
+    "source": "class:Backend/analyses/views.py:SampleViewSet",
+    "target": "function:Backend/notifications/events.py:notify_result_entered",
+    "type": "calls",
+    "direction": "forward",
+    "weight": 0.8
+  },
+  {
+    "source": "class:Backend/analyses/views.py:OrderViewSet",
+    "target": "function:Backend/notifications/events.py:notify_result_entered",
+    "type": "calls",
+    "direction": "forward",
+    "weight": 0.8
+  },
+  {
+    "source": "class:Backend/analyses/views.py:OrderViewSet",
+    "target": "function:Backend/notifications/events.py:notify_result_validated",
+    "type": "calls",
+    "direction": "forward",
+    "weight": 0.8
+  },
+  {
+    "source": "file:Backend/core/models.py",
+    "target": "class:Backend/core/models.py:BaseModel",
+    "type": "contains",
+    "direction": "forward",
+    "weight": 1
+  },
+  {
+    "source": "file:Backend/core/models.py",
+    "target": "class:Backend/core/models.py:ActiveManager",
+    "type": "contains",
+    "direction": "forward",
+    "weight": 1
+  },
+  {
+    "source": "file:Backend/core/models.py",
+    "target": "class:Backend/core/models.py:BaseModel",
+    "type": "exports",
+    "direction": "forward",
+    "weight": 0.8
+  },
+  {
+    "source": "file:Backend/core/models.py",
+    "target": "class:Backend/core/models.py:ActiveManager",
+    "type": "exports",
+    "direction": "forward",
+    "weight": 0.8
+  },
+  {
+    "source": "file:Backend/inventory/models.py",
+    "target": "file:Backend/core/models.py",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:Backend/inventory/models.py",
+    "target": "class:Backend/inventory/models.py:InventoryItem",
+    "type": "contains",
+    "direction": "forward",
+    "weight": 1
+  },
+  {
+    "source": "file:Backend/inventory/models.py",
+    "target": "class:Backend/inventory/models.py:InventoryMovement",
+    "type": "contains",
+    "direction": "forward",
+    "weight": 1
+  },
+  {
+    "source": "class:Backend/inventory/models.py:InventoryItem",
+    "target": "class:Backend/core/models.py:BaseModel",
+    "type": "inherits",
+    "direction": "forward",
+    "weight": 0.9
+  },
+  {
+    "source": "class:Backend/inventory/models.py:InventoryMovement",
+    "target": "class:Backend/core/models.py:BaseModel",
+    "type": "inherits",
+    "direction": "forward",
+    "weight": 0.9
+  },
+  {
+    "source": "file:Backend/inventory/serializers.py",
+    "target": "file:Backend/inventory/models.py",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:Backend/inventory/urls.py",
+    "target": "file:Backend/inventory/views.py",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:Backend/inventory/views.py",
+    "target": "file:Backend/core/permissions.py",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:Backend/inventory/views.py",
+    "target": "file:Backend/inventory/models.py",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:Backend/inventory/views.py",
+    "target": "file:Backend/inventory/serializers.py",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:Backend/inventory/views.py",
+    "target": "class:Backend/inventory/views.py:InventoryItemViewSet",
+    "type": "contains",
+    "direction": "forward",
+    "weight": 1
+  },
+  {
+    "source": "file:Backend/inventory/views.py",
+    "target": "class:Backend/inventory/views.py:InventoryItemViewSet",
+    "type": "exports",
+    "direction": "forward",
+    "weight": 0.8
+  },
+  {
+    "source": "file:Backend/notifications/events.py",
+    "target": "file:Backend/notifications/models.py",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:Backend/notifications/events.py",
+    "target": "function:Backend/notifications/events.py:notify_appointment_created",
+    "type": "contains",
+    "direction": "forward",
+    "weight": 1
+  },
+  {
+    "source": "file:Backend/notifications/events.py",
+    "target": "function:Backend/notifications/events.py:notify_appointment_status_changed",
+    "type": "contains",
+    "direction": "forward",
+    "weight": 1
+  },
+  {
+    "source": "file:Backend/notifications/events.py",
+    "target": "function:Backend/notifications/events.py:notify_appointment_nurse_assigned",
+    "type": "contains",
+    "direction": "forward",
+    "weight": 1
+  },
+  {
+    "source": "file:Backend/notifications/events.py",
+    "target": "function:Backend/notifications/events.py:notify_result_entered",
+    "type": "contains",
+    "direction": "forward",
+    "weight": 1
+  },
+  {
+    "source": "file:Backend/notifications/events.py",
+    "target": "function:Backend/notifications/events.py:notify_result_validated",
+    "type": "contains",
+    "direction": "forward",
+    "weight": 1
+  },
+  {
+    "source": "file:Backend/notifications/events.py",
+    "target": "function:Backend/notifications/events.py:notify_appointment_created",
+    "type": "exports",
+    "direction": "forward",
+    "weight": 0.8
+  },
+  {
+    "source": "file:Backend/notifications/events.py",
+    "target": "function:Backend/notifications/events.py:notify_appointment_status_changed",
+    "type": "exports",
+    "direction": "forward",
+    "weight": 0.8
+  },
+  {
+    "source": "file:Backend/notifications/events.py",
+    "target": "function:Backend/notifications/events.py:notify_appointment_nurse_assigned",
+    "type": "exports",
+    "direction": "forward",
+    "weight": 0.8
+  },
+  {
+    "source": "file:Backend/notifications/events.py",
+    "target": "function:Backend/notifications/events.py:notify_result_entered",
+    "type": "exports",
+    "direction": "forward",
+    "weight": 0.8
+  },
+  {
+    "source": "file:Backend/notifications/events.py",
+    "target": "function:Backend/notifications/events.py:notify_result_validated",
+    "type": "exports",
+    "direction": "forward",
+    "weight": 0.8
+  },
+  {
+    "source": "file:Backend/notifications/models.py",
+    "target": "file:Backend/core/models.py",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:Backend/notifications/models.py",
+    "target": "class:Backend/notifications/models.py:Notification",
+    "type": "contains",
+    "direction": "forward",
+    "weight": 1
+  },
+  {
+    "source": "file:Backend/notifications/models.py",
+    "target": "class:Backend/notifications/models.py:Notification",
+    "type": "exports",
+    "direction": "forward",
+    "weight": 0.8
+  },
+  {
+    "source": "class:Backend/notifications/models.py:Notification",
+    "target": "class:Backend/core/models.py:BaseModel",
+    "type": "inherits",
+    "direction": "forward",
+    "weight": 0.9
+  },
+  {
+    "source": "file:Backend/notifications/serializers.py",
+    "target": "file:Backend/notifications/models.py",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:Backend/notifications/urls.py",
+    "target": "file:Backend/notifications/views.py",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:Backend/notifications/views.py",
+    "target": "file:Backend/notifications/models.py",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:Backend/notifications/views.py",
+    "target": "file:Backend/notifications/serializers.py",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:Backend/notifications/views.py",
+    "target": "class:Backend/notifications/views.py:NotificationViewSet",
+    "type": "contains",
+    "direction": "forward",
+    "weight": 1
+  },
+  {
+    "source": "file:Backend/notifications/views.py",
+    "target": "class:Backend/notifications/views.py:NotificationViewSet",
+    "type": "exports",
+    "direction": "forward",
+    "weight": 0.8
+  },
+  {
+    "source": "class:Backend/analyses/views.py:StatsView",
+    "target": "class:Backend/inventory/models.py:InventoryItem",
+    "type": "depends_on",
+    "direction": "forward",
+    "weight": 0.6
+  },
+  {
+    "source": "file:Backend/labconnect/settings/dev.py",
+    "target": "file:Backend/labconnect/settings/base.py",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:Backend/labconnect/settings/prod.py",
+    "target": "file:Backend/labconnect/settings/base.py",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "service:Backend/docker-compose.yml",
+    "target": "service:Backend/docker-compose.yml:db",
+    "type": "contains",
+    "direction": "forward",
+    "weight": 1
+  },
+  {
+    "source": "service:Backend/docker-compose.yml",
+    "target": "service:Backend/Dockerfile",
+    "type": "depends_on",
+    "direction": "forward",
+    "weight": 0.6
+  },
+  {
+    "source": "service:Backend/Dockerfile",
+    "target": "service:Backend/.dockerignore",
+    "type": "depends_on",
+    "direction": "forward",
+    "weight": 0.6
+  },
+  {
+    "source": "config:Backend/render.yaml",
+    "target": "file:Backend/manage.py",
+    "type": "deploys",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "config:Backend/render.yaml",
+    "target": "document:Backend/requirements.txt",
+    "type": "depends_on",
+    "direction": "forward",
+    "weight": 0.6
+  },
+  {
+    "source": "document:Backend/README_API.md",
+    "target": "file:Backend/manage.py",
+    "type": "documents",
+    "direction": "forward",
+    "weight": 0.5
+  },
+  {
+    "source": "document:Backend/requirements.txt",
+    "target": "file:Backend/manage.py",
+    "type": "configures",
+    "direction": "forward",
+    "weight": 0.6
+  },
+  {
+    "source": "document:frontend-client/CLAUDE.md",
+    "target": "document:frontend-client/AGENTS.md",
+    "type": "related",
+    "direction": "forward",
+    "weight": 0.5
+  },
+  {
+    "source": "document:frontend-client/AGENTS.md",
+    "target": "config:frontend-client/app.json",
+    "type": "documents",
+    "direction": "forward",
+    "weight": 0.5
+  },
+  {
+    "source": "document:frontend-client/AGENTS.md",
+    "target": "config:frontend-client/package.json",
+    "type": "documents",
+    "direction": "forward",
+    "weight": 0.5
+  },
+  {
+    "source": "config:frontend-client/package.json",
+    "target": "config:frontend-client/app.json",
+    "type": "related",
+    "direction": "forward",
+    "weight": 0.5
+  },
+  {
+    "source": "config:frontend-web/package.json",
+    "target": "file:frontend-web/index.html",
+    "type": "configures",
+    "direction": "forward",
+    "weight": 0.6
+  },
+  {
+    "source": "file:frontend-web/index.html",
+    "target": "file:frontend-web/src/main.jsx",
+    "type": "depends_on",
+    "direction": "forward",
+    "weight": 0.6
+  },
+  {
+    "source": "document:frontend-web/README.md",
+    "target": "file:frontend-web/index.html",
+    "type": "documents",
+    "direction": "forward",
+    "weight": 0.5
+  },
+  {
+    "source": "file:Backend/accounts/backends.py",
+    "target": "class:Backend/accounts/backends.py:EmailOrPhoneBackend",
+    "type": "contains",
+    "direction": "forward",
+    "weight": 1
+  },
+  {
+    "source": "file:Backend/accounts/backends.py",
+    "target": "class:Backend/accounts/backends.py:EmailOrPhoneBackend",
+    "type": "exports",
+    "direction": "forward",
+    "weight": 0.8
+  },
+  {
+    "source": "file:Backend/accounts/services/totp.py",
+    "target": "function:Backend/accounts/services/totp.py:generate_secret",
+    "type": "contains",
+    "direction": "forward",
+    "weight": 1
+  },
+  {
+    "source": "file:Backend/accounts/services/totp.py",
+    "target": "function:Backend/accounts/services/totp.py:verify_code",
+    "type": "contains",
+    "direction": "forward",
+    "weight": 1
+  },
+  {
+    "source": "file:Backend/accounts/services/totp.py",
+    "target": "function:Backend/accounts/services/totp.py:provisioning_uri",
+    "type": "contains",
+    "direction": "forward",
+    "weight": 1
+  },
+  {
+    "source": "file:Backend/accounts/services/totp.py",
+    "target": "function:Backend/accounts/services/totp.py:qr_code_base64",
+    "type": "contains",
+    "direction": "forward",
+    "weight": 1
+  },
+  {
+    "source": "file:Backend/accounts/services/totp.py",
+    "target": "function:Backend/accounts/services/totp.py:generate_secret",
+    "type": "exports",
+    "direction": "forward",
+    "weight": 0.8
+  },
+  {
+    "source": "file:Backend/accounts/services/totp.py",
+    "target": "function:Backend/accounts/services/totp.py:verify_code",
+    "type": "exports",
+    "direction": "forward",
+    "weight": 0.8
+  },
+  {
+    "source": "file:Backend/accounts/services/totp.py",
+    "target": "function:Backend/accounts/services/totp.py:provisioning_uri",
+    "type": "exports",
+    "direction": "forward",
+    "weight": 0.8
+  },
+  {
+    "source": "file:Backend/accounts/services/totp.py",
+    "target": "function:Backend/accounts/services/totp.py:qr_code_base64",
+    "type": "exports",
+    "direction": "forward",
+    "weight": 0.8
+  },
+  {
+    "source": "document:API.md",
+    "target": "file:Backend/accounts/backends.py",
+    "type": "documents",
+    "direction": "forward",
+    "weight": 0.5
+  },
+  {
+    "source": "document:API.md",
+    "target": "file:Backend/accounts/services/totp.py",
+    "type": "documents",
+    "direction": "forward",
+    "weight": 0.5
+  },
+  {
+    "source": "file:Backend/analyses/pdf.py",
+    "target": "function:Backend/analyses/pdf.py:_flag_color",
+    "type": "contains",
+    "direction": "forward",
+    "weight": 1
+  },
+  {
+    "source": "file:Backend/analyses/pdf.py",
+    "target": "function:Backend/analyses/pdf.py:_flag_label",
+    "type": "contains",
+    "direction": "forward",
+    "weight": 1
+  },
+  {
+    "source": "file:Backend/analyses/pdf.py",
+    "target": "function:Backend/analyses/pdf.py:render_result_pdf",
+    "type": "contains",
+    "direction": "forward",
+    "weight": 1
+  },
+  {
+    "source": "file:Backend/analyses/pdf.py",
+    "target": "function:Backend/analyses/pdf.py:render_result_pdf",
+    "type": "exports",
+    "direction": "forward",
+    "weight": 0.8
+  },
+  {
+    "source": "file:Backend/core/exceptions.py",
+    "target": "function:Backend/core/exceptions.py:api_exception_handler",
+    "type": "contains",
+    "direction": "forward",
+    "weight": 1
+  },
+  {
+    "source": "file:Backend/core/exceptions.py",
+    "target": "function:Backend/core/exceptions.py:api_exception_handler",
+    "type": "exports",
+    "direction": "forward",
+    "weight": 0.8
+  },
+  {
+    "source": "file:Backend/core/pagination.py",
+    "target": "class:Backend/core/pagination.py:DefaultPagination",
+    "type": "contains",
+    "direction": "forward",
+    "weight": 1
+  },
+  {
+    "source": "file:Backend/core/pagination.py",
+    "target": "class:Backend/core/pagination.py:DefaultPagination",
+    "type": "exports",
+    "direction": "forward",
+    "weight": 0.8
+  },
+  {
+    "source": "file:Backend/labconnect/__init__.py",
+    "target": "file:Backend/labconnect/celery.py",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:Backend/labconnect/celery.py",
+    "target": "file:Backend/labconnect/celery.py",
+    "type": "imports",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:Backend/labconnect/celery.py",
+    "target": "function:Backend/labconnect/celery.py:debug_task",
+    "type": "contains",
+    "direction": "forward",
+    "weight": 1
+  },
+  {
+    "source": "config:render.yaml",
+    "target": "file:Backend/manage.py",
+    "type": "deploys",
+    "direction": "forward",
+    "weight": 0.7
+  },
+  {
+    "source": "file:frontend-web/src/index.css",
+    "target": "file:frontend-web/src/App.css",
+    "type": "related",
+    "direction": "forward",
+    "weight": 0.5
+  },
+  {
+    "source": "file:Backend/notifications/events.py",
+    "target": "function:Backend/notifications/events.py:notify_sample_received",
+    "type": "contains",
+    "direction": "forward",
+    "weight": 1
+  },
+  {
+    "source": "class:Backend/analyses/views.py:SampleViewSet",
+    "target": "function:Backend/notifications/events.py:notify_sample_received",
+    "type": "calls",
+    "direction": "forward",
+    "weight": 0.8
+  }
+]

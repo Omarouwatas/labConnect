@@ -1,0 +1,16 @@
+Files:
+1. `frontend-client/AGENTS.md` (3 lines, language: `markdown`, fileCategory: `docs`)
+2. `frontend-client/CLAUDE.md` (1 lines, language: `markdown`, fileCategory: `docs`)
+3. `frontend-client/app.json` (66 lines, language: `json`, fileCategory: `config`)
+4. `frontend-client/package.json` (40 lines, language: `json`, fileCategory: `config`)
+
+Import data:
+{
+  "frontend-client/AGENTS.md": [],
+  "frontend-client/CLAUDE.md": [],
+  "frontend-client/app.json": [],
+  "frontend-client/package.json": []
+}
+
+Neighbor map:
+{}

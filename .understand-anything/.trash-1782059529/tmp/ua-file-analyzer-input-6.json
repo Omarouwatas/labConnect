@@ -1,0 +1,9 @@
+{
+  "projectRoot": "C:/Users/Omar/Desktop/SmartLAB/code",
+  "batchFiles": [
+    {"path": "Backend/.dockerignore", "language": "unknown", "sizeLines": 16, "fileCategory": "infra"},
+    {"path": "Backend/docker-compose.yml", "language": "yaml", "sizeLines": 24, "fileCategory": "infra"},
+    {"path": "Backend/Dockerfile", "language": "dockerfile", "sizeLines": 29, "fileCategory": "infra"}
+  ],
+  "batchImportData": {"Backend/.dockerignore":[],"Backend/docker-compose.yml":[],"Backend/Dockerfile":[]}
+}

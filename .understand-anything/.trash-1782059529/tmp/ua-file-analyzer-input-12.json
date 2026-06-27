@@ -1,0 +1,33 @@
+{
+  "projectRoot": "C:/Users/Omar/Desktop/SmartLAB/code",
+  "batchFiles": [
+    {"path": "Backend/laboratories/migrations/0002_alter_laboratory_emergency_fee_mru_and_more.py", "language": "python", "sizeLines": 34, "fileCategory": "code"},
+    {"path": "Backend/manage.py", "language": "python", "sizeLines": 22, "fileCategory": "code"},
+    {"path": "Backend/notifications/__init__.py", "language": "python", "sizeLines": 0, "fileCategory": "code"},
+    {"path": "Backend/notifications/apps.py", "language": "python", "sizeLines": 7, "fileCategory": "code"},
+    {"path": "Backend/notifications/migrations/__init__.py", "language": "python", "sizeLines": 0, "fileCategory": "code"},
+    {"path": "Backend/notifications/migrations/0001_initial.py", "language": "python", "sizeLines": 76, "fileCategory": "code"},
+    {"path": "Backend/notifications/migrations/0002_rename_notif_user_created_idx_notificatio_user_id_05b4bc_idx_and_more.py", "language": "python", "sizeLines": 23, "fileCategory": "code"},
+    {"path": "frontend-client/.claude/settings.json", "language": "json", "sizeLines": 5, "fileCategory": "config"},
+    {"path": "frontend-web/eslint.config.js", "language": "javascript", "sizeLines": 21, "fileCategory": "code"},
+    {"path": "frontend-web/src/App.css", "language": "css", "sizeLines": 2, "fileCategory": "markup"},
+    {"path": "frontend-web/src/index.css", "language": "css", "sizeLines": 1440, "fileCategory": "markup"},
+    {"path": "frontend-web/vite.config.js", "language": "javascript", "sizeLines": 7, "fileCategory": "code"},
+    {"path": "render.yaml", "language": "yaml", "sizeLines": 83, "fileCategory": "config"}
+  ],
+  "batchImportData": {
+    "Backend/laboratories/migrations/0002_alter_laboratory_emergency_fee_mru_and_more.py": [],
+    "Backend/manage.py": [],
+    "Backend/notifications/__init__.py": [],
+    "Backend/notifications/apps.py": [],
+    "Backend/notifications/migrations/__init__.py": [],
+    "Backend/notifications/migrations/0001_initial.py": [],
+    "Backend/notifications/migrations/0002_rename_notif_user_created_idx_notificatio_user_id_05b4bc_idx_and_more.py": [],
+    "frontend-client/.claude/settings.json": [],
+    "frontend-web/eslint.config.js": [],
+    "frontend-web/src/App.css": [],
+    "frontend-web/src/index.css": [],
+    "frontend-web/vite.config.js": [],
+    "render.yaml": []
+  }
+}

@@ -1,0 +1,376 @@
+{
+  "nodes": [
+    {
+      "id": "file:Backend/appointments/models.py",
+      "type": "file",
+      "name": "models.py",
+      "filePath": "Backend/appointments/models.py",
+      "summary": "Defines the Appointment model with VisitType and AppointmentStatus enumerations, supporting both clinic and home visits with GIS location, CNAM coverage, assigned nurse, and fee calculation.",
+      "tags": ["data-model", "service"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:Backend/appointments/models.py:Appointment",
+      "type": "class",
+      "name": "Appointment",
+      "filePath": "Backend/appointments/models.py",
+      "lineRange": [38, 108],
+      "summary": "Core appointment model linking patient, laboratory, optional nurse, and sample collection; tracks status lifecycle, CNAM eligibility, and home-visit GPS coordinates.",
+      "tags": ["data-model", "service"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:Backend/appointments/serializers.py",
+      "type": "file",
+      "name": "serializers.py",
+      "filePath": "Backend/appointments/serializers.py",
+      "summary": "DRF serializers for appointment read (with CNAM and fee aggregation), creation (with walk-in patient auto-provisioning and test-order building), and status transitions.",
+      "tags": ["serialization", "validation", "api-handler"],
+      "complexity": "complex"
+    },
+    {
+      "id": "class:Backend/appointments/serializers.py:AppointmentSerializer",
+      "type": "class",
+      "name": "AppointmentSerializer",
+      "filePath": "Backend/appointments/serializers.py",
+      "lineRange": [10, 100],
+      "summary": "Read serializer for Appointment that computes GIS coordinates, patient/nurse display names, nested order items, total fees in MRU, patient-due amount, and CNAM-covered amount.",
+      "tags": ["serialization", "service"],
+      "complexity": "complex"
+    },
+    {
+      "id": "class:Backend/appointments/serializers.py:AppointmentCreateSerializer",
+      "type": "class",
+      "name": "AppointmentCreateSerializer",
+      "filePath": "Backend/appointments/serializers.py",
+      "lineRange": [103, 274],
+      "summary": "Write serializer that validates patient identity (walk-in phone or authenticated user), resolves the laboratory, builds Sample and TestOrder records in a transaction, and handles CNAM pricing splits.",
+      "tags": ["serialization", "factory", "validation"],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:Backend/appointments/urls.py",
+      "type": "file",
+      "name": "urls.py",
+      "filePath": "Backend/appointments/urls.py",
+      "summary": "Minimal URL configuration for the appointments app, registering the AppointmentViewSet router and custom action routes.",
+      "tags": ["api-handler", "config"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:Backend/appointments/views.py",
+      "type": "file",
+      "name": "views.py",
+      "filePath": "Backend/appointments/views.py",
+      "summary": "Appointment ViewSet with role-aware queryset scoping, nurse assignment, sample tube labelling, appointment cancellation, and status-change transitions that cascade to Sample and TestOrder records with push notifications.",
+      "tags": ["api-handler", "service", "middleware"],
+      "complexity": "complex"
+    },
+    {
+      "id": "class:Backend/appointments/views.py:AppointmentViewSet",
+      "type": "class",
+      "name": "AppointmentViewSet",
+      "filePath": "Backend/appointments/views.py",
+      "lineRange": [58, 409],
+      "summary": "Full-featured ModelViewSet for appointments; filters by role (patient sees own, staff sees lab scope), provides mine/home_visits/assign_nurse/set_tubes/cancel/change_status actions, and fires push notifications on transitions.",
+      "tags": ["api-handler", "service", "middleware"],
+      "complexity": "complex"
+    },
+    {
+      "id": "class:Backend/appointments/views.py:IsPatientOrStaff",
+      "type": "class",
+      "name": "IsPatientOrStaff",
+      "filePath": "Backend/appointments/views.py",
+      "lineRange": [36, 46],
+      "summary": "DRF permission class that allows access to patients (no 2FA required) or any staff role with 2FA verified.",
+      "tags": ["middleware", "validation"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:Backend/core/permissions.py",
+      "type": "file",
+      "name": "permissions.py",
+      "filePath": "Backend/core/permissions.py",
+      "summary": "Central permission classes and constants for the labConnect platform, defining role name strings, HasRole base permission, role-specific shortcuts (IsPatient, IsNurse, IsLabChief…), 2FA verification checks, and the current_lab_id request helper.",
+      "tags": ["middleware", "service", "config"],
+      "complexity": "complex"
+    },
+    {
+      "id": "class:Backend/core/permissions.py:RoleNames",
+      "type": "class",
+      "name": "RoleNames",
+      "filePath": "Backend/core/permissions.py",
+      "lineRange": [16, 27],
+      "summary": "String constant container for all platform role names (patient, secretary, nurse, technician, biologist, lab_chief) and an ALL_STAFF set.",
+      "tags": ["config", "service"],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:Backend/core/permissions.py:HasRole",
+      "type": "class",
+      "name": "HasRole",
+      "filePath": "Backend/core/permissions.py",
+      "lineRange": [30, 40],
+      "summary": "Base DRF permission that checks whether the authenticated user belongs to any of the required_roles Django Groups.",
+      "tags": ["middleware", "validation"],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:Backend/core/permissions.py:Is2FAVerified",
+      "type": "class",
+      "name": "Is2FAVerified",
+      "filePath": "Backend/core/permissions.py",
+      "lineRange": [71, 89],
+      "summary": "DRF permission that checks the JWT payload for a 2fa_verified claim set to true.",
+      "tags": ["middleware", "validation"],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:Backend/core/permissions.py:IsStaffAnd2FA",
+      "type": "class",
+      "name": "IsStaffAnd2FA",
+      "filePath": "Backend/core/permissions.py",
+      "lineRange": [92, 104],
+      "summary": "Composite DRF permission requiring the user to be any staff role AND have 2FA verified in their JWT.",
+      "tags": ["middleware", "validation"],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:Backend/core/permissions.py:LabScopedQuerysetMixin",
+      "type": "class",
+      "name": "LabScopedQuerysetMixin",
+      "filePath": "Backend/core/permissions.py",
+      "lineRange": [139, 153],
+      "summary": "Mixin that overrides get_queryset() to filter by the lab ID from the current request, returning an empty queryset when no lab context is present.",
+      "tags": ["middleware", "service"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:Backend/core/permissions.py:current_lab_id",
+      "type": "function",
+      "name": "current_lab_id",
+      "filePath": "Backend/core/permissions.py",
+      "lineRange": [107, 136],
+      "summary": "Resolves the active laboratory ID for a request by checking the JWT payload, request headers, query params, and finally falling back to the staff's assigned laboratory.",
+      "tags": ["utility", "service"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:Backend/laboratories/admin.py",
+      "type": "file",
+      "name": "admin.py",
+      "filePath": "Backend/laboratories/admin.py",
+      "summary": "Registers the Laboratory model with the Django admin, configuring list display, search, and location-aware map widget via djgeojson.",
+      "tags": ["config", "admin", "data-model"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:Backend/laboratories/migrations/0001_initial.py",
+      "type": "file",
+      "name": "0001_initial.py",
+      "filePath": "Backend/laboratories/migrations/0001_initial.py",
+      "summary": "Initial Django migration creating the Laboratory table with PostGIS location field and all core laboratory attributes.",
+      "tags": ["database", "migration"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:Backend/laboratories/migrations/0003_alter_laboratory_opening_hours.py",
+      "type": "file",
+      "name": "0003_alter_laboratory_opening_hours.py",
+      "filePath": "Backend/laboratories/migrations/0003_alter_laboratory_opening_hours.py",
+      "summary": "Django migration altering the opening_hours JSON field on the Laboratory model to use the updated default structure.",
+      "tags": ["database", "migration"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:Backend/laboratories/models.py",
+      "type": "file",
+      "name": "models.py",
+      "filePath": "Backend/laboratories/models.py",
+      "summary": "Defines the Laboratory model with GIS location (PostGIS Point), opening hours (JSON), fee settings for home and emergency visits, CNAM support flag, and a slug identifier.",
+      "tags": ["data-model", "service"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:Backend/laboratories/models.py:Laboratory",
+      "type": "class",
+      "name": "Laboratory",
+      "filePath": "Backend/laboratories/models.py",
+      "lineRange": [27, 85],
+      "summary": "Core laboratory entity with geolocation, opening hours JSON, home/emergency visit fees, CNAM support toggle, and soft-delete via BaseModel inheritance.",
+      "tags": ["data-model"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:Backend/laboratories/serializers.py",
+      "type": "file",
+      "name": "serializers.py",
+      "filePath": "Backend/laboratories/serializers.py",
+      "summary": "DRF serializers for Laboratory list (with lat/lng extraction from PostGIS Point), detail view, opening-hours day validation, and full lab configuration update.",
+      "tags": ["serialization", "validation", "api-handler"],
+      "complexity": "complex"
+    },
+    {
+      "id": "class:Backend/laboratories/serializers.py:LaboratoryListSerializer",
+      "type": "class",
+      "name": "LaboratoryListSerializer",
+      "filePath": "Backend/laboratories/serializers.py",
+      "lineRange": [42, 69],
+      "summary": "Serializer for laboratory list view, extracting latitude/longitude from the PostGIS Point field via SerializerMethodFields.",
+      "tags": ["serialization"],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:Backend/laboratories/serializers.py:LaboratoryConfigSerializer",
+      "type": "class",
+      "name": "LaboratoryConfigSerializer",
+      "filePath": "Backend/laboratories/serializers.py",
+      "lineRange": [81, 128],
+      "summary": "Serializer for updating laboratory configuration including opening hours validation (all-day or open/close time consistency), home visit fee, and emergency fee.",
+      "tags": ["serialization", "validation"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:Backend/laboratories/serializers.py:DayHoursSerializer",
+      "type": "class",
+      "name": "DayHoursSerializer",
+      "filePath": "Backend/laboratories/serializers.py",
+      "lineRange": [12, 28],
+      "summary": "Nested serializer that validates a single day's opening hours, ensuring that open/close times are consistent when the lab is not marked all-day.",
+      "tags": ["serialization", "validation"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:Backend/laboratories/urls.py",
+      "type": "file",
+      "name": "urls.py",
+      "filePath": "Backend/laboratories/urls.py",
+      "summary": "URL router for the laboratories app, registering public lab search/nearby endpoints, employee management, and chef-scoped lab management routes.",
+      "tags": ["api-handler", "config"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:Backend/laboratories/views.py",
+      "type": "file",
+      "name": "views.py",
+      "filePath": "Backend/laboratories/views.py",
+      "summary": "Laboratory views providing public geo-search (nearby by radius), lab-chief self-service (list, create, update opening hours and fees), and an inline serializer for laboratory creation.",
+      "tags": ["api-handler", "service"],
+      "complexity": "complex"
+    },
+    {
+      "id": "class:Backend/laboratories/views.py:LaboratoryPublicViewSet",
+      "type": "class",
+      "name": "LaboratoryPublicViewSet",
+      "filePath": "Backend/laboratories/views.py",
+      "lineRange": [31, 65],
+      "summary": "Read-only ViewSet for unauthenticated lab discovery, with a 'nearby' action that annotates laboratories with distance from a user-supplied GIS coordinate and filters within a radius.",
+      "tags": ["api-handler", "service"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:Backend/laboratories/views.py:ChefLaboratoryViewSet",
+      "type": "class",
+      "name": "ChefLaboratoryViewSet",
+      "filePath": "Backend/laboratories/views.py",
+      "lineRange": [111, 173],
+      "summary": "ViewSet for lab-chief users to list their laboratories, create new ones (with auto-StaffProfile creation), and update laboratory configuration via PATCH.",
+      "tags": ["api-handler", "service", "factory"],
+      "complexity": "complex"
+    },
+    {
+      "id": "class:Backend/laboratories/views.py:LaboratoryCreateSerializer",
+      "type": "class",
+      "name": "LaboratoryCreateSerializer",
+      "filePath": "Backend/laboratories/views.py",
+      "lineRange": [71, 108],
+      "summary": "Inline serializer for laboratory creation that auto-generates a unique slug, converts lat/lng to a PostGIS Point, and persists the Laboratory record.",
+      "tags": ["serialization", "factory"],
+      "complexity": "moderate"
+    }
+  ],
+  "edges": [
+    {"source": "file:Backend/appointments/models.py", "target": "file:Backend/core/models.py", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:Backend/appointments/models.py", "target": "class:Backend/appointments/models.py:Appointment", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:Backend/appointments/models.py", "target": "class:Backend/appointments/models.py:Appointment", "type": "exports", "direction": "forward", "weight": 0.8},
+
+    {"source": "file:Backend/appointments/serializers.py", "target": "file:Backend/appointments/models.py", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:Backend/appointments/serializers.py", "target": "file:Backend/core/permissions.py", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:Backend/appointments/serializers.py", "target": "class:Backend/appointments/serializers.py:AppointmentSerializer", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:Backend/appointments/serializers.py", "target": "class:Backend/appointments/serializers.py:AppointmentSerializer", "type": "exports", "direction": "forward", "weight": 0.8},
+    {"source": "file:Backend/appointments/serializers.py", "target": "class:Backend/appointments/serializers.py:AppointmentCreateSerializer", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:Backend/appointments/serializers.py", "target": "class:Backend/appointments/serializers.py:AppointmentCreateSerializer", "type": "exports", "direction": "forward", "weight": 0.8},
+
+    {"source": "file:Backend/appointments/urls.py", "target": "file:Backend/appointments/views.py", "type": "imports", "direction": "forward", "weight": 0.7},
+
+    {"source": "file:Backend/appointments/views.py", "target": "file:Backend/accounts/models.py", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:Backend/appointments/views.py", "target": "file:Backend/appointments/models.py", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:Backend/appointments/views.py", "target": "file:Backend/appointments/serializers.py", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:Backend/appointments/views.py", "target": "file:Backend/core/permissions.py", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:Backend/appointments/views.py", "target": "class:Backend/appointments/views.py:AppointmentViewSet", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:Backend/appointments/views.py", "target": "class:Backend/appointments/views.py:AppointmentViewSet", "type": "exports", "direction": "forward", "weight": 0.8},
+    {"source": "file:Backend/appointments/views.py", "target": "class:Backend/appointments/views.py:IsPatientOrStaff", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:Backend/appointments/views.py", "target": "class:Backend/appointments/views.py:IsPatientOrStaff", "type": "exports", "direction": "forward", "weight": 0.8},
+    {"source": "class:Backend/appointments/views.py:AppointmentViewSet", "target": "class:Backend/appointments/serializers.py:AppointmentSerializer", "type": "calls", "direction": "forward", "weight": 0.8},
+    {"source": "class:Backend/appointments/views.py:AppointmentViewSet", "target": "class:Backend/appointments/serializers.py:AppointmentCreateSerializer", "type": "calls", "direction": "forward", "weight": 0.8},
+    {"source": "class:Backend/appointments/views.py:AppointmentViewSet", "target": "class:Backend/appointments/models.py:Appointment", "type": "calls", "direction": "forward", "weight": 0.8},
+    {"source": "class:Backend/appointments/views.py:AppointmentViewSet", "target": "function:Backend/core/permissions.py:current_lab_id", "type": "calls", "direction": "forward", "weight": 0.8},
+
+    {"source": "file:Backend/core/permissions.py", "target": "class:Backend/core/permissions.py:RoleNames", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:Backend/core/permissions.py", "target": "class:Backend/core/permissions.py:RoleNames", "type": "exports", "direction": "forward", "weight": 0.8},
+    {"source": "file:Backend/core/permissions.py", "target": "class:Backend/core/permissions.py:HasRole", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:Backend/core/permissions.py", "target": "class:Backend/core/permissions.py:HasRole", "type": "exports", "direction": "forward", "weight": 0.8},
+    {"source": "file:Backend/core/permissions.py", "target": "class:Backend/core/permissions.py:Is2FAVerified", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:Backend/core/permissions.py", "target": "class:Backend/core/permissions.py:Is2FAVerified", "type": "exports", "direction": "forward", "weight": 0.8},
+    {"source": "file:Backend/core/permissions.py", "target": "class:Backend/core/permissions.py:IsStaffAnd2FA", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:Backend/core/permissions.py", "target": "class:Backend/core/permissions.py:IsStaffAnd2FA", "type": "exports", "direction": "forward", "weight": 0.8},
+    {"source": "file:Backend/core/permissions.py", "target": "class:Backend/core/permissions.py:LabScopedQuerysetMixin", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:Backend/core/permissions.py", "target": "class:Backend/core/permissions.py:LabScopedQuerysetMixin", "type": "exports", "direction": "forward", "weight": 0.8},
+    {"source": "file:Backend/core/permissions.py", "target": "function:Backend/core/permissions.py:current_lab_id", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:Backend/core/permissions.py", "target": "function:Backend/core/permissions.py:current_lab_id", "type": "exports", "direction": "forward", "weight": 0.8},
+    {"source": "class:Backend/core/permissions.py:IsStaffAnd2FA", "target": "class:Backend/core/permissions.py:Is2FAVerified", "type": "depends_on", "direction": "forward", "weight": 0.6},
+    {"source": "class:Backend/core/permissions.py:LabScopedQuerysetMixin", "target": "function:Backend/core/permissions.py:current_lab_id", "type": "calls", "direction": "forward", "weight": 0.8},
+
+    {"source": "file:Backend/laboratories/admin.py", "target": "file:Backend/laboratories/models.py", "type": "imports", "direction": "forward", "weight": 0.7},
+
+    {"source": "file:Backend/laboratories/migrations/0001_initial.py", "target": "file:Backend/laboratories/models.py", "type": "imports", "direction": "forward", "weight": 0.7},
+
+    {"source": "file:Backend/laboratories/migrations/0003_alter_laboratory_opening_hours.py", "target": "file:Backend/laboratories/models.py", "type": "imports", "direction": "forward", "weight": 0.7},
+
+    {"source": "file:Backend/laboratories/models.py", "target": "file:Backend/core/models.py", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:Backend/laboratories/models.py", "target": "class:Backend/laboratories/models.py:Laboratory", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:Backend/laboratories/models.py", "target": "class:Backend/laboratories/models.py:Laboratory", "type": "exports", "direction": "forward", "weight": 0.8},
+
+    {"source": "file:Backend/laboratories/serializers.py", "target": "file:Backend/laboratories/models.py", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:Backend/laboratories/serializers.py", "target": "class:Backend/laboratories/serializers.py:LaboratoryListSerializer", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:Backend/laboratories/serializers.py", "target": "class:Backend/laboratories/serializers.py:LaboratoryListSerializer", "type": "exports", "direction": "forward", "weight": 0.8},
+    {"source": "file:Backend/laboratories/serializers.py", "target": "class:Backend/laboratories/serializers.py:LaboratoryConfigSerializer", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:Backend/laboratories/serializers.py", "target": "class:Backend/laboratories/serializers.py:LaboratoryConfigSerializer", "type": "exports", "direction": "forward", "weight": 0.8},
+    {"source": "file:Backend/laboratories/serializers.py", "target": "class:Backend/laboratories/serializers.py:DayHoursSerializer", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:Backend/laboratories/serializers.py", "target": "class:Backend/laboratories/serializers.py:DayHoursSerializer", "type": "exports", "direction": "forward", "weight": 0.8},
+    {"source": "class:Backend/laboratories/serializers.py:LaboratoryConfigSerializer", "target": "class:Backend/laboratories/serializers.py:DayHoursSerializer", "type": "calls", "direction": "forward", "weight": 0.8},
+
+    {"source": "file:Backend/laboratories/urls.py", "target": "file:Backend/accounts/views_employees.py", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:Backend/laboratories/urls.py", "target": "file:Backend/laboratories/views.py", "type": "imports", "direction": "forward", "weight": 0.7},
+
+    {"source": "file:Backend/laboratories/views.py", "target": "file:Backend/accounts/models.py", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:Backend/laboratories/views.py", "target": "file:Backend/core/permissions.py", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:Backend/laboratories/views.py", "target": "file:Backend/laboratories/models.py", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:Backend/laboratories/views.py", "target": "file:Backend/laboratories/serializers.py", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:Backend/laboratories/views.py", "target": "class:Backend/laboratories/views.py:LaboratoryPublicViewSet", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:Backend/laboratories/views.py", "target": "class:Backend/laboratories/views.py:LaboratoryPublicViewSet", "type": "exports", "direction": "forward", "weight": 0.8},
+    {"source": "file:Backend/laboratories/views.py", "target": "class:Backend/laboratories/views.py:ChefLaboratoryViewSet", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:Backend/laboratories/views.py", "target": "class:Backend/laboratories/views.py:ChefLaboratoryViewSet", "type": "exports", "direction": "forward", "weight": 0.8},
+    {"source": "file:Backend/laboratories/views.py", "target": "class:Backend/laboratories/views.py:LaboratoryCreateSerializer", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:Backend/laboratories/views.py", "target": "class:Backend/laboratories/views.py:LaboratoryCreateSerializer", "type": "exports", "direction": "forward", "weight": 0.8},
+    {"source": "class:Backend/laboratories/views.py:LaboratoryPublicViewSet", "target": "class:Backend/laboratories/serializers.py:LaboratoryListSerializer", "type": "calls", "direction": "forward", "weight": 0.8},
+    {"source": "class:Backend/laboratories/views.py:ChefLaboratoryViewSet", "target": "class:Backend/laboratories/serializers.py:LaboratoryConfigSerializer", "type": "calls", "direction": "forward", "weight": 0.8},
+    {"source": "class:Backend/laboratories/views.py:ChefLaboratoryViewSet", "target": "function:Backend/core/permissions.py:current_lab_id", "type": "calls", "direction": "forward", "weight": 0.8},
+    {"source": "class:Backend/laboratories/views.py:ChefLaboratoryViewSet", "target": "class:Backend/laboratories/models.py:Laboratory", "type": "calls", "direction": "forward", "weight": 0.8},
+    {"source": "class:Backend/laboratories/views.py:LaboratoryCreateSerializer", "target": "class:Backend/laboratories/models.py:Laboratory", "type": "calls", "direction": "forward", "weight": 0.8},
+
+    {"source": "file:Backend/accounts/models.py", "target": "class:Backend/core/models.py:BaseModel", "type": "inherits", "direction": "forward", "weight": 0.9},
+    {"source": "file:Backend/appointments/models.py", "target": "class:Backend/core/models.py:BaseModel", "type": "inherits", "direction": "forward", "weight": 0.9},
+    {"source": "file:Backend/laboratories/models.py", "target": "class:Backend/core/models.py:BaseModel", "type": "inherits", "direction": "forward", "weight": 0.9}
+  ]
+}

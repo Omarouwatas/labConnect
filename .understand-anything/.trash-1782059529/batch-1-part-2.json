@@ -1,0 +1,853 @@
+{
+  "nodes": [
+    {
+      "id": "file:frontend-web/src/constants.js",
+      "type": "file",
+      "name": "constants.js",
+      "filePath": "frontend-web/src/constants.js",
+      "summary": "Application-wide constants and utility functions module exporting role definitions, permission maps, category lists, UI helpers (initials, avatar classes), and lab configuration defaults used across all screens.",
+      "tags": ["configuration", "utility", "type-definition"],
+      "complexity": "moderate",
+      "languageNotes": "Defines permissionsFor() which maps a role string to a permissions object — the key RBAC primitive driving conditional UI rendering throughout the app."
+    },
+    {
+      "id": "function:frontend-web/src/constants.js:permissionsFor",
+      "type": "function",
+      "name": "permissionsFor",
+      "filePath": "frontend-web/src/constants.js",
+      "lineRange": [102, 113],
+      "summary": "Maps a staff role identifier to a structured permissions object controlling which UI actions and screens are available to that role.",
+      "tags": ["utility", "validation", "middleware"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend-web/src/hooks/useClickOutside.js",
+      "type": "file",
+      "name": "useClickOutside.js",
+      "filePath": "frontend-web/src/hooks/useClickOutside.js",
+      "summary": "Custom React hook that attaches a mousedown event listener to detect clicks outside a given DOM ref and invokes a callback, used for closing dropdowns.",
+      "tags": ["hook", "utility", "event-handler"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend-web/src/icons.jsx",
+      "type": "file",
+      "name": "icons.jsx",
+      "filePath": "frontend-web/src/icons.jsx",
+      "summary": "Icon component module that renders Heroicons SVG icons by name via the I export, providing a thin wrapper around a large static icon map used across all UI components.",
+      "tags": ["component", "utility", "barrel"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend-web/src/main.jsx",
+      "type": "file",
+      "name": "main.jsx",
+      "filePath": "frontend-web/src/main.jsx",
+      "summary": "Vite/React application entry point that mounts the App component into the DOM root with React 18 createRoot.",
+      "tags": ["entry-point", "component"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend-web/src/screens/Analyses.jsx",
+      "type": "file",
+      "name": "Analyses.jsx",
+      "filePath": "frontend-web/src/screens/Analyses.jsx",
+      "summary": "Main analyses screen managing lab orders across in-progress and completed states, with sub-components for result entry (ResultEntryModal), result validation (ValidationModal), PDF download, and sample management.",
+      "tags": ["component", "api-handler", "data-model"],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:frontend-web/src/screens/Analyses.jsx:ResultEntryModal",
+      "type": "function",
+      "name": "ResultEntryModal",
+      "filePath": "frontend-web/src/screens/Analyses.jsx",
+      "lineRange": [91, 182],
+      "summary": "Modal form component for laboratory staff to enter test result values for an order, submitting to the API and triggering a parent refresh on success.",
+      "tags": ["component", "api-handler"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:frontend-web/src/screens/Analyses.jsx:ValidationModal",
+      "type": "function",
+      "name": "ValidationModal",
+      "filePath": "frontend-web/src/screens/Analyses.jsx",
+      "lineRange": [188, 413],
+      "summary": "Large modal for biologists to review entered results, add comments, and validate or reject the final result for each order, with full result history display.",
+      "tags": ["component", "api-handler"],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:frontend-web/src/screens/Analyses.jsx:Analyses",
+      "type": "function",
+      "name": "Analyses",
+      "filePath": "frontend-web/src/screens/Analyses.jsx",
+      "lineRange": [426, 680],
+      "summary": "Primary screen component displaying paginated order lists filtered by status, supporting sample reception/rejection, result entry, validation workflows, and PDF result downloads.",
+      "tags": ["component", "api-handler"],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:frontend-web/src/screens/Dashboard.jsx",
+      "type": "file",
+      "name": "Dashboard.jsx",
+      "filePath": "frontend-web/src/screens/Dashboard.jsx",
+      "summary": "Main dashboard screen showing today's appointment list with status badges, walk-in creation, appointment detail modal, invoice access, and an embedded FinanceTab for revenue tracking.",
+      "tags": ["component", "api-handler", "data-model"],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:frontend-web/src/screens/Dashboard.jsx:Dashboard",
+      "type": "function",
+      "name": "Dashboard",
+      "filePath": "frontend-web/src/screens/Dashboard.jsx",
+      "lineRange": [19, 476],
+      "summary": "React screen component fetching today's appointments and rendering an appointment list, status filtering tabs, walk-in modal, appointment detail modal, invoice modal, and finance tab.",
+      "tags": ["component", "api-handler"],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:frontend-web/src/screens/Inventory.jsx",
+      "type": "file",
+      "name": "Inventory.jsx",
+      "filePath": "frontend-web/src/screens/Inventory.jsx",
+      "summary": "Inventory management screen with item CRUD (ItemModal), stock movement recording (MovementModal), and a table view of lab supplies with quantity tracking.",
+      "tags": ["component", "api-handler", "data-model"],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:frontend-web/src/screens/Inventory.jsx:ItemModal",
+      "type": "function",
+      "name": "ItemModal",
+      "filePath": "frontend-web/src/screens/Inventory.jsx",
+      "lineRange": [35, 147],
+      "summary": "Modal form for creating or editing inventory items including name, category, unit, and initial quantity fields.",
+      "tags": ["component", "api-handler"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:frontend-web/src/screens/Inventory.jsx:MovementModal",
+      "type": "function",
+      "name": "MovementModal",
+      "filePath": "frontend-web/src/screens/Inventory.jsx",
+      "lineRange": [149, 312],
+      "summary": "Modal for recording inventory movements (in/out) for an item, displaying movement history and submitting new quantity adjustments with notes.",
+      "tags": ["component", "api-handler"],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:frontend-web/src/screens/Inventory.jsx:Inventory",
+      "type": "function",
+      "name": "Inventory",
+      "filePath": "frontend-web/src/screens/Inventory.jsx",
+      "lineRange": [314, 501],
+      "summary": "Main inventory screen listing all lab supplies with search, category filter, add/edit/delete actions, and movement tracking per item.",
+      "tags": ["component", "api-handler"],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:frontend-web/src/screens/Login.jsx",
+      "type": "file",
+      "name": "Login.jsx",
+      "filePath": "frontend-web/src/screens/Login.jsx",
+      "summary": "Authentication screen providing email/password staff login form and Google OAuth sign-in button, with error display and loading state.",
+      "tags": ["component", "api-handler", "entry-point"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:frontend-web/src/screens/Login.jsx:Login",
+      "type": "function",
+      "name": "Login",
+      "filePath": "frontend-web/src/screens/Login.jsx",
+      "lineRange": [7, 227],
+      "summary": "Login page component handling credential form submission, Google OAuth flow via Google Identity Services script, and delegating authentication to the useAuth hook.",
+      "tags": ["component", "api-handler"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:frontend-web/src/screens/NursesMap.jsx",
+      "type": "file",
+      "name": "NursesMap.jsx",
+      "filePath": "frontend-web/src/screens/NursesMap.jsx",
+      "summary": "Nurse management screen displaying today's home visit appointments on a Leaflet map, allowing supervisors to assign nurses to visits and track visit status.",
+      "tags": ["component", "api-handler", "data-model"],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:frontend-web/src/screens/NursesMap.jsx:AssignNurseModal",
+      "type": "function",
+      "name": "AssignNurseModal",
+      "filePath": "frontend-web/src/screens/NursesMap.jsx",
+      "lineRange": [57, 147],
+      "summary": "Modal for selecting an available nurse and assigning them to a specific home visit appointment via the API.",
+      "tags": ["component", "api-handler"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:frontend-web/src/screens/NursesMap.jsx:NursesMap",
+      "type": "function",
+      "name": "NursesMap",
+      "filePath": "frontend-web/src/screens/NursesMap.jsx",
+      "lineRange": [237, 540],
+      "summary": "Main screen component rendering a Leaflet map of home visit locations, a sidebar list of today's visits with status and nurse assignment, and real-time-ish polling for updates.",
+      "tags": ["component", "api-handler"],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:frontend-web/src/screens/Onboarding.jsx",
+      "type": "file",
+      "name": "Onboarding.jsx",
+      "filePath": "frontend-web/src/screens/Onboarding.jsx",
+      "summary": "Lab onboarding screen for new staff without an assigned lab, allowing them to create a new laboratory or join an existing one by providing name, location, and address details.",
+      "tags": ["component", "api-handler"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:frontend-web/src/screens/Settings.jsx",
+      "type": "file",
+      "name": "Settings.jsx",
+      "filePath": "frontend-web/src/screens/Settings.jsx",
+      "summary": "Lab settings screen for administrators to update laboratory configuration including name, address, location via MapPicker, contact details, and CNAM/home-visit feature toggles.",
+      "tags": ["component", "api-handler"],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:frontend-web/src/screens/Staff.jsx",
+      "type": "file",
+      "name": "Staff.jsx",
+      "filePath": "frontend-web/src/screens/Staff.jsx",
+      "summary": "Staff management screen for administrators to view, invite, update roles, and deactivate lab employees, with a modal form for editing staff details.",
+      "tags": ["component", "api-handler", "data-model"],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:frontend-web/src/screens/Staff.jsx:StaffModal",
+      "type": "function",
+      "name": "StaffModal",
+      "filePath": "frontend-web/src/screens/Staff.jsx",
+      "lineRange": [18, 163],
+      "summary": "Modal form for inviting new staff or editing an existing employee's name and role assignments within the lab.",
+      "tags": ["component", "api-handler"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:frontend-web/src/screens/Staff.jsx:Staff",
+      "type": "function",
+      "name": "Staff",
+      "filePath": "frontend-web/src/screens/Staff.jsx",
+      "lineRange": [165, 404],
+      "summary": "Main staff management screen listing all lab employees with role badges, deactivation toggles, and invite/edit actions delegating to StaffModal.",
+      "tags": ["component", "api-handler"],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:frontend-web/src/screens/Stats.jsx",
+      "type": "file",
+      "name": "Stats.jsx",
+      "filePath": "frontend-web/src/screens/Stats.jsx",
+      "summary": "Statistics screen fetching aggregated lab performance data and rendering horizontal bar charts for top tests, daily appointment volume bars, and summary KPI cards.",
+      "tags": ["component", "api-handler", "data-model"],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:frontend-web/src/screens/Stats.jsx:Stats",
+      "type": "function",
+      "name": "Stats",
+      "filePath": "frontend-web/src/screens/Stats.jsx",
+      "lineRange": [52, 290],
+      "summary": "Main stats screen that loads analytics data from the API and renders KPI summary cards, top-test bar charts, and a day-of-week appointment volume visualization.",
+      "tags": ["component", "api-handler"],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:frontend-web/src/screens/Tests.jsx",
+      "type": "file",
+      "name": "Tests.jsx",
+      "filePath": "frontend-web/src/screens/Tests.jsx",
+      "summary": "Test catalog management screen for creating, editing, and deleting lab tests with pricing and category, including a preset picker for quick population from standard test templates.",
+      "tags": ["component", "api-handler", "data-model"],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:frontend-web/src/screens/Tests.jsx:TestModal",
+      "type": "function",
+      "name": "TestModal",
+      "filePath": "frontend-web/src/screens/Tests.jsx",
+      "lineRange": [57, 194],
+      "summary": "Modal form for creating or editing a lab test with name, category, price, turnaround time, and CNAM coverage fields.",
+      "tags": ["component", "api-handler"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:frontend-web/src/screens/Tests.jsx:Tests",
+      "type": "function",
+      "name": "Tests",
+      "filePath": "frontend-web/src/screens/Tests.jsx",
+      "lineRange": [196, 346],
+      "summary": "Main test catalog screen displaying all lab tests with search and category filtering, supporting add, edit, and delete actions via TestModal.",
+      "tags": ["component", "api-handler"],
+      "complexity": "complex"
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:frontend-web/src/constants.js",
+      "target": "function:frontend-web/src/constants.js:permissionsFor",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:frontend-web/src/constants.js",
+      "target": "function:frontend-web/src/constants.js:permissionsFor",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend-web/src/screens/Analyses.jsx",
+      "target": "function:frontend-web/src/screens/Analyses.jsx:ResultEntryModal",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:frontend-web/src/screens/Analyses.jsx",
+      "target": "function:frontend-web/src/screens/Analyses.jsx:ValidationModal",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:frontend-web/src/screens/Analyses.jsx",
+      "target": "function:frontend-web/src/screens/Analyses.jsx:Analyses",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:frontend-web/src/screens/Analyses.jsx",
+      "target": "function:frontend-web/src/screens/Analyses.jsx:Analyses",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend-web/src/screens/Analyses.jsx",
+      "target": "file:frontend-web/src/api.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend-web/src/screens/Analyses.jsx",
+      "target": "file:frontend-web/src/components/InvoiceModal.jsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend-web/src/screens/Analyses.jsx",
+      "target": "file:frontend-web/src/components/Misc.jsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend-web/src/screens/Analyses.jsx",
+      "target": "file:frontend-web/src/components/Modal.jsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend-web/src/screens/Analyses.jsx",
+      "target": "file:frontend-web/src/components/WalkInModal.jsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend-web/src/screens/Analyses.jsx",
+      "target": "file:frontend-web/src/constants.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend-web/src/screens/Analyses.jsx",
+      "target": "file:frontend-web/src/icons.jsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend-web/src/screens/Dashboard.jsx",
+      "target": "function:frontend-web/src/screens/Dashboard.jsx:Dashboard",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:frontend-web/src/screens/Dashboard.jsx",
+      "target": "function:frontend-web/src/screens/Dashboard.jsx:Dashboard",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend-web/src/screens/Dashboard.jsx",
+      "target": "file:frontend-web/src/api.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend-web/src/screens/Dashboard.jsx",
+      "target": "file:frontend-web/src/components/AppointmentDetailModal.jsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend-web/src/screens/Dashboard.jsx",
+      "target": "file:frontend-web/src/components/FinanceTab.jsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend-web/src/screens/Dashboard.jsx",
+      "target": "file:frontend-web/src/components/InvoiceModal.jsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend-web/src/screens/Dashboard.jsx",
+      "target": "file:frontend-web/src/components/Misc.jsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend-web/src/screens/Dashboard.jsx",
+      "target": "file:frontend-web/src/components/WalkInModal.jsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend-web/src/screens/Dashboard.jsx",
+      "target": "file:frontend-web/src/constants.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend-web/src/screens/Dashboard.jsx",
+      "target": "file:frontend-web/src/icons.jsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend-web/src/screens/Inventory.jsx",
+      "target": "function:frontend-web/src/screens/Inventory.jsx:ItemModal",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:frontend-web/src/screens/Inventory.jsx",
+      "target": "function:frontend-web/src/screens/Inventory.jsx:MovementModal",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:frontend-web/src/screens/Inventory.jsx",
+      "target": "function:frontend-web/src/screens/Inventory.jsx:Inventory",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:frontend-web/src/screens/Inventory.jsx",
+      "target": "function:frontend-web/src/screens/Inventory.jsx:Inventory",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend-web/src/screens/Inventory.jsx",
+      "target": "file:frontend-web/src/api.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend-web/src/screens/Inventory.jsx",
+      "target": "file:frontend-web/src/components/Misc.jsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend-web/src/screens/Inventory.jsx",
+      "target": "file:frontend-web/src/components/Modal.jsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend-web/src/screens/Inventory.jsx",
+      "target": "file:frontend-web/src/constants.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend-web/src/screens/Inventory.jsx",
+      "target": "file:frontend-web/src/icons.jsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend-web/src/screens/Login.jsx",
+      "target": "function:frontend-web/src/screens/Login.jsx:Login",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:frontend-web/src/screens/Login.jsx",
+      "target": "function:frontend-web/src/screens/Login.jsx:Login",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend-web/src/screens/Login.jsx",
+      "target": "file:frontend-web/src/auth.jsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend-web/src/screens/Login.jsx",
+      "target": "file:frontend-web/src/icons.jsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend-web/src/screens/NursesMap.jsx",
+      "target": "function:frontend-web/src/screens/NursesMap.jsx:AssignNurseModal",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:frontend-web/src/screens/NursesMap.jsx",
+      "target": "function:frontend-web/src/screens/NursesMap.jsx:NursesMap",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:frontend-web/src/screens/NursesMap.jsx",
+      "target": "function:frontend-web/src/screens/NursesMap.jsx:NursesMap",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend-web/src/screens/NursesMap.jsx",
+      "target": "file:frontend-web/src/api.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend-web/src/screens/NursesMap.jsx",
+      "target": "file:frontend-web/src/auth.jsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend-web/src/screens/NursesMap.jsx",
+      "target": "file:frontend-web/src/components/Modal.jsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend-web/src/screens/NursesMap.jsx",
+      "target": "file:frontend-web/src/constants.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend-web/src/screens/NursesMap.jsx",
+      "target": "file:frontend-web/src/icons.jsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend-web/src/screens/Onboarding.jsx",
+      "target": "file:frontend-web/src/api.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend-web/src/screens/Onboarding.jsx",
+      "target": "file:frontend-web/src/auth.jsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend-web/src/screens/Onboarding.jsx",
+      "target": "file:frontend-web/src/components/MapPicker.jsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend-web/src/screens/Onboarding.jsx",
+      "target": "file:frontend-web/src/constants.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend-web/src/screens/Onboarding.jsx",
+      "target": "file:frontend-web/src/icons.jsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend-web/src/screens/Settings.jsx",
+      "target": "file:frontend-web/src/api.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend-web/src/screens/Settings.jsx",
+      "target": "file:frontend-web/src/components/MapPicker.jsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend-web/src/screens/Settings.jsx",
+      "target": "file:frontend-web/src/components/Switch.jsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend-web/src/screens/Settings.jsx",
+      "target": "file:frontend-web/src/constants.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend-web/src/screens/Settings.jsx",
+      "target": "file:frontend-web/src/icons.jsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend-web/src/screens/Staff.jsx",
+      "target": "function:frontend-web/src/screens/Staff.jsx:StaffModal",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:frontend-web/src/screens/Staff.jsx",
+      "target": "function:frontend-web/src/screens/Staff.jsx:Staff",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:frontend-web/src/screens/Staff.jsx",
+      "target": "function:frontend-web/src/screens/Staff.jsx:Staff",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend-web/src/screens/Staff.jsx",
+      "target": "file:frontend-web/src/api.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend-web/src/screens/Staff.jsx",
+      "target": "file:frontend-web/src/components/Misc.jsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend-web/src/screens/Staff.jsx",
+      "target": "file:frontend-web/src/components/Modal.jsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend-web/src/screens/Staff.jsx",
+      "target": "file:frontend-web/src/components/Switch.jsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend-web/src/screens/Staff.jsx",
+      "target": "file:frontend-web/src/constants.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend-web/src/screens/Staff.jsx",
+      "target": "file:frontend-web/src/icons.jsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend-web/src/screens/Stats.jsx",
+      "target": "function:frontend-web/src/screens/Stats.jsx:Stats",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:frontend-web/src/screens/Stats.jsx",
+      "target": "function:frontend-web/src/screens/Stats.jsx:Stats",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend-web/src/screens/Stats.jsx",
+      "target": "file:frontend-web/src/api.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend-web/src/screens/Stats.jsx",
+      "target": "file:frontend-web/src/components/Misc.jsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend-web/src/screens/Stats.jsx",
+      "target": "file:frontend-web/src/constants.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend-web/src/screens/Stats.jsx",
+      "target": "file:frontend-web/src/icons.jsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend-web/src/screens/Tests.jsx",
+      "target": "function:frontend-web/src/screens/Tests.jsx:TestModal",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:frontend-web/src/screens/Tests.jsx",
+      "target": "function:frontend-web/src/screens/Tests.jsx:Tests",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:frontend-web/src/screens/Tests.jsx",
+      "target": "function:frontend-web/src/screens/Tests.jsx:Tests",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend-web/src/screens/Tests.jsx",
+      "target": "file:frontend-web/src/api.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend-web/src/screens/Tests.jsx",
+      "target": "file:frontend-web/src/components/Misc.jsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend-web/src/screens/Tests.jsx",
+      "target": "file:frontend-web/src/components/Modal.jsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend-web/src/screens/Tests.jsx",
+      "target": "file:frontend-web/src/components/Switch.jsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend-web/src/screens/Tests.jsx",
+      "target": "file:frontend-web/src/constants.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend-web/src/screens/Tests.jsx",
+      "target": "file:frontend-web/src/icons.jsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend-web/src/main.jsx",
+      "target": "file:frontend-web/src/App.jsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend-web/src/main.jsx",
+      "target": "file:frontend-web/src/index.css",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    }
+  ]
+}

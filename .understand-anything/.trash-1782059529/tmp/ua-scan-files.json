@@ -1,0 +1,1098 @@
+{
+  "scriptCompleted": true,
+  "files": [
+    {
+      "path": ".claude/settings.local.json",
+      "language": "json",
+      "sizeLines": 32,
+      "fileCategory": "config"
+    },
+    {
+      "path": ".understand-anything/.understandignore",
+      "language": "unknown",
+      "sizeLines": 27,
+      "fileCategory": "code"
+    },
+    {
+      "path": "API.md",
+      "language": "markdown",
+      "sizeLines": 1111,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "Backend/.dockerignore",
+      "language": "unknown",
+      "sizeLines": 16,
+      "fileCategory": "infra"
+    },
+    {
+      "path": "Backend/accounts/__init__.py",
+      "language": "python",
+      "sizeLines": 0,
+      "fileCategory": "code"
+    },
+    {
+      "path": "Backend/accounts/admin.py",
+      "language": "python",
+      "sizeLines": 63,
+      "fileCategory": "code"
+    },
+    {
+      "path": "Backend/accounts/apps.py",
+      "language": "python",
+      "sizeLines": 11,
+      "fileCategory": "code"
+    },
+    {
+      "path": "Backend/accounts/backends.py",
+      "language": "python",
+      "sizeLines": 30,
+      "fileCategory": "code"
+    },
+    {
+      "path": "Backend/accounts/management/__init__.py",
+      "language": "python",
+      "sizeLines": 0,
+      "fileCategory": "code"
+    },
+    {
+      "path": "Backend/accounts/management/commands/__init__.py",
+      "language": "python",
+      "sizeLines": 0,
+      "fileCategory": "code"
+    },
+    {
+      "path": "Backend/accounts/management/commands/bootstrap_chief.py",
+      "language": "python",
+      "sizeLines": 84,
+      "fileCategory": "code"
+    },
+    {
+      "path": "Backend/accounts/management/commands/create_chef.py",
+      "language": "python",
+      "sizeLines": 68,
+      "fileCategory": "code"
+    },
+    {
+      "path": "Backend/accounts/management/commands/runlan.py",
+      "language": "python",
+      "sizeLines": 52,
+      "fileCategory": "code"
+    },
+    {
+      "path": "Backend/accounts/management/commands/seed_roles.py",
+      "language": "python",
+      "sizeLines": 21,
+      "fileCategory": "code"
+    },
+    {
+      "path": "Backend/accounts/managers.py",
+      "language": "python",
+      "sizeLines": 54,
+      "fileCategory": "code"
+    },
+    {
+      "path": "Backend/accounts/migrations/__init__.py",
+      "language": "python",
+      "sizeLines": 0,
+      "fileCategory": "code"
+    },
+    {
+      "path": "Backend/accounts/migrations/0001_initial.py",
+      "language": "python",
+      "sizeLines": 170,
+      "fileCategory": "code"
+    },
+    {
+      "path": "Backend/accounts/migrations/0002_rename_accounts_ot_phone_purpose_idx_accounts_ot_phone_573c27_idx_and_more.py",
+      "language": "python",
+      "sizeLines": 39,
+      "fileCategory": "code"
+    },
+    {
+      "path": "Backend/accounts/migrations/0003_alter_user_email_alter_user_phone.py",
+      "language": "python",
+      "sizeLines": 23,
+      "fileCategory": "code"
+    },
+    {
+      "path": "Backend/accounts/migrations/0004_alter_staffprofile_user_and_more.py",
+      "language": "python",
+      "sizeLines": 25,
+      "fileCategory": "code"
+    },
+    {
+      "path": "Backend/accounts/migrations/0005_patientprofile_cnam.py",
+      "language": "python",
+      "sizeLines": 26,
+      "fileCategory": "code"
+    },
+    {
+      "path": "Backend/accounts/migrations/0006_trusteddevice.py",
+      "language": "python",
+      "sizeLines": 60,
+      "fileCategory": "code"
+    },
+    {
+      "path": "Backend/accounts/migrations/0007_rename_accounts_tr_phone_8a1f3c_idx_accounts_tr_phone_df3b46_idx.py",
+      "language": "python",
+      "sizeLines": 18,
+      "fileCategory": "code"
+    },
+    {
+      "path": "Backend/accounts/models.py",
+      "language": "python",
+      "sizeLines": 355,
+      "fileCategory": "code"
+    },
+    {
+      "path": "Backend/accounts/serializers.py",
+      "language": "python",
+      "sizeLines": 173,
+      "fileCategory": "code"
+    },
+    {
+      "path": "Backend/accounts/services/__init__.py",
+      "language": "python",
+      "sizeLines": 0,
+      "fileCategory": "code"
+    },
+    {
+      "path": "Backend/accounts/services/firebase.py",
+      "language": "python",
+      "sizeLines": 140,
+      "fileCategory": "code"
+    },
+    {
+      "path": "Backend/accounts/services/otp.py",
+      "language": "python",
+      "sizeLines": 92,
+      "fileCategory": "code"
+    },
+    {
+      "path": "Backend/accounts/services/totp.py",
+      "language": "python",
+      "sizeLines": 52,
+      "fileCategory": "code"
+    },
+    {
+      "path": "Backend/accounts/signals.py",
+      "language": "python",
+      "sizeLines": 6,
+      "fileCategory": "code"
+    },
+    {
+      "path": "Backend/accounts/tokens.py",
+      "language": "python",
+      "sizeLines": 38,
+      "fileCategory": "code"
+    },
+    {
+      "path": "Backend/accounts/urls.py",
+      "language": "python",
+      "sizeLines": 55,
+      "fileCategory": "code"
+    },
+    {
+      "path": "Backend/accounts/views_biometric.py",
+      "language": "python",
+      "sizeLines": 199,
+      "fileCategory": "code"
+    },
+    {
+      "path": "Backend/accounts/views_employees.py",
+      "language": "python",
+      "sizeLines": 338,
+      "fileCategory": "code"
+    },
+    {
+      "path": "Backend/accounts/views_totp.py",
+      "language": "python",
+      "sizeLines": 160,
+      "fileCategory": "code"
+    },
+    {
+      "path": "Backend/accounts/views.py",
+      "language": "python",
+      "sizeLines": 482,
+      "fileCategory": "code"
+    },
+    {
+      "path": "Backend/analyses/__init__.py",
+      "language": "python",
+      "sizeLines": 0,
+      "fileCategory": "code"
+    },
+    {
+      "path": "Backend/analyses/apps.py",
+      "language": "python",
+      "sizeLines": 7,
+      "fileCategory": "code"
+    },
+    {
+      "path": "Backend/analyses/migrations/__init__.py",
+      "language": "python",
+      "sizeLines": 0,
+      "fileCategory": "code"
+    },
+    {
+      "path": "Backend/analyses/migrations/0001_initial.py",
+      "language": "python",
+      "sizeLines": 201,
+      "fileCategory": "code"
+    },
+    {
+      "path": "Backend/analyses/migrations/0002_rename_catalog_lab_active_idx_analyses_te_laborat_66cc20_idx_and_more.py",
+      "language": "python",
+      "sizeLines": 46,
+      "fileCategory": "code"
+    },
+    {
+      "path": "Backend/analyses/migrations/0003_testorder_cnam_split_testresult_original_value.py",
+      "language": "python",
+      "sizeLines": 28,
+      "fileCategory": "code"
+    },
+    {
+      "path": "Backend/analyses/migrations/0004_questionnaire.py",
+      "language": "python",
+      "sizeLines": 28,
+      "fileCategory": "code"
+    },
+    {
+      "path": "Backend/analyses/migrations/0005_testorder_tube_barcode.py",
+      "language": "python",
+      "sizeLines": 21,
+      "fileCategory": "code"
+    },
+    {
+      "path": "Backend/analyses/models.py",
+      "language": "python",
+      "sizeLines": 213,
+      "fileCategory": "code"
+    },
+    {
+      "path": "Backend/analyses/pdf.py",
+      "language": "python",
+      "sizeLines": 300,
+      "fileCategory": "code"
+    },
+    {
+      "path": "Backend/analyses/serializers.py",
+      "language": "python",
+      "sizeLines": 217,
+      "fileCategory": "code"
+    },
+    {
+      "path": "Backend/analyses/urls.py",
+      "language": "python",
+      "sizeLines": 27,
+      "fileCategory": "code"
+    },
+    {
+      "path": "Backend/analyses/views.py",
+      "language": "python",
+      "sizeLines": 929,
+      "fileCategory": "code"
+    },
+    {
+      "path": "Backend/appointments/__init__.py",
+      "language": "python",
+      "sizeLines": 0,
+      "fileCategory": "code"
+    },
+    {
+      "path": "Backend/appointments/apps.py",
+      "language": "python",
+      "sizeLines": 7,
+      "fileCategory": "code"
+    },
+    {
+      "path": "Backend/appointments/migrations/__init__.py",
+      "language": "python",
+      "sizeLines": 0,
+      "fileCategory": "code"
+    },
+    {
+      "path": "Backend/appointments/migrations/0001_initial.py",
+      "language": "python",
+      "sizeLines": 99,
+      "fileCategory": "code"
+    },
+    {
+      "path": "Backend/appointments/migrations/0002_rename_appt_lab_sched_idx_appointment_laborat_a57603_idx_and_more.py",
+      "language": "python",
+      "sizeLines": 36,
+      "fileCategory": "code"
+    },
+    {
+      "path": "Backend/appointments/models.py",
+      "language": "python",
+      "sizeLines": 108,
+      "fileCategory": "code"
+    },
+    {
+      "path": "Backend/appointments/serializers.py",
+      "language": "python",
+      "sizeLines": 280,
+      "fileCategory": "code"
+    },
+    {
+      "path": "Backend/appointments/urls.py",
+      "language": "python",
+      "sizeLines": 8,
+      "fileCategory": "code"
+    },
+    {
+      "path": "Backend/appointments/views.py",
+      "language": "python",
+      "sizeLines": 409,
+      "fileCategory": "code"
+    },
+    {
+      "path": "Backend/core/__init__.py",
+      "language": "python",
+      "sizeLines": 0,
+      "fileCategory": "code"
+    },
+    {
+      "path": "Backend/core/apps.py",
+      "language": "python",
+      "sizeLines": 7,
+      "fileCategory": "code"
+    },
+    {
+      "path": "Backend/core/exceptions.py",
+      "language": "python",
+      "sizeLines": 19,
+      "fileCategory": "code"
+    },
+    {
+      "path": "Backend/core/models.py",
+      "language": "python",
+      "sizeLines": 49,
+      "fileCategory": "code"
+    },
+    {
+      "path": "Backend/core/pagination.py",
+      "language": "python",
+      "sizeLines": 7,
+      "fileCategory": "code"
+    },
+    {
+      "path": "Backend/core/permissions.py",
+      "language": "python",
+      "sizeLines": 153,
+      "fileCategory": "code"
+    },
+    {
+      "path": "Backend/docker-compose.yml",
+      "language": "yaml",
+      "sizeLines": 24,
+      "fileCategory": "infra"
+    },
+    {
+      "path": "Backend/Dockerfile",
+      "language": "dockerfile",
+      "sizeLines": 29,
+      "fileCategory": "infra"
+    },
+    {
+      "path": "Backend/inventory/__init__.py",
+      "language": "python",
+      "sizeLines": 0,
+      "fileCategory": "code"
+    },
+    {
+      "path": "Backend/inventory/apps.py",
+      "language": "python",
+      "sizeLines": 7,
+      "fileCategory": "code"
+    },
+    {
+      "path": "Backend/inventory/migrations/__init__.py",
+      "language": "python",
+      "sizeLines": 0,
+      "fileCategory": "code"
+    },
+    {
+      "path": "Backend/inventory/migrations/0001_initial.py",
+      "language": "python",
+      "sizeLines": 74,
+      "fileCategory": "code"
+    },
+    {
+      "path": "Backend/inventory/migrations/0002_rename_inventory_i_laborat_5b7a6f_idx_inventory_i_laborat_ab2e4b_idx_and_more.py",
+      "language": "python",
+      "sizeLines": 23,
+      "fileCategory": "code"
+    },
+    {
+      "path": "Backend/inventory/models.py",
+      "language": "python",
+      "sizeLines": 140,
+      "fileCategory": "code"
+    },
+    {
+      "path": "Backend/inventory/serializers.py",
+      "language": "python",
+      "sizeLines": 80,
+      "fileCategory": "code"
+    },
+    {
+      "path": "Backend/inventory/urls.py",
+      "language": "python",
+      "sizeLines": 9,
+      "fileCategory": "code"
+    },
+    {
+      "path": "Backend/inventory/views.py",
+      "language": "python",
+      "sizeLines": 144,
+      "fileCategory": "code"
+    },
+    {
+      "path": "Backend/labconnect/__init__.py",
+      "language": "python",
+      "sizeLines": 3,
+      "fileCategory": "code"
+    },
+    {
+      "path": "Backend/labconnect/asgi.py",
+      "language": "python",
+      "sizeLines": 21,
+      "fileCategory": "code"
+    },
+    {
+      "path": "Backend/labconnect/celery.py",
+      "language": "python",
+      "sizeLines": 15,
+      "fileCategory": "code"
+    },
+    {
+      "path": "Backend/labconnect/settings/__init__.py",
+      "language": "python",
+      "sizeLines": 0,
+      "fileCategory": "code"
+    },
+    {
+      "path": "Backend/labconnect/settings/base.py",
+      "language": "python",
+      "sizeLines": 311,
+      "fileCategory": "code"
+    },
+    {
+      "path": "Backend/labconnect/settings/dev.py",
+      "language": "python",
+      "sizeLines": 67,
+      "fileCategory": "code"
+    },
+    {
+      "path": "Backend/labconnect/settings/prod.py",
+      "language": "python",
+      "sizeLines": 191,
+      "fileCategory": "code"
+    },
+    {
+      "path": "Backend/labconnect/urls.py",
+      "language": "python",
+      "sizeLines": 30,
+      "fileCategory": "code"
+    },
+    {
+      "path": "Backend/labconnect/wsgi.py",
+      "language": "python",
+      "sizeLines": 8,
+      "fileCategory": "code"
+    },
+    {
+      "path": "Backend/laboratories/__init__.py",
+      "language": "python",
+      "sizeLines": 0,
+      "fileCategory": "code"
+    },
+    {
+      "path": "Backend/laboratories/admin.py",
+      "language": "python",
+      "sizeLines": 18,
+      "fileCategory": "code"
+    },
+    {
+      "path": "Backend/laboratories/apps.py",
+      "language": "python",
+      "sizeLines": 7,
+      "fileCategory": "code"
+    },
+    {
+      "path": "Backend/laboratories/migrations/__init__.py",
+      "language": "python",
+      "sizeLines": 0,
+      "fileCategory": "code"
+    },
+    {
+      "path": "Backend/laboratories/migrations/0001_initial.py",
+      "language": "python",
+      "sizeLines": 54,
+      "fileCategory": "code"
+    },
+    {
+      "path": "Backend/laboratories/migrations/0002_alter_laboratory_emergency_fee_mru_and_more.py",
+      "language": "python",
+      "sizeLines": 34,
+      "fileCategory": "code"
+    },
+    {
+      "path": "Backend/laboratories/migrations/0003_alter_laboratory_opening_hours.py",
+      "language": "python",
+      "sizeLines": 19,
+      "fileCategory": "code"
+    },
+    {
+      "path": "Backend/laboratories/models.py",
+      "language": "python",
+      "sizeLines": 85,
+      "fileCategory": "code"
+    },
+    {
+      "path": "Backend/laboratories/serializers.py",
+      "language": "python",
+      "sizeLines": 128,
+      "fileCategory": "code"
+    },
+    {
+      "path": "Backend/laboratories/urls.py",
+      "language": "python",
+      "sizeLines": 40,
+      "fileCategory": "code"
+    },
+    {
+      "path": "Backend/laboratories/views.py",
+      "language": "python",
+      "sizeLines": 173,
+      "fileCategory": "code"
+    },
+    {
+      "path": "Backend/manage.py",
+      "language": "python",
+      "sizeLines": 22,
+      "fileCategory": "code"
+    },
+    {
+      "path": "Backend/notifications/__init__.py",
+      "language": "python",
+      "sizeLines": 0,
+      "fileCategory": "code"
+    },
+    {
+      "path": "Backend/notifications/apps.py",
+      "language": "python",
+      "sizeLines": 7,
+      "fileCategory": "code"
+    },
+    {
+      "path": "Backend/notifications/events.py",
+      "language": "python",
+      "sizeLines": 278,
+      "fileCategory": "code"
+    },
+    {
+      "path": "Backend/notifications/migrations/__init__.py",
+      "language": "python",
+      "sizeLines": 0,
+      "fileCategory": "code"
+    },
+    {
+      "path": "Backend/notifications/migrations/0001_initial.py",
+      "language": "python",
+      "sizeLines": 76,
+      "fileCategory": "code"
+    },
+    {
+      "path": "Backend/notifications/migrations/0002_rename_notif_user_created_idx_notificatio_user_id_05b4bc_idx_and_more.py",
+      "language": "python",
+      "sizeLines": 23,
+      "fileCategory": "code"
+    },
+    {
+      "path": "Backend/notifications/models.py",
+      "language": "python",
+      "sizeLines": 104,
+      "fileCategory": "code"
+    },
+    {
+      "path": "Backend/notifications/serializers.py",
+      "language": "python",
+      "sizeLines": 21,
+      "fileCategory": "code"
+    },
+    {
+      "path": "Backend/notifications/urls.py",
+      "language": "python",
+      "sizeLines": 32,
+      "fileCategory": "code"
+    },
+    {
+      "path": "Backend/notifications/views.py",
+      "language": "python",
+      "sizeLines": 76,
+      "fileCategory": "code"
+    },
+    {
+      "path": "Backend/README_API.md",
+      "language": "markdown",
+      "sizeLines": 135,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "Backend/render.yaml",
+      "language": "yaml",
+      "sizeLines": 17,
+      "fileCategory": "config"
+    },
+    {
+      "path": "Backend/requirements.txt",
+      "language": "txt",
+      "sizeLines": 54,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "frontend-client/.claude/settings.json",
+      "language": "json",
+      "sizeLines": 5,
+      "fileCategory": "config"
+    },
+    {
+      "path": "frontend-client/AGENTS.md",
+      "language": "markdown",
+      "sizeLines": 3,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "frontend-client/App.js",
+      "language": "javascript",
+      "sizeLines": 265,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend-client/app.json",
+      "language": "json",
+      "sizeLines": 66,
+      "fileCategory": "config"
+    },
+    {
+      "path": "frontend-client/CLAUDE.md",
+      "language": "markdown",
+      "sizeLines": 1,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "frontend-client/index.js",
+      "language": "javascript",
+      "sizeLines": 8,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend-client/package.json",
+      "language": "json",
+      "sizeLines": 40,
+      "fileCategory": "config"
+    },
+    {
+      "path": "frontend-client/src/api.js",
+      "language": "javascript",
+      "sizeLines": 389,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend-client/src/auth.js",
+      "language": "javascript",
+      "sizeLines": 167,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend-client/src/biometric.js",
+      "language": "javascript",
+      "sizeLines": 127,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend-client/src/components/LabMapView.js",
+      "language": "javascript",
+      "sizeLines": 292,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend-client/src/components/NotificationsBell.js",
+      "language": "javascript",
+      "sizeLines": 79,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend-client/src/components/UI.js",
+      "language": "javascript",
+      "sizeLines": 336,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend-client/src/icons.js",
+      "language": "javascript",
+      "sizeLines": 136,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend-client/src/pdfDownload.js",
+      "language": "javascript",
+      "sizeLines": 108,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend-client/src/screens/BookingsScreen.js",
+      "language": "javascript",
+      "sizeLines": 372,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend-client/src/screens/CartScreen.js",
+      "language": "javascript",
+      "sizeLines": 630,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend-client/src/screens/HomeScreen.js",
+      "language": "javascript",
+      "sizeLines": 604,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend-client/src/screens/LabDetailScreen.js",
+      "language": "javascript",
+      "sizeLines": 356,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend-client/src/screens/LoginScreen.js",
+      "language": "javascript",
+      "sizeLines": 615,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend-client/src/screens/MapScreen.js",
+      "language": "javascript",
+      "sizeLines": 177,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend-client/src/screens/NotificationsScreen.js",
+      "language": "javascript",
+      "sizeLines": 242,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend-client/src/screens/nurse/NurseCollectScreen.js",
+      "language": "javascript",
+      "sizeLines": 409,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend-client/src/screens/nurse/NurseMissionScreen.js",
+      "language": "javascript",
+      "sizeLines": 318,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend-client/src/screens/nurse/NurseProfileScreen.js",
+      "language": "javascript",
+      "sizeLines": 181,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend-client/src/screens/nurse/NurseRouteScreen.js",
+      "language": "javascript",
+      "sizeLines": 340,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend-client/src/screens/nurse/NurseValidateScreen.js",
+      "language": "javascript",
+      "sizeLines": 327,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend-client/src/screens/ProfileScreen.js",
+      "language": "javascript",
+      "sizeLines": 821,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend-client/src/screens/ResultDetailScreen.js",
+      "language": "javascript",
+      "sizeLines": 147,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend-client/src/screens/SignUpScreen.js",
+      "language": "javascript",
+      "sizeLines": 205,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend-client/src/theme.js",
+      "language": "javascript",
+      "sizeLines": 170,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend-web/eslint.config.js",
+      "language": "javascript",
+      "sizeLines": 21,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend-web/index.html",
+      "language": "html",
+      "sizeLines": 35,
+      "fileCategory": "markup"
+    },
+    {
+      "path": "frontend-web/package.json",
+      "language": "json",
+      "sizeLines": 27,
+      "fileCategory": "config"
+    },
+    {
+      "path": "frontend-web/README.md",
+      "language": "markdown",
+      "sizeLines": 16,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "frontend-web/src/api.js",
+      "language": "javascript",
+      "sizeLines": 275,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend-web/src/App.css",
+      "language": "css",
+      "sizeLines": 2,
+      "fileCategory": "markup"
+    },
+    {
+      "path": "frontend-web/src/App.jsx",
+      "language": "javascript",
+      "sizeLines": 192,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend-web/src/auth.jsx",
+      "language": "javascript",
+      "sizeLines": 92,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend-web/src/components/AppointmentDetailModal.jsx",
+      "language": "javascript",
+      "sizeLines": 364,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend-web/src/components/FinanceTab.jsx",
+      "language": "javascript",
+      "sizeLines": 321,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend-web/src/components/InvoiceModal.jsx",
+      "language": "javascript",
+      "sizeLines": 167,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend-web/src/components/LabSwitcher.jsx",
+      "language": "javascript",
+      "sizeLines": 57,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend-web/src/components/MapPicker.jsx",
+      "language": "javascript",
+      "sizeLines": 159,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend-web/src/components/Misc.jsx",
+      "language": "javascript",
+      "sizeLines": 31,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend-web/src/components/Modal.jsx",
+      "language": "javascript",
+      "sizeLines": 28,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend-web/src/components/NotificationsBell.jsx",
+      "language": "javascript",
+      "sizeLines": 248,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend-web/src/components/RoleSwitcher.jsx",
+      "language": "javascript",
+      "sizeLines": 75,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend-web/src/components/Sidebar.jsx",
+      "language": "javascript",
+      "sizeLines": 77,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend-web/src/components/Switch.jsx",
+      "language": "javascript",
+      "sizeLines": 11,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend-web/src/components/Topbar.jsx",
+      "language": "javascript",
+      "sizeLines": 40,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend-web/src/components/WalkInModal.jsx",
+      "language": "javascript",
+      "sizeLines": 343,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend-web/src/constants.js",
+      "language": "javascript",
+      "sizeLines": 190,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend-web/src/hooks/useClickOutside.js",
+      "language": "javascript",
+      "sizeLines": 17,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend-web/src/icons.jsx",
+      "language": "javascript",
+      "sizeLines": 48,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend-web/src/index.css",
+      "language": "css",
+      "sizeLines": 1440,
+      "fileCategory": "markup"
+    },
+    {
+      "path": "frontend-web/src/main.jsx",
+      "language": "javascript",
+      "sizeLines": 10,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend-web/src/screens/Analyses.jsx",
+      "language": "javascript",
+      "sizeLines": 680,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend-web/src/screens/Dashboard.jsx",
+      "language": "javascript",
+      "sizeLines": 476,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend-web/src/screens/Inventory.jsx",
+      "language": "javascript",
+      "sizeLines": 501,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend-web/src/screens/Login.jsx",
+      "language": "javascript",
+      "sizeLines": 227,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend-web/src/screens/NursesMap.jsx",
+      "language": "javascript",
+      "sizeLines": 540,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend-web/src/screens/Onboarding.jsx",
+      "language": "javascript",
+      "sizeLines": 130,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend-web/src/screens/Settings.jsx",
+      "language": "javascript",
+      "sizeLines": 293,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend-web/src/screens/Staff.jsx",
+      "language": "javascript",
+      "sizeLines": 404,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend-web/src/screens/Stats.jsx",
+      "language": "javascript",
+      "sizeLines": 290,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend-web/src/screens/Tests.jsx",
+      "language": "javascript",
+      "sizeLines": 346,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend-web/vite.config.js",
+      "language": "javascript",
+      "sizeLines": 7,
+      "fileCategory": "code"
+    },
+    {
+      "path": "render.yaml",
+      "language": "yaml",
+      "sizeLines": 83,
+      "fileCategory": "config"
+    }
+  ],
+  "totalFiles": 178,
+  "filteredByIgnore": 0,
+  "estimatedComplexity": "large",
+  "stats": {
+    "filesScanned": 178,
+    "byCategory": {
+      "config": 7,
+      "code": 159,
+      "docs": 6,
+      "infra": 3,
+      "markup": 3
+    },
+    "byLanguage": {
+      "json": 5,
+      "unknown": 2,
+      "markdown": 5,
+      "python": 100,
+      "yaml": 3,
+      "dockerfile": 1,
+      "txt": 1,
+      "javascript": 58,
+      "html": 1,
+      "css": 2
+    }
+  }
+}

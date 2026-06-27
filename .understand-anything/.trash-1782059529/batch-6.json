@@ -1,0 +1,65 @@
+{
+  "nodes": [
+    {
+      "id": "service:Backend/.dockerignore",
+      "type": "service",
+      "name": ".dockerignore",
+      "filePath": "Backend/.dockerignore",
+      "summary": "Docker build-context exclusion list for the Django backend, preventing Python bytecode artifacts, virtual environments, secrets (.env), VCS/IDE metadata, generated static and media directories, and Docker configuration files from being sent to the daemon.",
+      "tags": ["containerization", "infrastructure", "configuration", "security"],
+      "complexity": "simple"
+    },
+    {
+      "id": "service:Backend/docker-compose.yml",
+      "type": "service",
+      "name": "docker-compose.yml",
+      "filePath": "Backend/docker-compose.yml",
+      "summary": "Docker Compose configuration that provisions a PostgreSQL 15 Alpine database service with a named persistent volume and a pg_isready health check; the backend application container is not defined here, making this a database-only compose file.",
+      "tags": ["orchestration", "infrastructure", "database", "containerization"],
+      "complexity": "simple",
+      "languageNotes": "Only the db service is declared; the Django/gunicorn application container is absent, suggesting it is started separately or the compose file is intentionally database-only for local development."
+    },
+    {
+      "id": "service:Backend/docker-compose.yml:db",
+      "type": "service",
+      "name": "db",
+      "filePath": "Backend/docker-compose.yml",
+      "summary": "PostgreSQL 15 Alpine database service with credentials for projet_db, exposed on port 5432 with a persistent named volume and a pg_isready health check.",
+      "tags": ["database", "postgresql", "infrastructure"],
+      "complexity": "simple"
+    },
+    {
+      "id": "service:Backend/Dockerfile",
+      "type": "service",
+      "name": "Dockerfile",
+      "filePath": "Backend/Dockerfile",
+      "summary": "Single-stage Docker build for the Django REST backend, installing system and Python dependencies from requirements.txt, copying the project, creating a non-root django-user, and launching the application via Gunicorn on port 8000 serving the labconnect WSGI entrypoint.",
+      "tags": ["containerization", "infrastructure", "deployment", "security"],
+      "complexity": "simple",
+      "languageNotes": "Uses a non-root user (django-user) for security hardening and relies on libpq-dev for PostgreSQL client bindings; PYTHONDONTWRITEBYTECODE and PYTHONUNBUFFERED are set to optimize container logging and avoid .pyc clutter."
+    }
+  ],
+  "edges": [
+    {
+      "source": "service:Backend/docker-compose.yml",
+      "target": "service:Backend/docker-compose.yml:db",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "service:Backend/docker-compose.yml",
+      "target": "service:Backend/Dockerfile",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "service:Backend/Dockerfile",
+      "target": "service:Backend/.dockerignore",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    }
+  ]
+}

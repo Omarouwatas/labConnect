@@ -20,7 +20,21 @@
       "Bash(python -c \"import ast; ast.parse\\(open\\('Backend/analyses/serializers.py'\\).read\\(\\)\\); print\\('serializers.py OK'\\)\")",
       "Bash(python -c \"import ast; ast.parse\\(open\\('Backend/analyses/models.py'\\).read\\(\\)\\); print\\('models.py OK'\\)\")",
       "Bash(python -c \"import ast; ast.parse\\(open\\('Backend/accounts/models.py'\\).read\\(\\)\\); print\\('accounts/models.py OK'\\)\")",
-      "Bash(python -c \"import json,sys; d=json.load\\(sys.stdin\\); print\\('deps:'\\); [print\\(' ',k,'=',v\\) for k,v in sorted\\(d.get\\('dependencies',{}\\).items\\(\\)\\)]\")"
+      "Bash(python -c \"import json,sys; d=json.load\\(sys.stdin\\); print\\('deps:'\\); [print\\(' ',k,'=',v\\) for k,v in sorted\\(d.get\\('dependencies',{}\\).items\\(\\)\\)]\")",
+      "Bash([ -f \"$PLUGIN_ROOT/package.json\" ])",
+      "Bash([ -f \"$PLUGIN_ROOT/pnpm-workspace.yaml\" ])",
+      "Bash([ -f \"$PLUGIN_ROOT/packages/core/dist/index.js\" ])",
+      "Bash(PLUGIN_ROOT=\"$PLUGIN_ROOT\" node *)",
+      "Bash(mkdir -p \"C:/Users/Omar/Desktop/SmartLAB/code/.understand-anything/tmp\")",
+      "Bash(node C:/Users/Omar/.claude/plugins/cache/understand-anything/understand-anything/2.8.1/skills/understand/scan-project.mjs C:/Users/Omar/Desktop/SmartLAB/code C:/Users/Omar/Desktop/SmartLAB/code/.understand-anything/tmp/ua-scan-files.json)",
+      "Bash(node C:/Users/Omar/.claude/plugins/cache/understand-anything/understand-anything/2.8.1/skills/understand/extract-import-map.mjs C:/Users/Omar/Desktop/SmartLAB/code/.understand-anything/tmp/ua-import-map-input.json C:/Users/Omar/Desktop/SmartLAB/code/.understand-anything/tmp/ua-import-map-output.json)",
+      "Bash(node *)",
+      "Bash(python3 -c \"import json,sys; d=json.load\\(sys.stdin\\); print\\('Batch', d['batchIndex'], '-', len\\(d['files']\\), 'files'\\); [print\\(' ', f['path'], f['sizeLines'], 'lines'\\) for f in d['files']]\")",
+      "Bash(npx expo *)",
+      "Bash(python *)",
+      "Bash(echo \"Exit code: $?\")",
+      "Bash(npx vite *)",
+      "Bash(jobs -l)"
     ]
   }
 }

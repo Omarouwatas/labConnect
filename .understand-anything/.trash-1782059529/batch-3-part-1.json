@@ -1,0 +1,733 @@
+{
+  "nodes": [
+    {
+      "id": "file:frontend-client/App.js",
+      "type": "file",
+      "name": "App.js",
+      "filePath": "frontend-client/App.js",
+      "summary": "Root application component for the React Native mobile client, defining the full navigation tree with role-based shells: a patient tab navigator (Home, Bookings, Profile) and a nurse tab navigator (Route, Profile), wrapped in AuthProvider and NavigationContainer.",
+      "tags": ["entry-point", "component", "navigation", "role-based-routing"],
+      "complexity": "complex",
+      "languageNotes": "Uses React Navigation's createNativeStackNavigator and createBottomTabNavigator. Role selection via pickRoleShell switches the whole shell at runtime. Custom font loading (Fredoka + Nunito) is handled before first render to avoid font flash."
+    },
+    {
+      "id": "function:frontend-client/App.js:MainTabs",
+      "type": "function",
+      "name": "MainTabs",
+      "filePath": "frontend-client/App.js",
+      "lineRange": [50, 98],
+      "summary": "Bottom tab navigator for the patient role, exposing Home, Bookings, and Profile tabs with custom vectorial icons.",
+      "tags": ["component", "navigation"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:frontend-client/App.js:NurseTabs",
+      "type": "function",
+      "name": "NurseTabs",
+      "filePath": "frontend-client/App.js",
+      "lineRange": [104, 142],
+      "summary": "Bottom tab navigator for the nurse role, exposing Route (Tournée) and Profile tabs.",
+      "tags": ["component", "navigation"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:frontend-client/App.js:RootNav",
+      "type": "function",
+      "name": "RootNav",
+      "filePath": "frontend-client/App.js",
+      "lineRange": [155, 217],
+      "summary": "Top-level stack navigator that routes unauthenticated users to Login/SignUp and authenticated users to either the patient or nurse shell based on roles.",
+      "tags": ["component", "navigation", "authentication"],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:frontend-client/App.js:App",
+      "type": "function",
+      "name": "App",
+      "filePath": "frontend-client/App.js",
+      "lineRange": [219, 265],
+      "summary": "Default export and application root that loads Fredoka/Nunito fonts, patches the theme font objects, and renders the SafeAreaProvider + AuthProvider + NavigationContainer hierarchy.",
+      "tags": ["entry-point", "component"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:frontend-client/src/screens/BookingsScreen.js",
+      "type": "file",
+      "name": "BookingsScreen.js",
+      "filePath": "frontend-client/src/screens/BookingsScreen.js",
+      "summary": "Patient screen displaying appointments and test results via a segmented tab (Rendez-vous / Résultats), with navigation to ResultDetailScreen on result tap.",
+      "tags": ["component", "screen", "api-handler"],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:frontend-client/src/screens/CartScreen.js",
+      "type": "file",
+      "name": "CartScreen.js",
+      "filePath": "frontend-client/src/screens/CartScreen.js",
+      "summary": "Appointment booking screen with date/slot picker, mode toggle (lab vs home visit), CNAM coverage breakdown, prerequisite questionnaire, GPS capture, and animated confirmation overlay after successful booking.",
+      "tags": ["component", "screen", "api-handler", "booking"],
+      "complexity": "complex",
+      "languageNotes": "Uses CommonActions.reset to navigate back to the Bookings tab after booking, avoiding Expo SDK 54 navigation crashes that would occur with a direct navigate call."
+    },
+    {
+      "id": "file:frontend-client/src/screens/HomeScreen.js",
+      "type": "file",
+      "name": "HomeScreen.js",
+      "filePath": "frontend-client/src/screens/HomeScreen.js",
+      "summary": "Main patient home screen with unified lab + analysis search (name, city, analysis code), distance/category/CNAM/home-visit filters, a mini Leaflet map (260 px), and a full lab list sorted by relevance.",
+      "tags": ["component", "screen", "api-handler", "search"],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:frontend-client/src/screens/LabDetailScreen.js",
+      "type": "file",
+      "name": "LabDetailScreen.js",
+      "filePath": "frontend-client/src/screens/LabDetailScreen.js",
+      "summary": "Lab detail screen showing hero banner, rating, distance, CNAM status, test catalog with category filters, and a sticky footer to navigate to CartScreen with selected tests.",
+      "tags": ["component", "screen", "api-handler"],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:frontend-client/src/components/LabMapView.js",
+      "type": "file",
+      "name": "LabMapView.js",
+      "filePath": "frontend-client/src/components/LabMapView.js",
+      "summary": "Shared React Native component embedding a Leaflet map in a WebView, supporting lab markers, animated user location, lab popup press callbacks, and both mini-card and fullscreen layout modes.",
+      "tags": ["component", "map", "utility"],
+      "complexity": "complex",
+      "languageNotes": "Uses injectJavaScript to push lab/user updates to the WebView instead of reloading HTML, avoiding Leaflet tile refetch on every re-render. Leaflet tile sizes are also force-invalidated on layout to work around react-native-webview sizing bugs on iOS and Android."
+    },
+    {
+      "id": "function:frontend-client/src/components/LabMapView.js:LabMapView",
+      "type": "function",
+      "name": "LabMapView",
+      "filePath": "frontend-client/src/components/LabMapView.js",
+      "lineRange": [30, 123],
+      "summary": "Default-exported component that manages a WebView with embedded Leaflet map, synchronizing lab markers and user location via injected JS and exposing an onLabPress callback.",
+      "tags": ["component", "map"],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:frontend-client/src/components/LabMapView.js:buildHtml",
+      "type": "function",
+      "name": "buildHtml",
+      "filePath": "frontend-client/src/components/LabMapView.js",
+      "lineRange": [125, 283],
+      "summary": "Generates the full Leaflet HTML string embedded in the WebView, including OSM tiles, CSS marker styles, lab and user marker rendering functions, and invalidateSize hacks.",
+      "tags": ["utility", "map"],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:frontend-client/src/screens/LoginScreen.js",
+      "type": "file",
+      "name": "LoginScreen.js",
+      "filePath": "frontend-client/src/screens/LoginScreen.js",
+      "summary": "Unified login screen supporting email/password, OTP phone flow, Google OAuth, and biometric (Face ID / fingerprint) authentication, with last-identifier prefill and biometric opt-in prompt after first OTP login.",
+      "tags": ["component", "screen", "authentication"],
+      "complexity": "complex",
+      "languageNotes": "Implements a three-step flow (id → pwd or otp → success) driven by a `step` state. Uses expo-auth-session for Google OAuth and bioStore check before triggering OS biometric prompt."
+    },
+    {
+      "id": "file:frontend-client/src/screens/MapScreen.js",
+      "type": "file",
+      "name": "MapScreen.js",
+      "filePath": "frontend-client/src/screens/MapScreen.js",
+      "summary": "Full-screen map screen embedding LabMapView in absolute layout, with a floating back header and an animated callout panel at the bottom that appears when a lab marker is tapped.",
+      "tags": ["component", "screen", "map"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:frontend-client/src/components/NotificationsBell.js",
+      "type": "file",
+      "name": "NotificationsBell.js",
+      "filePath": "frontend-client/src/components/NotificationsBell.js",
+      "summary": "Reusable bell icon button with unread-count badge, polling the notifications API every 30 seconds and refreshing on parent screen focus via navigation listener.",
+      "tags": ["component", "notification", "polling"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:frontend-client/src/screens/NotificationsScreen.js",
+      "type": "file",
+      "name": "NotificationsScreen.js",
+      "filePath": "frontend-client/src/screens/NotificationsScreen.js",
+      "summary": "Notification center screen shared by both patient and nurse roles, showing a list of notifications with icon/color by kind, mark-as-read on tap, and a bulk mark-all-read action.",
+      "tags": ["component", "screen", "notification"],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:frontend-client/src/screens/nurse/NurseCollectScreen.js",
+      "type": "file",
+      "name": "NurseCollectScreen.js",
+      "filePath": "frontend-client/src/screens/nurse/NurseCollectScreen.js",
+      "summary": "Nurse sample collection screen with identity verification checkbox, per-tube barcode entry and checklist, progress bar, and backend visit status transition to in_progress on screen open.",
+      "tags": ["component", "screen", "nurse-flow"],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:frontend-client/src/screens/nurse/NurseMissionScreen.js",
+      "type": "file",
+      "name": "NurseMissionScreen.js",
+      "filePath": "frontend-client/src/screens/nurse/NurseMissionScreen.js",
+      "summary": "Nurse mission detail screen showing patient info, address map, ordered test list with colored tube caps, fasting/notes instructions, and a CTA to proceed to sample collection.",
+      "tags": ["component", "screen", "nurse-flow"],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:frontend-client/src/screens/nurse/NurseProfileScreen.js",
+      "type": "file",
+      "name": "NurseProfileScreen.js",
+      "filePath": "frontend-client/src/screens/nurse/NurseProfileScreen.js",
+      "summary": "Simplified nurse profile screen displaying nurse identity and biometric toggle (enable/disable Face ID or fingerprint), plus a logout button.",
+      "tags": ["component", "screen", "nurse-flow", "authentication"],
+      "complexity": "moderate"
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:frontend-client/App.js",
+      "target": "function:frontend-client/App.js:MainTabs",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:frontend-client/App.js",
+      "target": "function:frontend-client/App.js:NurseTabs",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:frontend-client/App.js",
+      "target": "function:frontend-client/App.js:RootNav",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:frontend-client/App.js",
+      "target": "function:frontend-client/App.js:App",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:frontend-client/App.js",
+      "target": "function:frontend-client/App.js:App",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend-client/src/components/LabMapView.js",
+      "target": "function:frontend-client/src/components/LabMapView.js:LabMapView",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:frontend-client/src/components/LabMapView.js",
+      "target": "function:frontend-client/src/components/LabMapView.js:buildHtml",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:frontend-client/src/components/LabMapView.js",
+      "target": "function:frontend-client/src/components/LabMapView.js:LabMapView",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend-client/App.js",
+      "target": "file:frontend-client/src/auth.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend-client/App.js",
+      "target": "file:frontend-client/src/icons.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend-client/App.js",
+      "target": "file:frontend-client/src/screens/BookingsScreen.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend-client/App.js",
+      "target": "file:frontend-client/src/screens/CartScreen.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend-client/App.js",
+      "target": "file:frontend-client/src/screens/HomeScreen.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend-client/App.js",
+      "target": "file:frontend-client/src/screens/LabDetailScreen.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend-client/App.js",
+      "target": "file:frontend-client/src/screens/LoginScreen.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend-client/App.js",
+      "target": "file:frontend-client/src/screens/MapScreen.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend-client/App.js",
+      "target": "file:frontend-client/src/screens/NotificationsScreen.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend-client/App.js",
+      "target": "file:frontend-client/src/screens/nurse/NurseCollectScreen.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend-client/App.js",
+      "target": "file:frontend-client/src/screens/nurse/NurseMissionScreen.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend-client/App.js",
+      "target": "file:frontend-client/src/screens/nurse/NurseProfileScreen.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend-client/App.js",
+      "target": "file:frontend-client/src/screens/nurse/NurseRouteScreen.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend-client/App.js",
+      "target": "file:frontend-client/src/screens/nurse/NurseValidateScreen.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend-client/App.js",
+      "target": "file:frontend-client/src/screens/ProfileScreen.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend-client/App.js",
+      "target": "file:frontend-client/src/screens/ResultDetailScreen.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend-client/App.js",
+      "target": "file:frontend-client/src/screens/SignUpScreen.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend-client/App.js",
+      "target": "file:frontend-client/src/theme.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend-client/src/components/LabMapView.js",
+      "target": "file:frontend-client/src/theme.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend-client/src/components/NotificationsBell.js",
+      "target": "file:frontend-client/src/api.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend-client/src/components/NotificationsBell.js",
+      "target": "file:frontend-client/src/icons.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend-client/src/components/NotificationsBell.js",
+      "target": "file:frontend-client/src/theme.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend-client/src/screens/BookingsScreen.js",
+      "target": "file:frontend-client/src/api.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend-client/src/screens/BookingsScreen.js",
+      "target": "file:frontend-client/src/auth.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend-client/src/screens/BookingsScreen.js",
+      "target": "file:frontend-client/src/components/UI.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend-client/src/screens/BookingsScreen.js",
+      "target": "file:frontend-client/src/icons.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend-client/src/screens/BookingsScreen.js",
+      "target": "file:frontend-client/src/theme.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend-client/src/screens/CartScreen.js",
+      "target": "file:frontend-client/src/api.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend-client/src/screens/CartScreen.js",
+      "target": "file:frontend-client/src/auth.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend-client/src/screens/CartScreen.js",
+      "target": "file:frontend-client/src/components/UI.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend-client/src/screens/CartScreen.js",
+      "target": "file:frontend-client/src/icons.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend-client/src/screens/CartScreen.js",
+      "target": "file:frontend-client/src/theme.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend-client/src/screens/HomeScreen.js",
+      "target": "file:frontend-client/src/api.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend-client/src/screens/HomeScreen.js",
+      "target": "file:frontend-client/src/auth.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend-client/src/screens/HomeScreen.js",
+      "target": "file:frontend-client/src/components/LabMapView.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend-client/src/screens/HomeScreen.js",
+      "target": "file:frontend-client/src/components/NotificationsBell.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend-client/src/screens/HomeScreen.js",
+      "target": "file:frontend-client/src/components/UI.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend-client/src/screens/HomeScreen.js",
+      "target": "file:frontend-client/src/icons.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend-client/src/screens/HomeScreen.js",
+      "target": "file:frontend-client/src/theme.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend-client/src/screens/LabDetailScreen.js",
+      "target": "file:frontend-client/src/api.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend-client/src/screens/LabDetailScreen.js",
+      "target": "file:frontend-client/src/components/UI.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend-client/src/screens/LabDetailScreen.js",
+      "target": "file:frontend-client/src/icons.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend-client/src/screens/LabDetailScreen.js",
+      "target": "file:frontend-client/src/theme.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend-client/src/screens/LoginScreen.js",
+      "target": "file:frontend-client/src/api.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend-client/src/screens/LoginScreen.js",
+      "target": "file:frontend-client/src/auth.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend-client/src/screens/LoginScreen.js",
+      "target": "file:frontend-client/src/biometric.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend-client/src/screens/LoginScreen.js",
+      "target": "file:frontend-client/src/components/UI.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend-client/src/screens/LoginScreen.js",
+      "target": "file:frontend-client/src/icons.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend-client/src/screens/LoginScreen.js",
+      "target": "file:frontend-client/src/theme.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend-client/src/screens/MapScreen.js",
+      "target": "file:frontend-client/src/components/LabMapView.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend-client/src/screens/MapScreen.js",
+      "target": "file:frontend-client/src/components/UI.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend-client/src/screens/MapScreen.js",
+      "target": "file:frontend-client/src/icons.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend-client/src/screens/MapScreen.js",
+      "target": "file:frontend-client/src/theme.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend-client/src/screens/NotificationsScreen.js",
+      "target": "file:frontend-client/src/api.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend-client/src/screens/NotificationsScreen.js",
+      "target": "file:frontend-client/src/components/UI.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend-client/src/screens/NotificationsScreen.js",
+      "target": "file:frontend-client/src/icons.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend-client/src/screens/NotificationsScreen.js",
+      "target": "file:frontend-client/src/theme.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend-client/src/screens/nurse/NurseCollectScreen.js",
+      "target": "file:frontend-client/src/api.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend-client/src/screens/nurse/NurseCollectScreen.js",
+      "target": "file:frontend-client/src/components/UI.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend-client/src/screens/nurse/NurseCollectScreen.js",
+      "target": "file:frontend-client/src/icons.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend-client/src/screens/nurse/NurseCollectScreen.js",
+      "target": "file:frontend-client/src/theme.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend-client/src/screens/nurse/NurseMissionScreen.js",
+      "target": "file:frontend-client/src/api.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend-client/src/screens/nurse/NurseMissionScreen.js",
+      "target": "file:frontend-client/src/components/UI.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend-client/src/screens/nurse/NurseMissionScreen.js",
+      "target": "file:frontend-client/src/icons.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend-client/src/screens/nurse/NurseMissionScreen.js",
+      "target": "file:frontend-client/src/theme.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend-client/src/screens/nurse/NurseProfileScreen.js",
+      "target": "file:frontend-client/src/auth.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend-client/src/screens/nurse/NurseProfileScreen.js",
+      "target": "file:frontend-client/src/biometric.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend-client/src/screens/nurse/NurseProfileScreen.js",
+      "target": "file:frontend-client/src/components/UI.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend-client/src/screens/nurse/NurseProfileScreen.js",
+      "target": "file:frontend-client/src/icons.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend-client/src/screens/nurse/NurseProfileScreen.js",
+      "target": "file:frontend-client/src/theme.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    }
+  ]
+}

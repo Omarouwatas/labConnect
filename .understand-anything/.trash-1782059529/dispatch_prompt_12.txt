@@ -1,0 +1,42 @@
+Files:
+1. `Backend/laboratories/migrations/0002_alter_laboratory_emergency_fee_mru_and_more.py` (34 lines, language: `python`, fileCategory: `code`)
+2. `Backend/manage.py` (22 lines, language: `python`, fileCategory: `code`)
+3. `Backend/notifications/__init__.py` (0 lines, language: `python`, fileCategory: `code`)
+4. `Backend/notifications/apps.py` (7 lines, language: `python`, fileCategory: `code`)
+5. `Backend/notifications/migrations/__init__.py` (0 lines, language: `python`, fileCategory: `code`)
+6. `Backend/notifications/migrations/0001_initial.py` (76 lines, language: `python`, fileCategory: `code`)
+7. `Backend/notifications/migrations/0002_rename_notif_user_created_idx_notificatio_user_id_05b4bc_idx_and_more.py` (23 lines, language: `python`, fileCategory: `code`)
+8. `frontend-client/.claude/settings.json` (5 lines, language: `json`, fileCategory: `config`)
+9. `frontend-web/eslint.config.js` (21 lines, language: `javascript`, fileCategory: `code`)
+10. `frontend-web/src/App.css` (2 lines, language: `css`, fileCategory: `markup`)
+11. `frontend-web/src/index.css` (1440 lines, language: `css`, fileCategory: `markup`)
+12. `frontend-web/vite.config.js` (7 lines, language: `javascript`, fileCategory: `code`)
+13. `render.yaml` (83 lines, language: `yaml`, fileCategory: `config`)
+
+Import data:
+{
+  "Backend/laboratories/migrations/0002_alter_laboratory_emergency_fee_mru_and_more.py": [],
+  "Backend/manage.py": [],
+  "Backend/notifications/__init__.py": [],
+  "Backend/notifications/apps.py": [],
+  "Backend/notifications/migrations/__init__.py": [],
+  "Backend/notifications/migrations/0001_initial.py": [],
+  "Backend/notifications/migrations/0002_rename_notif_user_created_idx_notificatio_user_id_05b4bc_idx_and_more.py": [],
+  "frontend-client/.claude/settings.json": [],
+  "frontend-web/eslint.config.js": [],
+  "frontend-web/src/App.css": [],
+  "frontend-web/src/index.css": [],
+  "frontend-web/vite.config.js": [],
+  "render.yaml": []
+}
+
+Neighbor map:
+{
+  "frontend-web/src/index.css": [
+    {
+      "path": "frontend-web/src/main.jsx",
+      "batchIndex": 1,
+      "symbols": []
+    }
+  ]
+}

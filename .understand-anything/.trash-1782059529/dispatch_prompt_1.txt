@@ -1,0 +1,210 @@
+Files:
+1. `frontend-web/src/App.jsx` (192 lines, language: `javascript`, fileCategory: `code`)
+2. `frontend-web/src/api.js` (275 lines, language: `javascript`, fileCategory: `code`)
+3. `frontend-web/src/auth.jsx` (92 lines, language: `javascript`, fileCategory: `code`)
+4. `frontend-web/src/components/AppointmentDetailModal.jsx` (364 lines, language: `javascript`, fileCategory: `code`)
+5. `frontend-web/src/components/FinanceTab.jsx` (321 lines, language: `javascript`, fileCategory: `code`)
+6. `frontend-web/src/components/InvoiceModal.jsx` (167 lines, language: `javascript`, fileCategory: `code`)
+7. `frontend-web/src/components/LabSwitcher.jsx` (57 lines, language: `javascript`, fileCategory: `code`)
+8. `frontend-web/src/components/MapPicker.jsx` (159 lines, language: `javascript`, fileCategory: `code`)
+9. `frontend-web/src/components/Misc.jsx` (31 lines, language: `javascript`, fileCategory: `code`)
+10. `frontend-web/src/components/Modal.jsx` (28 lines, language: `javascript`, fileCategory: `code`)
+11. `frontend-web/src/components/NotificationsBell.jsx` (248 lines, language: `javascript`, fileCategory: `code`)
+12. `frontend-web/src/components/RoleSwitcher.jsx` (75 lines, language: `javascript`, fileCategory: `code`)
+13. `frontend-web/src/components/Sidebar.jsx` (77 lines, language: `javascript`, fileCategory: `code`)
+14. `frontend-web/src/components/Switch.jsx` (11 lines, language: `javascript`, fileCategory: `code`)
+15. `frontend-web/src/components/Topbar.jsx` (40 lines, language: `javascript`, fileCategory: `code`)
+16. `frontend-web/src/components/WalkInModal.jsx` (343 lines, language: `javascript`, fileCategory: `code`)
+17. `frontend-web/src/constants.js` (190 lines, language: `javascript`, fileCategory: `code`)
+18. `frontend-web/src/hooks/useClickOutside.js` (17 lines, language: `javascript`, fileCategory: `code`)
+19. `frontend-web/src/icons.jsx` (48 lines, language: `javascript`, fileCategory: `code`)
+20. `frontend-web/src/main.jsx` (10 lines, language: `javascript`, fileCategory: `code`)
+21. `frontend-web/src/screens/Analyses.jsx` (680 lines, language: `javascript`, fileCategory: `code`)
+22. `frontend-web/src/screens/Dashboard.jsx` (476 lines, language: `javascript`, fileCategory: `code`)
+23. `frontend-web/src/screens/Inventory.jsx` (501 lines, language: `javascript`, fileCategory: `code`)
+24. `frontend-web/src/screens/Login.jsx` (227 lines, language: `javascript`, fileCategory: `code`)
+25. `frontend-web/src/screens/NursesMap.jsx` (540 lines, language: `javascript`, fileCategory: `code`)
+26. `frontend-web/src/screens/Onboarding.jsx` (130 lines, language: `javascript`, fileCategory: `code`)
+27. `frontend-web/src/screens/Settings.jsx` (293 lines, language: `javascript`, fileCategory: `code`)
+28. `frontend-web/src/screens/Staff.jsx` (404 lines, language: `javascript`, fileCategory: `code`)
+29. `frontend-web/src/screens/Stats.jsx` (290 lines, language: `javascript`, fileCategory: `code`)
+30. `frontend-web/src/screens/Tests.jsx` (346 lines, language: `javascript`, fileCategory: `code`)
+
+Import data:
+{
+  "frontend-web/src/App.jsx": [
+    "frontend-web/src/api.js",
+    "frontend-web/src/auth.jsx",
+    "frontend-web/src/components/Misc.jsx",
+    "frontend-web/src/components/Sidebar.jsx",
+    "frontend-web/src/components/Topbar.jsx",
+    "frontend-web/src/constants.js",
+    "frontend-web/src/screens/Analyses.jsx",
+    "frontend-web/src/screens/Dashboard.jsx",
+    "frontend-web/src/screens/Inventory.jsx",
+    "frontend-web/src/screens/Login.jsx",
+    "frontend-web/src/screens/NursesMap.jsx",
+    "frontend-web/src/screens/Onboarding.jsx",
+    "frontend-web/src/screens/Settings.jsx",
+    "frontend-web/src/screens/Staff.jsx",
+    "frontend-web/src/screens/Stats.jsx",
+    "frontend-web/src/screens/Tests.jsx"
+  ],
+  "frontend-web/src/api.js": [],
+  "frontend-web/src/auth.jsx": [
+    "frontend-web/src/api.js",
+    "frontend-web/src/constants.js"
+  ],
+  "frontend-web/src/components/AppointmentDetailModal.jsx": [
+    "frontend-web/src/api.js",
+    "frontend-web/src/components/Misc.jsx",
+    "frontend-web/src/components/Modal.jsx",
+    "frontend-web/src/constants.js",
+    "frontend-web/src/icons.jsx"
+  ],
+  "frontend-web/src/components/FinanceTab.jsx": [
+    "frontend-web/src/api.js",
+    "frontend-web/src/components/Misc.jsx",
+    "frontend-web/src/constants.js",
+    "frontend-web/src/icons.jsx"
+  ],
+  "frontend-web/src/components/InvoiceModal.jsx": [
+    "frontend-web/src/api.js",
+    "frontend-web/src/components/Modal.jsx",
+    "frontend-web/src/constants.js",
+    "frontend-web/src/icons.jsx"
+  ],
+  "frontend-web/src/components/LabSwitcher.jsx": [
+    "frontend-web/src/hooks/useClickOutside.js",
+    "frontend-web/src/icons.jsx"
+  ],
+  "frontend-web/src/components/MapPicker.jsx": [
+    "frontend-web/src/api.js",
+    "frontend-web/src/constants.js",
+    "frontend-web/src/icons.jsx"
+  ],
+  "frontend-web/src/components/Misc.jsx": [
+    "frontend-web/src/constants.js",
+    "frontend-web/src/icons.jsx"
+  ],
+  "frontend-web/src/components/Modal.jsx": [
+    "frontend-web/src/icons.jsx"
+  ],
+  "frontend-web/src/components/NotificationsBell.jsx": [
+    "frontend-web/src/api.js",
+    "frontend-web/src/icons.jsx"
+  ],
+  "frontend-web/src/components/RoleSwitcher.jsx": [
+    "frontend-web/src/constants.js",
+    "frontend-web/src/hooks/useClickOutside.js",
+    "frontend-web/src/icons.jsx"
+  ],
+  "frontend-web/src/components/Sidebar.jsx": [
+    "frontend-web/src/icons.jsx"
+  ],
+  "frontend-web/src/components/Switch.jsx": [],
+  "frontend-web/src/components/Topbar.jsx": [
+    "frontend-web/src/components/LabSwitcher.jsx",
+    "frontend-web/src/components/NotificationsBell.jsx",
+    "frontend-web/src/components/RoleSwitcher.jsx",
+    "frontend-web/src/icons.jsx"
+  ],
+  "frontend-web/src/components/WalkInModal.jsx": [
+    "frontend-web/src/api.js",
+    "frontend-web/src/components/Misc.jsx",
+    "frontend-web/src/components/Modal.jsx",
+    "frontend-web/src/constants.js",
+    "frontend-web/src/icons.jsx"
+  ],
+  "frontend-web/src/constants.js": [],
+  "frontend-web/src/hooks/useClickOutside.js": [],
+  "frontend-web/src/icons.jsx": [],
+  "frontend-web/src/main.jsx": [
+    "frontend-web/src/App.jsx",
+    "frontend-web/src/index.css"
+  ],
+  "frontend-web/src/screens/Analyses.jsx": [
+    "frontend-web/src/api.js",
+    "frontend-web/src/components/InvoiceModal.jsx",
+    "frontend-web/src/components/Misc.jsx",
+    "frontend-web/src/components/Modal.jsx",
+    "frontend-web/src/components/WalkInModal.jsx",
+    "frontend-web/src/constants.js",
+    "frontend-web/src/icons.jsx"
+  ],
+  "frontend-web/src/screens/Dashboard.jsx": [
+    "frontend-web/src/api.js",
+    "frontend-web/src/components/AppointmentDetailModal.jsx",
+    "frontend-web/src/components/FinanceTab.jsx",
+    "frontend-web/src/components/InvoiceModal.jsx",
+    "frontend-web/src/components/Misc.jsx",
+    "frontend-web/src/components/WalkInModal.jsx",
+    "frontend-web/src/constants.js",
+    "frontend-web/src/icons.jsx"
+  ],
+  "frontend-web/src/screens/Inventory.jsx": [
+    "frontend-web/src/api.js",
+    "frontend-web/src/components/Misc.jsx",
+    "frontend-web/src/components/Modal.jsx",
+    "frontend-web/src/constants.js",
+    "frontend-web/src/icons.jsx"
+  ],
+  "frontend-web/src/screens/Login.jsx": [
+    "frontend-web/src/auth.jsx",
+    "frontend-web/src/icons.jsx"
+  ],
+  "frontend-web/src/screens/NursesMap.jsx": [
+    "frontend-web/src/api.js",
+    "frontend-web/src/auth.jsx",
+    "frontend-web/src/components/Modal.jsx",
+    "frontend-web/src/constants.js",
+    "frontend-web/src/icons.jsx"
+  ],
+  "frontend-web/src/screens/Onboarding.jsx": [
+    "frontend-web/src/api.js",
+    "frontend-web/src/auth.jsx",
+    "frontend-web/src/components/MapPicker.jsx",
+    "frontend-web/src/constants.js",
+    "frontend-web/src/icons.jsx"
+  ],
+  "frontend-web/src/screens/Settings.jsx": [
+    "frontend-web/src/api.js",
+    "frontend-web/src/components/MapPicker.jsx",
+    "frontend-web/src/components/Switch.jsx",
+    "frontend-web/src/constants.js",
+    "frontend-web/src/icons.jsx"
+  ],
+  "frontend-web/src/screens/Staff.jsx": [
+    "frontend-web/src/api.js",
+    "frontend-web/src/components/Misc.jsx",
+    "frontend-web/src/components/Modal.jsx",
+    "frontend-web/src/components/Switch.jsx",
+    "frontend-web/src/constants.js",
+    "frontend-web/src/icons.jsx"
+  ],
+  "frontend-web/src/screens/Stats.jsx": [
+    "frontend-web/src/api.js",
+    "frontend-web/src/components/Misc.jsx",
+    "frontend-web/src/constants.js",
+    "frontend-web/src/icons.jsx"
+  ],
+  "frontend-web/src/screens/Tests.jsx": [
+    "frontend-web/src/api.js",
+    "frontend-web/src/components/Misc.jsx",
+    "frontend-web/src/components/Modal.jsx",
+    "frontend-web/src/components/Switch.jsx",
+    "frontend-web/src/constants.js",
+    "frontend-web/src/icons.jsx"
+  ]
+}
+
+Neighbor map:
+{
+  "frontend-web/src/main.jsx": [
+    {
+      "path": "frontend-web/src/index.css",
+      "batchIndex": 12,
+      "symbols": []
+    }
+  ]
+}

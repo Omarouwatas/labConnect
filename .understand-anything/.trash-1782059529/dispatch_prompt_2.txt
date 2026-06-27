@@ -1,0 +1,204 @@
+Files:
+1. `Backend/accounts/admin.py` (63 lines, language: `python`, fileCategory: `code`)
+2. `Backend/accounts/management/commands/bootstrap_chief.py` (84 lines, language: `python`, fileCategory: `code`)
+3. `Backend/accounts/management/commands/create_chef.py` (68 lines, language: `python`, fileCategory: `code`)
+4. `Backend/accounts/management/commands/seed_roles.py` (21 lines, language: `python`, fileCategory: `code`)
+5. `Backend/accounts/managers.py` (54 lines, language: `python`, fileCategory: `code`)
+6. `Backend/accounts/migrations/0001_initial.py` (170 lines, language: `python`, fileCategory: `code`)
+7. `Backend/accounts/models.py` (355 lines, language: `python`, fileCategory: `code`)
+8. `Backend/accounts/serializers.py` (173 lines, language: `python`, fileCategory: `code`)
+9. `Backend/accounts/services/__init__.py` (0 lines, language: `python`, fileCategory: `code`)
+10. `Backend/accounts/services/firebase.py` (140 lines, language: `python`, fileCategory: `code`)
+11. `Backend/accounts/services/otp.py` (92 lines, language: `python`, fileCategory: `code`)
+12. `Backend/accounts/tokens.py` (38 lines, language: `python`, fileCategory: `code`)
+13. `Backend/accounts/urls.py` (55 lines, language: `python`, fileCategory: `code`)
+14. `Backend/accounts/views.py` (482 lines, language: `python`, fileCategory: `code`)
+15. `Backend/accounts/views_biometric.py` (199 lines, language: `python`, fileCategory: `code`)
+16. `Backend/accounts/views_employees.py` (338 lines, language: `python`, fileCategory: `code`)
+17. `Backend/accounts/views_totp.py` (160 lines, language: `python`, fileCategory: `code`)
+18. `Backend/appointments/models.py` (108 lines, language: `python`, fileCategory: `code`)
+19. `Backend/appointments/serializers.py` (280 lines, language: `python`, fileCategory: `code`)
+20. `Backend/appointments/urls.py` (8 lines, language: `python`, fileCategory: `code`)
+21. `Backend/appointments/views.py` (409 lines, language: `python`, fileCategory: `code`)
+22. `Backend/core/permissions.py` (153 lines, language: `python`, fileCategory: `code`)
+23. `Backend/laboratories/admin.py` (18 lines, language: `python`, fileCategory: `code`)
+24. `Backend/laboratories/migrations/0001_initial.py` (54 lines, language: `python`, fileCategory: `code`)
+25. `Backend/laboratories/migrations/0003_alter_laboratory_opening_hours.py` (19 lines, language: `python`, fileCategory: `code`)
+26. `Backend/laboratories/models.py` (85 lines, language: `python`, fileCategory: `code`)
+27. `Backend/laboratories/serializers.py` (128 lines, language: `python`, fileCategory: `code`)
+28. `Backend/laboratories/urls.py` (40 lines, language: `python`, fileCategory: `code`)
+29. `Backend/laboratories/views.py` (173 lines, language: `python`, fileCategory: `code`)
+
+Import data:
+{
+  "Backend/accounts/admin.py": [
+    "Backend/accounts/models.py"
+  ],
+  "Backend/accounts/management/commands/bootstrap_chief.py": [
+    "Backend/accounts/models.py",
+    "Backend/core/permissions.py",
+    "Backend/laboratories/models.py"
+  ],
+  "Backend/accounts/management/commands/create_chef.py": [
+    "Backend/accounts/models.py",
+    "Backend/core/permissions.py"
+  ],
+  "Backend/accounts/management/commands/seed_roles.py": [
+    "Backend/core/permissions.py"
+  ],
+  "Backend/accounts/managers.py": [],
+  "Backend/accounts/migrations/0001_initial.py": [
+    "Backend/accounts/managers.py"
+  ],
+  "Backend/accounts/models.py": [
+    "Backend/accounts/managers.py",
+    "Backend/core/models.py"
+  ],
+  "Backend/accounts/serializers.py": [
+    "Backend/accounts/models.py"
+  ],
+  "Backend/accounts/services/__init__.py": [],
+  "Backend/accounts/services/firebase.py": [],
+  "Backend/accounts/services/otp.py": [],
+  "Backend/accounts/tokens.py": [
+    "Backend/core/permissions.py"
+  ],
+  "Backend/accounts/urls.py": [
+    "Backend/accounts/views_biometric.py",
+    "Backend/accounts/views_employees.py",
+    "Backend/accounts/views_totp.py",
+    "Backend/accounts/views.py"
+  ],
+  "Backend/accounts/views.py": [
+    "Backend/accounts/models.py",
+    "Backend/accounts/serializers.py",
+    "Backend/accounts/services/firebase.py",
+    "Backend/accounts/services/otp.py",
+    "Backend/accounts/tokens.py",
+    "Backend/core/permissions.py"
+  ],
+  "Backend/accounts/views_biometric.py": [
+    "Backend/accounts/models.py",
+    "Backend/accounts/serializers.py",
+    "Backend/accounts/tokens.py"
+  ],
+  "Backend/accounts/views_employees.py": [
+    "Backend/accounts/models.py",
+    "Backend/accounts/views.py",
+    "Backend/core/permissions.py",
+    "Backend/laboratories/models.py"
+  ],
+  "Backend/accounts/views_totp.py": [
+    "Backend/accounts/models.py",
+    "Backend/accounts/services/__init__.py",
+    "Backend/accounts/tokens.py",
+    "Backend/core/permissions.py"
+  ],
+  "Backend/appointments/models.py": [
+    "Backend/core/models.py"
+  ],
+  "Backend/appointments/serializers.py": [
+    "Backend/appointments/models.py",
+    "Backend/core/permissions.py"
+  ],
+  "Backend/appointments/urls.py": [
+    "Backend/appointments/views.py"
+  ],
+  "Backend/appointments/views.py": [
+    "Backend/accounts/models.py",
+    "Backend/appointments/models.py",
+    "Backend/appointments/serializers.py",
+    "Backend/core/permissions.py"
+  ],
+  "Backend/core/permissions.py": [],
+  "Backend/laboratories/admin.py": [
+    "Backend/laboratories/models.py"
+  ],
+  "Backend/laboratories/migrations/0001_initial.py": [
+    "Backend/laboratories/models.py"
+  ],
+  "Backend/laboratories/migrations/0003_alter_laboratory_opening_hours.py": [
+    "Backend/laboratories/models.py"
+  ],
+  "Backend/laboratories/models.py": [
+    "Backend/core/models.py"
+  ],
+  "Backend/laboratories/serializers.py": [
+    "Backend/laboratories/models.py"
+  ],
+  "Backend/laboratories/urls.py": [
+    "Backend/accounts/views_employees.py",
+    "Backend/laboratories/views.py"
+  ],
+  "Backend/laboratories/views.py": [
+    "Backend/accounts/models.py",
+    "Backend/core/permissions.py",
+    "Backend/laboratories/models.py",
+    "Backend/laboratories/serializers.py"
+  ]
+}
+
+Neighbor map:
+{
+  "Backend/accounts/models.py": [
+    {
+      "path": "Backend/core/models.py",
+      "batchIndex": 4,
+      "symbols": [
+        "ActiveManager",
+        "BaseModel"
+      ]
+    }
+  ],
+  "Backend/appointments/models.py": [
+    {
+      "path": "Backend/core/models.py",
+      "batchIndex": 4,
+      "symbols": [
+        "ActiveManager",
+        "BaseModel"
+      ]
+    }
+  ],
+  "Backend/core/permissions.py": [
+    {
+      "path": "Backend/analyses/views.py",
+      "batchIndex": 4,
+      "symbols": [
+        "_roles",
+        "_require_2fa",
+        "_split_cnam",
+        "HasAnyRole",
+        "CatalogViewSet",
+        "SampleViewSet",
+        "OrderViewSet",
+        "MyResultsView",
+        "ResultPDFView",
+        "WalkInSerializer",
+        "WalkInView",
+        "StatsView",
+        "models_q",
+        "InvoiceView"
+      ]
+    },
+    {
+      "path": "Backend/inventory/views.py",
+      "batchIndex": 4,
+      "symbols": [
+        "_roles",
+        "_can_edit",
+        "InventoryItemViewSet"
+      ]
+    }
+  ],
+  "Backend/laboratories/models.py": [
+    {
+      "path": "Backend/core/models.py",
+      "batchIndex": 4,
+      "symbols": [
+        "ActiveManager",
+        "BaseModel"
+      ]
+    }
+  ]
+}

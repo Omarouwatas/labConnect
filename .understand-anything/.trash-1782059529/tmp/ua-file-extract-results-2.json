@@ -1,0 +1,5823 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 29,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": "Backend/accounts/admin.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 63,
+      "nonEmptyLines": 52,
+      "classes": [
+        {
+          "name": "UserAdmin",
+          "startLine": 8,
+          "endLine": 34,
+          "methods": [],
+          "properties": []
+        },
+        {
+          "name": "PatientProfileAdmin",
+          "startLine": 38,
+          "endLine": 40,
+          "methods": [],
+          "properties": []
+        },
+        {
+          "name": "StaffProfileAdmin",
+          "startLine": 44,
+          "endLine": 47,
+          "methods": [],
+          "properties": []
+        },
+        {
+          "name": "OTPCodeAdmin",
+          "startLine": 51,
+          "endLine": 55,
+          "methods": [],
+          "properties": []
+        },
+        {
+          "name": "TrustedDeviceAdmin",
+          "startLine": 59,
+          "endLine": 63,
+          "methods": [],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "UserAdmin",
+          "line": 7,
+          "isDefault": false
+        },
+        {
+          "name": "PatientProfileAdmin",
+          "line": 37,
+          "isDefault": false
+        },
+        {
+          "name": "StaffProfileAdmin",
+          "line": 43,
+          "isDefault": false
+        },
+        {
+          "name": "OTPCodeAdmin",
+          "line": 50,
+          "isDefault": false
+        },
+        {
+          "name": "TrustedDeviceAdmin",
+          "line": 58,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 5,
+        "functionCount": 0,
+        "classCount": 5
+      }
+    },
+    {
+      "path": "Backend/accounts/management/commands/bootstrap_chief.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 84,
+      "nonEmptyLines": 72,
+      "classes": [
+        {
+          "name": "Command",
+          "startLine": 14,
+          "endLine": 84,
+          "methods": [
+            "add_arguments",
+            "handle"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "Command",
+          "line": 14,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "add_arguments",
+          "callee": "parser.add_argument",
+          "lineNumber": 18
+        },
+        {
+          "caller": "add_arguments",
+          "callee": "parser.add_argument",
+          "lineNumber": 19
+        },
+        {
+          "caller": "add_arguments",
+          "callee": "parser.add_argument",
+          "lineNumber": 20
+        },
+        {
+          "caller": "add_arguments",
+          "callee": "parser.add_argument",
+          "lineNumber": 21
+        },
+        {
+          "caller": "add_arguments",
+          "callee": "parser.add_argument",
+          "lineNumber": 22
+        },
+        {
+          "caller": "add_arguments",
+          "callee": "parser.add_argument",
+          "lineNumber": 23
+        },
+        {
+          "caller": "add_arguments",
+          "callee": "parser.add_argument",
+          "lineNumber": 24
+        },
+        {
+          "caller": "handle",
+          "callee": "User.normalize_phone",
+          "lineNumber": 28
+        },
+        {
+          "caller": "handle",
+          "callee": "CommandError",
+          "lineNumber": 30
+        },
+        {
+          "caller": "handle",
+          "callee": "str",
+          "lineNumber": 30
+        },
+        {
+          "caller": "handle",
+          "callee": "Group.objects.get_or_create",
+          "lineNumber": 33
+        },
+        {
+          "caller": "handle",
+          "callee": "slugify",
+          "lineNumber": 36
+        },
+        {
+          "caller": "handle",
+          "callee": "Laboratory.objects.update_or_create",
+          "lineNumber": 37
+        },
+        {
+          "caller": "handle",
+          "callee": "Point",
+          "lineNumber": 43
+        },
+        {
+          "caller": "handle",
+          "callee": "User.objects.get_or_create",
+          "lineNumber": 52
+        },
+        {
+          "caller": "handle",
+          "callee": "user.save",
+          "lineNumber": 58
+        },
+        {
+          "caller": "handle",
+          "callee": "Group.objects.get",
+          "lineNumber": 67
+        },
+        {
+          "caller": "handle",
+          "callee": "user.groups.add",
+          "lineNumber": 68
+        },
+        {
+          "caller": "handle",
+          "callee": "StaffProfile.objects.update_or_create",
+          "lineNumber": 70
+        },
+        {
+          "caller": "handle",
+          "callee": "self.stdout.write",
+          "lineNumber": 79
+        },
+        {
+          "caller": "handle",
+          "callee": "self.style.SUCCESS",
+          "lineNumber": 80
+        }
+      ],
+      "metrics": {
+        "importCount": 3,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "Backend/accounts/management/commands/create_chef.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 68,
+      "nonEmptyLines": 55,
+      "classes": [
+        {
+          "name": "Command",
+          "startLine": 22,
+          "endLine": 68,
+          "methods": [
+            "add_arguments",
+            "handle"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "Command",
+          "line": 22,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "add_arguments",
+          "callee": "parser.add_argument",
+          "lineNumber": 26
+        },
+        {
+          "caller": "add_arguments",
+          "callee": "parser.add_argument",
+          "lineNumber": 27
+        },
+        {
+          "caller": "add_arguments",
+          "callee": "parser.add_argument",
+          "lineNumber": 28
+        },
+        {
+          "caller": "add_arguments",
+          "callee": "parser.add_argument",
+          "lineNumber": 29
+        },
+        {
+          "caller": "add_arguments",
+          "callee": "parser.add_argument",
+          "lineNumber": 30
+        },
+        {
+          "caller": "handle",
+          "callee": "options[\"email\"].lower().strip",
+          "lineNumber": 33
+        },
+        {
+          "caller": "handle",
+          "callee": "options[\"email\"].lower",
+          "lineNumber": 33
+        },
+        {
+          "caller": "handle",
+          "callee": "CommandError",
+          "lineNumber": 35
+        },
+        {
+          "caller": "handle",
+          "callee": "len",
+          "lineNumber": 37
+        },
+        {
+          "caller": "handle",
+          "callee": "CommandError",
+          "lineNumber": 38
+        },
+        {
+          "caller": "handle",
+          "callee": "options[\"phone\"].strip",
+          "lineNumber": 40
+        },
+        {
+          "caller": "handle",
+          "callee": "User.normalize_phone",
+          "lineNumber": 43
+        },
+        {
+          "caller": "handle",
+          "callee": "CommandError",
+          "lineNumber": 45
+        },
+        {
+          "caller": "handle",
+          "callee": "str",
+          "lineNumber": 45
+        },
+        {
+          "caller": "handle",
+          "callee": "Group.objects.get_or_create",
+          "lineNumber": 49
+        },
+        {
+          "caller": "handle",
+          "callee": "User.objects.get_or_create",
+          "lineNumber": 51
+        },
+        {
+          "caller": "handle",
+          "callee": "bool",
+          "lineNumber": 55
+        },
+        {
+          "caller": "handle",
+          "callee": "user.set_password",
+          "lineNumber": 58
+        },
+        {
+          "caller": "handle",
+          "callee": "user.save",
+          "lineNumber": 59
+        },
+        {
+          "caller": "handle",
+          "callee": "Group.objects.get",
+          "lineNumber": 61
+        },
+        {
+          "caller": "handle",
+          "callee": "user.groups.add",
+          "lineNumber": 62
+        },
+        {
+          "caller": "handle",
+          "callee": "self.stdout.write",
+          "lineNumber": 64
+        },
+        {
+          "caller": "handle",
+          "callee": "self.style.SUCCESS",
+          "lineNumber": 64
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "Backend/accounts/management/commands/seed_roles.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 21,
+      "nonEmptyLines": 15,
+      "classes": [
+        {
+          "name": "Command",
+          "startLine": 13,
+          "endLine": 21,
+          "methods": [
+            "handle"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "Command",
+          "line": 13,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "handle",
+          "callee": "Group.objects.get_or_create",
+          "lineNumber": 18
+        },
+        {
+          "caller": "handle",
+          "callee": "self.stdout.write",
+          "lineNumber": 20
+        },
+        {
+          "caller": "handle",
+          "callee": "self.stdout.write",
+          "lineNumber": 21
+        },
+        {
+          "caller": "handle",
+          "callee": "self.style.SUCCESS",
+          "lineNumber": 21
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "Backend/accounts/managers.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 54,
+      "nonEmptyLines": 46,
+      "classes": [
+        {
+          "name": "UserManager",
+          "startLine": 10,
+          "endLine": 54,
+          "methods": [
+            "_create_user",
+            "create_user",
+            "create_superuser"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "UserManager",
+          "line": 10,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "_create_user",
+          "callee": "extra.pop",
+          "lineNumber": 19
+        },
+        {
+          "caller": "_create_user",
+          "callee": "ValueError",
+          "lineNumber": 21
+        },
+        {
+          "caller": "_create_user",
+          "callee": "self.model.normalize_phone",
+          "lineNumber": 23
+        },
+        {
+          "caller": "_create_user",
+          "callee": "self.normalize_email",
+          "lineNumber": 25
+        },
+        {
+          "caller": "_create_user",
+          "callee": "self.model",
+          "lineNumber": 26
+        },
+        {
+          "caller": "_create_user",
+          "callee": "user.set_password",
+          "lineNumber": 28
+        },
+        {
+          "caller": "_create_user",
+          "callee": "user.set_unusable_password",
+          "lineNumber": 30
+        },
+        {
+          "caller": "_create_user",
+          "callee": "user.save",
+          "lineNumber": 31
+        },
+        {
+          "caller": "create_user",
+          "callee": "extra.setdefault",
+          "lineNumber": 37
+        },
+        {
+          "caller": "create_user",
+          "callee": "extra.setdefault",
+          "lineNumber": 38
+        },
+        {
+          "caller": "create_user",
+          "callee": "self._create_user",
+          "lineNumber": 39
+        },
+        {
+          "caller": "create_superuser",
+          "callee": "extra.setdefault",
+          "lineNumber": 44
+        },
+        {
+          "caller": "create_superuser",
+          "callee": "extra.setdefault",
+          "lineNumber": 45
+        },
+        {
+          "caller": "create_superuser",
+          "callee": "extra.get",
+          "lineNumber": 46
+        },
+        {
+          "caller": "create_superuser",
+          "callee": "ValueError",
+          "lineNumber": 47
+        },
+        {
+          "caller": "create_superuser",
+          "callee": "extra.get",
+          "lineNumber": 48
+        },
+        {
+          "caller": "create_superuser",
+          "callee": "ValueError",
+          "lineNumber": 49
+        },
+        {
+          "caller": "create_superuser",
+          "callee": "extra.get",
+          "lineNumber": 51
+        },
+        {
+          "caller": "create_superuser",
+          "callee": "ValueError",
+          "lineNumber": 53
+        },
+        {
+          "caller": "create_superuser",
+          "callee": "self._create_user",
+          "lineNumber": 54
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "Backend/accounts/migrations/0001_initial.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 170,
+      "nonEmptyLines": 164,
+      "classes": [
+        {
+          "name": "Migration",
+          "startLine": 11,
+          "endLine": 170,
+          "methods": [],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "Migration",
+          "line": 11,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "Backend/accounts/models.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 355,
+      "nonEmptyLines": 299,
+      "classes": [
+        {
+          "name": "User",
+          "startLine": 32,
+          "endLine": 92,
+          "methods": [
+            "__str__",
+            "save",
+            "normalize_phone",
+            "get_full_name",
+            "get_short_name"
+          ],
+          "properties": [
+            "REQUIRED_FIELDS"
+          ]
+        },
+        {
+          "name": "PatientProfile",
+          "startLine": 95,
+          "endLine": 130,
+          "methods": [],
+          "properties": []
+        },
+        {
+          "name": "StaffProfile",
+          "startLine": 133,
+          "endLine": 165,
+          "methods": [],
+          "properties": []
+        },
+        {
+          "name": "OTPCode",
+          "startLine": 168,
+          "endLine": 227,
+          "methods": [
+            "hash_code",
+            "issue",
+            "verify",
+            "is_expired"
+          ],
+          "properties": []
+        },
+        {
+          "name": "TrustedDevice",
+          "startLine": 230,
+          "endLine": 321,
+          "methods": [
+            "hash_token",
+            "issue",
+            "verify"
+          ],
+          "properties": []
+        },
+        {
+          "name": "TOTPDevice",
+          "startLine": 324,
+          "endLine": 355,
+          "methods": [],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "User",
+          "line": 32,
+          "isDefault": false
+        },
+        {
+          "name": "PatientProfile",
+          "line": 95,
+          "isDefault": false
+        },
+        {
+          "name": "StaffProfile",
+          "line": 133,
+          "isDefault": false
+        },
+        {
+          "name": "OTPCode",
+          "line": 168,
+          "isDefault": false
+        },
+        {
+          "name": "TrustedDevice",
+          "line": 230,
+          "isDefault": false
+        },
+        {
+          "name": "TOTPDevice",
+          "line": 324,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "__str__",
+          "callee": "str",
+          "lineNumber": 69
+        },
+        {
+          "caller": "save",
+          "callee": "super().save",
+          "lineNumber": 76
+        },
+        {
+          "caller": "save",
+          "callee": "super",
+          "lineNumber": 76
+        },
+        {
+          "caller": "normalize_phone",
+          "callee": "re.sub",
+          "lineNumber": 83
+        },
+        {
+          "caller": "normalize_phone",
+          "callee": "phone.strip",
+          "lineNumber": 83
+        },
+        {
+          "caller": "normalize_phone",
+          "callee": "PHONE_RE.match",
+          "lineNumber": 84
+        },
+        {
+          "caller": "normalize_phone",
+          "callee": "ValueError",
+          "lineNumber": 85
+        },
+        {
+          "caller": "get_full_name",
+          "callee": "f\"{self.first_name} {self.last_name}\".strip",
+          "lineNumber": 89
+        },
+        {
+          "caller": "get_short_name",
+          "callee": "str",
+          "lineNumber": 92
+        },
+        {
+          "caller": "hash_code",
+          "callee": "hashlib.sha256(f\"{salt}:{code}\".encode()).hexdigest",
+          "lineNumber": 198
+        },
+        {
+          "caller": "hash_code",
+          "callee": "hashlib.sha256",
+          "lineNumber": 198
+        },
+        {
+          "caller": "hash_code",
+          "callee": "f\"{salt}:{code}\".encode",
+          "lineNumber": 198
+        },
+        {
+          "caller": "issue",
+          "callee": "secrets.token_hex",
+          "lineNumber": 202
+        },
+        {
+          "caller": "issue",
+          "callee": "cls.objects.create",
+          "lineNumber": 203
+        },
+        {
+          "caller": "issue",
+          "callee": "cls.hash_code",
+          "lineNumber": 207
+        },
+        {
+          "caller": "issue",
+          "callee": "timezone.now",
+          "lineNumber": 208
+        },
+        {
+          "caller": "issue",
+          "callee": "timedelta",
+          "lineNumber": 208
+        },
+        {
+          "caller": "verify",
+          "callee": "timezone.now",
+          "lineNumber": 215
+        },
+        {
+          "caller": "verify",
+          "callee": "models.F",
+          "lineNumber": 217
+        },
+        {
+          "caller": "verify",
+          "callee": "OTPCode.hash_code",
+          "lineNumber": 218
+        },
+        {
+          "caller": "verify",
+          "callee": "self.save",
+          "lineNumber": 219
+        },
+        {
+          "caller": "verify",
+          "callee": "timezone.now",
+          "lineNumber": 221
+        },
+        {
+          "caller": "verify",
+          "callee": "self.save",
+          "lineNumber": 222
+        },
+        {
+          "caller": "is_expired",
+          "callee": "timezone.now",
+          "lineNumber": 227
+        },
+        {
+          "caller": "hash_token",
+          "callee": "hashlib.sha256(token.encode()).hexdigest",
+          "lineNumber": 291
+        },
+        {
+          "caller": "hash_token",
+          "callee": "hashlib.sha256",
+          "lineNumber": 291
+        },
+        {
+          "caller": "hash_token",
+          "callee": "token.encode",
+          "lineNumber": 291
+        },
+        {
+          "caller": "issue",
+          "callee": "secrets.token_urlsafe",
+          "lineNumber": 303
+        },
+        {
+          "caller": "issue",
+          "callee": "cls.objects.update_or_create",
+          "lineNumber": 304
+        },
+        {
+          "caller": "issue",
+          "callee": "cls.hash_token",
+          "lineNumber": 311
+        },
+        {
+          "caller": "issue",
+          "callee": "timezone.now",
+          "lineNumber": 313
+        },
+        {
+          "caller": "verify",
+          "callee": "secrets.compare_digest",
+          "lineNumber": 321
+        },
+        {
+          "caller": "verify",
+          "callee": "self.hash_token",
+          "lineNumber": 321
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 6,
+        "functionCount": 0,
+        "classCount": 6
+      }
+    },
+    {
+      "path": "Backend/accounts/serializers.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 173,
+      "nonEmptyLines": 141,
+      "classes": [
+        {
+          "name": "OTPRequestSerializer",
+          "startLine": 10,
+          "endLine": 22,
+          "methods": [
+            "validate_phone"
+          ],
+          "properties": []
+        },
+        {
+          "name": "OTPVerifySerializer",
+          "startLine": 25,
+          "endLine": 37,
+          "methods": [
+            "validate_phone"
+          ],
+          "properties": []
+        },
+        {
+          "name": "UserMeSerializer",
+          "startLine": 40,
+          "endLine": 154,
+          "methods": [
+            "get_roles",
+            "get_default_latitude",
+            "get_default_longitude",
+            "to_internal_value",
+            "update"
+          ],
+          "properties": []
+        },
+        {
+          "name": "StaffLoginSerializer",
+          "startLine": 157,
+          "endLine": 159,
+          "methods": [],
+          "properties": []
+        },
+        {
+          "name": "GoogleLoginSerializer",
+          "startLine": 162,
+          "endLine": 163,
+          "methods": [],
+          "properties": []
+        },
+        {
+          "name": "FirebaseLoginSerializer",
+          "startLine": 166,
+          "endLine": 173,
+          "methods": [],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "OTPRequestSerializer",
+          "line": 10,
+          "isDefault": false
+        },
+        {
+          "name": "OTPVerifySerializer",
+          "line": 25,
+          "isDefault": false
+        },
+        {
+          "name": "UserMeSerializer",
+          "line": 40,
+          "isDefault": false
+        },
+        {
+          "name": "StaffLoginSerializer",
+          "line": 157,
+          "isDefault": false
+        },
+        {
+          "name": "GoogleLoginSerializer",
+          "line": 162,
+          "isDefault": false
+        },
+        {
+          "name": "FirebaseLoginSerializer",
+          "line": 166,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "validate_phone",
+          "callee": "User.normalize_phone",
+          "lineNumber": 20
+        },
+        {
+          "caller": "validate_phone",
+          "callee": "serializers.ValidationError",
+          "lineNumber": 22
+        },
+        {
+          "caller": "validate_phone",
+          "callee": "str",
+          "lineNumber": 22
+        },
+        {
+          "caller": "validate_phone",
+          "callee": "User.normalize_phone",
+          "lineNumber": 35
+        },
+        {
+          "caller": "validate_phone",
+          "callee": "serializers.ValidationError",
+          "lineNumber": 37
+        },
+        {
+          "caller": "validate_phone",
+          "callee": "str",
+          "lineNumber": 37
+        },
+        {
+          "caller": "get_roles",
+          "callee": "list",
+          "lineNumber": 103
+        },
+        {
+          "caller": "get_roles",
+          "callee": "obj.groups.values_list",
+          "lineNumber": 103
+        },
+        {
+          "caller": "get_default_latitude",
+          "callee": "getattr",
+          "lineNumber": 106
+        },
+        {
+          "caller": "get_default_longitude",
+          "callee": "getattr",
+          "lineNumber": 112
+        },
+        {
+          "caller": "to_internal_value",
+          "callee": "data.get",
+          "lineNumber": 120
+        },
+        {
+          "caller": "to_internal_value",
+          "callee": "data.get",
+          "lineNumber": 121
+        },
+        {
+          "caller": "to_internal_value",
+          "callee": "super().to_internal_value",
+          "lineNumber": 122
+        },
+        {
+          "caller": "to_internal_value",
+          "callee": "super",
+          "lineNumber": 122
+        },
+        {
+          "caller": "update",
+          "callee": "validated_data.pop",
+          "lineNumber": 129
+        },
+        {
+          "caller": "update",
+          "callee": "validated_data.items",
+          "lineNumber": 132
+        },
+        {
+          "caller": "update",
+          "callee": "setattr",
+          "lineNumber": 133
+        },
+        {
+          "caller": "update",
+          "callee": "instance.save",
+          "lineNumber": 134
+        },
+        {
+          "caller": "update",
+          "callee": "PatientProfile.objects.get_or_create",
+          "lineNumber": 138
+        },
+        {
+          "caller": "update",
+          "callee": "profile_data.items",
+          "lineNumber": 141
+        },
+        {
+          "caller": "update",
+          "callee": "setattr",
+          "lineNumber": 142
+        },
+        {
+          "caller": "update",
+          "callee": "getattr",
+          "lineNumber": 145
+        },
+        {
+          "caller": "update",
+          "callee": "getattr",
+          "lineNumber": 146
+        },
+        {
+          "caller": "update",
+          "callee": "Point",
+          "lineNumber": 149
+        },
+        {
+          "caller": "update",
+          "callee": "float",
+          "lineNumber": 149
+        },
+        {
+          "caller": "update",
+          "callee": "float",
+          "lineNumber": 149
+        },
+        {
+          "caller": "update",
+          "callee": "profile.save",
+          "lineNumber": 153
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 6,
+        "functionCount": 0,
+        "classCount": 6
+      }
+    },
+    {
+      "path": "Backend/accounts/services/__init__.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 1,
+      "nonEmptyLines": 0,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "Backend/accounts/services/firebase.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 140,
+      "nonEmptyLines": 115,
+      "functions": [
+        {
+          "name": "_load_public_keys",
+          "startLine": 42,
+          "endLine": 78,
+          "params": []
+        },
+        {
+          "name": "verify_id_token",
+          "startLine": 81,
+          "endLine": 140,
+          "params": [
+            "id_token"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "FirebaseAuthError",
+          "startLine": 38,
+          "endLine": 39,
+          "methods": [],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "FirebaseAuthError",
+          "line": 38,
+          "isDefault": false
+        },
+        {
+          "name": "_load_public_keys",
+          "line": 42,
+          "isDefault": false
+        },
+        {
+          "name": "verify_id_token",
+          "line": 81,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "_load_public_keys",
+          "callee": "time.time",
+          "lineNumber": 46
+        },
+        {
+          "caller": "_load_public_keys",
+          "callee": "urllib.request.Request",
+          "lineNumber": 50
+        },
+        {
+          "caller": "_load_public_keys",
+          "callee": "urllib.request.urlopen",
+          "lineNumber": 54
+        },
+        {
+          "caller": "_load_public_keys",
+          "callee": "resp.read().decode",
+          "lineNumber": 55
+        },
+        {
+          "caller": "_load_public_keys",
+          "callee": "resp.read",
+          "lineNumber": 55
+        },
+        {
+          "caller": "_load_public_keys",
+          "callee": "resp.headers.get",
+          "lineNumber": 60
+        },
+        {
+          "caller": "_load_public_keys",
+          "callee": "cache_control.split",
+          "lineNumber": 61
+        },
+        {
+          "caller": "_load_public_keys",
+          "callee": "part.strip",
+          "lineNumber": 62
+        },
+        {
+          "caller": "_load_public_keys",
+          "callee": "part.startswith",
+          "lineNumber": 63
+        },
+        {
+          "caller": "_load_public_keys",
+          "callee": "int",
+          "lineNumber": 65
+        },
+        {
+          "caller": "_load_public_keys",
+          "callee": "part.split",
+          "lineNumber": 65
+        },
+        {
+          "caller": "_load_public_keys",
+          "callee": "json.loads",
+          "lineNumber": 69
+        },
+        {
+          "caller": "_load_public_keys",
+          "callee": "certs.items",
+          "lineNumber": 71
+        },
+        {
+          "caller": "_load_public_keys",
+          "callee": "x509.load_pem_x509_certificate",
+          "lineNumber": 72
+        },
+        {
+          "caller": "_load_public_keys",
+          "callee": "cert_pem.encode",
+          "lineNumber": 72
+        },
+        {
+          "caller": "_load_public_keys",
+          "callee": "default_backend",
+          "lineNumber": 72
+        },
+        {
+          "caller": "_load_public_keys",
+          "callee": "cert.public_key",
+          "lineNumber": 74
+        },
+        {
+          "caller": "verify_id_token",
+          "callee": "getattr",
+          "lineNumber": 89
+        },
+        {
+          "caller": "verify_id_token",
+          "callee": "FirebaseAuthError",
+          "lineNumber": 91
+        },
+        {
+          "caller": "verify_id_token",
+          "callee": "jwt.get_unverified_header",
+          "lineNumber": 96
+        },
+        {
+          "caller": "verify_id_token",
+          "callee": "FirebaseAuthError",
+          "lineNumber": 98
+        },
+        {
+          "caller": "verify_id_token",
+          "callee": "header.get",
+          "lineNumber": 100
+        },
+        {
+          "caller": "verify_id_token",
+          "callee": "FirebaseAuthError",
+          "lineNumber": 102
+        },
+        {
+          "caller": "verify_id_token",
+          "callee": "_load_public_keys",
+          "lineNumber": 105
+        },
+        {
+          "caller": "verify_id_token",
+          "callee": "logger.error",
+          "lineNumber": 107
+        },
+        {
+          "caller": "verify_id_token",
+          "callee": "FirebaseAuthError",
+          "lineNumber": 108
+        },
+        {
+          "caller": "verify_id_token",
+          "callee": "keys.get",
+          "lineNumber": 110
+        },
+        {
+          "caller": "verify_id_token",
+          "callee": "_keys_cache.clear",
+          "lineNumber": 114
+        },
+        {
+          "caller": "verify_id_token",
+          "callee": "_load_public_keys",
+          "lineNumber": 115
+        },
+        {
+          "caller": "verify_id_token",
+          "callee": "keys.get",
+          "lineNumber": 116
+        },
+        {
+          "caller": "verify_id_token",
+          "callee": "FirebaseAuthError",
+          "lineNumber": 118
+        },
+        {
+          "caller": "verify_id_token",
+          "callee": "jwt.decode",
+          "lineNumber": 121
+        },
+        {
+          "caller": "verify_id_token",
+          "callee": "FirebaseAuthError",
+          "lineNumber": 130
+        },
+        {
+          "caller": "verify_id_token",
+          "callee": "FirebaseAuthError",
+          "lineNumber": 132
+        },
+        {
+          "caller": "verify_id_token",
+          "callee": "FirebaseAuthError",
+          "lineNumber": 134
+        },
+        {
+          "caller": "verify_id_token",
+          "callee": "FirebaseAuthError",
+          "lineNumber": 136
+        },
+        {
+          "caller": "verify_id_token",
+          "callee": "claims.get",
+          "lineNumber": 138
+        },
+        {
+          "caller": "verify_id_token",
+          "callee": "FirebaseAuthError",
+          "lineNumber": 139
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 3,
+        "functionCount": 2,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "Backend/accounts/services/otp.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 92,
+      "nonEmptyLines": 63,
+      "functions": [
+        {
+          "name": "get_provider",
+          "startLine": 69,
+          "endLine": 76,
+          "params": []
+        },
+        {
+          "name": "generate_code",
+          "startLine": 79,
+          "endLine": 82,
+          "params": []
+        },
+        {
+          "name": "_render_otp_body",
+          "startLine": 85,
+          "endLine": 92,
+          "params": [
+            "code",
+            "language"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "OTPProvider",
+          "startLine": 20,
+          "endLine": 25,
+          "methods": [
+            "send"
+          ],
+          "properties": []
+        },
+        {
+          "name": "MockOTPProvider",
+          "startLine": 28,
+          "endLine": 36,
+          "methods": [
+            "send"
+          ],
+          "properties": []
+        },
+        {
+          "name": "TwilioSMSProvider",
+          "startLine": 39,
+          "endLine": 51,
+          "methods": [
+            "__init__",
+            "send"
+          ],
+          "properties": []
+        },
+        {
+          "name": "WhatsAppProvider",
+          "startLine": 54,
+          "endLine": 58,
+          "methods": [
+            "send"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "OTPProvider",
+          "line": 20,
+          "isDefault": false
+        },
+        {
+          "name": "MockOTPProvider",
+          "line": 28,
+          "isDefault": false
+        },
+        {
+          "name": "TwilioSMSProvider",
+          "line": 39,
+          "isDefault": false
+        },
+        {
+          "name": "WhatsAppProvider",
+          "line": 54,
+          "isDefault": false
+        },
+        {
+          "name": "get_provider",
+          "line": 69,
+          "isDefault": false
+        },
+        {
+          "name": "generate_code",
+          "line": 79,
+          "isDefault": false
+        },
+        {
+          "name": "_render_otp_body",
+          "line": 85,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "send",
+          "callee": "logger.warning",
+          "lineNumber": 36
+        },
+        {
+          "caller": "__init__",
+          "callee": "Client",
+          "lineNumber": 45
+        },
+        {
+          "caller": "send",
+          "callee": "_render_otp_body",
+          "lineNumber": 49
+        },
+        {
+          "caller": "send",
+          "callee": "self._client.messages.create",
+          "lineNumber": 50
+        },
+        {
+          "caller": "send",
+          "callee": "logger.info",
+          "lineNumber": 51
+        },
+        {
+          "caller": "send",
+          "callee": "NotImplementedError",
+          "lineNumber": 58
+        },
+        {
+          "caller": "get_provider",
+          "callee": "RuntimeError",
+          "lineNumber": 74
+        },
+        {
+          "caller": "get_provider",
+          "callee": "list",
+          "lineNumber": 75
+        },
+        {
+          "caller": "generate_code",
+          "callee": "\"\".join",
+          "lineNumber": 82
+        },
+        {
+          "caller": "generate_code",
+          "callee": "str",
+          "lineNumber": 82
+        },
+        {
+          "caller": "generate_code",
+          "callee": "secrets.randbelow",
+          "lineNumber": 82
+        },
+        {
+          "caller": "generate_code",
+          "callee": "range",
+          "lineNumber": 82
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 7,
+        "functionCount": 3,
+        "classCount": 4
+      }
+    },
+    {
+      "path": "Backend/accounts/tokens.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 38,
+      "nonEmptyLines": 27,
+      "classes": [
+        {
+          "name": "LabConnectAccessToken",
+          "startLine": 23,
+          "endLine": 24,
+          "methods": [],
+          "properties": []
+        },
+        {
+          "name": "LabConnectRefreshToken",
+          "startLine": 27,
+          "endLine": 38,
+          "methods": [
+            "for_user"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "LabConnectAccessToken",
+          "line": 23,
+          "isDefault": false
+        },
+        {
+          "name": "LabConnectRefreshToken",
+          "line": 27,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "for_user",
+          "callee": "super().for_user",
+          "lineNumber": 32
+        },
+        {
+          "caller": "for_user",
+          "callee": "super",
+          "lineNumber": 32
+        },
+        {
+          "caller": "for_user",
+          "callee": "list",
+          "lineNumber": 33
+        },
+        {
+          "caller": "for_user",
+          "callee": "user.groups.values_list",
+          "lineNumber": 33
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 2,
+        "functionCount": 0,
+        "classCount": 2
+      }
+    },
+    {
+      "path": "Backend/accounts/urls.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 55,
+      "nonEmptyLines": 49,
+      "metrics": {
+        "importCount": 4,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "Backend/accounts/views.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 482,
+      "nonEmptyLines": 403,
+      "functions": [
+        {
+          "name": "_assign_role",
+          "startLine": 162,
+          "endLine": 167,
+          "params": [
+            "user",
+            "role"
+          ]
+        },
+        {
+          "name": "verify_google_token",
+          "startLine": 177,
+          "endLine": 189,
+          "params": [
+            "id_token"
+          ]
+        },
+        {
+          "name": "_user_is_staff",
+          "startLine": 264,
+          "endLine": 268,
+          "params": [
+            "user"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "OTPRequestView",
+          "startLine": 39,
+          "endLine": 65,
+          "methods": [
+            "post"
+          ],
+          "properties": []
+        },
+        {
+          "name": "OTPVerifyView",
+          "startLine": 68,
+          "endLine": 120,
+          "methods": [
+            "post"
+          ],
+          "properties": []
+        },
+        {
+          "name": "MeView",
+          "startLine": 123,
+          "endLine": 137,
+          "methods": [
+            "get_object"
+          ],
+          "properties": []
+        },
+        {
+          "name": "LogoutView",
+          "startLine": 140,
+          "endLine": 159,
+          "methods": [
+            "post"
+          ],
+          "properties": []
+        },
+        {
+          "name": "PatientEmailLoginView",
+          "startLine": 192,
+          "endLine": 223,
+          "methods": [
+            "post"
+          ],
+          "properties": []
+        },
+        {
+          "name": "StaffLoginView",
+          "startLine": 226,
+          "endLine": 261,
+          "methods": [
+            "post"
+          ],
+          "properties": []
+        },
+        {
+          "name": "PatientGoogleLoginView",
+          "startLine": 271,
+          "endLine": 338,
+          "methods": [
+            "post"
+          ],
+          "properties": []
+        },
+        {
+          "name": "GoogleLoginView",
+          "startLine": 341,
+          "endLine": 394,
+          "methods": [
+            "post"
+          ],
+          "properties": []
+        },
+        {
+          "name": "FirebaseLoginView",
+          "startLine": 397,
+          "endLine": 482,
+          "methods": [
+            "post"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "OTPRequestView",
+          "line": 39,
+          "isDefault": false
+        },
+        {
+          "name": "OTPVerifyView",
+          "line": 68,
+          "isDefault": false
+        },
+        {
+          "name": "MeView",
+          "line": 123,
+          "isDefault": false
+        },
+        {
+          "name": "LogoutView",
+          "line": 140,
+          "isDefault": false
+        },
+        {
+          "name": "_assign_role",
+          "line": 162,
+          "isDefault": false
+        },
+        {
+          "name": "verify_google_token",
+          "line": 177,
+          "isDefault": false
+        },
+        {
+          "name": "PatientEmailLoginView",
+          "line": 192,
+          "isDefault": false
+        },
+        {
+          "name": "StaffLoginView",
+          "line": 226,
+          "isDefault": false
+        },
+        {
+          "name": "_user_is_staff",
+          "line": 264,
+          "isDefault": false
+        },
+        {
+          "name": "PatientGoogleLoginView",
+          "line": 271,
+          "isDefault": false
+        },
+        {
+          "name": "GoogleLoginView",
+          "line": 341,
+          "isDefault": false
+        },
+        {
+          "name": "FirebaseLoginView",
+          "line": 397,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "post",
+          "callee": "OTPRequestSerializer",
+          "lineNumber": 47
+        },
+        {
+          "caller": "post",
+          "callee": "ser.is_valid",
+          "lineNumber": 48
+        },
+        {
+          "caller": "post",
+          "callee": "OTPCode.objects.filter(\n            phone=phone, purpose=purpose, consumed_at__isnull=True\n        ).update",
+          "lineNumber": 54
+        },
+        {
+          "caller": "post",
+          "callee": "OTPCode.objects.filter",
+          "lineNumber": 54
+        },
+        {
+          "caller": "post",
+          "callee": "timezone.now",
+          "lineNumber": 56
+        },
+        {
+          "caller": "post",
+          "callee": "generate_code",
+          "lineNumber": 58
+        },
+        {
+          "caller": "post",
+          "callee": "OTPCode.issue",
+          "lineNumber": 59
+        },
+        {
+          "caller": "post",
+          "callee": "get_provider().send",
+          "lineNumber": 60
+        },
+        {
+          "caller": "post",
+          "callee": "get_provider",
+          "lineNumber": 60
+        },
+        {
+          "caller": "post",
+          "callee": "Response",
+          "lineNumber": 62
+        },
+        {
+          "caller": "post",
+          "callee": "OTPVerifySerializer",
+          "lineNumber": 77
+        },
+        {
+          "caller": "post",
+          "callee": "ser.is_valid",
+          "lineNumber": 78
+        },
+        {
+          "caller": "post",
+          "callee": "OTPCode.objects.filter(\n                phone=phone, purpose=purpose, consumed_at__isnull=True\n            )\n            .order_by(\"-created_at\")\n            .first",
+          "lineNumber": 89
+        },
+        {
+          "caller": "post",
+          "callee": "OTPCode.objects.filter(\n                phone=phone, purpose=purpose, consumed_at__isnull=True\n            )\n            .order_by",
+          "lineNumber": 89
+        },
+        {
+          "caller": "post",
+          "callee": "OTPCode.objects.filter",
+          "lineNumber": 89
+        },
+        {
+          "caller": "post",
+          "callee": "otp.verify",
+          "lineNumber": 95
+        },
+        {
+          "caller": "post",
+          "callee": "Response",
+          "lineNumber": 96
+        },
+        {
+          "caller": "post",
+          "callee": "User.objects.get_or_create",
+          "lineNumber": 102
+        },
+        {
+          "caller": "post",
+          "callee": "user.save",
+          "lineNumber": 105
+        },
+        {
+          "caller": "post",
+          "callee": "PatientProfile.objects.create",
+          "lineNumber": 106
+        },
+        {
+          "caller": "post",
+          "callee": "_assign_role",
+          "lineNumber": 107
+        },
+        {
+          "caller": "post",
+          "callee": "user.save",
+          "lineNumber": 110
+        },
+        {
+          "caller": "post",
+          "callee": "LabConnectRefreshToken.for_user",
+          "lineNumber": 112
+        },
+        {
+          "caller": "post",
+          "callee": "Response",
+          "lineNumber": 113
+        },
+        {
+          "caller": "post",
+          "callee": "str",
+          "lineNumber": 115
+        },
+        {
+          "caller": "post",
+          "callee": "str",
+          "lineNumber": 116
+        },
+        {
+          "caller": "post",
+          "callee": "UserMeSerializer",
+          "lineNumber": 117
+        },
+        {
+          "caller": "get_object",
+          "callee": "PatientProfile.objects.get_or_create",
+          "lineNumber": 136
+        },
+        {
+          "caller": "post",
+          "callee": "request.data.get",
+          "lineNumber": 146
+        },
+        {
+          "caller": "post",
+          "callee": "Response",
+          "lineNumber": 148
+        },
+        {
+          "caller": "post",
+          "callee": "RefreshToken(token).blacklist",
+          "lineNumber": 153
+        },
+        {
+          "caller": "post",
+          "callee": "RefreshToken",
+          "lineNumber": 153
+        },
+        {
+          "caller": "post",
+          "callee": "Response",
+          "lineNumber": 155
+        },
+        {
+          "caller": "post",
+          "callee": "str",
+          "lineNumber": 156
+        },
+        {
+          "caller": "post",
+          "callee": "Response",
+          "lineNumber": 159
+        },
+        {
+          "caller": "_assign_role",
+          "callee": "Group.objects.get_or_create",
+          "lineNumber": 166
+        },
+        {
+          "caller": "_assign_role",
+          "callee": "user.groups.add",
+          "lineNumber": 167
+        },
+        {
+          "caller": "verify_google_token",
+          "callee": "urllib.request.Request",
+          "lineNumber": 181
+        },
+        {
+          "caller": "verify_google_token",
+          "callee": "urllib.request.urlopen",
+          "lineNumber": 182
+        },
+        {
+          "caller": "verify_google_token",
+          "callee": "json.loads",
+          "lineNumber": 183
+        },
+        {
+          "caller": "verify_google_token",
+          "callee": "response.read().decode",
+          "lineNumber": 183
+        },
+        {
+          "caller": "verify_google_token",
+          "callee": "response.read",
+          "lineNumber": 183
+        },
+        {
+          "caller": "verify_google_token",
+          "callee": "data.get",
+          "lineNumber": 184
+        },
+        {
+          "caller": "verify_google_token",
+          "callee": "logger.error",
+          "lineNumber": 188
+        },
+        {
+          "caller": "post",
+          "callee": "StaffLoginSerializer",
+          "lineNumber": 204
+        },
+        {
+          "caller": "post",
+          "callee": "ser.is_valid",
+          "lineNumber": 205
+        },
+        {
+          "caller": "post",
+          "callee": "authenticate",
+          "lineNumber": 209
+        },
+        {
+          "caller": "post",
+          "callee": "Response",
+          "lineNumber": 211
+        },
+        {
+          "caller": "post",
+          "callee": "LabConnectRefreshToken.for_user",
+          "lineNumber": 215
+        },
+        {
+          "caller": "post",
+          "callee": "Response",
+          "lineNumber": 216
+        },
+        {
+          "caller": "post",
+          "callee": "str",
+          "lineNumber": 218
+        },
+        {
+          "caller": "post",
+          "callee": "str",
+          "lineNumber": 219
+        },
+        {
+          "caller": "post",
+          "callee": "UserMeSerializer",
+          "lineNumber": 220
+        },
+        {
+          "caller": "post",
+          "callee": "StaffLoginSerializer",
+          "lineNumber": 234
+        },
+        {
+          "caller": "post",
+          "callee": "ser.is_valid",
+          "lineNumber": 235
+        },
+        {
+          "caller": "post",
+          "callee": "authenticate",
+          "lineNumber": 239
+        },
+        {
+          "caller": "post",
+          "callee": "Response",
+          "lineNumber": 242
+        },
+        {
+          "caller": "post",
+          "callee": "_user_is_staff",
+          "lineNumber": 247
+        },
+        {
+          "caller": "post",
+          "callee": "Response",
+          "lineNumber": 248
+        },
+        {
+          "caller": "post",
+          "callee": "LabConnectRefreshToken.for_user",
+          "lineNumber": 253
+        },
+        {
+          "caller": "post",
+          "callee": "Response",
+          "lineNumber": 254
+        },
+        {
+          "caller": "post",
+          "callee": "str",
+          "lineNumber": 256
+        },
+        {
+          "caller": "post",
+          "callee": "str",
+          "lineNumber": 257
+        },
+        {
+          "caller": "post",
+          "callee": "UserMeSerializer",
+          "lineNumber": 258
+        },
+        {
+          "caller": "_user_is_staff",
+          "callee": "user.staff_profiles.filter(deleted_at__isnull=True).exists",
+          "lineNumber": 266
+        },
+        {
+          "caller": "_user_is_staff",
+          "callee": "user.staff_profiles.filter",
+          "lineNumber": 266
+        },
+        {
+          "caller": "_user_is_staff",
+          "callee": "user.groups.filter(name__in=RoleNames.ALL_STAFF).exists",
+          "lineNumber": 267
+        },
+        {
+          "caller": "_user_is_staff",
+          "callee": "user.groups.filter",
+          "lineNumber": 267
+        },
+        {
+          "caller": "post",
+          "callee": "GoogleLoginSerializer",
+          "lineNumber": 287
+        },
+        {
+          "caller": "post",
+          "callee": "ser.is_valid",
+          "lineNumber": 288
+        },
+        {
+          "caller": "post",
+          "callee": "verify_google_token",
+          "lineNumber": 291
+        },
+        {
+          "caller": "post",
+          "callee": "Response",
+          "lineNumber": 293
+        },
+        {
+          "caller": "post",
+          "callee": "google_data.get(\"email\", \"\").lower().strip",
+          "lineNumber": 298
+        },
+        {
+          "caller": "post",
+          "callee": "google_data.get(\"email\", \"\").lower",
+          "lineNumber": 298
+        },
+        {
+          "caller": "post",
+          "callee": "google_data.get",
+          "lineNumber": 298
+        },
+        {
+          "caller": "post",
+          "callee": "Response",
+          "lineNumber": 300
+        },
+        {
+          "caller": "post",
+          "callee": "User.objects.filter(email__iexact=email).first",
+          "lineNumber": 305
+        },
+        {
+          "caller": "post",
+          "callee": "User.objects.filter",
+          "lineNumber": 305
+        },
+        {
+          "caller": "post",
+          "callee": "User.objects.create_user",
+          "lineNumber": 309
+        },
+        {
+          "caller": "post",
+          "callee": "google_data.get",
+          "lineNumber": 311
+        },
+        {
+          "caller": "post",
+          "callee": "google_data.get",
+          "lineNumber": 312
+        },
+        {
+          "caller": "post",
+          "callee": "PatientProfile.objects.create",
+          "lineNumber": 314
+        },
+        {
+          "caller": "post",
+          "callee": "_assign_role",
+          "lineNumber": 315
+        },
+        {
+          "caller": "post",
+          "callee": "user.save",
+          "lineNumber": 317
+        },
+        {
+          "caller": "post",
+          "callee": "google_data.get",
+          "lineNumber": 322
+        },
+        {
+          "caller": "post",
+          "callee": "updates.append",
+          "lineNumber": 323
+        },
+        {
+          "caller": "post",
+          "callee": "google_data.get",
+          "lineNumber": 324
+        },
+        {
+          "caller": "post",
+          "callee": "updates.append",
+          "lineNumber": 325
+        },
+        {
+          "caller": "post",
+          "callee": "user.save",
+          "lineNumber": 327
+        },
+        {
+          "caller": "post",
+          "callee": "LabConnectRefreshToken.for_user",
+          "lineNumber": 329
+        },
+        {
+          "caller": "post",
+          "callee": "Response",
+          "lineNumber": 330
+        },
+        {
+          "caller": "post",
+          "callee": "str",
+          "lineNumber": 332
+        },
+        {
+          "caller": "post",
+          "callee": "str",
+          "lineNumber": 333
+        },
+        {
+          "caller": "post",
+          "callee": "UserMeSerializer",
+          "lineNumber": 334
+        },
+        {
+          "caller": "post",
+          "callee": "GoogleLoginSerializer",
+          "lineNumber": 349
+        },
+        {
+          "caller": "post",
+          "callee": "ser.is_valid",
+          "lineNumber": 350
+        },
+        {
+          "caller": "post",
+          "callee": "verify_google_token",
+          "lineNumber": 353
+        },
+        {
+          "caller": "post",
+          "callee": "Response",
+          "lineNumber": 355
+        },
+        {
+          "caller": "post",
+          "callee": "google_data.get",
+          "lineNumber": 360
+        },
+        {
+          "caller": "post",
+          "callee": "User.objects.get",
+          "lineNumber": 362
+        },
+        {
+          "caller": "post",
+          "callee": "Response",
+          "lineNumber": 364
+        },
+        {
+          "caller": "post",
+          "callee": "_user_is_staff",
+          "lineNumber": 369
+        },
+        {
+          "caller": "post",
+          "callee": "Response",
+          "lineNumber": 370
+        },
+        {
+          "caller": "post",
+          "callee": "google_data.get",
+          "lineNumber": 377
+        },
+        {
+          "caller": "post",
+          "callee": "google_data.get",
+          "lineNumber": 378
+        },
+        {
+          "caller": "post",
+          "callee": "google_data.get",
+          "lineNumber": 380
+        },
+        {
+          "caller": "post",
+          "callee": "google_data.get",
+          "lineNumber": 381
+        },
+        {
+          "caller": "post",
+          "callee": "user.save",
+          "lineNumber": 384
+        },
+        {
+          "caller": "post",
+          "callee": "LabConnectRefreshToken.for_user",
+          "lineNumber": 386
+        },
+        {
+          "caller": "post",
+          "callee": "Response",
+          "lineNumber": 387
+        },
+        {
+          "caller": "post",
+          "callee": "str",
+          "lineNumber": 389
+        },
+        {
+          "caller": "post",
+          "callee": "str",
+          "lineNumber": 390
+        },
+        {
+          "caller": "post",
+          "callee": "UserMeSerializer",
+          "lineNumber": 391
+        },
+        {
+          "caller": "post",
+          "callee": "FirebaseLoginSerializer",
+          "lineNumber": 417
+        },
+        {
+          "caller": "post",
+          "callee": "ser.is_valid",
+          "lineNumber": 418
+        },
+        {
+          "caller": "post",
+          "callee": "getattr",
+          "lineNumber": 421
+        },
+        {
+          "caller": "post",
+          "callee": "Response",
+          "lineNumber": 422
+        },
+        {
+          "caller": "post",
+          "callee": "verify_firebase_id_token",
+          "lineNumber": 429
+        },
+        {
+          "caller": "post",
+          "callee": "Response",
+          "lineNumber": 431
+        },
+        {
+          "caller": "post",
+          "callee": "str",
+          "lineNumber": 432
+        },
+        {
+          "caller": "post",
+          "callee": "(claims.get(\"email\") or \"\").lower().strip",
+          "lineNumber": 436
+        },
+        {
+          "caller": "post",
+          "callee": "(claims.get(\"email\") or \"\").lower",
+          "lineNumber": 436
+        },
+        {
+          "caller": "post",
+          "callee": "claims.get",
+          "lineNumber": 436
+        },
+        {
+          "caller": "post",
+          "callee": "Response",
+          "lineNumber": 438
+        },
+        {
+          "caller": "post",
+          "callee": "claims.get",
+          "lineNumber": 443
+        },
+        {
+          "caller": "post",
+          "callee": "logger.info",
+          "lineNumber": 444
+        },
+        {
+          "caller": "post",
+          "callee": "User.objects.filter(email__iexact=email).first",
+          "lineNumber": 446
+        },
+        {
+          "caller": "post",
+          "callee": "User.objects.filter",
+          "lineNumber": 446
+        },
+        {
+          "caller": "post",
+          "callee": "(claims.get(\"name\") or \"\").strip",
+          "lineNumber": 449
+        },
+        {
+          "caller": "post",
+          "callee": "claims.get",
+          "lineNumber": 449
+        },
+        {
+          "caller": "post",
+          "callee": "full_name.partition",
+          "lineNumber": 450
+        },
+        {
+          "caller": "post",
+          "callee": "User.objects.create_user",
+          "lineNumber": 451
+        },
+        {
+          "caller": "post",
+          "callee": "PatientProfile.objects.create",
+          "lineNumber": 456
+        },
+        {
+          "caller": "post",
+          "callee": "_assign_role",
+          "lineNumber": 457
+        },
+        {
+          "caller": "post",
+          "callee": "user.save",
+          "lineNumber": 459
+        },
+        {
+          "caller": "post",
+          "callee": "(claims.get(\"name\") or \"\").strip",
+          "lineNumber": 463
+        },
+        {
+          "caller": "post",
+          "callee": "claims.get",
+          "lineNumber": 463
+        },
+        {
+          "caller": "post",
+          "callee": "full_name.partition",
+          "lineNumber": 465
+        },
+        {
+          "caller": "post",
+          "callee": "updates.append",
+          "lineNumber": 467
+        },
+        {
+          "caller": "post",
+          "callee": "updates.append",
+          "lineNumber": 469
+        },
+        {
+          "caller": "post",
+          "callee": "user.save",
+          "lineNumber": 471
+        },
+        {
+          "caller": "post",
+          "callee": "LabConnectRefreshToken.for_user",
+          "lineNumber": 473
+        },
+        {
+          "caller": "post",
+          "callee": "Response",
+          "lineNumber": 474
+        },
+        {
+          "caller": "post",
+          "callee": "str",
+          "lineNumber": 476
+        },
+        {
+          "caller": "post",
+          "callee": "str",
+          "lineNumber": 477
+        },
+        {
+          "caller": "post",
+          "callee": "UserMeSerializer",
+          "lineNumber": 478
+        }
+      ],
+      "metrics": {
+        "importCount": 6,
+        "exportCount": 12,
+        "functionCount": 3,
+        "classCount": 9
+      }
+    },
+    {
+      "path": "Backend/accounts/views_biometric.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 199,
+      "nonEmptyLines": 168,
+      "functions": [
+        {
+          "name": "_norm",
+          "startLine": 34,
+          "endLine": 35,
+          "params": [
+            "value"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "BiometricCheckView",
+          "startLine": 38,
+          "endLine": 62,
+          "methods": [
+            "post"
+          ],
+          "properties": []
+        },
+        {
+          "name": "BiometricRegisterView",
+          "startLine": 65,
+          "endLine": 109,
+          "methods": [
+            "post"
+          ],
+          "properties": []
+        },
+        {
+          "name": "BiometricLoginView",
+          "startLine": 112,
+          "endLine": 174,
+          "methods": [
+            "post"
+          ],
+          "properties": []
+        },
+        {
+          "name": "BiometricRevokeView",
+          "startLine": 177,
+          "endLine": 199,
+          "methods": [
+            "post"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "_norm",
+          "line": 34,
+          "isDefault": false
+        },
+        {
+          "name": "BiometricCheckView",
+          "line": 38,
+          "isDefault": false
+        },
+        {
+          "name": "BiometricRegisterView",
+          "line": 65,
+          "isDefault": false
+        },
+        {
+          "name": "BiometricLoginView",
+          "line": 112,
+          "isDefault": false
+        },
+        {
+          "name": "BiometricRevokeView",
+          "line": 177,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "_norm",
+          "callee": "(value or \"\").strip",
+          "lineNumber": 35
+        },
+        {
+          "caller": "_norm",
+          "callee": "isinstance",
+          "lineNumber": 35
+        },
+        {
+          "caller": "post",
+          "callee": "_norm",
+          "lineNumber": 51
+        },
+        {
+          "caller": "post",
+          "callee": "request.data.get",
+          "lineNumber": 51
+        },
+        {
+          "caller": "post",
+          "callee": "_norm",
+          "lineNumber": 52
+        },
+        {
+          "caller": "post",
+          "callee": "request.data.get",
+          "lineNumber": 52
+        },
+        {
+          "caller": "post",
+          "callee": "Response",
+          "lineNumber": 54
+        },
+        {
+          "caller": "post",
+          "callee": "User.normalize_phone",
+          "lineNumber": 56
+        },
+        {
+          "caller": "post",
+          "callee": "Response",
+          "lineNumber": 58
+        },
+        {
+          "caller": "post",
+          "callee": "TrustedDevice.objects.filter(\n            phone=phone, device_id=device_id, revoked_at__isnull=True\n        ).exists",
+          "lineNumber": 59
+        },
+        {
+          "caller": "post",
+          "callee": "TrustedDevice.objects.filter",
+          "lineNumber": 59
+        },
+        {
+          "caller": "post",
+          "callee": "Response",
+          "lineNumber": 62
+        },
+        {
+          "caller": "post",
+          "callee": "Response",
+          "lineNumber": 79
+        },
+        {
+          "caller": "post",
+          "callee": "_norm",
+          "lineNumber": 85
+        },
+        {
+          "caller": "post",
+          "callee": "request.data.get",
+          "lineNumber": 85
+        },
+        {
+          "caller": "post",
+          "callee": "len",
+          "lineNumber": 86
+        },
+        {
+          "caller": "post",
+          "callee": "Response",
+          "lineNumber": 87
+        },
+        {
+          "caller": "post",
+          "callee": "_norm",
+          "lineNumber": 92
+        },
+        {
+          "caller": "post",
+          "callee": "request.data.get",
+          "lineNumber": 92
+        },
+        {
+          "caller": "post",
+          "callee": "_norm",
+          "lineNumber": 93
+        },
+        {
+          "caller": "post",
+          "callee": "request.data.get",
+          "lineNumber": 93
+        },
+        {
+          "caller": "post",
+          "callee": "TrustedDevice.issue",
+          "lineNumber": 95
+        },
+        {
+          "caller": "post",
+          "callee": "Response",
+          "lineNumber": 102
+        },
+        {
+          "caller": "post",
+          "callee": "str",
+          "lineNumber": 105
+        },
+        {
+          "caller": "post",
+          "callee": "_norm",
+          "lineNumber": 120
+        },
+        {
+          "caller": "post",
+          "callee": "request.data.get",
+          "lineNumber": 120
+        },
+        {
+          "caller": "post",
+          "callee": "_norm",
+          "lineNumber": 121
+        },
+        {
+          "caller": "post",
+          "callee": "request.data.get",
+          "lineNumber": 121
+        },
+        {
+          "caller": "post",
+          "callee": "_norm",
+          "lineNumber": 122
+        },
+        {
+          "caller": "post",
+          "callee": "request.data.get",
+          "lineNumber": 122
+        },
+        {
+          "caller": "post",
+          "callee": "Response",
+          "lineNumber": 124
+        },
+        {
+          "caller": "post",
+          "callee": "User.normalize_phone",
+          "lineNumber": 130
+        },
+        {
+          "caller": "post",
+          "callee": "Response",
+          "lineNumber": 132
+        },
+        {
+          "caller": "post",
+          "callee": "TrustedDevice.objects.select_related(\"user\")\n            .filter(phone=phone, device_id=device_id, revoked_at__isnull=True)\n            .first",
+          "lineNumber": 138
+        },
+        {
+          "caller": "post",
+          "callee": "TrustedDevice.objects.select_related(\"user\")\n            .filter",
+          "lineNumber": 138
+        },
+        {
+          "caller": "post",
+          "callee": "TrustedDevice.objects.select_related",
+          "lineNumber": 138
+        },
+        {
+          "caller": "post",
+          "callee": "device.verify",
+          "lineNumber": 142
+        },
+        {
+          "caller": "post",
+          "callee": "Response",
+          "lineNumber": 143
+        },
+        {
+          "caller": "post",
+          "callee": "Response",
+          "lineNumber": 152
+        },
+        {
+          "caller": "post",
+          "callee": "Response",
+          "lineNumber": 158
+        },
+        {
+          "caller": "post",
+          "callee": "timezone.now",
+          "lineNumber": 163
+        },
+        {
+          "caller": "post",
+          "callee": "device.save",
+          "lineNumber": 164
+        },
+        {
+          "caller": "post",
+          "callee": "LabConnectRefreshToken.for_user",
+          "lineNumber": 166
+        },
+        {
+          "caller": "post",
+          "callee": "Response",
+          "lineNumber": 167
+        },
+        {
+          "caller": "post",
+          "callee": "str",
+          "lineNumber": 169
+        },
+        {
+          "caller": "post",
+          "callee": "str",
+          "lineNumber": 170
+        },
+        {
+          "caller": "post",
+          "callee": "UserMeSerializer",
+          "lineNumber": 171
+        },
+        {
+          "caller": "post",
+          "callee": "_norm",
+          "lineNumber": 187
+        },
+        {
+          "caller": "post",
+          "callee": "request.data.get",
+          "lineNumber": 187
+        },
+        {
+          "caller": "post",
+          "callee": "Response",
+          "lineNumber": 189
+        },
+        {
+          "caller": "post",
+          "callee": "TrustedDevice.objects.filter(\n            user=request.user, device_id=device_id, revoked_at__isnull=True\n        ).update",
+          "lineNumber": 194
+        },
+        {
+          "caller": "post",
+          "callee": "TrustedDevice.objects.filter",
+          "lineNumber": 194
+        },
+        {
+          "caller": "post",
+          "callee": "timezone.now",
+          "lineNumber": 196
+        },
+        {
+          "caller": "post",
+          "callee": "Response",
+          "lineNumber": 198
+        },
+        {
+          "caller": "post",
+          "callee": "Response",
+          "lineNumber": 199
+        }
+      ],
+      "metrics": {
+        "importCount": 3,
+        "exportCount": 5,
+        "functionCount": 1,
+        "classCount": 4
+      }
+    },
+    {
+      "path": "Backend/accounts/views_employees.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 338,
+      "nonEmptyLines": 290,
+      "functions": [
+        {
+          "name": "_resolve_lab",
+          "startLine": 35,
+          "endLine": 40,
+          "params": [
+            "request"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "EmployeeInviteSerializer",
+          "startLine": 48,
+          "endLine": 78,
+          "methods": [
+            "validate_phone",
+            "validate_roles"
+          ],
+          "properties": []
+        },
+        {
+          "name": "StaffProfileSerializer",
+          "startLine": 81,
+          "endLine": 112,
+          "methods": [
+            "get_roles",
+            "get_has_2fa"
+          ],
+          "properties": []
+        },
+        {
+          "name": "EmployeeUpdateSerializer",
+          "startLine": 115,
+          "endLine": 131,
+          "methods": [
+            "validate_roles"
+          ],
+          "properties": []
+        },
+        {
+          "name": "NurseListView",
+          "startLine": 136,
+          "endLine": 169,
+          "methods": [
+            "get"
+          ],
+          "properties": []
+        },
+        {
+          "name": "EmployeeInviteView",
+          "startLine": 172,
+          "endLine": 259,
+          "methods": [
+            "post"
+          ],
+          "properties": []
+        },
+        {
+          "name": "EmployeeViewSet",
+          "startLine": 262,
+          "endLine": 338,
+          "methods": [
+            "get_queryset",
+            "update",
+            "destroy"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "_resolve_lab",
+          "line": 35,
+          "isDefault": false
+        },
+        {
+          "name": "EmployeeInviteSerializer",
+          "line": 48,
+          "isDefault": false
+        },
+        {
+          "name": "StaffProfileSerializer",
+          "line": 81,
+          "isDefault": false
+        },
+        {
+          "name": "EmployeeUpdateSerializer",
+          "line": 115,
+          "isDefault": false
+        },
+        {
+          "name": "NurseListView",
+          "line": 136,
+          "isDefault": false
+        },
+        {
+          "name": "EmployeeInviteView",
+          "line": 172,
+          "isDefault": false
+        },
+        {
+          "name": "EmployeeViewSet",
+          "line": 262,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "_resolve_lab",
+          "callee": "current_lab_id",
+          "lineNumber": 37
+        },
+        {
+          "caller": "_resolve_lab",
+          "callee": "ValidationError",
+          "lineNumber": 39
+        },
+        {
+          "caller": "_resolve_lab",
+          "callee": "Laboratory.objects.get",
+          "lineNumber": 40
+        },
+        {
+          "caller": "validate_phone",
+          "callee": "User.normalize_phone",
+          "lineNumber": 68
+        },
+        {
+          "caller": "validate_phone",
+          "callee": "serializers.ValidationError",
+          "lineNumber": 70
+        },
+        {
+          "caller": "validate_phone",
+          "callee": "str",
+          "lineNumber": 70
+        },
+        {
+          "caller": "validate_roles",
+          "callee": "serializers.ValidationError",
+          "lineNumber": 74
+        },
+        {
+          "caller": "validate_roles",
+          "callee": "list",
+          "lineNumber": 78
+        },
+        {
+          "caller": "validate_roles",
+          "callee": "dict.fromkeys",
+          "lineNumber": 78
+        },
+        {
+          "caller": "get_roles",
+          "callee": "list",
+          "lineNumber": 109
+        },
+        {
+          "caller": "get_roles",
+          "callee": "obj.user.groups.values_list",
+          "lineNumber": 109
+        },
+        {
+          "caller": "get_has_2fa",
+          "callee": "hasattr",
+          "lineNumber": 112
+        },
+        {
+          "caller": "validate_roles",
+          "callee": "list",
+          "lineNumber": 131
+        },
+        {
+          "caller": "validate_roles",
+          "callee": "dict.fromkeys",
+          "lineNumber": 131
+        },
+        {
+          "caller": "get",
+          "callee": "current_lab_id",
+          "lineNumber": 147
+        },
+        {
+          "caller": "get",
+          "callee": "Response",
+          "lineNumber": 149
+        },
+        {
+          "caller": "get",
+          "callee": "StaffProfile.active\n            .filter(laboratory_id=lab_id, user__groups__name=RoleNames.NURSE)\n            .select_related(\"user\")\n            .distinct()\n            .order_by",
+          "lineNumber": 151
+        },
+        {
+          "caller": "get",
+          "callee": "StaffProfile.active\n            .filter(laboratory_id=lab_id, user__groups__name=RoleNames.NURSE)\n            .select_related(\"user\")\n            .distinct",
+          "lineNumber": 151
+        },
+        {
+          "caller": "get",
+          "callee": "StaffProfile.active\n            .filter(laboratory_id=lab_id, user__groups__name=RoleNames.NURSE)\n            .select_related",
+          "lineNumber": 151
+        },
+        {
+          "caller": "get",
+          "callee": "StaffProfile.active\n            .filter",
+          "lineNumber": 151
+        },
+        {
+          "caller": "get",
+          "callee": "str",
+          "lineNumber": 159
+        },
+        {
+          "caller": "get",
+          "callee": "Response",
+          "lineNumber": 169
+        },
+        {
+          "caller": "post",
+          "callee": "EmployeeInviteSerializer",
+          "lineNumber": 178
+        },
+        {
+          "caller": "post",
+          "callee": "ser.is_valid",
+          "lineNumber": 179
+        },
+        {
+          "caller": "post",
+          "callee": "_resolve_lab",
+          "lineNumber": 182
+        },
+        {
+          "caller": "post",
+          "callee": "data[\"email\"].lower",
+          "lineNumber": 184
+        },
+        {
+          "caller": "post",
+          "callee": "data.get",
+          "lineNumber": 185
+        },
+        {
+          "caller": "post",
+          "callee": "StaffProfile.active.filter(user__email__iexact=email, laboratory=lab).exists",
+          "lineNumber": 188
+        },
+        {
+          "caller": "post",
+          "callee": "StaffProfile.active.filter",
+          "lineNumber": 188
+        },
+        {
+          "caller": "post",
+          "callee": "Response",
+          "lineNumber": 189
+        },
+        {
+          "caller": "post",
+          "callee": "StaffProfile.active.filter(user__phone=phone, laboratory=lab).exists",
+          "lineNumber": 196
+        },
+        {
+          "caller": "post",
+          "callee": "StaffProfile.active.filter",
+          "lineNumber": 196
+        },
+        {
+          "caller": "post",
+          "callee": "Response",
+          "lineNumber": 197
+        },
+        {
+          "caller": "post",
+          "callee": "User.objects.filter(email__iexact=email).first",
+          "lineNumber": 206
+        },
+        {
+          "caller": "post",
+          "callee": "User.objects.filter",
+          "lineNumber": 206
+        },
+        {
+          "caller": "post",
+          "callee": "data.get",
+          "lineNumber": 211
+        },
+        {
+          "caller": "post",
+          "callee": "secrets.token_urlsafe",
+          "lineNumber": 214
+        },
+        {
+          "caller": "post",
+          "callee": "User.objects.create_user",
+          "lineNumber": 216
+        },
+        {
+          "caller": "post",
+          "callee": "data.get",
+          "lineNumber": 220
+        },
+        {
+          "caller": "post",
+          "callee": "data.get",
+          "lineNumber": 221
+        },
+        {
+          "caller": "post",
+          "callee": "updated_fields.append",
+          "lineNumber": 228
+        },
+        {
+          "caller": "post",
+          "callee": "data.get",
+          "lineNumber": 229
+        },
+        {
+          "caller": "post",
+          "callee": "data.get",
+          "lineNumber": 230
+        },
+        {
+          "caller": "post",
+          "callee": "updated_fields.append",
+          "lineNumber": 231
+        },
+        {
+          "caller": "post",
+          "callee": "data.get",
+          "lineNumber": 232
+        },
+        {
+          "caller": "post",
+          "callee": "data.get",
+          "lineNumber": 233
+        },
+        {
+          "caller": "post",
+          "callee": "updated_fields.append",
+          "lineNumber": 234
+        },
+        {
+          "caller": "post",
+          "callee": "user.save",
+          "lineNumber": 236
+        },
+        {
+          "caller": "post",
+          "callee": "StaffProfile.objects.create",
+          "lineNumber": 240
+        },
+        {
+          "caller": "post",
+          "callee": "data.get",
+          "lineNumber": 243
+        },
+        {
+          "caller": "post",
+          "callee": "data.get",
+          "lineNumber": 244
+        },
+        {
+          "caller": "post",
+          "callee": "_assign_role",
+          "lineNumber": 249
+        },
+        {
+          "caller": "post",
+          "callee": "user.save",
+          "lineNumber": 254
+        },
+        {
+          "caller": "post",
+          "callee": "Response",
+          "lineNumber": 256
+        },
+        {
+          "caller": "post",
+          "callee": "StaffProfileSerializer",
+          "lineNumber": 257
+        },
+        {
+          "caller": "get_queryset",
+          "callee": "current_lab_id",
+          "lineNumber": 278
+        },
+        {
+          "caller": "get_queryset",
+          "callee": "StaffProfile.active.none",
+          "lineNumber": 280
+        },
+        {
+          "caller": "get_queryset",
+          "callee": "StaffProfile.active\n            .filter(laboratory_id=lab_id)\n            .select_related(\"user\", \"user__totp_device\")\n            .prefetch_related(\"user__groups\")\n            .exclude",
+          "lineNumber": 282
+        },
+        {
+          "caller": "get_queryset",
+          "callee": "StaffProfile.active\n            .filter(laboratory_id=lab_id)\n            .select_related(\"user\", \"user__totp_device\")\n            .prefetch_related",
+          "lineNumber": 282
+        },
+        {
+          "caller": "get_queryset",
+          "callee": "StaffProfile.active\n            .filter(laboratory_id=lab_id)\n            .select_related",
+          "lineNumber": 282
+        },
+        {
+          "caller": "get_queryset",
+          "callee": "StaffProfile.active\n            .filter",
+          "lineNumber": 282
+        },
+        {
+          "caller": "update",
+          "callee": "self.get_object",
+          "lineNumber": 291
+        },
+        {
+          "caller": "update",
+          "callee": "EmployeeUpdateSerializer",
+          "lineNumber": 292
+        },
+        {
+          "caller": "update",
+          "callee": "ser.is_valid",
+          "lineNumber": 293
+        },
+        {
+          "caller": "update",
+          "callee": "setattr",
+          "lineNumber": 301
+        },
+        {
+          "caller": "update",
+          "callee": "changed_user.append",
+          "lineNumber": 302
+        },
+        {
+          "caller": "update",
+          "callee": "user.save",
+          "lineNumber": 304
+        },
+        {
+          "caller": "update",
+          "callee": "setattr",
+          "lineNumber": 310
+        },
+        {
+          "caller": "update",
+          "callee": "changed_profile.append",
+          "lineNumber": 311
+        },
+        {
+          "caller": "update",
+          "callee": "profile.save",
+          "lineNumber": 313
+        },
+        {
+          "caller": "update",
+          "callee": "Group.objects.filter",
+          "lineNumber": 318
+        },
+        {
+          "caller": "update",
+          "callee": "user.groups.remove",
+          "lineNumber": 319
+        },
+        {
+          "caller": "update",
+          "callee": "_assign_role",
+          "lineNumber": 321
+        },
+        {
+          "caller": "update",
+          "callee": "Response",
+          "lineNumber": 323
+        },
+        {
+          "caller": "update",
+          "callee": "StaffProfileSerializer",
+          "lineNumber": 323
+        },
+        {
+          "caller": "destroy",
+          "callee": "self.get_object",
+          "lineNumber": 327
+        },
+        {
+          "caller": "destroy",
+          "callee": "profile.soft_delete",
+          "lineNumber": 330
+        },
+        {
+          "caller": "destroy",
+          "callee": "Group.objects.filter",
+          "lineNumber": 332
+        },
+        {
+          "caller": "destroy",
+          "callee": "user.groups.remove",
+          "lineNumber": 333
+        },
+        {
+          "caller": "destroy",
+          "callee": "StaffProfile.active.filter(user=user).exists",
+          "lineNumber": 335
+        },
+        {
+          "caller": "destroy",
+          "callee": "StaffProfile.active.filter",
+          "lineNumber": 335
+        },
+        {
+          "caller": "destroy",
+          "callee": "user.save",
+          "lineNumber": 337
+        },
+        {
+          "caller": "destroy",
+          "callee": "Response",
+          "lineNumber": 338
+        }
+      ],
+      "metrics": {
+        "importCount": 4,
+        "exportCount": 7,
+        "functionCount": 1,
+        "classCount": 6
+      }
+    },
+    {
+      "path": "Backend/accounts/views_totp.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 160,
+      "nonEmptyLines": 131,
+      "classes": [
+        {
+          "name": "TOTPVerifySerializer",
+          "startLine": 25,
+          "endLine": 26,
+          "methods": [],
+          "properties": []
+        },
+        {
+          "name": "TOTPSetupView",
+          "startLine": 31,
+          "endLine": 66,
+          "methods": [
+            "post"
+          ],
+          "properties": []
+        },
+        {
+          "name": "TOTPConfirmView",
+          "startLine": 69,
+          "endLine": 102,
+          "methods": [
+            "post"
+          ],
+          "properties": []
+        },
+        {
+          "name": "TOTPVerifyView",
+          "startLine": 105,
+          "endLine": 146,
+          "methods": [
+            "post"
+          ],
+          "properties": []
+        },
+        {
+          "name": "TOTPDeviceDeleteView",
+          "startLine": 149,
+          "endLine": 160,
+          "methods": [
+            "delete"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "TOTPVerifySerializer",
+          "line": 25,
+          "isDefault": false
+        },
+        {
+          "name": "TOTPSetupView",
+          "line": 31,
+          "isDefault": false
+        },
+        {
+          "name": "TOTPConfirmView",
+          "line": 69,
+          "isDefault": false
+        },
+        {
+          "name": "TOTPVerifyView",
+          "line": 105,
+          "isDefault": false
+        },
+        {
+          "name": "TOTPDeviceDeleteView",
+          "line": 149,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "post",
+          "callee": "TOTPDevice.objects.filter(user=user).first",
+          "lineNumber": 42
+        },
+        {
+          "caller": "post",
+          "callee": "TOTPDevice.objects.filter",
+          "lineNumber": 42
+        },
+        {
+          "caller": "post",
+          "callee": "Response",
+          "lineNumber": 44
+        },
+        {
+          "caller": "post",
+          "callee": "totp_svc.generate_secret",
+          "lineNumber": 49
+        },
+        {
+          "caller": "post",
+          "callee": "existing.save",
+          "lineNumber": 55
+        },
+        {
+          "caller": "post",
+          "callee": "TOTPDevice.objects.create",
+          "lineNumber": 57
+        },
+        {
+          "caller": "post",
+          "callee": "str",
+          "lineNumber": 58
+        },
+        {
+          "caller": "post",
+          "callee": "Response",
+          "lineNumber": 59
+        },
+        {
+          "caller": "post",
+          "callee": "totp_svc.provisioning_uri",
+          "lineNumber": 62
+        },
+        {
+          "caller": "post",
+          "callee": "totp_svc.qr_code_base64",
+          "lineNumber": 63
+        },
+        {
+          "caller": "post",
+          "callee": "TOTPVerifySerializer",
+          "lineNumber": 74
+        },
+        {
+          "caller": "post",
+          "callee": "ser.is_valid",
+          "lineNumber": 75
+        },
+        {
+          "caller": "post",
+          "callee": "TOTPDevice.objects.filter(user=request.user, deleted_at__isnull=True).first",
+          "lineNumber": 78
+        },
+        {
+          "caller": "post",
+          "callee": "TOTPDevice.objects.filter",
+          "lineNumber": 78
+        },
+        {
+          "caller": "post",
+          "callee": "Response",
+          "lineNumber": 80
+        },
+        {
+          "caller": "post",
+          "callee": "Response",
+          "lineNumber": 86
+        },
+        {
+          "caller": "post",
+          "callee": "totp_svc.verify_code",
+          "lineNumber": 91
+        },
+        {
+          "caller": "post",
+          "callee": "Response",
+          "lineNumber": 92
+        },
+        {
+          "caller": "post",
+          "callee": "int",
+          "lineNumber": 99
+        },
+        {
+          "caller": "post",
+          "callee": "timezone.now().timestamp",
+          "lineNumber": 99
+        },
+        {
+          "caller": "post",
+          "callee": "timezone.now",
+          "lineNumber": 99
+        },
+        {
+          "caller": "post",
+          "callee": "device.save",
+          "lineNumber": 100
+        },
+        {
+          "caller": "post",
+          "callee": "Response",
+          "lineNumber": 102
+        },
+        {
+          "caller": "post",
+          "callee": "TOTPVerifySerializer",
+          "lineNumber": 114
+        },
+        {
+          "caller": "post",
+          "callee": "ser.is_valid",
+          "lineNumber": 115
+        },
+        {
+          "caller": "post",
+          "callee": "TOTPDevice.objects.filter(\n            user=user, is_confirmed=True, deleted_at__isnull=True\n        ).first",
+          "lineNumber": 119
+        },
+        {
+          "caller": "post",
+          "callee": "TOTPDevice.objects.filter",
+          "lineNumber": 119
+        },
+        {
+          "caller": "post",
+          "callee": "Response",
+          "lineNumber": 123
+        },
+        {
+          "caller": "post",
+          "callee": "totp_svc.verify_code",
+          "lineNumber": 128
+        },
+        {
+          "caller": "post",
+          "callee": "Response",
+          "lineNumber": 129
+        },
+        {
+          "caller": "post",
+          "callee": "int",
+          "lineNumber": 135
+        },
+        {
+          "caller": "post",
+          "callee": "timezone.now().timestamp",
+          "lineNumber": 135
+        },
+        {
+          "caller": "post",
+          "callee": "timezone.now",
+          "lineNumber": 135
+        },
+        {
+          "caller": "post",
+          "callee": "device.save",
+          "lineNumber": 136
+        },
+        {
+          "caller": "post",
+          "callee": "LabConnectRefreshToken.for_user",
+          "lineNumber": 139
+        },
+        {
+          "caller": "post",
+          "callee": "Response",
+          "lineNumber": 143
+        },
+        {
+          "caller": "post",
+          "callee": "str",
+          "lineNumber": 144
+        },
+        {
+          "caller": "post",
+          "callee": "str",
+          "lineNumber": 144
+        },
+        {
+          "caller": "delete",
+          "callee": "TOTPDevice.objects.filter(\n            user=request.user, deleted_at__isnull=True\n        ).first",
+          "lineNumber": 154
+        },
+        {
+          "caller": "delete",
+          "callee": "TOTPDevice.objects.filter",
+          "lineNumber": 154
+        },
+        {
+          "caller": "delete",
+          "callee": "Response",
+          "lineNumber": 158
+        },
+        {
+          "caller": "delete",
+          "callee": "device.soft_delete",
+          "lineNumber": 159
+        },
+        {
+          "caller": "delete",
+          "callee": "Response",
+          "lineNumber": 160
+        }
+      ],
+      "metrics": {
+        "importCount": 4,
+        "exportCount": 5,
+        "functionCount": 0,
+        "classCount": 5
+      }
+    },
+    {
+      "path": "Backend/appointments/models.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 108,
+      "nonEmptyLines": 89,
+      "classes": [
+        {
+          "name": "VisitType",
+          "startLine": 22,
+          "endLine": 25,
+          "methods": [],
+          "properties": []
+        },
+        {
+          "name": "AppointmentStatus",
+          "startLine": 28,
+          "endLine": 35,
+          "methods": [],
+          "properties": []
+        },
+        {
+          "name": "Appointment",
+          "startLine": 38,
+          "endLine": 108,
+          "methods": [
+            "__str__",
+            "total_fee_mru"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "VisitType",
+          "line": 22,
+          "isDefault": false
+        },
+        {
+          "name": "AppointmentStatus",
+          "line": 28,
+          "isDefault": false
+        },
+        {
+          "name": "Appointment",
+          "line": 38,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 3,
+        "functionCount": 0,
+        "classCount": 3
+      }
+    },
+    {
+      "path": "Backend/appointments/serializers.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 280,
+      "nonEmptyLines": 245,
+      "classes": [
+        {
+          "name": "AppointmentSerializer",
+          "startLine": 10,
+          "endLine": 100,
+          "methods": [
+            "get_home_latitude",
+            "get_home_longitude",
+            "get_patient_name",
+            "get_nurse_name",
+            "_iter_orders",
+            "get_items",
+            "get_items_total_mru",
+            "get_patient_due_mru",
+            "get_cnam_covered_mru"
+          ],
+          "properties": []
+        },
+        {
+          "name": "AppointmentCreateSerializer",
+          "startLine": 103,
+          "endLine": 274,
+          "methods": [
+            "validate",
+            "create"
+          ],
+          "properties": []
+        },
+        {
+          "name": "AppointmentStatusSerializer",
+          "startLine": 277,
+          "endLine": 280,
+          "methods": [],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "AppointmentSerializer",
+          "line": 10,
+          "isDefault": false
+        },
+        {
+          "name": "AppointmentCreateSerializer",
+          "line": 103,
+          "isDefault": false
+        },
+        {
+          "name": "AppointmentStatusSerializer",
+          "line": 277,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "get_patient_name",
+          "callee": "f\"{obj.patient.first_name} {obj.patient.last_name}\".strip",
+          "lineNumber": 59
+        },
+        {
+          "caller": "get_nurse_name",
+          "callee": "f\"{n.first_name} {n.last_name}\".strip",
+          "lineNumber": 65
+        },
+        {
+          "caller": "_iter_orders",
+          "callee": "obj.samples.all().select_related().prefetch_related",
+          "lineNumber": 69
+        },
+        {
+          "caller": "_iter_orders",
+          "callee": "obj.samples.all().select_related",
+          "lineNumber": 69
+        },
+        {
+          "caller": "_iter_orders",
+          "callee": "obj.samples.all",
+          "lineNumber": 69
+        },
+        {
+          "caller": "_iter_orders",
+          "callee": "sample.orders.all",
+          "lineNumber": 70
+        },
+        {
+          "caller": "get_items",
+          "callee": "str",
+          "lineNumber": 76
+        },
+        {
+          "caller": "get_items",
+          "callee": "str",
+          "lineNumber": 80
+        },
+        {
+          "caller": "get_items",
+          "callee": "str",
+          "lineNumber": 81
+        },
+        {
+          "caller": "get_items",
+          "callee": "str",
+          "lineNumber": 82
+        },
+        {
+          "caller": "get_items",
+          "callee": "self._iter_orders",
+          "lineNumber": 88
+        },
+        {
+          "caller": "get_items_total_mru",
+          "callee": "str",
+          "lineNumber": 92
+        },
+        {
+          "caller": "get_items_total_mru",
+          "callee": "sum",
+          "lineNumber": 92
+        },
+        {
+          "caller": "get_items_total_mru",
+          "callee": "self._iter_orders",
+          "lineNumber": 92
+        },
+        {
+          "caller": "get_patient_due_mru",
+          "callee": "sum",
+          "lineNumber": 96
+        },
+        {
+          "caller": "get_patient_due_mru",
+          "callee": "self._iter_orders",
+          "lineNumber": 96
+        },
+        {
+          "caller": "get_patient_due_mru",
+          "callee": "str",
+          "lineNumber": 97
+        },
+        {
+          "caller": "get_cnam_covered_mru",
+          "callee": "str",
+          "lineNumber": 100
+        },
+        {
+          "caller": "get_cnam_covered_mru",
+          "callee": "sum",
+          "lineNumber": 100
+        },
+        {
+          "caller": "get_cnam_covered_mru",
+          "callee": "self._iter_orders",
+          "lineNumber": 100
+        },
+        {
+          "caller": "validate",
+          "callee": "user.groups.filter(name=RoleNames.PATIENT).exists",
+          "lineNumber": 152
+        },
+        {
+          "caller": "validate",
+          "callee": "user.groups.filter",
+          "lineNumber": 152
+        },
+        {
+          "caller": "validate",
+          "callee": "user.groups.filter(\n            name__in=(RoleNames.SECRETARY, RoleNames.LAB_CHIEF, RoleNames.NURSE)\n        ).exists",
+          "lineNumber": 153
+        },
+        {
+          "caller": "validate",
+          "callee": "user.groups.filter",
+          "lineNumber": 153
+        },
+        {
+          "caller": "validate",
+          "callee": "serializers.ValidationError",
+          "lineNumber": 158
+        },
+        {
+          "caller": "validate",
+          "callee": "attrs.pop",
+          "lineNumber": 164
+        },
+        {
+          "caller": "validate",
+          "callee": "serializers.ValidationError",
+          "lineNumber": 166
+        },
+        {
+          "caller": "validate",
+          "callee": "User.normalize_phone",
+          "lineNumber": 168
+        },
+        {
+          "caller": "validate",
+          "callee": "serializers.ValidationError",
+          "lineNumber": 170
+        },
+        {
+          "caller": "validate",
+          "callee": "str",
+          "lineNumber": 170
+        },
+        {
+          "caller": "validate",
+          "callee": "User.objects.get_or_create",
+          "lineNumber": 171
+        },
+        {
+          "caller": "validate",
+          "callee": "Group.objects.get_or_create",
+          "lineNumber": 176
+        },
+        {
+          "caller": "validate",
+          "callee": "patient.groups.add",
+          "lineNumber": 177
+        },
+        {
+          "caller": "validate",
+          "callee": "attrs.pop",
+          "lineNumber": 180
+        },
+        {
+          "caller": "validate",
+          "callee": "Laboratory.active.get",
+          "lineNumber": 183
+        },
+        {
+          "caller": "validate",
+          "callee": "serializers.ValidationError",
+          "lineNumber": 185
+        },
+        {
+          "caller": "validate",
+          "callee": "serializers.ValidationError",
+          "lineNumber": 187
+        },
+        {
+          "caller": "validate",
+          "callee": "serializers.ValidationError",
+          "lineNumber": 194
+        },
+        {
+          "caller": "validate",
+          "callee": "serializers.ValidationError",
+          "lineNumber": 198
+        },
+        {
+          "caller": "create",
+          "callee": "validated_data.pop",
+          "lineNumber": 211
+        },
+        {
+          "caller": "create",
+          "callee": "validated_data.pop",
+          "lineNumber": 215
+        },
+        {
+          "caller": "create",
+          "callee": "validated_data.pop",
+          "lineNumber": 216
+        },
+        {
+          "caller": "create",
+          "callee": "validated_data.pop",
+          "lineNumber": 218
+        },
+        {
+          "caller": "create",
+          "callee": "validated_data.pop",
+          "lineNumber": 219
+        },
+        {
+          "caller": "create",
+          "callee": "Point",
+          "lineNumber": 221
+        },
+        {
+          "caller": "create",
+          "callee": "float",
+          "lineNumber": 221
+        },
+        {
+          "caller": "create",
+          "callee": "float",
+          "lineNumber": 221
+        },
+        {
+          "caller": "create",
+          "callee": "transaction.atomic",
+          "lineNumber": 223
+        },
+        {
+          "caller": "create",
+          "callee": "Appointment.objects.create",
+          "lineNumber": 224
+        },
+        {
+          "caller": "create",
+          "callee": "str",
+          "lineNumber": 234
+        },
+        {
+          "caller": "create",
+          "callee": "list",
+          "lineNumber": 235
+        },
+        {
+          "caller": "create",
+          "callee": "TestCatalogEntry.active.filter",
+          "lineNumber": 236
+        },
+        {
+          "caller": "create",
+          "callee": "len",
+          "lineNumber": 242
+        },
+        {
+          "caller": "create",
+          "callee": "len",
+          "lineNumber": 242
+        },
+        {
+          "caller": "create",
+          "callee": "set",
+          "lineNumber": 242
+        },
+        {
+          "caller": "create",
+          "callee": "serializers.ValidationError",
+          "lineNumber": 243
+        },
+        {
+          "caller": "create",
+          "callee": "getattr",
+          "lineNumber": 248
+        },
+        {
+          "caller": "create",
+          "callee": "int",
+          "lineNumber": 249
+        },
+        {
+          "caller": "create",
+          "callee": "getattr",
+          "lineNumber": 249
+        },
+        {
+          "caller": "create",
+          "callee": "Sample.objects.create",
+          "lineNumber": 253
+        },
+        {
+          "caller": "create",
+          "callee": "_make_barcode",
+          "lineNumber": 256
+        },
+        {
+          "caller": "create",
+          "callee": "_split_cnam",
+          "lineNumber": 261
+        },
+        {
+          "caller": "create",
+          "callee": "list",
+          "lineNumber": 262
+        },
+        {
+          "caller": "create",
+          "callee": "answers_by_test.get",
+          "lineNumber": 263
+        },
+        {
+          "caller": "create",
+          "callee": "str",
+          "lineNumber": 263
+        },
+        {
+          "caller": "create",
+          "callee": "str",
+          "lineNumber": 265
+        },
+        {
+          "caller": "create",
+          "callee": "len",
+          "lineNumber": 265
+        },
+        {
+          "caller": "create",
+          "callee": "range",
+          "lineNumber": 266
+        },
+        {
+          "caller": "create",
+          "callee": "len",
+          "lineNumber": 266
+        },
+        {
+          "caller": "create",
+          "callee": "TestOrder.objects.create",
+          "lineNumber": 268
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 3,
+        "functionCount": 0,
+        "classCount": 3
+      }
+    },
+    {
+      "path": "Backend/appointments/urls.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 8,
+      "nonEmptyLines": 5,
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "Backend/appointments/views.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 409,
+      "nonEmptyLines": 355,
+      "functions": [
+        {
+          "name": "_user_roles",
+          "startLine": 49,
+          "endLine": 50,
+          "params": [
+            "user"
+          ]
+        },
+        {
+          "name": "_has_2fa",
+          "startLine": 53,
+          "endLine": 55,
+          "params": [
+            "request"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "IsPatientOrStaff",
+          "startLine": 36,
+          "endLine": 46,
+          "methods": [
+            "has_permission"
+          ],
+          "properties": []
+        },
+        {
+          "name": "AppointmentViewSet",
+          "startLine": 58,
+          "endLine": 409,
+          "methods": [
+            "get_serializer_class",
+            "get_queryset",
+            "perform_create",
+            "mine",
+            "home_visits",
+            "assign_nurse",
+            "set_tubes",
+            "cancel",
+            "change_status"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "IsPatientOrStaff",
+          "line": 36,
+          "isDefault": false
+        },
+        {
+          "name": "_user_roles",
+          "line": 49,
+          "isDefault": false
+        },
+        {
+          "name": "_has_2fa",
+          "line": 53,
+          "isDefault": false
+        },
+        {
+          "name": "AppointmentViewSet",
+          "line": 58,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "has_permission",
+          "callee": "_user_roles",
+          "lineNumber": 41
+        },
+        {
+          "caller": "has_permission",
+          "callee": "roles.intersection",
+          "lineNumber": 44
+        },
+        {
+          "caller": "has_permission",
+          "callee": "_has_2fa",
+          "lineNumber": 45
+        },
+        {
+          "caller": "_user_roles",
+          "callee": "set",
+          "lineNumber": 50
+        },
+        {
+          "caller": "_user_roles",
+          "callee": "user.groups.values_list",
+          "lineNumber": 50
+        },
+        {
+          "caller": "_has_2fa",
+          "callee": "getattr",
+          "lineNumber": 54
+        },
+        {
+          "caller": "_has_2fa",
+          "callee": "bool",
+          "lineNumber": 55
+        },
+        {
+          "caller": "_has_2fa",
+          "callee": "getattr(token, \"payload\", {}).get",
+          "lineNumber": 55
+        },
+        {
+          "caller": "_has_2fa",
+          "callee": "getattr",
+          "lineNumber": 55
+        },
+        {
+          "caller": "get_queryset",
+          "callee": "super().get_queryset",
+          "lineNumber": 76
+        },
+        {
+          "caller": "get_queryset",
+          "callee": "super",
+          "lineNumber": 76
+        },
+        {
+          "caller": "get_queryset",
+          "callee": "_user_roles",
+          "lineNumber": 78
+        },
+        {
+          "caller": "get_queryset",
+          "callee": "qs.filter",
+          "lineNumber": 83
+        },
+        {
+          "caller": "get_queryset",
+          "callee": "current_lab_id",
+          "lineNumber": 86
+        },
+        {
+          "caller": "get_queryset",
+          "callee": "qs.none",
+          "lineNumber": 88
+        },
+        {
+          "caller": "get_queryset",
+          "callee": "qs.filter",
+          "lineNumber": 89
+        },
+        {
+          "caller": "get_queryset",
+          "callee": "roles.intersection",
+          "lineNumber": 92
+        },
+        {
+          "caller": "get_queryset",
+          "callee": "qs.filter",
+          "lineNumber": 95
+        },
+        {
+          "caller": "get_queryset",
+          "callee": "qs.filter",
+          "lineNumber": 100
+        },
+        {
+          "caller": "get_queryset",
+          "callee": "qs.filter",
+          "lineNumber": 102
+        },
+        {
+          "caller": "get_queryset",
+          "callee": "qs.filter",
+          "lineNumber": 104
+        },
+        {
+          "caller": "perform_create",
+          "callee": "serializer.save",
+          "lineNumber": 109
+        },
+        {
+          "caller": "perform_create",
+          "callee": "notify_appointment_created",
+          "lineNumber": 115
+        },
+        {
+          "caller": "mine",
+          "callee": "Appointment.active\n            .filter(patient=request.user)\n            .select_related(\"laboratory\", \"assigned_nurse\", \"patient\")\n            .prefetch_related",
+          "lineNumber": 123
+        },
+        {
+          "caller": "mine",
+          "callee": "Appointment.active\n            .filter(patient=request.user)\n            .select_related",
+          "lineNumber": 123
+        },
+        {
+          "caller": "mine",
+          "callee": "Appointment.active\n            .filter",
+          "lineNumber": 123
+        },
+        {
+          "caller": "mine",
+          "callee": "Response",
+          "lineNumber": 128
+        },
+        {
+          "caller": "mine",
+          "callee": "AppointmentSerializer",
+          "lineNumber": 128
+        },
+        {
+          "caller": "home_visits",
+          "callee": "_has_2fa",
+          "lineNumber": 142
+        },
+        {
+          "caller": "home_visits",
+          "callee": "PermissionDenied",
+          "lineNumber": 143
+        },
+        {
+          "caller": "home_visits",
+          "callee": "_user_roles",
+          "lineNumber": 145
+        },
+        {
+          "caller": "home_visits",
+          "callee": "bool",
+          "lineNumber": 147
+        },
+        {
+          "caller": "home_visits",
+          "callee": "roles.intersection",
+          "lineNumber": 147
+        },
+        {
+          "caller": "home_visits",
+          "callee": "PermissionDenied",
+          "lineNumber": 151
+        },
+        {
+          "caller": "home_visits",
+          "callee": "request.query_params.get",
+          "lineNumber": 155
+        },
+        {
+          "caller": "home_visits",
+          "callee": "current_lab_id",
+          "lineNumber": 161
+        },
+        {
+          "caller": "home_visits",
+          "callee": "Appointment.active.filter(visit_type=VisitType.HOME).select_related(\n            \"laboratory\", \"patient\", \"assigned_nurse\",\n        ).prefetch_related",
+          "lineNumber": 163
+        },
+        {
+          "caller": "home_visits",
+          "callee": "Appointment.active.filter(visit_type=VisitType.HOME).select_related",
+          "lineNumber": 163
+        },
+        {
+          "caller": "home_visits",
+          "callee": "Appointment.active.filter",
+          "lineNumber": 163
+        },
+        {
+          "caller": "home_visits",
+          "callee": "qs.filter",
+          "lineNumber": 172
+        },
+        {
+          "caller": "home_visits",
+          "callee": "qs.filter",
+          "lineNumber": 174
+        },
+        {
+          "caller": "home_visits",
+          "callee": "request.query_params.get",
+          "lineNumber": 176
+        },
+        {
+          "caller": "home_visits",
+          "callee": "qs.filter",
+          "lineNumber": 177
+        },
+        {
+          "caller": "home_visits",
+          "callee": "request.query_params.get",
+          "lineNumber": 179
+        },
+        {
+          "caller": "home_visits",
+          "callee": "qs.filter",
+          "lineNumber": 181
+        },
+        {
+          "caller": "home_visits",
+          "callee": "request.query_params.get",
+          "lineNumber": 183
+        },
+        {
+          "caller": "home_visits",
+          "callee": "qs.filter(status__in=allowed_status).order_by",
+          "lineNumber": 191
+        },
+        {
+          "caller": "home_visits",
+          "callee": "qs.filter",
+          "lineNumber": 191
+        },
+        {
+          "caller": "home_visits",
+          "callee": "Response",
+          "lineNumber": 193
+        },
+        {
+          "caller": "home_visits",
+          "callee": "AppointmentSerializer",
+          "lineNumber": 193
+        },
+        {
+          "caller": "assign_nurse",
+          "callee": "self.get_object",
+          "lineNumber": 207
+        },
+        {
+          "caller": "assign_nurse",
+          "callee": "_user_roles",
+          "lineNumber": 208
+        },
+        {
+          "caller": "assign_nurse",
+          "callee": "roles.intersection",
+          "lineNumber": 209
+        },
+        {
+          "caller": "assign_nurse",
+          "callee": "PermissionDenied",
+          "lineNumber": 210
+        },
+        {
+          "caller": "assign_nurse",
+          "callee": "_has_2fa",
+          "lineNumber": 211
+        },
+        {
+          "caller": "assign_nurse",
+          "callee": "PermissionDenied",
+          "lineNumber": 212
+        },
+        {
+          "caller": "assign_nurse",
+          "callee": "ValidationError",
+          "lineNumber": 214
+        },
+        {
+          "caller": "assign_nurse",
+          "callee": "request.data.get",
+          "lineNumber": 217
+        },
+        {
+          "caller": "assign_nurse",
+          "callee": "User.objects.get",
+          "lineNumber": 222
+        },
+        {
+          "caller": "assign_nurse",
+          "callee": "ValidationError",
+          "lineNumber": 226
+        },
+        {
+          "caller": "assign_nurse",
+          "callee": "StaffProfile.active.filter(\n                user=nurse, laboratory=appt.laboratory,\n            ).exists",
+          "lineNumber": 229
+        },
+        {
+          "caller": "assign_nurse",
+          "callee": "StaffProfile.active.filter",
+          "lineNumber": 229
+        },
+        {
+          "caller": "assign_nurse",
+          "callee": "ValidationError",
+          "lineNumber": 232
+        },
+        {
+          "caller": "assign_nurse",
+          "callee": "appt.save",
+          "lineNumber": 241
+        },
+        {
+          "caller": "assign_nurse",
+          "callee": "notify_appointment_nurse_assigned",
+          "lineNumber": 246
+        },
+        {
+          "caller": "assign_nurse",
+          "callee": "Response",
+          "lineNumber": 249
+        },
+        {
+          "caller": "assign_nurse",
+          "callee": "AppointmentSerializer",
+          "lineNumber": 249
+        },
+        {
+          "caller": "set_tubes",
+          "callee": "self.get_object",
+          "lineNumber": 266
+        },
+        {
+          "caller": "set_tubes",
+          "callee": "_user_roles",
+          "lineNumber": 267
+        },
+        {
+          "caller": "set_tubes",
+          "callee": "roles.intersection",
+          "lineNumber": 268
+        },
+        {
+          "caller": "set_tubes",
+          "callee": "PermissionDenied",
+          "lineNumber": 269
+        },
+        {
+          "caller": "set_tubes",
+          "callee": "_has_2fa",
+          "lineNumber": 270
+        },
+        {
+          "caller": "set_tubes",
+          "callee": "PermissionDenied",
+          "lineNumber": 271
+        },
+        {
+          "caller": "set_tubes",
+          "callee": "request.data.get",
+          "lineNumber": 273
+        },
+        {
+          "caller": "set_tubes",
+          "callee": "isinstance",
+          "lineNumber": 274
+        },
+        {
+          "caller": "set_tubes",
+          "callee": "ValidationError",
+          "lineNumber": 275
+        },
+        {
+          "caller": "set_tubes",
+          "callee": "list",
+          "lineNumber": 280
+        },
+        {
+          "caller": "set_tubes",
+          "callee": "tubes.keys",
+          "lineNumber": 280
+        },
+        {
+          "caller": "set_tubes",
+          "callee": "list",
+          "lineNumber": 281
+        },
+        {
+          "caller": "set_tubes",
+          "callee": "TestOrder.active.filter",
+          "lineNumber": 282
+        },
+        {
+          "caller": "set_tubes",
+          "callee": "(tubes.get(str(o.uuid)) or \"\").strip",
+          "lineNumber": 289
+        },
+        {
+          "caller": "set_tubes",
+          "callee": "tubes.get",
+          "lineNumber": 289
+        },
+        {
+          "caller": "set_tubes",
+          "callee": "str",
+          "lineNumber": 289
+        },
+        {
+          "caller": "set_tubes",
+          "callee": "o.save",
+          "lineNumber": 292
+        },
+        {
+          "caller": "set_tubes",
+          "callee": "Response",
+          "lineNumber": 297
+        },
+        {
+          "caller": "set_tubes",
+          "callee": "AppointmentSerializer",
+          "lineNumber": 299
+        },
+        {
+          "caller": "cancel",
+          "callee": "self.get_object",
+          "lineNumber": 304
+        },
+        {
+          "caller": "cancel",
+          "callee": "_user_roles",
+          "lineNumber": 305
+        },
+        {
+          "caller": "cancel",
+          "callee": "PermissionDenied",
+          "lineNumber": 309
+        },
+        {
+          "caller": "cancel",
+          "callee": "ValidationError",
+          "lineNumber": 311
+        },
+        {
+          "caller": "cancel",
+          "callee": "appt.save",
+          "lineNumber": 313
+        },
+        {
+          "caller": "cancel",
+          "callee": "Response",
+          "lineNumber": 314
+        },
+        {
+          "caller": "cancel",
+          "callee": "AppointmentSerializer",
+          "lineNumber": 314
+        },
+        {
+          "caller": "change_status",
+          "callee": "self.get_object",
+          "lineNumber": 342
+        },
+        {
+          "caller": "change_status",
+          "callee": "_user_roles",
+          "lineNumber": 343
+        },
+        {
+          "caller": "change_status",
+          "callee": "roles.intersection",
+          "lineNumber": 344
+        },
+        {
+          "caller": "change_status",
+          "callee": "PermissionDenied",
+          "lineNumber": 345
+        },
+        {
+          "caller": "change_status",
+          "callee": "_has_2fa",
+          "lineNumber": 346
+        },
+        {
+          "caller": "change_status",
+          "callee": "PermissionDenied",
+          "lineNumber": 347
+        },
+        {
+          "caller": "change_status",
+          "callee": "AppointmentStatusSerializer",
+          "lineNumber": 349
+        },
+        {
+          "caller": "change_status",
+          "callee": "ser.is_valid",
+          "lineNumber": 350
+        },
+        {
+          "caller": "change_status",
+          "callee": "ser.validated_data.get",
+          "lineNumber": 354
+        },
+        {
+          "caller": "change_status",
+          "callee": "User.objects.get",
+          "lineNumber": 357
+        },
+        {
+          "caller": "change_status",
+          "callee": "ValidationError",
+          "lineNumber": 359
+        },
+        {
+          "caller": "change_status",
+          "callee": "transaction.atomic",
+          "lineNumber": 366
+        },
+        {
+          "caller": "change_status",
+          "callee": "appt.save",
+          "lineNumber": 368
+        },
+        {
+          "caller": "change_status",
+          "callee": "timezone.now",
+          "lineNumber": 371
+        },
+        {
+          "caller": "change_status",
+          "callee": "appt.samples.filter",
+          "lineNumber": 374
+        },
+        {
+          "caller": "change_status",
+          "callee": "list",
+          "lineNumber": 377
+        },
+        {
+          "caller": "change_status",
+          "callee": "samples_qs.values_list",
+          "lineNumber": 377
+        },
+        {
+          "caller": "change_status",
+          "callee": "samples_qs.update",
+          "lineNumber": 379
+        },
+        {
+          "caller": "change_status",
+          "callee": "TestOrder.objects.filter(\n                        sample_id__in=sample_ids, status=OrderStatus.PENDING,\n                    ).update",
+          "lineNumber": 385
+        },
+        {
+          "caller": "change_status",
+          "callee": "TestOrder.objects.filter",
+          "lineNumber": 385
+        },
+        {
+          "caller": "change_status",
+          "callee": "list",
+          "lineNumber": 392
+        },
+        {
+          "caller": "change_status",
+          "callee": "appt.samples.filter",
+          "lineNumber": 393
+        },
+        {
+          "caller": "change_status",
+          "callee": "notify_appointment_status_changed",
+          "lineNumber": 404
+        },
+        {
+          "caller": "change_status",
+          "callee": "notify_sample_received",
+          "lineNumber": 406
+        },
+        {
+          "caller": "change_status",
+          "callee": "Response",
+          "lineNumber": 409
+        },
+        {
+          "caller": "change_status",
+          "callee": "AppointmentSerializer",
+          "lineNumber": 409
+        }
+      ],
+      "metrics": {
+        "importCount": 4,
+        "exportCount": 4,
+        "functionCount": 2,
+        "classCount": 2
+      }
+    },
+    {
+      "path": "Backend/core/permissions.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 153,
+      "nonEmptyLines": 107,
+      "functions": [
+        {
+          "name": "current_lab_id",
+          "startLine": 107,
+          "endLine": 136,
+          "params": [
+            "request"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "RoleNames",
+          "startLine": 16,
+          "endLine": 27,
+          "methods": [],
+          "properties": []
+        },
+        {
+          "name": "HasRole",
+          "startLine": 30,
+          "endLine": 40,
+          "methods": [
+            "has_permission"
+          ],
+          "properties": [
+            "required_roles"
+          ]
+        },
+        {
+          "name": "IsPatient",
+          "startLine": 43,
+          "endLine": 44,
+          "methods": [],
+          "properties": []
+        },
+        {
+          "name": "IsSecretary",
+          "startLine": 47,
+          "endLine": 48,
+          "methods": [],
+          "properties": []
+        },
+        {
+          "name": "IsNurse",
+          "startLine": 51,
+          "endLine": 52,
+          "methods": [],
+          "properties": []
+        },
+        {
+          "name": "IsTechnician",
+          "startLine": 55,
+          "endLine": 56,
+          "methods": [],
+          "properties": []
+        },
+        {
+          "name": "IsBiologist",
+          "startLine": 59,
+          "endLine": 60,
+          "methods": [],
+          "properties": []
+        },
+        {
+          "name": "IsLabChief",
+          "startLine": 63,
+          "endLine": 64,
+          "methods": [],
+          "properties": []
+        },
+        {
+          "name": "IsAnyStaff",
+          "startLine": 67,
+          "endLine": 68,
+          "methods": [],
+          "properties": []
+        },
+        {
+          "name": "Is2FAVerified",
+          "startLine": 71,
+          "endLine": 89,
+          "methods": [
+            "has_permission"
+          ],
+          "properties": []
+        },
+        {
+          "name": "IsStaffAnd2FA",
+          "startLine": 92,
+          "endLine": 104,
+          "methods": [
+            "has_permission"
+          ],
+          "properties": []
+        },
+        {
+          "name": "LabScopedQuerysetMixin",
+          "startLine": 139,
+          "endLine": 153,
+          "methods": [
+            "get_queryset"
+          ],
+          "properties": [
+            "lab_lookup_field"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "RoleNames",
+          "line": 16,
+          "isDefault": false
+        },
+        {
+          "name": "HasRole",
+          "line": 30,
+          "isDefault": false
+        },
+        {
+          "name": "IsPatient",
+          "line": 43,
+          "isDefault": false
+        },
+        {
+          "name": "IsSecretary",
+          "line": 47,
+          "isDefault": false
+        },
+        {
+          "name": "IsNurse",
+          "line": 51,
+          "isDefault": false
+        },
+        {
+          "name": "IsTechnician",
+          "line": 55,
+          "isDefault": false
+        },
+        {
+          "name": "IsBiologist",
+          "line": 59,
+          "isDefault": false
+        },
+        {
+          "name": "IsLabChief",
+          "line": 63,
+          "isDefault": false
+        },
+        {
+          "name": "IsAnyStaff",
+          "line": 67,
+          "isDefault": false
+        },
+        {
+          "name": "Is2FAVerified",
+          "line": 71,
+          "isDefault": false
+        },
+        {
+          "name": "IsStaffAnd2FA",
+          "line": 92,
+          "isDefault": false
+        },
+        {
+          "name": "current_lab_id",
+          "line": 107,
+          "isDefault": false
+        },
+        {
+          "name": "LabScopedQuerysetMixin",
+          "line": 139,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "has_permission",
+          "callee": "set",
+          "lineNumber": 39
+        },
+        {
+          "caller": "has_permission",
+          "callee": "user.groups.values_list",
+          "lineNumber": 39
+        },
+        {
+          "caller": "has_permission",
+          "callee": "bool",
+          "lineNumber": 40
+        },
+        {
+          "caller": "has_permission",
+          "callee": "user_roles.intersection",
+          "lineNumber": 40
+        },
+        {
+          "caller": "has_permission",
+          "callee": "getattr",
+          "lineNumber": 86
+        },
+        {
+          "caller": "has_permission",
+          "callee": "bool",
+          "lineNumber": 89
+        },
+        {
+          "caller": "has_permission",
+          "callee": "getattr(token, \"payload\", {}).get",
+          "lineNumber": 89
+        },
+        {
+          "caller": "has_permission",
+          "callee": "getattr",
+          "lineNumber": 89
+        },
+        {
+          "caller": "has_permission",
+          "callee": "set",
+          "lineNumber": 100
+        },
+        {
+          "caller": "has_permission",
+          "callee": "request.user.groups.values_list",
+          "lineNumber": 100
+        },
+        {
+          "caller": "has_permission",
+          "callee": "roles.intersection",
+          "lineNumber": 101
+        },
+        {
+          "caller": "has_permission",
+          "callee": "getattr",
+          "lineNumber": 103
+        },
+        {
+          "caller": "has_permission",
+          "callee": "bool",
+          "lineNumber": 104
+        },
+        {
+          "caller": "has_permission",
+          "callee": "getattr(token, \"payload\", {}).get",
+          "lineNumber": 104
+        },
+        {
+          "caller": "has_permission",
+          "callee": "getattr",
+          "lineNumber": 104
+        },
+        {
+          "caller": "current_lab_id",
+          "callee": "getattr",
+          "lineNumber": 117
+        },
+        {
+          "caller": "current_lab_id",
+          "callee": "request.META.get",
+          "lineNumber": 121
+        },
+        {
+          "caller": "current_lab_id",
+          "callee": "hasattr",
+          "lineNumber": 122
+        },
+        {
+          "caller": "current_lab_id",
+          "callee": "request.query_params.get",
+          "lineNumber": 123
+        },
+        {
+          "caller": "current_lab_id",
+          "callee": "StaffProfile.active.filter(user=user).values_list",
+          "lineNumber": 127
+        },
+        {
+          "caller": "current_lab_id",
+          "callee": "StaffProfile.active.filter",
+          "lineNumber": 127
+        },
+        {
+          "caller": "current_lab_id",
+          "callee": "list",
+          "lineNumber": 128
+        },
+        {
+          "caller": "current_lab_id",
+          "callee": "str",
+          "lineNumber": 133
+        },
+        {
+          "caller": "current_lab_id",
+          "callee": "str",
+          "lineNumber": 133
+        },
+        {
+          "caller": "get_queryset",
+          "callee": "super().get_queryset",
+          "lineNumber": 149
+        },
+        {
+          "caller": "get_queryset",
+          "callee": "super",
+          "lineNumber": 149
+        },
+        {
+          "caller": "get_queryset",
+          "callee": "current_lab_id",
+          "lineNumber": 150
+        },
+        {
+          "caller": "get_queryset",
+          "callee": "qs.none",
+          "lineNumber": 152
+        },
+        {
+          "caller": "get_queryset",
+          "callee": "qs.filter",
+          "lineNumber": 153
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 13,
+        "functionCount": 1,
+        "classCount": 12
+      }
+    },
+    {
+      "path": "Backend/laboratories/admin.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 18,
+      "nonEmptyLines": 15,
+      "classes": [
+        {
+          "name": "LaboratoryAdmin",
+          "startLine": 7,
+          "endLine": 18,
+          "methods": [],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "LaboratoryAdmin",
+          "line": 6,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "Backend/laboratories/migrations/0001_initial.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 54,
+      "nonEmptyLines": 48,
+      "classes": [
+        {
+          "name": "Migration",
+          "startLine": 11,
+          "endLine": 54,
+          "methods": [],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "Migration",
+          "line": 11,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "Backend/laboratories/migrations/0003_alter_laboratory_opening_hours.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 19,
+      "nonEmptyLines": 14,
+      "classes": [
+        {
+          "name": "Migration",
+          "startLine": 7,
+          "endLine": 19,
+          "methods": [],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "Migration",
+          "line": 7,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "Backend/laboratories/models.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 85,
+      "nonEmptyLines": 72,
+      "functions": [
+        {
+          "name": "default_opening_hours",
+          "startLine": 18,
+          "endLine": 24,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "Laboratory",
+          "startLine": 27,
+          "endLine": 85,
+          "methods": [
+            "__str__"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "default_opening_hours",
+          "line": 18,
+          "isDefault": false
+        },
+        {
+          "name": "Laboratory",
+          "line": 27,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 2,
+        "functionCount": 1,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "Backend/laboratories/serializers.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 128,
+      "nonEmptyLines": 107,
+      "classes": [
+        {
+          "name": "DayHoursSerializer",
+          "startLine": 12,
+          "endLine": 28,
+          "methods": [
+            "validate"
+          ],
+          "properties": []
+        },
+        {
+          "name": "OpeningHoursSerializer",
+          "startLine": 31,
+          "endLine": 39,
+          "methods": [],
+          "properties": []
+        },
+        {
+          "name": "LaboratoryListSerializer",
+          "startLine": 42,
+          "endLine": 69,
+          "methods": [
+            "get_latitude",
+            "get_longitude"
+          ],
+          "properties": []
+        },
+        {
+          "name": "LaboratoryDetailSerializer",
+          "startLine": 72,
+          "endLine": 78,
+          "methods": [],
+          "properties": []
+        },
+        {
+          "name": "LaboratoryConfigSerializer",
+          "startLine": 81,
+          "endLine": 128,
+          "methods": [
+            "validate_opening_hours",
+            "validate_home_visit_fee_mru",
+            "validate_emergency_fee_mru"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "DayHoursSerializer",
+          "line": 12,
+          "isDefault": false
+        },
+        {
+          "name": "OpeningHoursSerializer",
+          "line": 31,
+          "isDefault": false
+        },
+        {
+          "name": "LaboratoryListSerializer",
+          "line": 42,
+          "isDefault": false
+        },
+        {
+          "name": "LaboratoryDetailSerializer",
+          "line": 72,
+          "isDefault": false
+        },
+        {
+          "name": "LaboratoryConfigSerializer",
+          "line": 81,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "validate",
+          "callee": "data.get",
+          "lineNumber": 19
+        },
+        {
+          "caller": "validate",
+          "callee": "serializers.ValidationError",
+          "lineNumber": 21
+        },
+        {
+          "caller": "validate",
+          "callee": "serializers.ValidationError",
+          "lineNumber": 25
+        },
+        {
+          "caller": "validate_opening_hours",
+          "callee": "DayHoursSerializer",
+          "lineNumber": 107
+        },
+        {
+          "caller": "validate_opening_hours",
+          "callee": "day_ser.is_valid",
+          "lineNumber": 108
+        },
+        {
+          "caller": "validate_opening_hours",
+          "callee": "serializers.ValidationError",
+          "lineNumber": 111
+        },
+        {
+          "caller": "validate_home_visit_fee_mru",
+          "callee": "serializers.ValidationError",
+          "lineNumber": 117
+        },
+        {
+          "caller": "validate_emergency_fee_mru",
+          "callee": "serializers.ValidationError",
+          "lineNumber": 125
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 5,
+        "functionCount": 0,
+        "classCount": 5
+      }
+    },
+    {
+      "path": "Backend/laboratories/urls.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 40,
+      "nonEmptyLines": 33,
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "Backend/laboratories/views.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 173,
+      "nonEmptyLines": 146,
+      "classes": [
+        {
+          "name": "LaboratoryPublicViewSet",
+          "startLine": 31,
+          "endLine": 65,
+          "methods": [
+            "get_serializer_class",
+            "nearby"
+          ],
+          "properties": []
+        },
+        {
+          "name": "LaboratoryCreateSerializer",
+          "startLine": 71,
+          "endLine": 108,
+          "methods": [
+            "validate",
+            "create"
+          ],
+          "properties": []
+        },
+        {
+          "name": "ChefLaboratoryViewSet",
+          "startLine": 111,
+          "endLine": 173,
+          "methods": [
+            "_user_labs",
+            "mine",
+            "config"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "LaboratoryPublicViewSet",
+          "line": 31,
+          "isDefault": false
+        },
+        {
+          "name": "LaboratoryCreateSerializer",
+          "line": 71,
+          "isDefault": false
+        },
+        {
+          "name": "ChefLaboratoryViewSet",
+          "line": 111,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "nearby",
+          "callee": "float",
+          "lineNumber": 52
+        },
+        {
+          "caller": "nearby",
+          "callee": "float",
+          "lineNumber": 53
+        },
+        {
+          "caller": "nearby",
+          "callee": "ValidationError",
+          "lineNumber": 55
+        },
+        {
+          "caller": "nearby",
+          "callee": "float",
+          "lineNumber": 56
+        },
+        {
+          "caller": "nearby",
+          "callee": "request.query_params.get",
+          "lineNumber": 56
+        },
+        {
+          "caller": "nearby",
+          "callee": "Point",
+          "lineNumber": 57
+        },
+        {
+          "caller": "nearby",
+          "callee": "self.get_queryset()\n            .annotate(distance=Distance(\"location\", user_point))\n            .filter(distance__lte=radius_km * 1000)\n            .order_by",
+          "lineNumber": 60
+        },
+        {
+          "caller": "nearby",
+          "callee": "self.get_queryset()\n            .annotate(distance=Distance(\"location\", user_point))\n            .filter",
+          "lineNumber": 60
+        },
+        {
+          "caller": "nearby",
+          "callee": "self.get_queryset()\n            .annotate",
+          "lineNumber": 60
+        },
+        {
+          "caller": "nearby",
+          "callee": "self.get_queryset",
+          "lineNumber": 60
+        },
+        {
+          "caller": "nearby",
+          "callee": "Distance",
+          "lineNumber": 61
+        },
+        {
+          "caller": "nearby",
+          "callee": "Response",
+          "lineNumber": 65
+        },
+        {
+          "caller": "nearby",
+          "callee": "self.get_serializer",
+          "lineNumber": 65
+        },
+        {
+          "caller": "validate",
+          "callee": "attrs.setdefault",
+          "lineNumber": 91
+        },
+        {
+          "caller": "create",
+          "callee": "validated_data.pop",
+          "lineNumber": 95
+        },
+        {
+          "caller": "create",
+          "callee": "validated_data.pop",
+          "lineNumber": 96
+        },
+        {
+          "caller": "create",
+          "callee": "slugify",
+          "lineNumber": 99
+        },
+        {
+          "caller": "create",
+          "callee": "Laboratory.objects.filter(slug=slug).exists",
+          "lineNumber": 102
+        },
+        {
+          "caller": "create",
+          "callee": "Laboratory.objects.filter",
+          "lineNumber": 102
+        },
+        {
+          "caller": "create",
+          "callee": "Point",
+          "lineNumber": 106
+        },
+        {
+          "caller": "create",
+          "callee": "Laboratory.objects.create",
+          "lineNumber": 108
+        },
+        {
+          "caller": "_user_labs",
+          "callee": "StaffProfile.active.filter(user=self.request.user).values_list",
+          "lineNumber": 124
+        },
+        {
+          "caller": "_user_labs",
+          "callee": "StaffProfile.active.filter",
+          "lineNumber": 124
+        },
+        {
+          "caller": "_user_labs",
+          "callee": "Laboratory.active.filter",
+          "lineNumber": 125
+        },
+        {
+          "caller": "mine",
+          "callee": "Response",
+          "lineNumber": 130
+        },
+        {
+          "caller": "mine",
+          "callee": "LaboratoryDetailSerializer",
+          "lineNumber": 130
+        },
+        {
+          "caller": "mine",
+          "callee": "self._user_labs",
+          "lineNumber": 130
+        },
+        {
+          "caller": "mine",
+          "callee": "request.user.groups.filter(name=RoleNames.LAB_CHIEF).exists",
+          "lineNumber": 133
+        },
+        {
+          "caller": "mine",
+          "callee": "request.user.groups.filter",
+          "lineNumber": 133
+        },
+        {
+          "caller": "mine",
+          "callee": "Response",
+          "lineNumber": 134
+        },
+        {
+          "caller": "mine",
+          "callee": "LaboratoryCreateSerializer",
+          "lineNumber": 138
+        },
+        {
+          "caller": "mine",
+          "callee": "ser.is_valid",
+          "lineNumber": 139
+        },
+        {
+          "caller": "mine",
+          "callee": "transaction.atomic",
+          "lineNumber": 140
+        },
+        {
+          "caller": "mine",
+          "callee": "ser.save",
+          "lineNumber": 141
+        },
+        {
+          "caller": "mine",
+          "callee": "StaffProfile.objects.create",
+          "lineNumber": 143
+        },
+        {
+          "caller": "mine",
+          "callee": "Response",
+          "lineNumber": 149
+        },
+        {
+          "caller": "mine",
+          "callee": "LaboratoryDetailSerializer",
+          "lineNumber": 149
+        },
+        {
+          "caller": "config",
+          "callee": "current_lab_id",
+          "lineNumber": 153
+        },
+        {
+          "caller": "config",
+          "callee": "NotFound",
+          "lineNumber": 155
+        },
+        {
+          "caller": "config",
+          "callee": "self.queryset.get",
+          "lineNumber": 157
+        },
+        {
+          "caller": "config",
+          "callee": "NotFound",
+          "lineNumber": 159
+        },
+        {
+          "caller": "config",
+          "callee": "Response",
+          "lineNumber": 162
+        },
+        {
+          "caller": "config",
+          "callee": "LaboratoryDetailSerializer",
+          "lineNumber": 162
+        },
+        {
+          "caller": "config",
+          "callee": "request.user.groups.filter(name=RoleNames.LAB_CHIEF).exists",
+          "lineNumber": 165
+        },
+        {
+          "caller": "config",
+          "callee": "request.user.groups.filter",
+          "lineNumber": 165
+        },
+        {
+          "caller": "config",
+          "callee": "Response",
+          "lineNumber": 166
+        },
+        {
+          "caller": "config",
+          "callee": "LaboratoryConfigSerializer",
+          "lineNumber": 170
+        },
+        {
+          "caller": "config",
+          "callee": "ser.is_valid",
+          "lineNumber": 171
+        },
+        {
+          "caller": "config",
+          "callee": "ser.save",
+          "lineNumber": 172
+        },
+        {
+          "caller": "config",
+          "callee": "Response",
+          "lineNumber": 173
+        },
+        {
+          "caller": "config",
+          "callee": "LaboratoryDetailSerializer",
+          "lineNumber": 173
+        }
+      ],
+      "metrics": {
+        "importCount": 4,
+        "exportCount": 3,
+        "functionCount": 0,
+        "classCount": 3
+      }
+    }
+  ]
+}
