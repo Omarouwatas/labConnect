@@ -1,9 +1,0 @@
-{
-  "projectRoot": "C:/Users/Omar/Desktop/SmartLAB/code",
-  "batchFiles": [
-    {"path": "frontend-web/README.md", "language": "markdown", "sizeLines": 16, "fileCategory": "docs"},
-    {"path": "frontend-web/index.html", "language": "html", "sizeLines": 35, "fileCategory": "markup"},
-    {"path": "frontend-web/package.json", "language": "json", "sizeLines": 27, "fileCategory": "config"}
-  ],
-  "batchImportData": {"frontend-web/README.md":[],"frontend-web/index.html":[],"frontend-web/package.json":[]}
-}
